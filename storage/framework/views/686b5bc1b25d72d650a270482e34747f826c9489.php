@@ -15,9 +15,6 @@
 
 <?php $__env->startSection('content'); ?>
 
-  <?php echo e(Session::get('message')); ?>
-
-
   <div class="row">
     <div class="col-lg-3 col-xs-6">
       <!-- small box -->
