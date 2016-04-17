@@ -4,7 +4,7 @@
     <?php echo $__env->make('includes.head', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
     <?php echo $__env->yieldContent('title'); ?>
   </head>
-  <body class="hold-transition skin-blue sidebar-mini">
+  <body class="hold-transition skin-red-light sidebar-mini">
     <div class="wrapper">
 
       <header class="main-header">
