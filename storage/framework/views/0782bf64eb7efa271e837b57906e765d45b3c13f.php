@@ -33,23 +33,21 @@
     <li class="treeview">
       <a href="#">
         <i class="fa fa-pie-chart"></i>
-        <span>Kelola Produk</span>
+        <span>Master Pegawai</span>
         <i class="fa fa-angle-left pull-right"></i>
       </a>
       <ul class="treeview-menu">
-        <li><a href="<?php echo e(url('/product')); ?>"><i class="fa fa-circle-o"></i> Lihat Semua Produk</a></li>
-        <li><a href="<?php echo e(url('/product/create')); ?>"><i class="fa fa-circle-o"></i> Tambah Produk Baru</a></li>
+        <li><a href="<?php echo e(route('masterpegawai.create')); ?>"><i class="fa fa-circle-o"></i> Tambah Data Pegawai</a></li>
       </ul>
     </li>
     <li class="treeview">
       <a href="#">
         <i class="fa fa-laptop"></i>
-        <span>Kelola Kategori Produk</span>
+        <span>Management Akun</span>
         <i class="fa fa-angle-left pull-right"></i>
       </a>
       <ul class="treeview-menu">
-        <li><a href="<?php echo e(url('/kategori')); ?>"><i class="fa fa-circle-o"></i> Lihat Semua Kategori Produk</a></li>
-        <li><a href="<?php echo e(url('/kategori/create')); ?>"><i class="fa fa-circle-o"></i> Tambah Kategori Baru</a></li>
+        <li><a href="<?php echo e(route('useraccount.create')); ?>"><i class="fa fa-circle-o"></i> Tambah Akun Baru</a></li>
       </ul>
     </li>
   </ul>

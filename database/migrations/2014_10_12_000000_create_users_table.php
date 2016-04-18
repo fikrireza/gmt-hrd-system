@@ -17,12 +17,13 @@ class CreateUsersTable extends Migration
           $table->string('username')->unique();
           $table->string('password');
           $table->integer('pegawai_id')->unsigned();
-          $table->enum('level', [1, 2]);
+          $table->enum('level', [0, 1, 2]);
+          //0 = superadmin, 1 = hr, 2 = payroll
           $table->rememberToken();
           $table->timestamps();
         });
 
-        
+
     }
 
     /**

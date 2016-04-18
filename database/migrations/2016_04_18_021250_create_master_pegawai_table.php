@@ -17,7 +17,8 @@ class CreateMasterPegawaiTable extends Migration
         $table->string('nip');
         $table->string('nama');
         $table->string('alamat');
-        $table->enum('status', [1, 2]);
+        $table->enum('status', [0, 1])->default(1);
+        //0 = non-aktif, 1 = aktif
         $table->timestamps();
       });
 

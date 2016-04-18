@@ -18,3 +18,6 @@ Route::get('/', function () {
 Route::get('dashboard', function(){
   return view('pages/dashboard');
 });
+
+Route::resource('masterpegawai', 'MasterPegawaiController');
+Route::resource('useraccount', 'AkunController');
