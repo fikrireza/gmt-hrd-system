@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\MasterPegawai;
+use App\User;
+Use Hash;
 
 class AkunController extends Controller
 {
@@ -25,7 +28,8 @@ class AkunController extends Controller
      */
     public function create()
     {
-        return view('pages/tambahakun');
+      $getnip = MasterPegawai::all();
+      return view('pages/tambahakun')->with('getnip', $getnip);
     }
 
     /**
@@ -36,7 +40,14 @@ class AkunController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $user = new User;
+      $user->username = $request->username;
+      $user->password = Hash::make($request->password);
+      $user->pegawai_id = $request->nip;
+      $user->level = $request->level;
+      $user->save();
+
+      return redirect()->route('useraccount.create');
     }
 
     /**

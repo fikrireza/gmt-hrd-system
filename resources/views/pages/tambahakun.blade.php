@@ -18,60 +18,66 @@
 @stop
 
 @section('content')
-      <div class="row">
-        <!--column -->
-        <div class="col-md-12">
-          <!-- Horizontal Form -->
-          <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">Horizontal Form</h3>
-            </div><!-- /.box-header -->
-            <!-- form start -->
-            <form class="form-horizontal" method="post" action="{{url('masterpegawai')}}">
-              {!! csrf_field() !!}
-              <div class="box-body">
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">NIP</label>
-                  <div class="col-sm-4">
-                    <select class="form-control select2" style="width: 100%;">
-                      <option selected="selected"></option>
-                      <option>Alabama</option>
-                      <option>Alaska</option>
-                      <option>California</option>
-                      <option>Delaware</option>
-                      <option>Tennessee</option>
-                      <option>Texas</option>
-                      <option>Washington</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Username</label>
-                  <div class="col-sm-4">
-                    <input type="text" name="username" class="form-control" placeholder="Username">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Password</label>
-                  <div class="col-sm-4">
-                    <input type="password" name="password" class="form-control" placeholder="Password">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 control-label">Konfirmasi Password</label>
-                  <div class="col-sm-4">
-                    <input type="password" name="password" class="form-control" placeholder="Konfirmasi Password">
-                  </div>
-                </div>
-              </div><!-- /.box-body -->
-              <div class="box-footer">
-                <button type="reset" class="btn btn-default">Cancel</button>
-                <button type="submit" class="btn btn-info pull-right">Sign in</button>
-              </div><!-- /.box-footer -->
-            </form>
-          </div><!-- /.box -->
-        </div><!--/.col -->
-      </div>   <!-- /.row -->
+  <div class="row">
+    <!--column -->
+    <div class="col-md-12">
+      <!-- Horizontal Form -->
+      <div class="box box-info">
+        <div class="box-header with-border">
+          <h3 class="box-title">Formulir Tambah Akun</h3>
+        </div><!-- /.box-header -->
+        <!-- form start -->
+        <form class="form-horizontal" method="post" action="{{url('useraccount')}}">
+          {!! csrf_field() !!}
+          <div class="box-body">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">NIP</label>
+              <div class="col-sm-4">
+                <select name="nip" class="form-control select2" style="width: 100%;">
+                  <option selected="selected"></option>
+                  @foreach($getnip as $key)
+                    <option value="{{ $key->id }}">{{ $key->nip }} - {{ $key->nama }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Username</label>
+              <div class="col-sm-4">
+                <input type="text" name="username" class="form-control" placeholder="Username">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Password</label>
+              <div class="col-sm-4">
+                <input type="password" name="password" class="form-control" placeholder="Password">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Konfirmasi Password</label>
+              <div class="col-sm-4">
+                <input type="password" name="kpassword" class="form-control" placeholder="Konfirmasi Password">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Level Akses</label>
+              <div class="col-sm-4">
+                <select class="form-control" name="level">
+                  <option></option>
+                  <option value="1">HR Akses</option>
+                  <option value="2">Payroll Akses</option>
+                </select>
+              </div>
+            </div>
+          </div><!-- /.box-body -->
+          <div class="box-footer">
+            <button type="reset" class="btn btn-default">Cancel</button>
+            <button type="submit" class="btn btn-info pull-right">Sign in</button>
+          </div><!-- /.box-footer -->
+        </form>
+      </div><!-- /.box -->
+    </div><!--/.col -->
+  </div>   <!-- /.row -->
 
 
   <!-- jQuery 2.1.4 -->
