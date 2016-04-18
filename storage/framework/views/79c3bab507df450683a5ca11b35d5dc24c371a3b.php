@@ -203,14 +203,21 @@
       <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <img src="<?php echo e(asset('/dist/img/user2-160x160.jpg')); ?>" class="user-image" alt="User Image">
-          <span class="hidden-xs">Alexander Pierce</span>
+          <span class="hidden-xs"><?php echo e($getpegawai->nama); ?></span>
         </a>
         <ul class="dropdown-menu">
           <!-- User image -->
           <li class="user-header">
             <img src="<?php echo e(asset('/dist/img/user2-160x160.jpg')); ?>" class="img-circle" alt="User Image">
             <p>
-              Alexander Pierce - Web Developer
+              <?php echo e($getpegawai->nama); ?> -
+              <?php if(Auth::user()->level==0): ?>
+                Super Admin
+              <?php elseif(Auth::user()->level==1): ?>
+                HR Access
+              <?php elseif(Auth::user()->level==2): ?>
+                Payroll Accesss
+              <?php endif; ?>
               <small>Member since Nov. 2012</small>
             </p>
           </li>
@@ -232,7 +239,7 @@
               <a href="#" class="btn btn-default btn-flat">Profile</a>
             </div>
             <div class="pull-right">
-              <a href="<?php echo e(url('/logout')); ?>" class="btn btn-default btn-flat">Sign out</a>
+              <a href="<?php echo e(url('logoutprocess')); ?>" class="btn btn-default btn-flat">Sign out</a>
             </div>
           </li>
         </ul>
