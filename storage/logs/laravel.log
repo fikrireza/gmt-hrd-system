@@ -3639,3 +3639,26 @@ Stack trace:
 #2 /var/www/html/gmt-hrd-system/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(107): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
 #3 /var/www/html/gmt-hrd-system/artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
 #4 {main}  
+[2016-04-25 02:43:31] local.ERROR: exception 'Symfony\Component\Console\Exception\CommandNotFoundException' with message 'Command "make:migrations" is not defined.
+
+Did you mean one of these?
+    make:migration
+    make:provider
+    make:policy
+    make:request
+    make:seeder
+    make:test
+    make:model
+    make:middleware
+    make:controller
+    make:console
+    make:event
+    make:job
+    make:listener
+    make:auth' in /var/www/html/gmt-hrd-system/vendor/symfony/console/Application.php:512
+Stack trace:
+#0 /var/www/html/gmt-hrd-system/vendor/symfony/console/Application.php(183): Symfony\Component\Console\Application->find('make:migrations')
+#1 /var/www/html/gmt-hrd-system/vendor/symfony/console/Application.php(117): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#2 /var/www/html/gmt-hrd-system/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(107): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#3 /var/www/html/gmt-hrd-system/artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 {main}  

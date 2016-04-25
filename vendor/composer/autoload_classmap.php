@@ -6,7 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'AddEmailToMasterpegawai' => $baseDir . '/database/migrations/2016_04_18_032420_add_email_to_masterpegawai.php',
+    'AddNpwpToMasterPegawai' => $baseDir . '/database/migrations/2016_04_25_024334_add_npwp_to_master_pegawai.php',
     'AddRelationBetweenPegawaiJabatan' => $baseDir . '/database/migrations/2016_04_24_142048_add_relation_between_pegawai_jabatan.php',
     'AlterMasterPegawai' => $baseDir . '/database/migrations/2016_04_24_135838_alter_master_pegawai.php',
     'CreateBahasaAsingTable' => $baseDir . '/database/migrations/2016_04_24_144834_create_bahasa_asing_table.php',
@@ -19,7 +19,6 @@ return array(
     'CreateKeahlianKomputerTable' => $baseDir . '/database/migrations/2016_04_24_144504_create_keahlian_komputer_table.php',
     'CreateMasterClientTable' => $baseDir . '/database/migrations/2016_04_24_142326_create_master_client_table.php',
     'CreateMasterPegawaiTable' => $baseDir . '/database/migrations/2016_04_18_021250_create_master_pegawai_table.php',
-    'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePendidikanTable' => $baseDir . '/database/migrations/2016_04_24_145449_create_pendidikan_table.php',
     'CreatePenempatanKerjaTable' => $baseDir . '/database/migrations/2016_04_24_143332_create_penempatan_kerja_table.php',
     'CreatePengalamanKerjaTable' => $baseDir . '/database/migrations/2016_04_24_150513_create_pengalaman_kerja_table.php',
