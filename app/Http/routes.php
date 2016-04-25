@@ -25,4 +25,9 @@ Route::get('logoutprocess', 'CustomAuthController@logoutprocess');
 
 Route::resource('masterpegawai', 'MasterPegawaiController');
 Route::resource('masterjabatan', 'MasterJabatanController');
+
+Route::resource('masterclient','MasterClientController');
+Route::get('masterclient/cabang/{id}','MasterClientController@cabang_client_show');
+Route::resource('cabangclient','CabangClientController');
+
 Route::resource('useraccount', 'AkunController');

@@ -56,6 +56,18 @@
     </li>
     <li class="treeview">
       <a href="#">
+        <i class="fa fa-pie-chart"></i>
+        <span>Master Client</span>
+        <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <li><a href="{{ url('masterclient') }}"><i class="fa fa-circle-o"></i> Data Client</a></li>
+        <li><a href="{{ url('masterclient/cabang') }}"><i class="fa fa-circle-o"></i> Cabang Client</a></li>
+        <li><a href="{{ url('masterclient/department') }}"><i class="fa fa-circle-o"></i> Department Client</a></li>
+      </ul>
+    </li>
+    <li class="treeview">
+      <a href="#">
         <i class="fa fa-laptop"></i>
         <span>Management Akun</span>
         <i class="fa fa-angle-left pull-right"></i>
