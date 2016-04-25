@@ -203,13 +203,20 @@
       <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <img src="{{ asset('/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
-
+            <span class="hidden-xs">
+              @if(Auth::user())
+                {{ Auth::user()->username }}
+              @endif
+            </span>
         </a>
         <ul class="dropdown-menu">
           <!-- User image -->
           <li class="user-header">
             <img src="{{ asset('/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
             <p>
+              @if(Auth::user())
+                {{ Auth::user()->username }}
+              @endif
               <small>Member since Nov. 2012</small>
             </p>
           </li>

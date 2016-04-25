@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\MasterPegawai;
 use App\User;
 Use Hash;
+use DB;
 
 class AkunController extends Controller
 {
@@ -28,7 +29,15 @@ class AkunController extends Controller
      */
     public function create()
     {
-      $getnip = MasterPegawai::all();
+      $getpegawaiid = DB::table('users')->select('pegawai_id')->get();
+
+      $data = array();
+      foreach ($getpegawaiid as $key) {
+        $data[] = $key->pegawai_id;
+      }
+
+      $getnip = MasterPegawai::whereNotIn('id', $data)->get();
+
       return view('pages/tambahakun')->with('getnip', $getnip);
     }
 

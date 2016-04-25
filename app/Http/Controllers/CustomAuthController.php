@@ -13,10 +13,9 @@ class CustomAuthController extends Controller
 {
   public function gotodashboard()
   {
-    // $id = Auth::user()->pegawai_id;
-    // $getpegawai = MasterPegawai::where('id', $id)->first();
-    // return view('pages.dashboard')->with('getpegawai', $getpegawai);
-    return view('pages.dashboard');
+    $id = Auth::user()->pegawai_id;
+    $getpegawai = MasterPegawai::where('id', $id)->first();
+    return view('pages.dashboard')->with('getpegawai', $getpegawai);
   }
 
   public function loginprocess(Request $request)
