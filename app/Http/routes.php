@@ -18,10 +18,11 @@ Route::get('/', function () {
 Route::get('dashboard', [
   'as'=>'dashboard',
   'uses'=>'CustomAuthController@gotodashboard'
-])->middleware('isAdmin');
+]);
 
 Route::post('loginprocess', 'CustomAuthController@loginprocess');
 Route::get('logoutprocess', 'CustomAuthController@logoutprocess');
 
 Route::resource('masterpegawai', 'MasterPegawaiController');
+Route::resource('masterjabatan', 'MasterJabatanController');
 Route::resource('useraccount', 'AkunController');

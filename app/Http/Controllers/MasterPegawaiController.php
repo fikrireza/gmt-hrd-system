@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 
 use App\Http\Requests;
 use App\MasterPegawai;
+use App\MasterJabatan;
 
 class MasterPegawaiController extends Controller
 {
@@ -27,7 +28,8 @@ class MasterPegawaiController extends Controller
      */
     public function create()
     {
-        return view('pages/tambahdatapegawai');
+      $getjabatan = MasterJabatan::all();
+      return view('pages/tambahdatapegawai')->with('getjabatan', $getjabatan);
     }
 
     /**
@@ -40,12 +42,28 @@ class MasterPegawaiController extends Controller
     {
         $pegawai = new MasterPegawai;
         $pegawai->nip = $request->nip;
+        $pegawai->nip_lama = $request->nip_lama;
+        $pegawai->no_ktp = $request->no_ktp;
+        $pegawai->no_kk = $request->no_kk;
+        $pegawai->npwp = $request->no_npwp;
         $pegawai->nama = $request->nama;
+        $tglexplode = explode("-", $request->tanggal_lahir);
+        $tanggal_lahir = $tglexplode[2]."-".$tglexplode[1]."-".$tglexplode[0];
+        $pegawai->tanggal_lahir = $tanggal_lahir;
+        $pegawai->jenis_kelamin = $request->jk;
         $pegawai->email = $request->email;
         $pegawai->alamat = $request->alamat;
+        $pegawai->agama = $request->agama;
+        $pegawai->no_telp = $request->no_telp;
+        $pegawai->status_pajak = $request->status_pajak;
+        $pegawai->kewarganegaraan = $request->kewarganegaraan;
+        $pegawai->bpjs_kesehatan = $request->bpjs_kesehatan;
+        $pegawai->bpjs_ketenagakerjaan = $request->bpjs_ketenagakerjaan;
+        $pegawai->no_rekening = $request->no_rekening;
+        $pegawai->id_jabatan = $request->jabatan;
         $pegawai->save();
 
-        return redirect()->route('masterpegawai.create');
+        return redirect()->route('masterpegawai.create')->with('message','Berhasil memasukkan pegawai baru.');
     }
 
     /**
