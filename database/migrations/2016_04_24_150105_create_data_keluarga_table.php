@@ -13,6 +13,8 @@ class CreateDataKeluargaTable extends Migration
     public function up()
     {
       Schema::create('data_keluarga', function(Blueprint $table){
+        $table->engine = 'InnoDB';
+        
         $table->increments('id');
         $table->string('nama', 100);
         $table->string('hubungan', 50);

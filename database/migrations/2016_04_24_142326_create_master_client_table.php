@@ -13,8 +13,10 @@ class CreateMasterClientTable extends Migration
     public function up()
     {
         Schema::create('master_client', function(Blueprint $table){
+          $table->engine = 'InnoDB';
+
           $table->increments('id');
-          $table->string('kode_client', 10);
+          $table->string('kode_client', 10)->unique();
           $table->string('nama_client', 50);
           $table->timestamps();
         });

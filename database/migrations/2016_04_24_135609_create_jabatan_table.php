@@ -13,8 +13,9 @@ class CreateJabatanTable extends Migration
     public function up()
     {
         Schema::create('master_jabatan', function(Blueprint $table){
+          $table->engine = 'InnoDB';
           $table->increments('id');
-          $table->string('kode_jabatan', 10);
+          $table->string('kode_jabatan', 10)->unique();
           $table->string('nama_jabatan', 50);
           $table->timestamps();
         });

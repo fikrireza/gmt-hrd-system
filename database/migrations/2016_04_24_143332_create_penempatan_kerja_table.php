@@ -13,8 +13,11 @@ class CreatePenempatanKerjaTable extends Migration
     public function up()
     {
         Schema::create('penempatan_kerja', function(Blueprint $table){
+          $table->engine = 'InnoDB';
+          
           $table->increments('id');
-          $table->enum('status', [0,1]);
+          //0 = tidak aktif, 1 = aktif
+          $table->integer('status')->default(1);
           $table->integer('id_departemen')->unsigned();
           $table->integer('id_pegawai')->unsigned();
           $table->timestamps();

@@ -13,6 +13,8 @@ class CreateBahasaAsingTable extends Migration
     public function up()
     {
         Schema::create('bahasa_asing', function(Blueprint $table){
+          $table->engine = 'InnoDB';
+          
           $table->increments('id');
           $table->string('bahasa', 15);
           //0 = tidak diisi

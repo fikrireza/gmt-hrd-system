@@ -13,8 +13,10 @@ class CreateDepartementClientTable extends Migration
     public function up()
     {
         Schema::create('departemen_client', function(Blueprint $table){
+          $table->engine = 'InnoDB';
+
           $table->increments('id');
-          $table->string('kode_departemen', 10);
+          $table->string('kode_departemen', 10)->unique();
           $table->string('nama_departemen', 50);
           $table->integer('id_cabang')->unsigned();
           $table->timestamps();

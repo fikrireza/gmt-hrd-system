@@ -13,6 +13,8 @@ class CreatePengalamanKerjaTable extends Migration
     public function up()
     {
       Schema::create('pengalaman_kerja', function(Blueprint $table){
+        $table->engine = 'InnoDB';
+
         $table->increments('id');
         $table->string('nama_perusahaan', 100);
         $table->string('posisi', 100);

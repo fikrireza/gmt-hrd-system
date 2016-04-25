@@ -13,6 +13,8 @@ class CreateKeahlianKomputerTable extends Migration
     public function up()
     {
         Schema::create('keahlian_komputer', function(Blueprint $table){
+          $table->engine = 'InnoDB';
+          
           $table->increments('id');
           $table->string('nama_program', 100);
           $table->integer('id_pegawai')->unsigned();

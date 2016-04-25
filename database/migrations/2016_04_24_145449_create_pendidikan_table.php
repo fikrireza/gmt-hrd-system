@@ -13,6 +13,8 @@ class CreatePendidikanTable extends Migration
     public function up()
     {
       Schema::create('pendidikan', function(Blueprint $table){
+        $table->engine = 'InnoDB';
+        
         $table->increments('id');
         $table->string('jenjang_pendidikan', 10);
         $table->string('institusi_pendidikan', 50);

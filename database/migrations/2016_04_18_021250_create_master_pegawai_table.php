@@ -13,11 +13,13 @@ class CreateMasterPegawaiTable extends Migration
     public function up()
     {
       Schema::create('master_pegawai', function(Blueprint $table){
+        $table->engine = 'InnoDB';
         $table->increments('id');
-        $table->string('nip');
+        $table->string('nip')->unique();
         $table->string('nama');
+        $table->string('email')->unique();
         $table->string('alamat');
-        $table->enum('status', [0, 1])->default(1);
+        $table->integer('status')->default(1);
         //0 = non-aktif, 1 = aktif
         $table->timestamps();
       });

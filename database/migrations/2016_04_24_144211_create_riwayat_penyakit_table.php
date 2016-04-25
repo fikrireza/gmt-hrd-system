@@ -13,6 +13,8 @@ class CreateRiwayatPenyakitTable extends Migration
     public function up()
     {
         Schema::create('riwayat_penyakit', function(Blueprint $table){
+          $table->engine = 'InnoDB';
+          
           $table->increments('id');
           $table->string('nama_penyakit', 100);
           $table->string('keterangan');

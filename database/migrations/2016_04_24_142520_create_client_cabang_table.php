@@ -13,8 +13,10 @@ class CreateClientCabangTable extends Migration
     public function up()
     {
         Schema::create('cabang_client', function(Blueprint $table){
+          $table->engine = 'InnoDB';
+
           $table->increments('id');
-          $table->string('kode_cabang', 10);
+          $table->string('kode_cabang', 10)->unique();
           $table->string('nama_cabang', 50);
           $table->string('alamat_cabang');
           $table->integer('id_client')->unsigned();
