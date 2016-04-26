@@ -18,8 +18,19 @@
 
 @section('content')
       <div class="row">
+
         <div class="col-md-12">
-        <div class="box box-default">
+        @if (session('status'))
+          <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4>	<i class="icon fa fa-check"></i> Sukses!</h4>
+            {{ session('status') }}
+          </div>
+        @endif
+        </div>
+
+        <div class="col-md-5">
+        <div class="box box-info">
             <div class="box-header with-border">
               <h3 class="box-title">Tambah Departemen Cabang : {!! $CabangClient->nama_cabang !!}</h3>
               <div class="box-tools pull-right">
@@ -33,28 +44,28 @@
                     {!! csrf_field() !!}
                     <div class="box-body">
                       <div class="form-group {{ $errors->has('kode_departemen') ? 'has-error' : '' }}">
-                        <label class="col-sm-3 control-label">Kode Departemen</label>
-                        <div class="col-sm-4">
-                          <input type="text" name="kode_departemen" class="form-control" placeholder="Kode Departemen" value="{{ old('kode_departemen') }}">
+                        <label class="col-sm-5 control-label">Kode Departemen</label>
+                        <div class="col-sm-7">
+                          <input type="text" name="kode_departemen" class="form-control" placeholder="Kode Departemen" maxlength="5" value="{{ old('kode_departemen') }}">
+                          @if($errors->has('kode_departemen'))
+                            <span class="help-block">
+                              <strong>{{ $errors->first('kode_departemen')}}
+                              </stron>
+                            </span>
+                          @endif
                         </div>
-                        @if($errors->has('kode_departemen'))
-                          <span class="help-block">
-                            <strong>{{ $errors->first('kode_departemen')}}
-                            </stron>
-                          </span>
-                        @endif
                       </div>
                       <div class="form-group {{ $errors->has('nama_departemen') ? 'has-error' : '' }}">
-                        <label class="col-sm-3 control-label">Nama Departemen</label>
-                        <div class="col-sm-4">
-                          <input type="text" name="nama_departemen" class="form-control" placeholder="Nama Departemen" value="{{ old('nama_departemen') }}">
+                        <label class="col-sm-5 control-label">Nama Departemen</label>
+                        <div class="col-sm-7">
+                          <input type="text" name="nama_departemen" class="form-control" placeholder="Nama Departemen" maxlength="45" value="{{ old('nama_departemen') }}">
+                          @if($errors->has('nama_departemen'))
+                            <span class="help-block">
+                              <strong>{{ $errors->first('nama_departemen')}}
+                              </stron>
+                            </span>
+                          @endif
                         </div>
-                        @if($errors->has('nama_departemen'))
-                          <span class="help-block">
-                            <strong>{{ $errors->first('nama_departemen')}}
-                            </stron>
-                          </span>
-                        @endif
                       </div>
                       <input type="hidden" name="id_cabang" class="form-control" value="{!! $CabangClient->id !!}">
                     </div><!-- /.box-body -->
@@ -68,18 +79,8 @@
           </div>
         </div>
 
-        <div class="col-md-12">
-        @if (session('status'))
-          <div class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4>	<i class="icon fa fa-check"></i> Sukses!</h4>
-            {{ session('status') }}
-          </div>
-        @endif
-        </div>
-
-        <div class="col-md-12">
-          <div class="box">
+        <div class="col-md-7">
+          <div class="box box-info">
                 <div class="box-header">
                   <h3 class="box-title">Tabel Departemen Cabang : {!! $CabangClient->nama_cabang !!}</h3>
                 </div><!-- /.box-header -->
@@ -119,17 +120,10 @@
                     <tr>
                       <td class="">{!! $Departemen->kode_departemen !!}</td>
                       <td class="">{!! $Departemen->nama_departemen !!}</td>
-                      <td><i class="icon fa fa-edit"></i> Edit </td>
+                      <td><a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a></td>
                     </tr>
                     @endforeach
                     </tbody>
-                    <tfoot>
-                      <tr>
-                        <th rowspan="1" colspan="1">Kode Departemen</th>
-                        <th rowspan="1" colspan="1">Nama Departemen</th>
-                        <th rowspan="1" colspan="1">Aksi</th>
-                      </tr>
-                    </tfoot>
                   </table>
                 </div>
               </div>
@@ -144,8 +138,8 @@
                 </div>
               </div>
             </div>
-                </div><!-- /.box-body -->
-              </div>
+            </div><!-- /.box-body -->
+          </div>
         </div><!--/.col -->
       </div>   <!-- /.row -->
 

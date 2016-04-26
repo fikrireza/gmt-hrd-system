@@ -16,7 +16,7 @@ class MasterClientRequest extends Request {
 	{
 		return [
 			'kode_client' => 'required|max:5',
-			'nama_client' => 'required|max:70'
+			'nama_client' => 'required|max:40'
 		];
 	}
 

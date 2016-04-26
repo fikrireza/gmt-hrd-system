@@ -18,7 +18,16 @@
 @section('content')
       <div class="row">
         <div class="col-md-12">
-        <div class="box box-default">
+        @if (session('status'))
+          <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4>	<i class="icon fa fa-check"></i> Sukses!</h4>
+            {{ session('status') }}
+          </div>
+        @endif
+        </div>
+        <div class="col-md-5">
+        <div class="box box-info">
             <div class="box-header with-border">
               <h3 class="box-title">Tambah Cabang Client : {!! $MasterClient->nama_client !!}</h3>
               <div class="box-tools pull-right">
@@ -32,40 +41,40 @@
                     {!! csrf_field() !!}
                     <div class="box-body">
                       <div class="form-group {{ $errors->has('kode_cabang') ? 'has-error' : '' }}">
-                        <label class="col-sm-3 control-label">Kode Cabang</label>
-                        <div class="col-sm-4">
-                          <input type="text" name="kode_cabang" class="form-control" placeholder="Kode Cabang" value="{{ old('kode_cabang') }}">
+                        <label class="col-sm-4 control-label">Kode Cabang</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="kode_cabang" class="form-control" placeholder="Kode Cabang" maxlength="5" value="{{ old('kode_cabang') }}">
+                          @if($errors->has('kode_cabang'))
+                            <span class="help-block">
+                              <strong>{{ $errors->first('kode_cabang')}}
+                              </stron>
+                            </span>
+                          @endif
                         </div>
-                        @if($errors->has('kode_cabang'))
-                          <span class="help-block">
-                            <strong>{{ $errors->first('kode_cabang')}}
-                            </stron>
-                          </span>
-                        @endif
                       </div>
                       <div class="form-group {{ $errors->has('nama_cabang') ? 'has-error' : '' }}">
-                        <label class="col-sm-3 control-label">Nama Cabang</label>
-                        <div class="col-sm-4">
-                          <input type="text" name="nama_cabang" class="form-control" placeholder="Nama Cabang" value="{{ old('nama_cabang') }}">
+                        <label class="col-sm-4 control-label">Nama Cabang</label>
+                        <div class="col-sm-8">
+                          <input type="text" name="nama_cabang" class="form-control" placeholder="Nama Cabang" maxlength="40" value="{{ old('nama_cabang') }}">
+                          @if($errors->has('nama_cabang'))
+                            <span class="help-block">
+                              <strong>{{ $errors->first('nama_cabang')}}
+                              </stron>
+                            </span>
+                          @endif
                         </div>
-                        @if($errors->has('nama_cabang'))
-                          <span class="help-block">
-                            <strong>{{ $errors->first('nama_cabang')}}
-                            </stron>
-                          </span>
-                        @endif
                       </div>
                       <div class="form-group {{ $errors->has('alamat_cabang') ? 'has-error' : ''}}">
-                        <label class="col-sm-3 control-label">Alamat Cabang</label>
-                        <div class="col-sm-4">
-                          <input type="text" name="alamat_cabang" class="form-control" placeholder="Alamat Cabang" value="{{ old('alamat_cabang')}}">
+                        <label class="col-sm-4 control-label">Alamat Cabang</label>
+                        <div class="col-sm-8">
+                          <textarea name="alamat_cabang" class="form-control" rows="2" placeholder="Alamat Cabang">{{ old('alamat_cabang')}}</textarea>
+                          @if($errors->has('alamat_cabang'))
+                            <span class="help-block">
+                              <strong>{{ $errors->first('alamat_cabang')}}
+                              </stron>
+                            </span>
+                          @endif
                         </div>
-                        @if($errors->has('alamat_cabang'))
-                          <span class="help-block">
-                            <strong>{{ $errors->first('alamat_cabang')}}
-                            </stron>
-                          </span>
-                        @endif
                       </div>
                       <input type="hidden" name="id_client" class="form-control" value="{!! $MasterClient->id !!}">
                     </div><!-- /.box-body -->
@@ -79,18 +88,8 @@
           </div>
         </div>
 
-        <div class="col-md-12">
-        @if (session('status'))
-          <div class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4>	<i class="icon fa fa-check"></i> Sukses!</h4>
-            {{ session('status') }}
-          </div>
-        @endif
-        </div>
-
-        <div class="col-md-12">
-          <div class="box">
+        <div class="col-md-7">
+          <div class="box box-info">
                 <div class="box-header">
                   <h3 class="box-title">Tabel Cabang : {!! $MasterClient->nama_client !!}</h3>
                 </div><!-- /.box-header -->
@@ -132,19 +131,11 @@
                       <td class="">{!! $Cabang->kode_cabang !!}</td>
                       <td class="">{!! $Cabang->nama_cabang !!}</td>
                       <td class="">{!! $Cabang->alamat_cabang !!}</td>
-                      <td><i class="glyphicon glyphicon-pencil"></i><a href=""> Ubah<a> </td>
+                      <td><a href="" class="btn btn-warning" ><i class="fa fa-edit" alt="Ubah"></i></a></td>
                       <td><i class="glyphicon glyphicon-open"></i><a href="{{ url('masterclient/departemen', $Cabang->id )}}">Tambah Departemen</a></td>
                     </tr>
                     @endforeach
                     </tbody>
-                    <tfoot>
-                      <tr>
-                        <th rowspan="1" colspan="1">Kode Cabang</th>
-                        <th rowspan="1" colspan="1">Nama Cabang</th>
-                        <th rowspan="1" colspan="1">Alamat Cabang</th>
-                        <th rowspan="1" colspan="2">Aksi</th>
-                      </tr>
-                    </tfoot>
                   </table>
                 </div>
               </div>

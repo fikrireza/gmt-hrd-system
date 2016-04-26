@@ -46,9 +46,6 @@
     <div class="col-md-4">
       <div class="box box-widget widget-user-2">
         <div class="widget-user-header bg-white">
-          <!--<div class="widget-user-image">
-            <img class="img-circle" src="../dist/img/user7-128x128.jpg" alt="User Avatar">
-          </div>-->
           <a href="{{url('masterclient', $client->id).('/edit')}}">
             <h3 class="widget-user-username">{{ $client->nama_client}}</h3>
             <h5 class="widget-user-desc">{{ $client->kode_client}}</h5>
@@ -56,8 +53,8 @@
         </div>
         <div class="box-footer no-padding">
           <ul class="nav nav-stacked">
-            <li><a href="{{ url('masterclient/cabang', $client->id)}}">Cabang Client <span class="pull-right badge bg-blue">0</span></a></li>
-            <li><a href="{{ url('masterclient/cabang', $client->id )}}">Department Client <span class="pull-right badge bg-blue">0</span></a></li>
+            <li><a href="{{ url('masterclient/cabang', $client->id)}}">Cabang Client <span class="pull-right badge bg-blue">{{ $client->count()}}</span></a></li>
+            <li><a href="{{ url('masterclient/departemen', $client->id )}}">Department Client <span class="pull-right badge bg-blue">0</span></a></li>
           </ul>
         </div>
       </div><!-- /.widget-user -->
