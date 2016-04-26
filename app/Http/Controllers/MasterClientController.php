@@ -23,13 +23,13 @@ class MasterClientController extends Controller
         $MasterClient = MasterClient::latest('updated_at')->get();
 
         $CountAll = DB::table('master_client')
-            ->join('cabang_client', 'master_client.id', '=', 'cabang_client.id_client')
-            ->select('master_client.*')
-            ->where('master_client.id', '=', 13)
+            ->select(DB::raw('IFNULL(count(cabang_client.id_client),0) as hitung, master_client.*'))//IFNULL(COUNT(pof.ID), 0)
+            ->leftjoin('cabang_client', 'cabang_client.id_client' , '=', 'master_client.id')
+            ->groupBy('master_client.id')
+            ->latest('master_client.updated_at')
             ->get();
-        //dd($CountAll);
 
-        return view('pages/MasterClient/index', compact('MasterClient'));
+        return view('pages/MasterClient/index', compact('CountAll'));
     }
 
     /**

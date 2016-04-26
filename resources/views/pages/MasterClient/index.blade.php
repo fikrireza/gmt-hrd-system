@@ -42,7 +42,7 @@
         {{ session('update') }}
       </div>
     @endif
-    @foreach($MasterClient as $client)
+    @foreach($CountAll as $client)
     <div class="col-md-4">
       <div class="box box-widget widget-user-2">
         <div class="widget-user-header bg-white">
@@ -53,7 +53,7 @@
         </div>
         <div class="box-footer no-padding">
           <ul class="nav nav-stacked">
-            <li><a href="{{ url('masterclient/cabang', $client->id)}}">Cabang Client <span class="pull-right badge bg-blue">{{ $client->count()}}</span></a></li>
+            <li><a href="{{ url('masterclient/cabang', $client->id)}}">Cabang Client <span class="pull-right badge bg-blue">{{ $client->hitung}}</span></a></li>
             <li><a href="{{ url('masterclient/departemen', $client->id )}}">Department Client <span class="pull-right badge bg-blue">0</span></a></li>
           </ul>
         </div>
