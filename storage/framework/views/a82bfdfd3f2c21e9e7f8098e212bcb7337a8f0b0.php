@@ -42,13 +42,10 @@
 
       </div>
     <?php endif; ?>
-    <?php foreach($MasterClient as $client): ?>
+    <?php foreach($CountAll as $client): ?>
     <div class="col-md-4">
       <div class="box box-widget widget-user-2">
         <div class="widget-user-header bg-white">
-          <!--<div class="widget-user-image">
-            <img class="img-circle" src="../dist/img/user7-128x128.jpg" alt="User Avatar">
-          </div>-->
           <a href="<?php echo e(url('masterclient', $client->id).('/edit')); ?>">
             <h3 class="widget-user-username"><?php echo e($client->nama_client); ?></h3>
             <h5 class="widget-user-desc"><?php echo e($client->kode_client); ?></h5>
@@ -56,8 +53,8 @@
         </div>
         <div class="box-footer no-padding">
           <ul class="nav nav-stacked">
-            <li><a href="<?php echo e(url('masterclient/cabang', $client->id)); ?>">Cabang Client <span class="pull-right badge bg-blue">0</span></a></li>
-            <li><a href="<?php echo e(url('masterclient/cabang', $client->id )); ?>">Department Client <span class="pull-right badge bg-blue">0</span></a></li>
+            <li><a href="<?php echo e(url('masterclient/cabang', $client->id)); ?>">Cabang Client <span class="pull-right badge bg-blue"><?php echo e($client->hitung); ?></span></a></li>
+            <li><a href="<?php echo e(url('masterclient/departemen', $client->id )); ?>">Department Client <span class="pull-right badge bg-blue">0</span></a></li>
           </ul>
         </div>
       </div><!-- /.widget-user -->

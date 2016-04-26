@@ -33,29 +33,53 @@
           <h3 class="box-title">Formulir Tambah Data Jabatan</h3>
         </div><!-- /.box-header -->
         <!-- form start -->
-        <form class="form-horizontal" method="post" action="{{url('masterjabatan')}}">
+        @if(isset($data['bindjabatan']))
+          {!! Form::model($data['bindjabatan'], ['route' => ['masterjabatan.update', $data['bindjabatan']->id], 'method' => "patch", 'class'=>'form-horizontal']) !!}
+        @else
+          <form class="form-horizontal" method="post" action="{{url('masterjabatan')}}">
+        @endif
           {!! csrf_field() !!}
           <div class="box-body">
             <div class="form-group">
               <label class="col-sm-3 control-label">Kode Jabatan</label>
               <div class="col-sm-9">
-                <input type="text" name="kode_jabatan" class="form-control" placeholder="Kode Jabatan">
+                <input
+                  @if(isset($data['bindjabatan']))
+                    value="{{$data['bindjabatan']->kode_jabatan}}"
+                  @endif
+                 type="text" name="kode_jabatan" class="form-control" placeholder="Kode Jabatan">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Nama Jabatan</label>
               <div class="col-sm-9">
-                <input type="text" name="nama_jabatan" class="form-control" placeholder="Nama Jabatan">
+                <input
+                  @if(isset($data['bindjabatan']))
+                    value="{{$data['bindjabatan']->nama_jabatan}}"
+                  @endif
+                type="text" name="nama_jabatan" class="form-control" placeholder="Nama Jabatan">
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-12">
-                <button type="submit" class="btn btn-info pull-right" style="margin-left:5px;">Simpan</button><!-- /.box-footer -->
-                <button type="reset" class="btn btn-default pull-right">Reset Formulir</button>
+                <button type="submit" class="btn btn-info pull-right" style="margin-left:5px;">
+                  @if(isset($data['bindjabatan']))
+                    Simpan Perubahan
+                  @else
+                    Simpan
+                  @endif
+                </button>
+                  @if(!isset($data['bindjabatan']))
+                    <button type="reset" class="btn btn-default pull-right">Reset Formulir</button>
+                  @endif
               </div>
             </div>
           </div><!-- /.box-body -->
-        </form>
+        @if(isset($data['bindjabatan']))
+          {!! Form::close() !!}
+        @else
+          </form>
+        @endif
       </div><!-- /.box -->
     </div><!--/.col -->
 
@@ -73,13 +97,13 @@
               <th>Aksi</th>
             </tr>
             <?php $i = 1; ?>
-            @foreach($getjabatan as $key)
+            @foreach($data['getjabatan'] as $key)
               <tr>
                 <td>{{ $i }}</td>
                 <td>{{ $key->kode_jabatan }}</td>
                 <td>{{ $key->nama_jabatan }}</td>
                 <td>
-                  <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                  <a href="{{ route('masterjabatan.edit', $key->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                   <a href="" class="btn btn-danger"><i class="fa fa-remove"></i></a>
                 </td>
                 <?php $i++; ?>

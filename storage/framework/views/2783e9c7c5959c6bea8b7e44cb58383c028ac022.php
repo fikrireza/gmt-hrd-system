@@ -16,8 +16,20 @@
 
 <?php $__env->startSection('content'); ?>
       <div class="row">
+
         <div class="col-md-12">
-        <div class="box box-default">
+        <?php if(session('status')): ?>
+          <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4>	<i class="icon fa fa-check"></i> Sukses!</h4>
+            <?php echo e(session('status')); ?>
+
+          </div>
+        <?php endif; ?>
+        </div>
+
+        <div class="col-md-5">
+        <div class="box box-info">
             <div class="box-header with-border">
               <h3 class="box-title">Tambah Departemen Cabang : <?php echo $CabangClient->nama_cabang; ?></h3>
               <div class="box-tools pull-right">
@@ -32,30 +44,30 @@
 
                     <div class="box-body">
                       <div class="form-group <?php echo e($errors->has('kode_departemen') ? 'has-error' : ''); ?>">
-                        <label class="col-sm-3 control-label">Kode Departemen</label>
-                        <div class="col-sm-4">
-                          <input type="text" name="kode_departemen" class="form-control" placeholder="Kode Departemen" value="<?php echo e(old('kode_departemen')); ?>">
-                        </div>
-                        <?php if($errors->has('kode_departemen')): ?>
-                          <span class="help-block">
-                            <strong><?php echo e($errors->first('kode_departemen')); ?>
+                        <label class="col-sm-5 control-label">Kode Departemen</label>
+                        <div class="col-sm-7">
+                          <input type="text" name="kode_departemen" class="form-control" placeholder="Kode Departemen" maxlength="5" value="<?php echo e(old('kode_departemen')); ?>">
+                          <?php if($errors->has('kode_departemen')): ?>
+                            <span class="help-block">
+                              <strong><?php echo e($errors->first('kode_departemen')); ?>
 
-                            </stron>
-                          </span>
-                        <?php endif; ?>
+                              </stron>
+                            </span>
+                          <?php endif; ?>
+                        </div>
                       </div>
                       <div class="form-group <?php echo e($errors->has('nama_departemen') ? 'has-error' : ''); ?>">
-                        <label class="col-sm-3 control-label">Nama Departemen</label>
-                        <div class="col-sm-4">
-                          <input type="text" name="nama_departemen" class="form-control" placeholder="Nama Departemen" value="<?php echo e(old('nama_departemen')); ?>">
-                        </div>
-                        <?php if($errors->has('nama_departemen')): ?>
-                          <span class="help-block">
-                            <strong><?php echo e($errors->first('nama_departemen')); ?>
+                        <label class="col-sm-5 control-label">Nama Departemen</label>
+                        <div class="col-sm-7">
+                          <input type="text" name="nama_departemen" class="form-control" placeholder="Nama Departemen" maxlength="45" value="<?php echo e(old('nama_departemen')); ?>">
+                          <?php if($errors->has('nama_departemen')): ?>
+                            <span class="help-block">
+                              <strong><?php echo e($errors->first('nama_departemen')); ?>
 
-                            </stron>
-                          </span>
-                        <?php endif; ?>
+                              </stron>
+                            </span>
+                          <?php endif; ?>
+                        </div>
                       </div>
                       <input type="hidden" name="id_cabang" class="form-control" value="<?php echo $CabangClient->id; ?>">
                     </div><!-- /.box-body -->
@@ -69,19 +81,8 @@
           </div>
         </div>
 
-        <div class="col-md-12">
-        <?php if(session('status')): ?>
-          <div class="alert alert-success alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-            <h4>	<i class="icon fa fa-check"></i> Sukses!</h4>
-            <?php echo e(session('status')); ?>
-
-          </div>
-        <?php endif; ?>
-        </div>
-
-        <div class="col-md-12">
-          <div class="box">
+        <div class="col-md-7">
+          <div class="box box-info">
                 <div class="box-header">
                   <h3 class="box-title">Tabel Departemen Cabang : <?php echo $CabangClient->nama_cabang; ?></h3>
                 </div><!-- /.box-header -->
@@ -121,17 +122,10 @@
                     <tr>
                       <td class=""><?php echo $Departemen->kode_departemen; ?></td>
                       <td class=""><?php echo $Departemen->nama_departemen; ?></td>
-                      <td><i class="icon fa fa-edit"></i> Edit </td>
+                      <td><a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a></td>
                     </tr>
                     <?php endforeach; ?>
                     </tbody>
-                    <tfoot>
-                      <tr>
-                        <th rowspan="1" colspan="1">Kode Departemen</th>
-                        <th rowspan="1" colspan="1">Nama Departemen</th>
-                        <th rowspan="1" colspan="1">Aksi</th>
-                      </tr>
-                    </tfoot>
                   </table>
                 </div>
               </div>
@@ -147,8 +141,8 @@
                 </div>
               </div>
             </div>
-                </div><!-- /.box-body -->
-              </div>
+            </div><!-- /.box-body -->
+          </div>
         </div><!--/.col -->
       </div>   <!-- /.row -->
 

@@ -27,7 +27,8 @@ class MasterJabatanController extends Controller
     public function create()
     {
         $getjabatan = MasterJabatan::all();
-        return view('pages/tambahjabatan')->with('getjabatan', $getjabatan);
+        $data['getjabatan'] = $getjabatan;
+        return view('pages/tambahjabatan')->with('data', $data);
     }
 
     /**
@@ -65,7 +66,11 @@ class MasterJabatanController extends Controller
      */
     public function edit($id)
     {
-        
+        $getjabatan = MasterJabatan::all();
+        $data['getjabatan'] = $getjabatan;
+        $bindjabatan = MasterJabatan::find($id);
+        $data['bindjabatan'] = $bindjabatan;
+        return view('pages/tambahjabatan')->with('data', $data);
     }
 
     /**
@@ -77,7 +82,12 @@ class MasterJabatanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $newchanges = MasterJabatan::find($id);
+        $newchanges->kode_jabatan = $request->kode_jabatan;
+        $newchanges->nama_jabatan = $request->nama_jabatan;
+        $newchanges->save();
+
+        return redirect()->route('masterjabatan.create')->with('message', 'Data jabatan berhasil diubah.');
     }
 
     /**

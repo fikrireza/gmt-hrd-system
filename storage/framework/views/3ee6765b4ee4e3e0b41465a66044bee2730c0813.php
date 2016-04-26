@@ -31,30 +31,56 @@
           <h3 class="box-title">Formulir Tambah Data Jabatan</h3>
         </div><!-- /.box-header -->
         <!-- form start -->
-        <form class="form-horizontal" method="post" action="<?php echo e(url('masterjabatan')); ?>">
+        <?php if(isset($data['bindjabatan'])): ?>
+          <?php echo Form::model($data['bindjabatan'], ['route' => ['masterjabatan.update', $data['bindjabatan']->id], 'method' => "patch", 'class'=>'form-horizontal']); ?>
+
+        <?php else: ?>
+          <form class="form-horizontal" method="post" action="<?php echo e(url('masterjabatan')); ?>">
+        <?php endif; ?>
           <?php echo csrf_field(); ?>
 
           <div class="box-body">
             <div class="form-group">
               <label class="col-sm-3 control-label">Kode Jabatan</label>
               <div class="col-sm-9">
-                <input type="text" name="kode_jabatan" class="form-control" placeholder="Kode Jabatan">
+                <input
+                  <?php if(isset($data['bindjabatan'])): ?>
+                    value="<?php echo e($data['bindjabatan']->kode_jabatan); ?>"
+                  <?php endif; ?>
+                 type="text" name="kode_jabatan" class="form-control" placeholder="Kode Jabatan">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Nama Jabatan</label>
               <div class="col-sm-9">
-                <input type="text" name="nama_jabatan" class="form-control" placeholder="Nama Jabatan">
+                <input
+                  <?php if(isset($data['bindjabatan'])): ?>
+                    value="<?php echo e($data['bindjabatan']->nama_jabatan); ?>"
+                  <?php endif; ?>
+                type="text" name="nama_jabatan" class="form-control" placeholder="Nama Jabatan">
               </div>
             </div>
             <div class="form-group">
               <div class="col-sm-12">
-                <button type="submit" class="btn btn-info pull-right" style="margin-left:5px;">Simpan</button><!-- /.box-footer -->
-                <button type="reset" class="btn btn-default pull-right">Reset Formulir</button>
+                <button type="submit" class="btn btn-info pull-right" style="margin-left:5px;">
+                  <?php if(isset($data['bindjabatan'])): ?>
+                    Simpan Perubahan
+                  <?php else: ?>
+                    Simpan
+                  <?php endif; ?>
+                </button>
+                  <?php if(!isset($data['bindjabatan'])): ?>
+                    <button type="reset" class="btn btn-default pull-right">Reset Formulir</button>
+                  <?php endif; ?>
               </div>
             </div>
           </div><!-- /.box-body -->
-        </form>
+        <?php if(isset($data['bindjabatan'])): ?>
+          <?php echo Form::close(); ?>
+
+        <?php else: ?>
+          </form>
+        <?php endif; ?>
       </div><!-- /.box -->
     </div><!--/.col -->
 
@@ -72,13 +98,13 @@
               <th>Aksi</th>
             </tr>
             <?php $i = 1; ?>
-            <?php foreach($getjabatan as $key): ?>
+            <?php foreach($data['getjabatan'] as $key): ?>
               <tr>
                 <td><?php echo e($i); ?></td>
                 <td><?php echo e($key->kode_jabatan); ?></td>
                 <td><?php echo e($key->nama_jabatan); ?></td>
                 <td>
-                  <a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a>
+                  <a href="<?php echo e(route('masterjabatan.edit', $key->id)); ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
                   <a href="" class="btn btn-danger"><i class="fa fa-remove"></i></a>
                 </td>
                 <?php $i++; ?>
