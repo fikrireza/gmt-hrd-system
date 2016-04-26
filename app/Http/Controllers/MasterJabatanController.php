@@ -100,4 +100,10 @@ class MasterJabatanController extends Controller
     {
         //
     }
+
+    public function hapusJabatan($id)
+    {
+      MasterJabatan::destroy($id);
+      return redirect()->route('masterjabatan.create')->with('message', 'Berhasil menghapus data jabatan.');
+    }
 }

@@ -32,7 +32,8 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn btn-outline pull-left" data-dismiss="modal">Tidak</button>
-            <a href="#" class="btn btn-outline">Ya, saya yakin.</a>
+            <a href="{{url('masterjabatan/hapusjabatan/1')}}" class="btn btn btn-outline" id="set">Ya, saya yakin.</a>
+            {{-- <button type="button" class="btn btn btn-outline" data-dismiss="modal">Ya, saya yakin.</button> --}}
           </div>
         </div>
 
@@ -127,7 +128,7 @@
                 <td>{{ $key->nama_jabatan }}</td>
                 <td>
                   <a href="{{ route('masterjabatan.edit', $key->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                  <a href="" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><i class="fa fa-remove"></i></a>
+                  <a href="" class="btn btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
                 </td>
                 <?php $i++; ?>
               </tr>
@@ -149,4 +150,13 @@
   <script src="{{asset('dist/js/app.min.js')}}"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="{{asset('dist/js/demo.js')}}"></script>
+
+  <script type="text/javascript">
+    $(function(){
+      $('a.hapus').click(function(){
+        var a = $(this).data('value');
+        $('#set').attr('href', "http://localhost/gmt-hrd-system/public/masterjabatan/hapusjabatan/"+a);
+      });
+    });
+  </script>
 @stop

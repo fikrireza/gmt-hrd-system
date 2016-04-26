@@ -30,7 +30,8 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn btn-outline pull-left" data-dismiss="modal">Tidak</button>
-            <a href="#" class="btn btn-outline">Ya, saya yakin.</a>
+            <a href="<?php echo e(url('masterjabatan/hapusjabatan/1')); ?>" class="btn btn btn-outline" id="set">Ya, saya yakin.</a>
+            <?php /* <button type="button" class="btn btn btn-outline" data-dismiss="modal">Ya, saya yakin.</button> */ ?>
           </div>
         </div>
 
@@ -128,7 +129,7 @@
                 <td><?php echo e($key->nama_jabatan); ?></td>
                 <td>
                   <a href="<?php echo e(route('masterjabatan.edit', $key->id)); ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                  <a href="" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><i class="fa fa-remove"></i></a>
+                  <a href="" class="btn btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="<?php echo e($key->id); ?>"><i class="fa fa-remove"></i></a>
                 </td>
                 <?php $i++; ?>
               </tr>
@@ -150,6 +151,15 @@
   <script src="<?php echo e(asset('dist/js/app.min.js')); ?>"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="<?php echo e(asset('dist/js/demo.js')); ?>"></script>
+
+  <script type="text/javascript">
+    $(function(){
+      $('a.hapus').click(function(){
+        var a = $(this).data('value');
+        $('#set').attr('href', "http://localhost/gmt-hrd-system/public/masterjabatan/hapusjabatan/"+a);
+      });
+    });
+  </script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
