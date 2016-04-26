@@ -3024,7 +3024,7 @@ table.text-center th {
 }
 .widget-user-2 .widget-user-username,
 .widget-user-2 .widget-user-desc {
-  margin-left: 75px;
+  margin-left: 0px;
 }
 .widget-user-2 .widget-user-image > img {
   width: 65px;

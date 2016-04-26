@@ -32,7 +32,7 @@
                 <div class="form-group {{ $errors->has('kode_client') ? 'has-error' : '' }}">
                   <label class="col-sm-2 control-label">Kode Client</label>
                   <div class="col-sm-4">
-                    <input type="text" name="kode_client" class="form-control" placeholder="Kode Client" value="{{ $MasterClient->kode_client }}">
+                    <input type="text" name="kode_client" class="form-control" placeholder="Kode Client" maxlength="5" value="{{ $MasterClient->kode_client }}">
                   </div>
                   @if($errors->has('kode_client'))
                     <span class="help-block">
@@ -44,7 +44,7 @@
                 <div class="form-group {{ $errors->has('nama_client') ? 'has-error' : '' }}">
                   <label class="col-sm-2 control-label">Nama Client</label>
                   <div class="col-sm-4">
-                    <input type="text" name="nama_client" class="form-control" placeholder="Nama Client" value="{{ $MasterClient->nama_client }}">
+                    <input type="text" name="nama_client" class="form-control" placeholder="Nama Client" maxlength="20" value="{{ $MasterClient->nama_client }}">
                   </div>
                   @if($errors->has('nama_client'))
                     <span class="help-block">

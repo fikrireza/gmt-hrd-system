@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
+use DB;
 use App\Http\Requests\MasterClientRequest;
 use App\Models\MasterClient;
 use App\Models\CabangClient;
@@ -21,7 +22,14 @@ class MasterClientController extends Controller
     {
         $MasterClient = MasterClient::latest('updated_at')->get();
 
-        return view('pages/MasterClient/index', compact('MasterClient'));
+        $CountAll = DB::table('master_client')
+            ->select(DB::raw('IFNULL(count(cabang_client.id_client),0) as hitung, master_client.*'))//IFNULL(COUNT(pof.ID), 0)
+            ->leftjoin('cabang_client', 'cabang_client.id_client' , '=', 'master_client.id')
+            ->groupBy('master_client.id')
+            ->latest('master_client.updated_at')
+            ->get();
+
+        return view('pages/MasterClient/index', compact('CountAll'));
     }
 
     /**
@@ -69,7 +77,7 @@ class MasterClientController extends Controller
     public function cabang_client_show($id)
     {
         $MasterClient = MasterClient::where('id', '=', $id)->first();
-        $CabangClient = CabangClient::where('id_client', '=', $id)->paginate(2);
+        $CabangClient = CabangClient::where('id_client', '=', $id)->paginate(5);
 
         return view('pages/MasterClient/cabangclient', compact('MasterClient','CabangClient'));
     }
