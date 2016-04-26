@@ -57,7 +57,7 @@
         <div class="box-footer no-padding">
           <ul class="nav nav-stacked">
             <li><a href="{{ url('masterclient/cabang', $client->id)}}">Cabang Client <span class="pull-right badge bg-blue">0</span></a></li>
-            <li><a href="#">Department Client <span class="pull-right badge bg-blue">0</span></a></li>
+            <li><a href="{{ url('masterclient/cabang', $client->id )}}">Department Client <span class="pull-right badge bg-blue">0</span></a></li>
           </ul>
         </div>
       </div><!-- /.widget-user -->

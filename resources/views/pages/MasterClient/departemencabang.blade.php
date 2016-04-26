@@ -11,6 +11,7 @@
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
     <li><a href="{{ url('masterclient')}}"> Master Client</a></li>
+    <li><a href="{{ url()->previous()}}"> Cabang</a></li>
     <li class="active">Cabang Client</li>
   </ol>
 @stop
@@ -20,7 +21,7 @@
         <div class="col-md-12">
         <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">Tambah Cabang Client : {!! $MasterClient->nama_client !!}</h3>
+              <h3 class="box-title">Tambah Departemen Cabang : {!! $CabangClient->nama_cabang !!}</h3>
               <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
               </div>
@@ -28,46 +29,34 @@
             <div class="box-body" style="display: block;">
               <div class="row">
                 <div class="col-md-12">
-                  <form class="form-horizontal" method="post" action="{{url('cabangclient')}}">
+                  <form class="form-horizontal" method="post" action="{{url('departemencabang')}}">
                     {!! csrf_field() !!}
                     <div class="box-body">
-                      <div class="form-group {{ $errors->has('kode_cabang') ? 'has-error' : '' }}">
-                        <label class="col-sm-3 control-label">Kode Cabang</label>
+                      <div class="form-group {{ $errors->has('kode_departemen') ? 'has-error' : '' }}">
+                        <label class="col-sm-3 control-label">Kode Departemen</label>
                         <div class="col-sm-4">
-                          <input type="text" name="kode_cabang" class="form-control" placeholder="Kode Cabang" value="{{ old('kode_cabang') }}">
+                          <input type="text" name="kode_departemen" class="form-control" placeholder="Kode Departemen" value="{{ old('kode_departemen') }}">
                         </div>
-                        @if($errors->has('kode_cabang'))
+                        @if($errors->has('kode_departemen'))
                           <span class="help-block">
-                            <strong>{{ $errors->first('kode_cabang')}}
+                            <strong>{{ $errors->first('kode_departemen')}}
                             </stron>
                           </span>
                         @endif
                       </div>
-                      <div class="form-group {{ $errors->has('nama_cabang') ? 'has-error' : '' }}">
-                        <label class="col-sm-3 control-label">Nama Cabang</label>
+                      <div class="form-group {{ $errors->has('nama_departemen') ? 'has-error' : '' }}">
+                        <label class="col-sm-3 control-label">Nama Departemen</label>
                         <div class="col-sm-4">
-                          <input type="text" name="nama_cabang" class="form-control" placeholder="Nama Cabang" value="{{ old('nama_cabang') }}">
+                          <input type="text" name="nama_departemen" class="form-control" placeholder="Nama Departemen" value="{{ old('nama_departemen') }}">
                         </div>
-                        @if($errors->has('nama_cabang'))
+                        @if($errors->has('nama_departemen'))
                           <span class="help-block">
-                            <strong>{{ $errors->first('nama_cabang')}}
+                            <strong>{{ $errors->first('nama_departemen')}}
                             </stron>
                           </span>
                         @endif
                       </div>
-                      <div class="form-group {{ $errors->has('alamat_cabang') ? 'has-error' : ''}}">
-                        <label class="col-sm-3 control-label">Alamat Cabang</label>
-                        <div class="col-sm-4">
-                          <input type="text" name="alamat_cabang" class="form-control" placeholder="Alamat Cabang" value="{{ old('alamat_cabang')}}">
-                        </div>
-                        @if($errors->has('alamat_cabang'))
-                          <span class="help-block">
-                            <strong>{{ $errors->first('alamat_cabang')}}
-                            </stron>
-                          </span>
-                        @endif
-                      </div>
-                      <input type="hidden" name="id_client" class="form-control" value="{!! $MasterClient->id !!}">
+                      <input type="hidden" name="id_cabang" class="form-control" value="{!! $CabangClient->id !!}">
                     </div><!-- /.box-body -->
                     <div class="box-footer">
                       <button type="submit" class="btn btn-info pull-right">Simpan</button>
@@ -92,7 +81,7 @@
         <div class="col-md-12">
           <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Tabel Cabang : {!! $MasterClient->nama_client !!}</h3>
+                  <h3 class="box-title">Tabel Departemen Cabang : {!! $CabangClient->nama_cabang !!}</h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -120,29 +109,25 @@
                         <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                     <thead>
                       <tr role="row">
-                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Kode cabang</th>
-                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Nama cabang</th>
-                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Alamat Cabang</th>
-                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="2">Aksi</th>
+                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Kode Departemen</th>
+                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Nama Departemen</th>
+                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
-                    @foreach($CabangClient as $Cabang)
+                    @foreach($DepartemenCabang as $Departemen)
                     <tr>
-                      <td class="">{!! $Cabang->kode_cabang !!}</td>
-                      <td class="">{!! $Cabang->nama_cabang !!}</td>
-                      <td class="">{!! $Cabang->alamat_cabang !!}</td>
-                      <td><i class="glyphicon glyphicon-pencil"></i><a href=""> Ubah<a> </td>
-                      <td><i class="glyphicon glyphicon-open"></i><a href="{{ url('masterclient/departemen', $Cabang->id )}}">Tambah Departemen</a></td>
+                      <td class="">{!! $Departemen->kode_departemen !!}</td>
+                      <td class="">{!! $Departemen->nama_departemen !!}</td>
+                      <td><i class="icon fa fa-edit"></i> Edit </td>
                     </tr>
                     @endforeach
                     </tbody>
                     <tfoot>
                       <tr>
-                        <th rowspan="1" colspan="1">Kode Cabang</th>
-                        <th rowspan="1" colspan="1">Nama Cabang</th>
-                        <th rowspan="1" colspan="1">Alamat Cabang</th>
-                        <th rowspan="1" colspan="2">Aksi</th>
+                        <th rowspan="1" colspan="1">Kode Departemen</th>
+                        <th rowspan="1" colspan="1">Nama Departemen</th>
+                        <th rowspan="1" colspan="1">Aksi</th>
                       </tr>
                     </tfoot>
                   </table>
@@ -154,7 +139,7 @@
                 </div>
                 <div class="col-sm-7">
                   <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
-                    {!! $CabangClient->render() !!}
+                    {!! $DepartemenCabang->render() !!}
                   </div>
                 </div>
               </div>

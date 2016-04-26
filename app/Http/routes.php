@@ -28,6 +28,8 @@ Route::resource('masterjabatan', 'MasterJabatanController');
 
 Route::resource('masterclient','MasterClientController');
 Route::get('masterclient/cabang/{id}','MasterClientController@cabang_client_show');
+Route::get('masterclient/departemen/{id}','MasterClientController@departemen_client_show');
 Route::resource('cabangclient','CabangClientController');
+Route::resource('departemencabang','DepartemenCabangController');
 
 Route::resource('useraccount', 'AkunController');

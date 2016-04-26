@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\MasterClientRequest;
 use App\Models\MasterClient;
 use App\Models\CabangClient;
+use App\Models\DepartemenCabang;
 
 class MasterClientController extends Controller
 {
@@ -71,6 +72,19 @@ class MasterClientController extends Controller
         $CabangClient = CabangClient::where('id_client', '=', $id)->paginate(2);
 
         return view('pages/MasterClient/cabangclient', compact('MasterClient','CabangClient'));
+    }
+
+    /**
+    * Display the Client From Cabang
+    * @param int $id
+    * @return \Illuminate\Http\Response
+    */
+    public function departemen_client_show($id)
+    {
+        $CabangClient = CabangClient::where('id', '=', $id)->first();
+        $DepartemenCabang = DepartemenCabang::where('id_cabang', '=', $id)->paginate(2);
+
+        return view('pages/MasterClient/departemencabang', compact('CabangClient', 'DepartemenCabang'));
     }
 
 
