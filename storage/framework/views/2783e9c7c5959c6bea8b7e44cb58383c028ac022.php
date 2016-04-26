@@ -1,27 +1,25 @@
-@extends('layouts.master')
-
-@section('title')
+<?php $__env->startSection('title'); ?>
   <title>Tambah Data Cabang Client</title>
-@stop
+<?php $__env->stopSection(); ?>
 
-@section('breadcrumb')
+<?php $__env->startSection('breadcrumb'); ?>
   <h1>
     Cabang Client
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="{{ url('masterclient')}}"> Master Client</a></li>
-    <li><a href="{{ url()->previous()}}"> Cabang</a></li>
+    <li><a href="<?php echo e(url('masterclient')); ?>"> Master Client</a></li>
+    <li><a href="<?php echo e(url()->previous()); ?>"> Cabang</a></li>
     <li class="active">Cabang Client</li>
   </ol>
-@stop
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
       <div class="row">
         <div class="col-md-12">
         <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">Tambah Departemen Cabang : {!! $CabangClient->nama_cabang !!}</h3>
+              <h3 class="box-title">Tambah Departemen Cabang : <?php echo $CabangClient->nama_cabang; ?></h3>
               <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
               </div>
@@ -29,34 +27,37 @@
             <div class="box-body" style="display: block;">
               <div class="row">
                 <div class="col-md-12">
-                  <form class="form-horizontal" method="post" action="{{url('departemencabang')}}">
-                    {!! csrf_field() !!}
+                  <form class="form-horizontal" method="post" action="<?php echo e(url('departemencabang')); ?>">
+                    <?php echo csrf_field(); ?>
+
                     <div class="box-body">
-                      <div class="form-group {{ $errors->has('kode_departemen') ? 'has-error' : '' }}">
+                      <div class="form-group <?php echo e($errors->has('kode_departemen') ? 'has-error' : ''); ?>">
                         <label class="col-sm-3 control-label">Kode Departemen</label>
                         <div class="col-sm-4">
-                          <input type="text" name="kode_departemen" class="form-control" placeholder="Kode Departemen" value="{{ old('kode_departemen') }}">
+                          <input type="text" name="kode_departemen" class="form-control" placeholder="Kode Departemen" value="<?php echo e(old('kode_departemen')); ?>">
                         </div>
-                        @if($errors->has('kode_departemen'))
+                        <?php if($errors->has('kode_departemen')): ?>
                           <span class="help-block">
-                            <strong>{{ $errors->first('kode_departemen')}}
+                            <strong><?php echo e($errors->first('kode_departemen')); ?>
+
                             </stron>
                           </span>
-                        @endif
+                        <?php endif; ?>
                       </div>
-                      <div class="form-group {{ $errors->has('nama_departemen') ? 'has-error' : '' }}">
+                      <div class="form-group <?php echo e($errors->has('nama_departemen') ? 'has-error' : ''); ?>">
                         <label class="col-sm-3 control-label">Nama Departemen</label>
                         <div class="col-sm-4">
-                          <input type="text" name="nama_departemen" class="form-control" placeholder="Nama Departemen" value="{{ old('nama_departemen') }}">
+                          <input type="text" name="nama_departemen" class="form-control" placeholder="Nama Departemen" value="<?php echo e(old('nama_departemen')); ?>">
                         </div>
-                        @if($errors->has('nama_departemen'))
+                        <?php if($errors->has('nama_departemen')): ?>
                           <span class="help-block">
-                            <strong>{{ $errors->first('nama_departemen')}}
+                            <strong><?php echo e($errors->first('nama_departemen')); ?>
+
                             </stron>
                           </span>
-                        @endif
+                        <?php endif; ?>
                       </div>
-                      <input type="hidden" name="id_cabang" class="form-control" value="{!! $CabangClient->id !!}">
+                      <input type="hidden" name="id_cabang" class="form-control" value="<?php echo $CabangClient->id; ?>">
                     </div><!-- /.box-body -->
                     <div class="box-footer">
                       <button type="submit" class="btn btn-info pull-right">Simpan</button>
@@ -69,19 +70,20 @@
         </div>
 
         <div class="col-md-12">
-        @if (session('status'))
+        <?php if(session('status')): ?>
           <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
             <h4>	<i class="icon fa fa-check"></i> Sukses!</h4>
-            {{ session('status') }}
+            <?php echo e(session('status')); ?>
+
           </div>
-        @endif
+        <?php endif; ?>
         </div>
 
         <div class="col-md-12">
           <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Tabel Departemen Cabang : {!! $CabangClient->nama_cabang !!}</h3>
+                  <h3 class="box-title">Tabel Departemen Cabang : <?php echo $CabangClient->nama_cabang; ?></h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -115,13 +117,13 @@
                       </tr>
                     </thead>
                     <tbody>
-                    @foreach($DepartemenCabang as $Departemen)
+                    <?php foreach($DepartemenCabang as $Departemen): ?>
                     <tr>
-                      <td class="">{!! $Departemen->kode_departemen !!}</td>
-                      <td class="">{!! $Departemen->nama_departemen !!}</td>
+                      <td class=""><?php echo $Departemen->kode_departemen; ?></td>
+                      <td class=""><?php echo $Departemen->nama_departemen; ?></td>
                       <td><i class="icon fa fa-edit"></i> Edit </td>
                     </tr>
-                    @endforeach
+                    <?php endforeach; ?>
                     </tbody>
                     <tfoot>
                       <tr>
@@ -139,7 +141,8 @@
                 </div>
                 <div class="col-sm-7">
                   <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
-                    {!! $DepartemenCabang->render() !!}
+                    <?php echo $DepartemenCabang->render(); ?>
+
                   </div>
                 </div>
               </div>
@@ -151,15 +154,17 @@
 
 
   <!-- jQuery 2.1.4 -->
-  <script src="{{asset('plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
+  <script src="<?php echo e(asset('plugins/jQuery/jQuery-2.1.4.min.js')); ?>"></script>
   <!-- Bootstrap 3.3.5 -->
-  <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
+  <script src="<?php echo e(asset('bootstrap/js/bootstrap.min.js')); ?>"></script>
   <!-- FastClick -->
-  <script src="{{asset('plugins/fastclick/fastclick.min.js')}}"></script>
+  <script src="<?php echo e(asset('plugins/fastclick/fastclick.min.js')); ?>"></script>
   <!-- AdminLTE App -->
-  <script src="{{asset('dist/js/app.min.js')}}"></script>
+  <script src="<?php echo e(asset('dist/js/app.min.js')); ?>"></script>
   <!-- AdminLTE for demo purposes -->
-  <script src="{{asset('dist/js/demo.js')}}"></script>
+  <script src="<?php echo e(asset('dist/js/demo.js')); ?>"></script>
 
 
-@stop
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

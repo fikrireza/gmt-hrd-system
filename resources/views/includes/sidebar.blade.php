@@ -31,12 +31,12 @@
         <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
       </a>
       <ul class="treeview-menu">
-        <li><a href="{{ url('/admin') }}"><i class="fa fa-circle-o"></i> Dashboard</a></li>
+        <li><a href="{{ url('/dashboard') }}"><i class="fa fa-circle-o"></i> Dashboard</a></li>
       </ul>
     </li>
     <li class="treeview">
       <a href="#">
-        <i class="fa fa-pie-chart"></i>
+        <i class="fa fa-users"></i>
         <span>Master Pegawai</span>
         <i class="fa fa-angle-left pull-right"></i>
       </a>
@@ -46,7 +46,7 @@
     </li>
     <li class="treeview">
       <a href="#">
-        <i class="fa fa-pie-chart"></i>
+        <i class="fa fa-briefcase"></i>
         <span>Master Jabatan</span>
         <i class="fa fa-angle-left pull-right"></i>
       </a>

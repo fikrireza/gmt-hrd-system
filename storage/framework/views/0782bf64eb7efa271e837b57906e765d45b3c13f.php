@@ -32,12 +32,12 @@
         <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
       </a>
       <ul class="treeview-menu">
-        <li><a href="<?php echo e(url('/admin')); ?>"><i class="fa fa-circle-o"></i> Dashboard</a></li>
+        <li><a href="<?php echo e(url('/dashboard')); ?>"><i class="fa fa-circle-o"></i> Dashboard</a></li>
       </ul>
     </li>
     <li class="treeview">
       <a href="#">
-        <i class="fa fa-pie-chart"></i>
+        <i class="fa fa-users"></i>
         <span>Master Pegawai</span>
         <i class="fa fa-angle-left pull-right"></i>
       </a>
@@ -47,12 +47,22 @@
     </li>
     <li class="treeview">
       <a href="#">
-        <i class="fa fa-pie-chart"></i>
+        <i class="fa fa-briefcase"></i>
         <span>Master Jabatan</span>
         <i class="fa fa-angle-left pull-right"></i>
       </a>
       <ul class="treeview-menu">
         <li><a href="<?php echo e(route('masterjabatan.create')); ?>"><i class="fa fa-circle-o"></i> Tambah Data Jabatan</a></li>
+      </ul>
+    </li>
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-building-o"></i>
+        <span>Master Client</span>
+        <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <li><a href="<?php echo e(url('masterclient')); ?>"><i class="fa fa-circle-o"></i> Data Client</a></li>
       </ul>
     </li>
     <li class="treeview">

@@ -1,26 +1,24 @@
-@extends('layouts.master')
-
-@section('title')
+<?php $__env->startSection('title'); ?>
   <title>Tambah Data Cabang Client</title>
-@stop
+<?php $__env->stopSection(); ?>
 
-@section('breadcrumb')
+<?php $__env->startSection('breadcrumb'); ?>
   <h1>
     Cabang Client
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="{{ url('masterclient')}}"> Master Client</a></li>
+    <li><a href="<?php echo e(url('masterclient')); ?>"> Master Client</a></li>
     <li class="active">Cabang Client</li>
   </ol>
-@stop
+<?php $__env->stopSection(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
       <div class="row">
         <div class="col-md-12">
         <div class="box box-default">
             <div class="box-header with-border">
-              <h3 class="box-title">Tambah Cabang Client : {!! $MasterClient->nama_client !!}</h3>
+              <h3 class="box-title">Tambah Cabang Client : <?php echo $MasterClient->nama_client; ?></h3>
               <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
               </div>
@@ -28,46 +26,50 @@
             <div class="box-body" style="display: block;">
               <div class="row">
                 <div class="col-md-12">
-                  <form class="form-horizontal" method="post" action="{{url('cabangclient')}}">
-                    {!! csrf_field() !!}
+                  <form class="form-horizontal" method="post" action="<?php echo e(url('cabangclient')); ?>">
+                    <?php echo csrf_field(); ?>
+
                     <div class="box-body">
-                      <div class="form-group {{ $errors->has('kode_cabang') ? 'has-error' : '' }}">
+                      <div class="form-group <?php echo e($errors->has('kode_cabang') ? 'has-error' : ''); ?>">
                         <label class="col-sm-3 control-label">Kode Cabang</label>
                         <div class="col-sm-4">
-                          <input type="text" name="kode_cabang" class="form-control" placeholder="Kode Cabang" value="{{ old('kode_cabang') }}">
+                          <input type="text" name="kode_cabang" class="form-control" placeholder="Kode Cabang" value="<?php echo e(old('kode_cabang')); ?>">
                         </div>
-                        @if($errors->has('kode_cabang'))
+                        <?php if($errors->has('kode_cabang')): ?>
                           <span class="help-block">
-                            <strong>{{ $errors->first('kode_cabang')}}
+                            <strong><?php echo e($errors->first('kode_cabang')); ?>
+
                             </stron>
                           </span>
-                        @endif
+                        <?php endif; ?>
                       </div>
-                      <div class="form-group {{ $errors->has('nama_cabang') ? 'has-error' : '' }}">
+                      <div class="form-group <?php echo e($errors->has('nama_cabang') ? 'has-error' : ''); ?>">
                         <label class="col-sm-3 control-label">Nama Cabang</label>
                         <div class="col-sm-4">
-                          <input type="text" name="nama_cabang" class="form-control" placeholder="Nama Cabang" value="{{ old('nama_cabang') }}">
+                          <input type="text" name="nama_cabang" class="form-control" placeholder="Nama Cabang" value="<?php echo e(old('nama_cabang')); ?>">
                         </div>
-                        @if($errors->has('nama_cabang'))
+                        <?php if($errors->has('nama_cabang')): ?>
                           <span class="help-block">
-                            <strong>{{ $errors->first('nama_cabang')}}
+                            <strong><?php echo e($errors->first('nama_cabang')); ?>
+
                             </stron>
                           </span>
-                        @endif
+                        <?php endif; ?>
                       </div>
-                      <div class="form-group {{ $errors->has('alamat_cabang') ? 'has-error' : ''}}">
+                      <div class="form-group <?php echo e($errors->has('alamat_cabang') ? 'has-error' : ''); ?>">
                         <label class="col-sm-3 control-label">Alamat Cabang</label>
                         <div class="col-sm-4">
-                          <input type="text" name="alamat_cabang" class="form-control" placeholder="Alamat Cabang" value="{{ old('alamat_cabang')}}">
+                          <input type="text" name="alamat_cabang" class="form-control" placeholder="Alamat Cabang" value="<?php echo e(old('alamat_cabang')); ?>">
                         </div>
-                        @if($errors->has('alamat_cabang'))
+                        <?php if($errors->has('alamat_cabang')): ?>
                           <span class="help-block">
-                            <strong>{{ $errors->first('alamat_cabang')}}
+                            <strong><?php echo e($errors->first('alamat_cabang')); ?>
+
                             </stron>
                           </span>
-                        @endif
+                        <?php endif; ?>
                       </div>
-                      <input type="hidden" name="id_client" class="form-control" value="{!! $MasterClient->id !!}">
+                      <input type="hidden" name="id_client" class="form-control" value="<?php echo $MasterClient->id; ?>">
                     </div><!-- /.box-body -->
                     <div class="box-footer">
                       <button type="submit" class="btn btn-info pull-right">Simpan</button>
@@ -80,19 +82,20 @@
         </div>
 
         <div class="col-md-12">
-        @if (session('status'))
+        <?php if(session('status')): ?>
           <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
             <h4>	<i class="icon fa fa-check"></i> Sukses!</h4>
-            {{ session('status') }}
+            <?php echo e(session('status')); ?>
+
           </div>
-        @endif
+        <?php endif; ?>
         </div>
 
         <div class="col-md-12">
           <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Tabel Cabang : {!! $MasterClient->nama_client !!}</h3>
+                  <h3 class="box-title">Tabel Cabang : <?php echo $MasterClient->nama_client; ?></h3>
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -127,15 +130,15 @@
                       </tr>
                     </thead>
                     <tbody>
-                    @foreach($CabangClient as $Cabang)
+                    <?php foreach($CabangClient as $Cabang): ?>
                     <tr>
-                      <td class="">{!! $Cabang->kode_cabang !!}</td>
-                      <td class="">{!! $Cabang->nama_cabang !!}</td>
-                      <td class="">{!! $Cabang->alamat_cabang !!}</td>
+                      <td class=""><?php echo $Cabang->kode_cabang; ?></td>
+                      <td class=""><?php echo $Cabang->nama_cabang; ?></td>
+                      <td class=""><?php echo $Cabang->alamat_cabang; ?></td>
                       <td><i class="glyphicon glyphicon-pencil"></i><a href=""> Ubah<a> </td>
-                      <td><i class="glyphicon glyphicon-open"></i><a href="{{ url('masterclient/departemen', $Cabang->id )}}">Tambah Departemen</a></td>
+                      <td><i class="glyphicon glyphicon-open"></i><a href="<?php echo e(url('masterclient/departemen', $Cabang->id )); ?>">Tambah Departemen</a></td>
                     </tr>
-                    @endforeach
+                    <?php endforeach; ?>
                     </tbody>
                     <tfoot>
                       <tr>
@@ -154,7 +157,8 @@
                 </div>
                 <div class="col-sm-7">
                   <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
-                    {!! $CabangClient->render() !!}
+                    <?php echo $CabangClient->render(); ?>
+
                   </div>
                 </div>
               </div>
@@ -166,15 +170,17 @@
 
 
   <!-- jQuery 2.1.4 -->
-  <script src="{{asset('plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
+  <script src="<?php echo e(asset('plugins/jQuery/jQuery-2.1.4.min.js')); ?>"></script>
   <!-- Bootstrap 3.3.5 -->
-  <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
+  <script src="<?php echo e(asset('bootstrap/js/bootstrap.min.js')); ?>"></script>
   <!-- FastClick -->
-  <script src="{{asset('plugins/fastclick/fastclick.min.js')}}"></script>
+  <script src="<?php echo e(asset('plugins/fastclick/fastclick.min.js')); ?>"></script>
   <!-- AdminLTE App -->
-  <script src="{{asset('dist/js/app.min.js')}}"></script>
+  <script src="<?php echo e(asset('dist/js/app.min.js')); ?>"></script>
   <!-- AdminLTE for demo purposes -->
-  <script src="{{asset('dist/js/demo.js')}}"></script>
+  <script src="<?php echo e(asset('dist/js/demo.js')); ?>"></script>
 
 
-@stop
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
