@@ -16,6 +16,29 @@
 @stop
 
 @section('content')
+
+    <!-- Modal -->
+    <div class="modal modal-warning fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Hapus Data Jabatan</h4>
+          </div>
+          <div class="modal-body">
+            <p>Apakah anda yakin untuk menghapus data jabatan ini?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn btn-outline pull-left" data-dismiss="modal">Tidak</button>
+            <a href="#" class="btn btn-outline">Ya, saya yakin.</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   <div class="row">
     <!--column -->
     <div class="col-md-12">
@@ -104,7 +127,7 @@
                 <td>{{ $key->nama_jabatan }}</td>
                 <td>
                   <a href="{{ route('masterjabatan.edit', $key->id) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                  <a href="" class="btn btn-danger"><i class="fa fa-remove"></i></a>
+                  <a href="" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><i class="fa fa-remove"></i></a>
                 </td>
                 <?php $i++; ?>
               </tr>
