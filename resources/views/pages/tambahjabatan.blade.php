@@ -64,24 +64,45 @@
         @endif
           {!! csrf_field() !!}
           <div class="box-body">
-            <div class="form-group">
+            <div class="form-group {{ $errors->has('kode_jabatan') ? 'has-error' : '' }}">
               <label class="col-sm-3 control-label">Kode Jabatan</label>
               <div class="col-sm-9">
                 <input
                   @if(isset($data['bindjabatan']))
                     value="{{$data['bindjabatan']->kode_jabatan}}"
                   @endif
-                 type="text" name="kode_jabatan" class="form-control" placeholder="Kode Jabatan">
+                  type="text" name="kode_jabatan" class="form-control" placeholder="Kode Jabatan" maxlength="6"
+                  @if(!$errors->has('kode_jabatan'))
+                   value="{{ old('kode_jabatan') }}"
+                  @endif
+                >
+
+                @if($errors->has('kode_jabatan'))
+                 <span class="help-block">
+                   <strong>{{ $errors->first('kode_jabatan')}}
+                   </strong>
+                 </span>
+                @endif
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group {{ $errors->has('nama_jabatan') ? 'has-error' : '' }}">
               <label class="col-sm-3 control-label">Nama Jabatan</label>
               <div class="col-sm-9">
                 <input
                   @if(isset($data['bindjabatan']))
                     value="{{$data['bindjabatan']->nama_jabatan}}"
                   @endif
-                type="text" name="nama_jabatan" class="form-control" placeholder="Nama Jabatan">
+                  type="text" name="nama_jabatan" class="form-control" placeholder="Nama Jabatan"
+                  @if(!$errors->has('nama_jabatan'))
+                    value="{{ old('nama_jabatan') }}"
+                  @endif
+                >
+                @if($errors->has('nama_jabatan'))
+                 <span class="help-block">
+                   <strong>{{ $errors->first('nama_jabatan')}}
+                   </strong>
+                 </span>
+                @endif
               </div>
             </div>
             <div class="form-group">
@@ -155,7 +176,7 @@
     $(function(){
       $('a.hapus').click(function(){
         var a = $(this).data('value');
-        $('#set').attr('href', "http://localhost/gmt-hrd-system/public/masterjabatan/hapusjabatan/"+a);
+        $('#set').attr('href', "{{ url('/') }}/masterjabatan/hapusjabatan/"+a);
       });
     });
   </script>

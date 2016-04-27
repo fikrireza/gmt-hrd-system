@@ -30,26 +30,26 @@
                 <div class="form-group <?php echo e($errors->has('kode_client') ? 'has-error' : ''); ?>">
                   <label class="col-sm-2 control-label">Kode Client</label>
                   <div class="col-sm-4">
-                    <input type="text" name="kode_client" class="form-control" placeholder="Kode Client" value="<?php echo e(old('kode_client')); ?>">
+                    <input type="text" name="kode_client" class="form-control" placeholder="Kode Client" maxlength="5" value="<?php echo e(old('kode_client')); ?>">
                   </div>
                   <?php if($errors->has('kode_client')): ?>
                     <span class="help-block">
                       <strong><?php echo e($errors->first('kode_client')); ?>
 
-                      </stron>
+                      </strong>
                     </span>
                   <?php endif; ?>
                 </div>
                 <div class="form-group <?php echo e($errors->has('nama_client') ? 'has-error' : ''); ?>">
                   <label class="col-sm-2 control-label">Nama Client</label>
                   <div class="col-sm-4">
-                    <input type="text" name="nama_client" class="form-control" placeholder="Nama Client" value="<?php echo e(old('nama_client')); ?>">
+                    <input type="text" name="nama_client" class="form-control" placeholder="Nama Client" maxlength="20" value="<?php echo e(old('nama_client')); ?>">
                   </div>
                   <?php if($errors->has('nama_client')): ?>
                     <span class="help-block">
                       <strong><?php echo e($errors->first('nama_client')); ?>
 
-                      </stron>
+                      </strong>
                     </span>
                   <?php endif; ?>
                 </div>

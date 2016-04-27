@@ -36,7 +36,7 @@
                   @if($errors->has('kode_client'))
                     <span class="help-block">
                       <strong>{{ $errors->first('kode_client')}}
-                      </stron>
+                      </strong>
                     </span>
                   @endif
                 </div>
@@ -48,7 +48,7 @@
                   @if($errors->has('nama_client'))
                     <span class="help-block">
                       <strong>{{ $errors->first('nama_client')}}
-                      </stron>
+                      </strong>
                     </span>
                   @endif
                 </div>
