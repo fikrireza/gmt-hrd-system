@@ -48,7 +48,10 @@ class DepartemenCabangController extends Controller
      */
     public function show($id)
     {
-        //
+      $CabangClient = CabangClient::where('id', '=', $id)->first();
+      $DepartemenCabang = DepartemenCabang::where('id_cabang', '=', $id)->paginate(2);
+
+      return view('pages/MasterClient/departemencabang', compact('CabangClient', 'DepartemenCabang'));
     }
 
     /**

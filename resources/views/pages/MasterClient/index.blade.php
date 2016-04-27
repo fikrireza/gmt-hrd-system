@@ -28,20 +28,29 @@
 
   <div class="row">
     <!-- Master Client -->
+    <script>
+    window.setTimeout(function() {
+      $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove();
+      });
+    }, 2000);
+    </script>
+    <div class="col-md-12">
     @if (session('tambah'))
-      <div class="alert alert-success alert-dismissable">
+      <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4>	<i class="icon fa fa-check"></i> Sukses!</h4>
         {{ session('tambah') }}
       </div>
     @endif
     @if (session('update'))
-      <div class="alert alert-success alert-dismissable">
+      <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4>	<i class="icon fa fa-check"></i> Sukses!</h4>
         {{ session('update') }}
       </div>
     @endif
+  </div>
     @foreach($CountAll as $client)
     <div class="col-md-4">
       <div class="box box-widget widget-user-2">
@@ -53,7 +62,7 @@
         </div>
         <div class="box-footer no-padding">
           <ul class="nav nav-stacked">
-            <li><a href="{{ url('masterclient/cabang', $client->id)}}">Cabang Client <span class="pull-right badge bg-blue">{{ $client->hitung}}</span></a></li>
+            <li><a href="{{ url('cabangclient', $client->id)}}">Cabang Client <span class="pull-right badge bg-blue">{{ $client->hitungCabang}}</span></a></li>
             <li><a href="{{ url('masterclient/departemen', $client->id )}}">Department Client <span class="pull-right badge bg-blue">0</span></a></li>
           </ul>
         </div>

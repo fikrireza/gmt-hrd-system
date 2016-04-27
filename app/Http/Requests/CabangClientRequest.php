@@ -15,7 +15,7 @@ class CabangClientRequest extends Request {
 	public function rules()
 	{
 		return [
-			'kode_cabang' => 'required|max:5',
+			'kode_cabang' => 'required|max:5|unique:cabang_client,kode_cabang',
 			'nama_cabang' => 'required|max:40',
       'alamat_cabang' => 'required|max:150',
       'id_client' => 'required'
