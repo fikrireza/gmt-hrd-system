@@ -64,8 +64,9 @@ class CabangClientController extends Controller
     public function edit($id)
     {
       $CabangEdit = CabangClient::findOrFail($id);
-      $CabangClient = CabangClient::where('id_client', '=', $id)->paginate(5);
-      return view('pages/MasterClient/cabangclient', compact('CabangEdit','CabangClient'));
+      $MasterClient = MasterClient::where('id', '=', $CabangEdit->id_client)->first();
+      $CabangClient = CabangClient::where('id_client', '=', $MasterClient->id)->paginate(6);
+      return view('pages/MasterClient/cabangclient', compact('CabangEdit','CabangClient','MasterClient'));
     }
 
     /**
@@ -75,7 +76,7 @@ class CabangClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update($id, CabangClientRequest $request)
+    public function update(Request $request, $id)
     {
       $CabangClient = MasterClient::findOrFail($id);
 

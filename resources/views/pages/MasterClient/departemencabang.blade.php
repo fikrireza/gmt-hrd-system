@@ -17,11 +17,18 @@
 @stop
 
 @section('content')
-      <div class="row">
+      <script>
+      window.setTimeout(function() {
+        $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+      }, 2000);
+      </script>
 
+      <div class="row">
         <div class="col-md-12">
         @if (session('status'))
-          <div class="alert alert-success alert-dismissable">
+          <div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
             <h4>	<i class="icon fa fa-check"></i> Sukses!</h4>
             {{ session('status') }}

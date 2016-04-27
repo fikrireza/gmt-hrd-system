@@ -113,9 +113,9 @@
                       </div>
                       <input type="hidden" name="id_client" class="form-control"
                       @if(isset($CabangEdit))
-                        value="{{$CabangEdit->id}}"
+                        value="{{$MasterClient->id }}"
                       @else
-                      value="{{ old('id') }}"
+                      value="{!! $MasterClient->id !!}"
                       @endif >
                     </div><!-- /.box-body -->
                     <div class="box-footer">
@@ -133,13 +133,10 @@
           </div>
         </div>
 
-        @if(isset($CabangEdit))
-
-        @else
         <div class="col-md-7">
           <div class="box box-info">
               <div class="box-header">
-                  <h3 class="box-title">Tambah Cabang Client : {!! $MasterClient->nama_client !!}</h3>
+                  <h3 class="box-title">Data Cabang Client : {!! $MasterClient->nama_client !!}</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
                 <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -201,7 +198,6 @@
               </div><!-- /.box-body -->
           </div>
         </div><!--/.col -->
-        @endif
       </div>   <!-- /.row -->
 
 
