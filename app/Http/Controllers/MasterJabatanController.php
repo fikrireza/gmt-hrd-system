@@ -26,7 +26,7 @@ class MasterJabatanController extends Controller
      */
     public function create()
     {
-        $getjabatan = MasterJabatan::all();
+        $getjabatan = MasterJabatan::all()->where('status', '1');
         $data['getjabatan'] = $getjabatan;
         return view('pages/tambahjabatan')->with('data', $data);
     }
@@ -66,7 +66,7 @@ class MasterJabatanController extends Controller
      */
     public function edit($id)
     {
-        $getjabatan = MasterJabatan::all();
+        $getjabatan = MasterJabatan::all()->where('status', '1');
         $data['getjabatan'] = $getjabatan;
         $bindjabatan = MasterJabatan::find($id);
         $data['bindjabatan'] = $bindjabatan;
@@ -103,7 +103,10 @@ class MasterJabatanController extends Controller
 
     public function hapusJabatan($id)
     {
-      MasterJabatan::destroy($id);
+      $updatestatus = MasterJabatan::find($id);
+      $updatestatus->status = 0;
+      $updatestatus->save();
+
       return redirect()->route('masterjabatan.create')->with('message', 'Berhasil menghapus data jabatan.');
     }
 }
