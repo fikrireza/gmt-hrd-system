@@ -15,7 +15,7 @@ class MasterClientRequest extends Request {
 	public function rules()
 	{
 		return [
-			'kode_client' => 'required|max:5',
+			'kode_client' => 'required|max:5|unique:master_client,kode_client,'.$this->route('masterclient'),
 			'nama_client' => 'required|max:40'
 		];
 	}

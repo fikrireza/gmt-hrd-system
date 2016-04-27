@@ -15,7 +15,7 @@ class DepartemenCabangRequest extends Request {
 	public function rules()
 	{
 		return [
-			'kode_departemen' => 'required|max:5',
+			'kode_departemen' => 'required|unique:departemen_client|max:5',
 			'nama_departemen' => 'required|max:50',
       'id_cabang' => 'required'
 		];

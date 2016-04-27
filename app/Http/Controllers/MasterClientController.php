@@ -20,15 +20,14 @@ class MasterClientController extends Controller
      */
     public function index()
     {
-        $MasterClient = MasterClient::latest('updated_at')->get();
-
+        //$MasterClient = MasterClient::latest('updated_at')->get();
         $CountAll = DB::table('master_client')
-            ->select(DB::raw('IFNULL(count(cabang_client.id_client),0) as hitung, master_client.*'))//IFNULL(COUNT(pof.ID), 0)
+            ->select(DB::raw('IFNULL(count(cabang_client.id_client),0) as hitungCabang, master_client.*'))//IFNULL(COUNT(pof.ID), 0)
             ->leftjoin('cabang_client', 'cabang_client.id_client' , '=', 'master_client.id')
             ->groupBy('master_client.id')
             ->latest('master_client.updated_at')
             ->get();
-
+            //print_r($CountAll);
         return view('pages/MasterClient/index', compact('CountAll'));
     }
 
@@ -39,7 +38,7 @@ class MasterClientController extends Controller
      */
     public function create()
     {
-        return view('pages/MasterClient/tambahclient');
+        return view('pages/MasterClient/formClient');
     }
 
     /**
@@ -70,33 +69,6 @@ class MasterClientController extends Controller
     }
 
     /**
-    * Display the Client From Cabang
-    * @param int $id
-    * @return \Illuminate\Http\Response
-    */
-    public function cabang_client_show($id)
-    {
-        $MasterClient = MasterClient::where('id', '=', $id)->first();
-        $CabangClient = CabangClient::where('id_client', '=', $id)->paginate(5);
-
-        return view('pages/MasterClient/cabangclient', compact('MasterClient','CabangClient'));
-    }
-
-    /**
-    * Display the Client From Cabang
-    * @param int $id
-    * @return \Illuminate\Http\Response
-    */
-    public function departemen_client_show($id)
-    {
-        $CabangClient = CabangClient::where('id', '=', $id)->first();
-        $DepartemenCabang = DepartemenCabang::where('id_cabang', '=', $id)->paginate(2);
-
-        return view('pages/MasterClient/departemencabang', compact('CabangClient', 'DepartemenCabang'));
-    }
-
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -106,7 +78,7 @@ class MasterClientController extends Controller
     {
         $MasterClient = MasterClient::findOrFail($id);
 
-        return view('pages/MasterClient/editclient', compact('MasterClient'));
+        return view('pages/MasterClient/formClient', compact('MasterClient'));
     }
 
     /**
@@ -127,7 +99,6 @@ class MasterClientController extends Controller
         $MasterClient->update($masterClient);
 
         return redirect('masterclient')->with('update', 'Berhasil Mengubah Data Client');
-
     }
 
     /**
