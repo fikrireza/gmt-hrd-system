@@ -20,7 +20,7 @@ class CabangClientController extends Controller
      */
     public function create()
     {
-        return view('pages/MasterClient/tambahcabangclient');
+      //
     }
 
     /**
@@ -76,7 +76,7 @@ class CabangClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id, CabangClientRequest $request)
     {
       $CabangClient = MasterClient::findOrFail($id);
 
@@ -87,7 +87,7 @@ class CabangClientController extends Controller
       );
       $CabangClient->update($cabangClient);
 
-      return redirect('cabangclient')->with('update', 'Berhasil Mengubah Data Client');
+      //return redirect('cabangclient')->with('update', 'Berhasil Mengubah Data Client');
     }
 
     /**
