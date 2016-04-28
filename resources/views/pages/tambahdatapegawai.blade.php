@@ -40,7 +40,11 @@
               <div class="box-body">
                 <div class="form-group {{ $errors->has('nip') ? 'has-error' : '' }}">
                   <label class="control-label">NIP Baru</label>
-                  <input type="text" name="nip" class="form-control" placeholder="NIP Baru">
+                  <input type="text" name="nip" class="form-control" placeholder="NIP Baru"
+                    @if(!$errors->has('nip'))
+                     value="{{ old('nip') }}"
+                    @endif
+                  >
                   @if($errors->has('nip'))
                     <span class="help-block">
                       <strong>{{ $errors->first('nip')}}
@@ -50,7 +54,11 @@
                 </div>
                 <div class="form-group {{ $errors->has('nip_lama') ? 'has-error' : '' }}">
                   <label class="control-label">NIP Lama</label>
-                <input type="text" name="nip_lama" class="form-control" placeholder="NIP Lama">
+                <input type="text" name="nip_lama" class="form-control" placeholder="NIP Lama"
+                @if(!$errors->has('nip_lama'))
+                   value="{{ old('nip_lama') }}"
+                  @endif
+                >
                 @if($errors->has('nip_lama'))
                   <span class="help-block">
                     <strong>{{ $errors->first('nip_lama')}}
@@ -60,7 +68,11 @@
                 </div>
                 <div class="form-group {{ $errors->has('nama') ? 'has-error' : '' }}">
                   <label class="control-label">Nama Pegawai</label>
-                  <input type="text" name="nama" class="form-control" placeholder="Nama Pegawai">
+                  <input type="text" name="nama" class="form-control" placeholder="Nama Pegawai"
+                    @if(!$errors->has('nama'))
+                     value="{{ old('nama') }}"
+                    @endif
+                  >
                   @if($errors->has('nama'))
                     <span class="help-block">
                       <strong>{{ $errors->first('nama')}}
@@ -70,7 +82,7 @@
                 </div>
                 <div class="form-group {{ $errors->has('alamat') ? 'has-error' : '' }}">
                   <label class="control-label">Alamat</label>
-                  <textarea class="form-control" name="alamat" rows="5" cols="40" placeholder="Alamat"></textarea>
+                  <textarea class="form-control" name="alamat" rows="5" cols="40" placeholder="Alamat">{{ !$errors->has('alamat') ? old('alamat') : '' }}</textarea>
                   @if($errors->has('alamat'))
                     <span class="help-block">
                       <strong>{{ $errors->first('alamat')}}
@@ -84,7 +96,11 @@
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control pull-right" id="tanggal_lahir" name="tanggal_lahir" data-date-format="dd-mm-yyyy">
+                    <input type="text" class="form-control pull-right" id="tanggal_lahir" name="tanggal_lahir" data-date-format="dd-mm-yyyy"
+                      @if(!$errors->has('tanggal_lahir'))
+                       value="{{ old('tanggal_lahir') }}"
+                      @endif
+                    >
                   </div><!-- /.input group -->
                   @if($errors->has('tanggal_lahir'))
                     <span class="help-block">
@@ -95,7 +111,11 @@
                 </div>
                 <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
                   <label for="inputEmail3" class="control-label">Email</label>
-                  <input type="email" name="email" class="form-control" placeholder="Email">
+                  <input type="email" name="email" class="form-control" placeholder="Email"
+                    @if(!$errors->has('email'))
+                     value="{{ old('email') }}"
+                    @endif
+                  >
                   @if($errors->has('email'))
                         <span class="help-block">
                           <strong>{{ $errors->first('email')}}
@@ -107,13 +127,13 @@
                   <label class="control-label">Jenis Kelamin</label>
                   <div class="form-group">
                     <label>
-                      <input type="radio" name="jk" class="minimal" value="L">
+                      <input type="radio" name="jk" class="minimal" value="L" {{ old('jk') == 'L' ? 'checked' : '' }}>
                     </label>
                     &nbsp;
                     <label>Pria</label>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <label>
-                      <input type="radio" name="jk" class="minimal" value="P">
+                      <input type="radio" name="jk" class="minimal" value="P" {{ old('jk') == 'P' ? 'checked' : '' }}>
                     </label>
                     &nbsp;
                     <label>Wanita</label>
@@ -129,11 +149,11 @@
                   <label class="control-label">Agama</label>
                   <select class="form-control" name="agama">
                     <option value=""></option>
-                    <option value="Islam">Islam</option>
-                    <option value="Kristen">Kristen</option>
-                    <option value="Hindu">Hindu</option>
-                    <option value="Budha">Budha</option>
-                    <option value="Lainnya">Lainnya</option>
+                    <option value="Islam" {{ old('agama') == 'Islam' ? 'selected="selected"' : '' }}>Islam</option>
+                    <option value="Kristen" {{ old('agama') == 'Kristen' ? 'selected="selected"' : '' }}>Kristen</option>
+                    <option value="Hindu" {{ old('agama') == 'Hindu' ? 'selected="selected"' : '' }}>Hindu</option>
+                    <option value="Budha" {{ old('agama') == 'Budha' ? 'selected="selected"' : '' }}>Budha</option>
+                    <option value="Lainnya" {{ old('agama') == 'Lainnya' ? 'selected="selected"' : '' }}>Lainnya</option>
                   </select>
                   @if($errors->has('agama'))
                     <span class="help-block">
@@ -147,7 +167,7 @@
                   <select class="form-control" name="jabatan">
                     <option value=""></option>
                     @foreach($getjabatan as $key)
-                      <option value="{{ $key->id }}">{{ $key->kode_jabatan }} - {{ $key->nama_jabatan }}</option>
+                      <option value="{{ $key->id }}" {{ old('jabatan') == $key->id ? 'selected="selected"' : '' }}>{{ $key->kode_jabatan }} - {{ $key->nama_jabatan }}</option>
                     @endforeach
                   </select>
                   @if($errors->has('jabatan'))
@@ -170,7 +190,11 @@
             <div class="box-body">
               <div class="form-group {{ $errors->has('no_ktp') ? 'has-error' : '' }}">
                 <label class="control-label">Nomor KTP</label>
-                <input type="text" name="no_ktp" class="form-control" placeholder="Nomor KTP">
+                <input type="text" name="no_ktp" maxlength="16" class="form-control" placeholder="Nomor KTP"
+                @if(!$errors->has('no_ktp'))
+                 value="{{ old('no_ktp') }}"
+                @endif
+                >
                 @if($errors->has('no_ktp'))
                   <span class="help-block">
                     <strong>{{ $errors->first('no_ktp')}}
@@ -180,7 +204,11 @@
               </div>
               <div class="form-group {{ $errors->has('no_kk') ? 'has-error' : '' }}">
                 <label class="control-label">Nomor KK</label>
-                <input type="text" name="no_kk" class="form-control" placeholder="Nomor KK">
+                <input type="text" name="no_kk" class="form-control" placeholder="Nomor KK"
+                  @if(!$errors->has('no_kk'))
+                   value="{{ old('no_kk') }}"
+                  @endif
+                >
                 @if($errors->has('no_kk'))
                   <span class="help-block">
                     <strong>{{ $errors->first('no_kk')}}
@@ -190,7 +218,11 @@
               </div>
               <div class="form-group {{ $errors->has('no_npwp') ? 'has-error' : '' }}">
                 <label class="control-label">Nomor NPWP</label>
-                <input type="text" name="no_npwp" class="form-control" placeholder="Nomor NPWP">
+                <input type="text" name="no_npwp" class="form-control" placeholder="Nomor NPWP"
+                  @if(!$errors->has('no_npwp'))
+                   value="{{ old('no_npwp') }}"
+                  @endif
+                >
                 @if($errors->has('no_npwp'))
                   <span class="help-block">
                     <strong>{{ $errors->first('no_npwp')}}
@@ -200,7 +232,11 @@
               </div>
               <div class="form-group {{ $errors->has('no_telp') ? 'has-error' : '' }}">
                 <label class="control-label">Nomor Telepon</label>
-                <input type="text" name="no_telp" class="form-control" placeholder="Nomor Telepon">
+                <input type="text" name="no_telp" class="form-control" placeholder="Nomor Telepon"
+                  @if(!$errors->has('no_telp'))
+                   value="{{ old('no_telp') }}"
+                  @endif
+                >
                 @if($errors->has('no_telp'))
                   <span class="help-block">
                     <strong>{{ $errors->first('no_telp')}}
@@ -210,7 +246,11 @@
               </div>
               <div class="form-group {{ $errors->has('no_rekening') ? 'has-error' : '' }}">
                 <label class="control-label">Nomor Rekening</label>
-                <input type="text" name="no_rekening" class="form-control" placeholder="Nomor Rekening">
+                <input type="text" name="no_rekening" class="form-control" placeholder="Nomor Rekening"
+                  @if(!$errors->has('no_rekening'))
+                   value="{{ old('no_rekening') }}"
+                  @endif
+                >
                 @if($errors->has('no_rekening'))
                   <span class="help-block">
                     <strong>{{ $errors->first('no_rekening')}}
@@ -220,7 +260,11 @@
               </div>
               <div class="form-group {{ $errors->has('bpjs_kesehatan') ? 'has-error' : '' }}">
                 <label class="control-label">Nomor BPJS Kesehatan</label>
-                <input type="text" name="bpjs_kesehatan" class="form-control" placeholder="Nomor BPJS Kesehatan">
+                <input type="text" name="bpjs_kesehatan" class="form-control" placeholder="Nomor BPJS Kesehatan"
+                  @if(!$errors->has('bpjs_kesehatan'))
+                   value="{{ old('bpjs_kesehatan') }}"
+                  @endif
+                >
                 @if($errors->has('bpjs_kesehatan'))
                   <span class="help-block">
                     <strong>{{ $errors->first('bpjs_kesehatan')}}
@@ -230,7 +274,11 @@
               </div>
               <div class="form-group {{ $errors->has('bpjs_ketenagakerjaan') ? 'has-error' : '' }}">
                 <label class="control-label">Nomor BPJS Ketenagakerjaan</label>
-                <input type="text" name="bpjs_ketenagakerjaan" class="form-control" placeholder="Nomor BPJS Ketenagakerjaan">
+                <input type="text" name="bpjs_ketenagakerjaan" class="form-control" placeholder="Nomor BPJS Ketenagakerjaan"
+                  @if(!$errors->has('bpjs_ketenagakerjaan'))
+                   value="{{ old('bpjs_ketenagakerjaan') }}"
+                  @endif
+                >
                 @if($errors->has('bpjs_ketenagakerjaan'))
                   <span class="help-block">
                     <strong>{{ $errors->first('bpjs_ketenagakerjaan')}}
@@ -242,8 +290,8 @@
                 <label class="control-label">Status Pajak</label>
                 <select class="form-control" name="status_pajak">
                   <option value=""></option>
-                  <option value="Wajib Pajak">Wajib Pajak</option>
-                  <option value="Tidak Wajib Pajak">Tidak Wajib Pajak</option>
+                  <option value="Wajib Pajak" {{ old('status_pajak') == 'Wajib Pajak' ? 'selected="selected"' : '' }}>Wajib Pajak</option>
+                  <option value="Tidak Wajib Pajak" {{ old('status_pajak') == 'Tidak Wajib Pajak' ? 'selected="selected"' : '' }}>Tidak Wajib Pajak</option>
                 </select>
                 @if($errors->has('status_pajak'))
                   <span class="help-block">
@@ -256,8 +304,8 @@
                 <label class="control-label">Kewarganegaraan</label>
                 <select class="form-control" name="kewarganegaraan">
                   <option value=""></option>
-                  <option value="WNI">WNI</option>
-                  <option value="WNA">WNA</option>
+                  <option value="WNI" {{ old('kewarganegaraan') == 'WNI' ? 'selected="selected"' : '' }}>WNI</option>
+                  <option value="WNA" {{ old('kewarganegaraan') == 'WNA' ? 'selected="selected"' : '' }}>WNA</option>
                 </select>
                 @if($errors->has('kewarganegaraan'))
                   <span class="help-block">
