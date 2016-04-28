@@ -69,6 +69,19 @@ class MasterClientController extends Controller
     }
 
     /**
+    * Display the Client From Cabang
+    * @param int $id
+    * @return \Illuminate\Http\Response
+    */
+    public function cabang_client_show($id)
+    {
+        $MasterClient = MasterClient::where('id', '=', $id)->first();
+        $CabangClient = CabangClient::where('id_client', '=', $id)->paginate(6);
+
+        return view('pages/MasterClient/cabangclient', compact('MasterClient','CabangClient'));
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

@@ -49,10 +49,7 @@ class CabangClientController extends Controller
      */
     public function show($id)
     {
-      $MasterClient = MasterClient::where('id', '=', $id)->first();
-      $CabangClient = CabangClient::where('id_client', '=', $id)->paginate(5);
-
-      return view('pages/MasterClient/cabangclient', compact('MasterClient','CabangClient'));
+      //
     }
 
     /**
@@ -88,7 +85,9 @@ class CabangClientController extends Controller
       );
       $CabangClient->update($cabangClient);
 
-      return back()->with('ubah', 'Berhasil Mengubah Data Cabang');
+      //return back()->with('ubah', 'Berhasil Mengubah Data Cabang');
+      //return redirect()->route('cabangclient', ['id' => $id], 'edit');
+      return redirect()->action('CabangClientController@edit', ['id' => $id]);
     }
 
     /**
