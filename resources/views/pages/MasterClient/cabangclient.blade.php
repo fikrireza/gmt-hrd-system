@@ -21,7 +21,7 @@
       $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
           $(this).remove();
       });
-    }, 2000);
+    }, 1500);
     </script>
       <div class="row">
         <div class="col-md-12">
@@ -69,7 +69,7 @@
                         <div class="col-sm-8">
                           <input type="text" name="kode_cabang" class="form-control" placeholder="Kode Cabang" maxlength="5"
                           @if(isset($CabangEdit))
-                  				  value="{{$CabangEdit->kode_cabang}}"
+                  				  value="{{$CabangEdit->kode_cabang}}" readonly=""
                   				@else
                   				value="{{ old('kode_cabang') }}"
                   				@endif

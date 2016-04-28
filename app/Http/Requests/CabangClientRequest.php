@@ -39,7 +39,7 @@ class CabangClientRequest extends Request {
 		        case 'PATCH':
 		        {
 		            return [
-									'kode_cabang' => 'required|max:5|unique:cabang_client,kode_cabang,'.$this->cabangclient->id,
+									'kode_cabang' => 'required|max:5|unique:cabang_client,id,'.$this->id,
 									'nama_cabang' => 'required|max:40',
 									'alamat_cabang' => 'required|max:150',
 									'id_client' => 'required'

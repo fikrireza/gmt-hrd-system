@@ -78,16 +78,17 @@ class CabangClientController extends Controller
      */
     public function update($id, CabangClientRequest $request)
     {
-      $CabangClient = MasterClient::findOrFail($id);
+      $CabangClient = CabangClient::findOrFail($id);
 
       $cabangClient = array(
         'kode_cabang' => $request->get('kode_cabang'),
         'nama_cabang' => $request->get('nama_cabang'),
         'alamat_cabang' => $request->get('nama_cabang'),
+        'id_client' => $request->get('id_client'),
       );
       $CabangClient->update($cabangClient);
 
-      //return redirect('cabangclient')->with('update', 'Berhasil Mengubah Data Client');
+      return back()->with('ubah', 'Berhasil Mengubah Data Cabang');
     }
 
     /**
