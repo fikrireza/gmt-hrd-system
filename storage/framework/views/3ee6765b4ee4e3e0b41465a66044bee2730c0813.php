@@ -167,8 +167,10 @@
                 <td><?php echo e($key->kode_jabatan); ?></td>
                 <td><?php echo e($key->nama_jabatan); ?></td>
                 <td>
-                  <a href="<?php echo e(route('masterjabatan.edit', $key->id)); ?>" class="btn btn-warning"><i class="fa fa-edit"></i></a>
-                  <a href="" class="btn btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="<?php echo e($key->id); ?>"><i class="fa fa-remove"></i></a>
+                  <a href="<?php echo e(route('masterjabatan.edit', $key->id)); ?>" class="btn btn-warning" data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit"></i></a>
+                  <span data-toggle="tooltip" title="Hapus Data">
+                    <a href="" class="btn btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="<?php echo e($key->id); ?>"><i class="fa fa-remove"></i></a>
+                  </span>
                 </td>
                 <?php $i++; ?>
               </tr>

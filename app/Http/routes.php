@@ -24,6 +24,8 @@ Route::post('loginprocess', 'CustomAuthController@loginprocess');
 Route::get('logoutprocess', 'CustomAuthController@logoutprocess');
 
 Route::resource('masterpegawai', 'MasterPegawaiController');
+Route::get('datatables', ['as'=>'datatables.data', 'uses'=>'MasterPegawaiController@getDataForDataTable']);
+
 Route::resource('masterjabatan', 'MasterJabatanController');
 Route::get('masterjabatan/hapusjabatan/{id}', ['as'=>'masterjabatan.hapusjabatan', 'uses'=>'MasterJabatanController@hapusJabatan']);
 

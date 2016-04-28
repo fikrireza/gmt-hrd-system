@@ -27,6 +27,7 @@
     23 => 'App\\Providers\\EventServiceProvider',
     24 => 'App\\Providers\\RouteServiceProvider',
     25 => 'Collective\\Html\\HtmlServiceProvider',
+    26 => 'Yajra\\Datatables\\DatatablesServiceProvider',
   ),
   'eager' => 
   array (
@@ -43,6 +44,7 @@
     10 => 'App\\Providers\\AuthServiceProvider',
     11 => 'App\\Providers\\EventServiceProvider',
     12 => 'App\\Providers\\RouteServiceProvider',
+    13 => 'Yajra\\Datatables\\DatatablesServiceProvider',
   ),
   'deferred' => 
   array (

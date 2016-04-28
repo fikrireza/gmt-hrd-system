@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Http\Requests\MasterPegawaiRequest;
 use App\MasterPegawai;
 use App\MasterJabatan;
+use Datatables;
 
 class MasterPegawaiController extends Controller
 {
@@ -19,7 +20,7 @@ class MasterPegawaiController extends Controller
      */
     public function index()
     {
-
+      return view('pages.viewpegawai');
     }
 
     /**
@@ -110,5 +111,23 @@ class MasterPegawaiController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getDataForDataTable()
+    {
+      $users = MasterPegawai::select(['nip','nama','jenis_kelamin', 'no_telp', 'nama_jabatan'])
+        ->join('master_jabatan','master_pegawai.id_jabatan','=', 'master_jabatan.id');
+
+      return Datatables::of($users)
+        ->addColumn('action', function(){
+          return "<a href='#' class='btn btn-primary' data-toggle='tooltip' title='Lihat Detail'><i class='fa fa-eye'></i></a>";
+        })
+        ->editColumn('jenis_kelamin', function($users){
+          if($users->jenis_kelamin=="L")
+            return "Laki-Laki";
+          else
+            return "Perempuan";
+        })
+        ->make();
     }
 }
