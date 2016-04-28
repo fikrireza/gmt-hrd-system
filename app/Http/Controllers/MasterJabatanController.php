@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\MasterJabatanRequest;
+use App\Http\Requests\MasterJabatanEditRequest;
 
 
 use App\Http\Requests;
@@ -82,7 +83,7 @@ class MasterJabatanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MasterJabatanRequest $request, $id)
+    public function update(MasterJabatanEditRequest $request, $id)
     {
         $newchanges = MasterJabatan::find($id);
         $newchanges->kode_jabatan = $request->kode_jabatan;

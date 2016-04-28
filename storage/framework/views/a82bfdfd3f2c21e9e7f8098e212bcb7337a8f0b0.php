@@ -26,8 +26,16 @@
 
   <div class="row">
     <!-- Master Client -->
+    <script>
+    window.setTimeout(function() {
+      $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove();
+      });
+    }, 2000);
+    </script>
+    <div class="col-md-12">
     <?php if(session('tambah')): ?>
-      <div class="alert alert-success alert-dismissable">
+      <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4>	<i class="icon fa fa-check"></i> Sukses!</h4>
         <?php echo e(session('tambah')); ?>
@@ -35,13 +43,14 @@
       </div>
     <?php endif; ?>
     <?php if(session('update')): ?>
-      <div class="alert alert-success alert-dismissable">
+      <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4>	<i class="icon fa fa-check"></i> Sukses!</h4>
         <?php echo e(session('update')); ?>
 
       </div>
     <?php endif; ?>
+  </div>
     <?php foreach($CountAll as $client): ?>
     <div class="col-md-4">
       <div class="box box-widget widget-user-2">
@@ -53,7 +62,7 @@
         </div>
         <div class="box-footer no-padding">
           <ul class="nav nav-stacked">
-            <li><a href="<?php echo e(url('masterclient/cabang', $client->id)); ?>">Cabang Client <span class="pull-right badge bg-blue"><?php echo e($client->hitung); ?></span></a></li>
+            <li><a href="<?php echo e(url('cabangclient', $client->id)); ?>">Cabang Client <span class="pull-right badge bg-blue"><?php echo e($client->hitungCabang); ?></span></a></li>
             <li><a href="<?php echo e(url('masterclient/departemen', $client->id )); ?>">Department Client <span class="pull-right badge bg-blue">0</span></a></li>
           </ul>
         </div>

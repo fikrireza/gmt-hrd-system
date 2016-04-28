@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 
 use App\Http\Requests;
+use App\Http\Requests\MasterPegawaiRequest;
 use App\MasterPegawai;
 use App\MasterJabatan;
 
@@ -38,7 +39,7 @@ class MasterPegawaiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MasterPegawaiRequest $request)
     {
         $pegawai = new MasterPegawai;
         $pegawai->nip = $request->nip;

@@ -1,13 +1,17 @@
 @extends('layouts.master')
 
 @section('title')
-  <title>Tambah Data Jabatan</title>
+  @if(isset($data['bindjabatan']))
+    <title>Edit Data Jabatan</title>
+  @else
+    <title>Tambah Data Jabatan</title>
+  @endif
 @stop
 
 @section('breadcrumb')
   <h1>
-    Dashboard
-    <small>Control panel</small>
+    Master Jabatan
+    <small>Kelola Data Jabatan</small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -16,6 +20,13 @@
 @stop
 
 @section('content')
+    <script>
+      window.setTimeout(function() {
+        $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+      }, 2000);
+    </script>
 
     <!-- Modal -->
     <div class="modal modal-warning fade" id="myModal" role="dialog">
@@ -44,8 +55,9 @@
     <!--column -->
     <div class="col-md-12">
       @if(Session::has('message'))
-        <div class="callout callout-success">
-          <h4>Berhasil!</h4>
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
           <p>{{ Session::get('message') }}</p>
         </div>
       @endif
@@ -54,7 +66,11 @@
       <!-- Horizontal Form -->
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">Formulir Tambah Data Jabatan</h3>
+          @if(isset($data['bindjabatan']))
+            <h3 class="box-title">Formulir Edit Data Jabatan</h3>
+          @else
+            <h3 class="box-title">Formulir Tambah Data Jabatan</h3>
+          @endif
         </div><!-- /.box-header -->
         <!-- form start -->
         @if(isset($data['bindjabatan']))
@@ -69,7 +85,7 @@
               <div class="col-sm-9">
                 <input
                   @if(isset($data['bindjabatan']))
-                    value="{{$data['bindjabatan']->kode_jabatan}}"
+                    value="{{$data['bindjabatan']->kode_jabatan}}" readonly="true"
                   @endif
                   type="text" name="kode_jabatan" class="form-control" placeholder="Kode Jabatan" maxlength="6"
                   @if(!$errors->has('kode_jabatan'))

@@ -1,11 +1,15 @@
 <?php $__env->startSection('title'); ?>
-  <title>Tambah Data Jabatan</title>
+  <?php if(isset($data['bindjabatan'])): ?>
+    <title>Edit Data Jabatan</title>
+  <?php else: ?>
+    <title>Tambah Data Jabatan</title>
+  <?php endif; ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('breadcrumb'); ?>
   <h1>
-    Dashboard
-    <small>Control panel</small>
+    Master Jabatan
+    <small>Kelola Data Jabatan</small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -14,6 +18,13 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
+    <script>
+      window.setTimeout(function() {
+        $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+      }, 2000);
+    </script>
 
     <!-- Modal -->
     <div class="modal modal-warning fade" id="myModal" role="dialog">
@@ -42,8 +53,9 @@
     <!--column -->
     <div class="col-md-12">
       <?php if(Session::has('message')): ?>
-        <div class="callout callout-success">
-          <h4>Berhasil!</h4>
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
           <p><?php echo e(Session::get('message')); ?></p>
         </div>
       <?php endif; ?>
@@ -52,7 +64,11 @@
       <!-- Horizontal Form -->
       <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title">Formulir Tambah Data Jabatan</h3>
+          <?php if(isset($data['bindjabatan'])): ?>
+            <h3 class="box-title">Formulir Edit Data Jabatan</h3>
+          <?php else: ?>
+            <h3 class="box-title">Formulir Tambah Data Jabatan</h3>
+          <?php endif; ?>
         </div><!-- /.box-header -->
         <!-- form start -->
         <?php if(isset($data['bindjabatan'])): ?>
@@ -69,7 +85,7 @@
               <div class="col-sm-9">
                 <input
                   <?php if(isset($data['bindjabatan'])): ?>
-                    value="<?php echo e($data['bindjabatan']->kode_jabatan); ?>"
+                    value="<?php echo e($data['bindjabatan']->kode_jabatan); ?>" readonly="true"
                   <?php endif; ?>
                   type="text" name="kode_jabatan" class="form-control" placeholder="Kode Jabatan" maxlength="6"
                   <?php if(!$errors->has('kode_jabatan')): ?>
