@@ -38,7 +38,7 @@
         </div>
         <div class="logo-name-custom">
           <div class="head-logo-name">
-            PT. Ganda Mady Pratama
+            PT. Ganda Mady Indotama
           </div>
           <div>
             Human Resources Information Systems

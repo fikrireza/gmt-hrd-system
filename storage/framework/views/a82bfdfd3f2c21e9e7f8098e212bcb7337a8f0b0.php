@@ -62,7 +62,7 @@
         </div>
         <div class="box-footer no-padding">
           <ul class="nav nav-stacked">
-            <li><a href="<?php echo e(url('cabangclient', $client->id)); ?>">Cabang Client <span class="pull-right badge bg-blue"><?php echo e($client->hitungCabang); ?></span></a></li>
+            <li><a href="<?php echo e(url('masterclient/cabang', $client->id)); ?>">Cabang Client <span class="pull-right badge bg-blue"><?php echo e($client->hitungCabang); ?></span></a></li>
             <li><a href="<?php echo e(url('masterclient/departemen', $client->id )); ?>">Department Client <span class="pull-right badge bg-blue">0</span></a></li>
           </ul>
         </div>

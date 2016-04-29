@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\MasterJabatanRequest;
 use App\Http\Requests\MasterJabatanEditRequest;
-
-
 use App\Http\Requests;
 use App\MasterJabatan;
+use DB;
 
 class MasterJabatanController extends Controller
 {
@@ -29,7 +28,7 @@ class MasterJabatanController extends Controller
      */
     public function create()
     {
-        $getjabatan = MasterJabatan::all()->where('status', '1');
+        $getjabatan = DB::table('master_jabatan')->where('status', '1')->get();
         $data['getjabatan'] = $getjabatan;
         return view('pages/tambahjabatan')->with('data', $data);
     }

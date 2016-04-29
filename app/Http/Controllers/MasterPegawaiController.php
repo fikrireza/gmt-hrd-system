@@ -116,7 +116,7 @@ class MasterPegawaiController extends Controller
     public function getDataForDataTable()
     {
       $users = MasterPegawai::select(['nip','nama','jenis_kelamin', 'no_telp', 'nama_jabatan'])
-        ->join('master_jabatan','master_pegawai.id_jabatan','=', 'master_jabatan.id');
+        ->join('master_jabatan','master_pegawai.id_jabatan','=', 'master_jabatan.id')->get();
 
       return Datatables::of($users)
         ->addColumn('action', function(){

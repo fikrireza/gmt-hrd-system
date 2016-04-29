@@ -23,7 +23,7 @@
             Data ditampilkan dalam bentuk tabular.
         </div>
         <div class="box-body">
-          <table class="table table-bordered table-striped" id="tabelpegawai">
+          <table class="table table-hover" id="tabelpegawai">
             <thead>
               <tr>
                 <th>NIP</th>
@@ -65,12 +65,12 @@
             serverSide: true,
             ajax: '<?php echo route('datatables.data'); ?>',
             column: [
-              {data: 'nip', name: 'nip'},
-              {data: 'nama', name: 'name'},
-              {data: 'jenis_kelamin', name: 'jenis_kelamin'},
-              {data: 'no_telp', name: 'no_telp'},
-              {data: 'id_jabatan', name: 'id_jabatan'},
-              {data: 'action', name: 'action', orderable: false, searchable: false}
+              {data: '0', name: 'nip'},
+              {data: '1', name: 'name'},
+              {data: '2', name: 'jenis_kelamin'},
+              {data: '3', name: 'no_telp'},
+              {data: '4', name: 'nama_jabatan'},
+              {data: '5', name: 'action', orderable: false, searchable: false}
             ]
         });
     });

@@ -157,10 +157,10 @@
               <th>Nama Jabatan</th>
               <th>Aksi</th>
             </tr>
-            <?php $i = 1; ?>
+            <?php $pageget = 1; ?>
             @foreach($data['getjabatan'] as $key)
               <tr>
-                <td>{{ $i }}</td>
+                <td>{{ $pageget }}</td>
                 <td>{{ $key->kode_jabatan }}</td>
                 <td>{{ $key->nama_jabatan }}</td>
                 <td>
@@ -169,11 +169,14 @@
                     <a href="" class="btn btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
                   </span>
                 </td>
-                <?php $i++; ?>
               </tr>
+              <?php $pageget++; ?>
             @endforeach
           </table>
         </div><!-- /.box-body -->
+        {{-- <div class="box-footer clearfix pull-right">
+          {!! $data['getjabatan']->links() !!}
+        </div> --}}
       </div><!-- /.box -->
     </div>
   </div>   <!-- /.row -->

@@ -160,10 +160,10 @@
               <th>Nama Jabatan</th>
               <th>Aksi</th>
             </tr>
-            <?php $i = 1; ?>
+            <?php $pageget = 1; ?>
             <?php foreach($data['getjabatan'] as $key): ?>
               <tr>
-                <td><?php echo e($i); ?></td>
+                <td><?php echo e($pageget); ?></td>
                 <td><?php echo e($key->kode_jabatan); ?></td>
                 <td><?php echo e($key->nama_jabatan); ?></td>
                 <td>
@@ -172,11 +172,15 @@
                     <a href="" class="btn btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="<?php echo e($key->id); ?>"><i class="fa fa-remove"></i></a>
                   </span>
                 </td>
-                <?php $i++; ?>
               </tr>
+              <?php $pageget++; ?>
             <?php endforeach; ?>
           </table>
         </div><!-- /.box-body -->
+        <?php /* <div class="box-footer clearfix pull-right">
+          <?php echo $data['getjabatan']->links(); ?>
+
+        </div> */ ?>
       </div><!-- /.box -->
     </div>
   </div>   <!-- /.row -->

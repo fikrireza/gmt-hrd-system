@@ -16,12 +16,20 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
+    <script>
+      window.setTimeout(function() {
+        $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+      }, 2000);
+    </script>
+
     <form class="" method="post" action="<?php echo e(url('masterpegawai')); ?>">
       <div class="row">
         <!--column -->
         <div class="col-md-12">
           <?php if(Session::has('message')): ?>
-            <div class="callout callout-success">
+            <div class="alert alert-success">
               <h4>Berhasil!</h4>
               <p><?php echo e(Session::get('message')); ?></p>
             </div>

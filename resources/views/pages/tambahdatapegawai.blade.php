@@ -18,12 +18,20 @@
 @stop
 
 @section('content')
+    <script>
+      window.setTimeout(function() {
+        $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+      }, 2000);
+    </script>
+
     <form class="" method="post" action="{{url('masterpegawai')}}">
       <div class="row">
         <!--column -->
         <div class="col-md-12">
           @if(Session::has('message'))
-            <div class="callout callout-success">
+            <div class="alert alert-success">
               <h4>Berhasil!</h4>
               <p>{{ Session::get('message') }}</p>
             </div>
