@@ -164,6 +164,7 @@
                       <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                         <thead>
                           <tr role="row">
+                            <th>No</th>
                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Kode cabang</th>
                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Nama cabang</th>
                             <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Alamat Cabang</th>
@@ -171,8 +172,21 @@
                           </tr>
                         </thead>
                         <tbody>
+                          <?php
+                            $page = $CabangClient->currentPage();
+                            if($page == 1){
+                              $no = 1;
+                            }elseif($page == 2){
+                              $no = 11;
+                            }elseif($page == 3){
+                              $no = 21;
+                            }elseif($page == 4){
+                              $no = 31;
+                            }
+                           ?>
                           @foreach($CabangClient as $Cabang)
                             <tr>
+                              <td>{!! $no++ !!}</td>
                               <td class="">{!! $Cabang->kode_cabang !!}</td>
                               <td class="">{!! $Cabang->nama_cabang !!}</td>
                               <td class="">{!! $Cabang->alamat_cabang !!}</td>
@@ -186,7 +200,7 @@
                   </div>
                   <div class="row">
                     <div class="col-sm-5">
-                  <!--<div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>-->
+                      <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $CabangClient->count() !!} dari {!! $CabangClient->total() !!} Cabang</div>
                     </div>
                     <div class="col-sm-7">
                       <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">

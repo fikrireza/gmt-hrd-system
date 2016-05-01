@@ -76,8 +76,7 @@ class MasterClientController extends Controller
     public function cabang_client_show($id)
     {
         $MasterClient = MasterClient::where('id', '=', $id)->first();
-        $CabangClient = CabangClient::where('id_client', '=', $id)->paginate(6);
-        //$CabangClient->setPath('');
+        $CabangClient = CabangClient::where('id_client', '=', $id)->paginate(10);
 
         return view('pages/MasterClient/cabangclient', compact('MasterClient','CabangClient'));
     }
