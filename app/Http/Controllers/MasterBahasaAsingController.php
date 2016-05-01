@@ -27,11 +27,11 @@ class MasterBahasaAsingController extends Controller
 
   public function create()
   {
-    $getpegawai = MasterPegawai::all()->where('status', 1);
-    $getbahasaasing = MasterBahasaAsing::all();
-    $data['getbahasaasing'] =$getbahasaasing;
+    // $getpegawai = MasterPegawai::all()->where('status', 1);
+    // $getbahasaasing = MasterBahasaAsing::all();
+    // $data['getbahasaasing'] =$getbahasaasing;
 
-    return view ('pages/tambahbahasaasing')->with('data', $data);
+    return view('pages/tambahbahasaasing');
   }
 
   public function store(MasterBahasaAsingRequest $request)

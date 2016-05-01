@@ -30,8 +30,7 @@ class MasterPegawaiController extends Controller
      */
     public function create()
     {
-      $getjabatan = MasterJabatan::all()->where('status', 1);
-      // dd($getjabatan);
+      $getjabatan = MasterJabatan::where('status', 1)->get();
       return view('pages/tambahdatapegawai')->with('getjabatan', $getjabatan);
     }
 

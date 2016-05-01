@@ -18,7 +18,7 @@ class MasterJabatanController extends Controller
      */
     public function index()
     {
-        //
+        // return view('pages/tambahbahasaasing');
     }
 
     /**
@@ -28,7 +28,7 @@ class MasterJabatanController extends Controller
      */
     public function create()
     {
-        $getjabatan = DB::table('master_jabatan')->where('status', '1')->get();
+        $getjabatan = MasterJabatan::where('status', 1)->get();
         $data['getjabatan'] = $getjabatan;
         return view('pages/tambahjabatan')->with('data', $data);
     }
@@ -68,7 +68,7 @@ class MasterJabatanController extends Controller
      */
     public function edit($id)
     {
-        $getjabatan = MasterJabatan::all()->where('status', '1');
+        $getjabatan = MasterJabatan::where('status', 1)->get();
         $data['getjabatan'] = $getjabatan;
         $bindjabatan = MasterJabatan::find($id);
         $data['bindjabatan'] = $bindjabatan;
