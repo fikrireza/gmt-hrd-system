@@ -4,15 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
+use App\Http\Requests;
 use App\Http\Requests\MasterBahasaAsingRequest;
 use App\MasterPegawai;
 use App\Models\MasterBahasaAsing;
 use Datatables;
+use DB;
 
 class MasterBahasaAsingController extends Controller
 {
+
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
   public function index()
   {
     // return view('pages.tambahbahasaasing');
@@ -21,7 +28,7 @@ class MasterBahasaAsingController extends Controller
   public function create()
   {
     $getpegawai = MasterPegawai::all()->where('status', 1);
-    $getbahasaasing = DB::table('bahasa_asing')->where('status', '1')->get();
+    $getbahasaasing = MasterBahasaAsing::all();
     $data['getbahasaasing'] =$getbahasaasing;
 
     return view ('pages/tambahbahasaasing')->with('data', $data);

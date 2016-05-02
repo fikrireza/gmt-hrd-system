@@ -65,6 +65,7 @@
         <li><a href="{{ route('masterbahasaasing.create') }}"><i class="fa fa-circle-o"></i> Kelola Data Bahasa Asing</a></li>
       </ul>
     </li>
+
     <li class="treeview">
       <a href="#">
         <i class="fa fa-building-o"></i>

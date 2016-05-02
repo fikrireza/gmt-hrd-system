@@ -29,7 +29,7 @@ Route::get('datatables', ['as'=>'datatables.data', 'uses'=>'MasterPegawaiControl
 Route::resource('masterjabatan', 'MasterJabatanController');
 Route::get('masterjabatan/hapusjabatan/{id}', ['as'=>'masterjabatan.hapusjabatan', 'uses'=>'MasterJabatanController@hapusJabatan']);
 
-Route::resourse('masterbahasaasing', 'MasterBahasaAsingController');
+Route::resource('masterbahasaasing', 'MasterBahasaAsingController');
 Route::get('masterbahasaasing/delete/{id}', ['as'=>'masterbahasaasing.delete', 'uses'=>'MasterBahasaAsingController@delete']);
 
 Route::resource('masterclient','MasterClientController');
