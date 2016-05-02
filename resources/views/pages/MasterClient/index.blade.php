@@ -17,13 +17,9 @@
 @section('content')
 
   <div class="row">
-  <div class="col-md-12">
-  <div class="box">
-    <div class="btn-group-vertical">
-      <a href="{{url('masterclient/create')}}"><button type="button" class="btn btn-success">Tambah Client</button></a>
+    <div class="col-md-3">
+      <a href="{{url('masterclient/create')}}" class="btn btn-primary btn-block margin-bottom">Tambah Client</a>
     </div>
-  </div>
-  </div>
   </div>
 
   <div class="row">
