@@ -17,7 +17,7 @@
 @section('content')
 
   <div class="row">
-  <div class="col-md-1">
+  <div class="col-md-12">
   <div class="box">
     <div class="btn-group-vertical">
       <a href="{{url('masterclient/create')}}"><button type="button" class="btn btn-success">Tambah Client</button></a>
@@ -63,7 +63,6 @@
         <div class="box-footer no-padding">
           <ul class="nav nav-stacked">
             <li><a href="{{ url('masterclient/cabang', $client->id)}}">Cabang Client <span class="pull-right badge bg-blue">{{ $client->hitungCabang}}</span></a></li>
-            <li><a href="{{ url('masterclient/departemen', $client->id )}}">Department Client <span class="pull-right badge bg-blue">0</span></a></li>
           </ul>
         </div>
       </div><!-- /.widget-user -->
