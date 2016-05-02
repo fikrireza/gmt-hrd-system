@@ -62,7 +62,7 @@ class CabangClientController extends Controller
     {
       $CabangEdit = CabangClient::findOrFail($id);
       $MasterClient = MasterClient::where('id', '=', $CabangEdit->id_client)->first();
-      $CabangClient = CabangClient::where('id_client', '=', $MasterClient->id)->paginate(6);
+      $CabangClient = CabangClient::where('id_client', '=', $MasterClient->id)->paginate(10);
       return view('pages/MasterClient/cabangclient', compact('CabangEdit','CabangClient','MasterClient'));
     }
 
