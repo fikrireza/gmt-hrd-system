@@ -27,11 +27,18 @@
 
       <div class="row">
         <div class="col-md-12">
-        @if (session('status'))
+        @if (session('tambah'))
           <div class="alert alert-success">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
             <h4>	<i class="icon fa fa-check"></i> Sukses!</h4>
-            {{ session('status') }}
+            {{ session('tambah') }}
+          </div>
+        @endif
+        @if (session('ubah'))
+          <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4>	<i class="icon fa fa-check"></i> Sukses!</h4>
+            {{ session('ubah') }}
           </div>
         @endif
         </div>
@@ -39,7 +46,12 @@
         <div class="col-md-5">
         <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Tambah Departemen Cabang : {!! $CabangClient->nama_cabang !!}</h3>
+              <h3 class="box-title">
+                @if(isset($DepartemenEdit))
+                  Ubah Data Departemen Cabang Client
+                @else
+                  Tambah Departemen Cabang : {!! $CabangClient->nama_cabang !!}
+                @endif</h3>
               <div class="box-tools pull-right">
                 <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
               </div>
@@ -47,13 +59,22 @@
             <div class="box-body" style="display: block;">
               <div class="row">
                 <div class="col-md-12">
-                  <form class="form-horizontal" method="post" action="{{url('departemencabang')}}">
+                  @if(isset($DepartemenEdit))
+                    {!! Form::model($DepartemenCabang, ['method' => 'PATCH', 'url' => ['departemencabang', $DepartemenEdit->id], 'class' => 'form-horizontal']) !!}
+                  @else
+                    <form class="form-horizontal" method="post" action="{{url('departemencabang')}}">
+                  @endif
                     {!! csrf_field() !!}
                     <div class="box-body">
                       <div class="form-group {{ $errors->has('kode_departemen') ? 'has-error' : '' }}">
                         <label class="col-sm-5 control-label">Kode Departemen</label>
                         <div class="col-sm-7">
-                          <input type="text" name="kode_departemen" class="form-control" placeholder="Kode Departemen" maxlength="5" value="{{ old('kode_departemen') }}">
+                          <input type="text" name="kode_departemen" class="form-control" placeholder="Kode Departemen" maxlength="5" @if(isset($DepartemenEdit))
+                            value="{{ $DepartemenEdit->kode_departemen}}" readonly=""
+                          @else
+                            value="{{ old('kode_departemen') }}"
+                          @endif
+                          >
                           @if($errors->has('kode_departemen'))
                             <span class="help-block">
                               <strong>{{ $errors->first('kode_departemen')}}
@@ -65,7 +86,11 @@
                       <div class="form-group {{ $errors->has('nama_departemen') ? 'has-error' : '' }}">
                         <label class="col-sm-5 control-label">Nama Departemen</label>
                         <div class="col-sm-7">
-                          <input type="text" name="nama_departemen" class="form-control" placeholder="Nama Departemen" maxlength="45" value="{{ old('nama_departemen') }}">
+                          <input type="text" name="nama_departemen" class="form-control" placeholder="Nama Departemen" maxlength="45" @if(isset($DepartemenEdit))
+                            value="{{ $DepartemenEdit->nama_departemen}}"
+                          @else
+                            value="{{ old('nama_departemen') }}"
+                          @endif>
                           @if($errors->has('nama_departemen'))
                             <span class="help-block">
                               <strong>{{ $errors->first('nama_departemen')}}
@@ -77,7 +102,12 @@
                       <input type="hidden" name="id_cabang" class="form-control" value="{!! $CabangClient->id !!}">
                     </div><!-- /.box-body -->
                     <div class="box-footer">
-                      <button type="submit" class="btn btn-info pull-right">Simpan</button>
+                      @if(isset($DepartemenEdit))
+                        <button type="submit" class="btn btn-info pull-right">Ubah Departemen Cabang</button>
+                      @else
+                        <button type="submit" class="btn btn-info pull-right">Simpan Departemen</button>
+                      @endif
+
                     </div><!-- /.box-footer -->
                   </form>
                 </div><!-- /.col -->
@@ -117,17 +147,30 @@
                         <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                     <thead>
                       <tr role="row">
+                        <th>No</th>
                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Kode Departemen</th>
                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Nama Departemen</th>
                         <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
+                      <?php $page = $DepartemenCabang->currentPage();
+                      if($page == 1){
+                        $no = 1;
+                      }elseif($page == 2){
+                        $no = 11;
+                      }elseif($page == 3){
+                        $no = 21;
+                      }elseif($page == 4){
+                        $no = 31;
+                      }
+                      ?>
                     @foreach($DepartemenCabang as $Departemen)
                     <tr>
+                      <td>{!! $no++ !!}</td>
                       <td class="">{!! $Departemen->kode_departemen !!}</td>
                       <td class="">{!! $Departemen->nama_departemen !!}</td>
-                      <td><a href="" class="btn btn-warning"><i class="fa fa-edit"></i></a></td>
+                      <td><a href="{{ url('departemencabang', $Departemen->id).('/edit')}}" class="btn btn-warning"><i class="fa fa-edit"></i></a></td>
                     </tr>
                     @endforeach
                     </tbody>
@@ -136,7 +179,7 @@
               </div>
               <div class="row">
                 <div class="col-sm-5">
-                  <!--<div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>-->
+                  <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $DepartemenCabang->count() !!} dari {!! $DepartemenCabang->total() !!} Departemen</div>
                 </div>
                 <div class="col-sm-7">
                   <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">

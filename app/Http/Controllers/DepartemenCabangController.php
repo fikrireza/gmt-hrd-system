@@ -62,7 +62,11 @@ class DepartemenCabangController extends Controller
      */
     public function edit($id)
     {
-        //
+      $DepartemenEdit = DepartemenCabang::findOrFail($id);
+      $CabangClient     = CabangClient::where('id', '=', $DepartemenEdit->id_cabang)->first();
+      $DepartemenCabang = DepartemenCabang::where('id_cabang', '=', $CabangClient->id)->paginate(10);
+
+      return view('pages/MasterClient/departemencabang', compact('DepartemenEdit','CabangClient','DepartemenCabang'));
     }
 
     /**
@@ -72,9 +76,12 @@ class DepartemenCabangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id, DepartemenCabangRequest $request)
     {
-        //
+      $DepartemenCabang = DepartemenCabang::find($id);
+      $DepartemenCabang->update($request->all());
+
+      return redirect()->action('DepartemenCabangController@edit', ['id' => $id]); 
     }
 
     /**

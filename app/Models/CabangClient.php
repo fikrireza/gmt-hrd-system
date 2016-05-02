@@ -12,7 +12,7 @@ class CabangClient extends Model  {
 	protected $table = 'cabang_client';
 
   protected $fillable = [
-      'kode_cabang', 'nama_cabang', 'id_client'
+      'kode_cabang', 'nama_cabang', 'alamat_cabang', 'id_client'
   ];
 	/**
 	 * Many to Many relation

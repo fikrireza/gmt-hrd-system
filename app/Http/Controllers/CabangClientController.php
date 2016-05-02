@@ -76,22 +76,8 @@ class CabangClientController extends Controller
     public function update($id, CabangClientRequest $request)
     {
       $cabangClient = CabangClient::find($id);
-      $cabangClient->kode_cabang = $request->kode_cabang;
-      $cabangClient->nama_cabang = $request->nama_cabang;
-      $cabangClient->alamat_cabang = $request->alamat_cabang;
-      $cabangClient->id_client = $request->id_client;
-      $cabangClient->save();
+      $cabangClient->update($request->all());
 
-      // $cabangClient = array(
-      //   'kode_cabang' => $request->get('kode_cabang'),
-      //   'nama_cabang' => $request->get('nama_cabang'),
-      //   'alamat_cabang' => $request->get('alamat_cabang'),
-      //   'id_client' => $request->get('id_client'),
-      // );
-      // $CabangClient->update($cabangClient);
-
-      //return back()->with('ubah', 'Berhasil Mengubah Data Cabang');
-      //return redirect()->route('cabangclient', ['id' => $id], 'edit');
       return redirect()->action('CabangClientController@edit', ['id' => $id]);
     }
 
