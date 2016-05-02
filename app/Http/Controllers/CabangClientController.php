@@ -31,14 +31,10 @@ class CabangClientController extends Controller
      */
     public function store(CabangClientRequest $request)
     {
-        $CabangClient = new CabangClient;
-        $CabangClient->kode_cabang = $request->kode_cabang;
-        $CabangClient->nama_cabang = $request->nama_cabang;
-        $CabangClient->alamat_cabang = $request->alamat_cabang;
-        $CabangClient->id_client = $request->id_client;
-        $CabangClient->save();
+      $save = $request->all();
+      CabangClient::create($save);
 
-        return back()->with('tambah', 'Berhasil Menambah Cabang Client Baru');
+      return back()->with('tambah', 'Berhasil Menambah Cabang Client Baru');
     }
 
     /**

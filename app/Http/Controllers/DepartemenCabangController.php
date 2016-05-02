@@ -31,13 +31,10 @@ class DepartemenCabangController extends Controller
      */
     public function store(DepartemenCabangRequest $request)
     {
-        $DepartemenCabang = new DepartemenCabang;
-        $DepartemenCabang->kode_departemen = $request->kode_departemen;
-        $DepartemenCabang->nama_departemen = $request->nama_departemen;
-        $DepartemenCabang->id_cabang = $request->id_cabang;
-        $DepartemenCabang->save();
+      $save = $request->all();
+      DepartemenCabang::create($save);
 
-        return back()->with('status', 'Berhasil Menambah Departemen Baru');
+      return back()->with('status', 'Berhasil Menambah Departemen Baru');
     }
 
     /**
@@ -81,7 +78,7 @@ class DepartemenCabangController extends Controller
       $DepartemenCabang = DepartemenCabang::find($id);
       $DepartemenCabang->update($request->all());
 
-      return redirect()->action('DepartemenCabangController@edit', ['id' => $id]); 
+      return redirect()->action('DepartemenCabangController@edit', ['id' => $id]);
     }
 
     /**
