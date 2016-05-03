@@ -72,7 +72,7 @@
                           <input type="text" name="kode_departemen" class="form-control" placeholder="Kode Departemen" maxlength="5" @if(isset($DepartemenEdit))
                             value="{{ $DepartemenEdit->kode_departemen}}" readonly=""
                           @else
-                            value="{{ old('kode_departemen') }}"
+                            value="{{ 'DEP'.$AutoNumber }}" readonly=""
                           @endif
                           >
                           @if($errors->has('kode_departemen'))

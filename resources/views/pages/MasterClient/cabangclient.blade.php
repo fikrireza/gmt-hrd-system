@@ -71,7 +71,7 @@
                           @if(isset($CabangEdit))
                   				  value="{{$CabangEdit->kode_cabang}}" readonly=""
                   				@else
-                  				value="{{ old('kode_cabang') }}"
+                  				value="{{ 'CAB'.$AutoNumber }}" readonly=""
                   				@endif
                   				>
                           @if($errors->has('kode_cabang'))

@@ -75,9 +75,14 @@ class MasterClientController extends Controller
     {
         $MasterClient = MasterClient::where('id', '=', $id)->first();
         $CabangClient = CabangClient::where('id_client', '=', $id)->paginate(10);
-        //$CabangClient->setPath('');
 
-        return view('pages/MasterClient/cabangclient', compact('MasterClient','CabangClient'));
+        $AutoNum   = CabangClient::latest('created_at')->first();
+        if($AutoNum == null){
+          $AutoNumber = '1';
+        }else{
+          $AutoNumber = substr($AutoNum->kode_cabang, 3)+1;
+        }
+        return view('pages/MasterClient/cabangclient', compact('MasterClient','CabangClient','AutoNumber'));
     }
 
     /**

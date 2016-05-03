@@ -48,7 +48,15 @@ class DepartemenCabangController extends Controller
       $CabangClient = CabangClient::where('id', '=', $id)->first();
       $DepartemenCabang = DepartemenCabang::where('id_cabang', '=', $id)->paginate(2);
 
-      return view('pages/MasterClient/departemencabang', compact('CabangClient', 'DepartemenCabang'));
+      $AutoNum   = DepartemenCabang::latest('created_at')->first();
+      if($AutoNum == null)
+      {
+        $AutoNumber = '1';
+      }else{
+        $AutoNumber = substr($AutoNum->kode_departemen, 3)+1;
+      }
+
+      return view('pages/MasterClient/departemencabang', compact('CabangClient', 'DepartemenCabang','AutoNumber'));
     }
 
     /**
