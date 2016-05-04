@@ -20,7 +20,7 @@ class DepartemenCabangController extends Controller
      */
     public function create()
     {
-        return view('pages/MasterClient/tambahdepartemencabang');
+      //return view('pages/MasterClient/tambahdepartemencabang');
     }
 
     /**
@@ -34,7 +34,7 @@ class DepartemenCabangController extends Controller
       $save = $request->all();
       DepartemenCabang::create($save);
 
-      return back()->with('status', 'Berhasil Menambah Departemen Baru');
+      return back()->with('tambah', 'Berhasil Menambah Departemen Baru');
     }
 
     /**
@@ -46,7 +46,7 @@ class DepartemenCabangController extends Controller
     public function show($id)
     {
       $CabangClient = CabangClient::where('id', '=', $id)->first();
-      $DepartemenCabang = DepartemenCabang::where('id_cabang', '=', $id)->paginate(2);
+      $DepartemenCabang = DepartemenCabang::where('id_cabang', '=', $id)->paginate(10);
 
       $AutoNum   = DepartemenCabang::latest('created_at')->first();
       if($AutoNum == null)
@@ -84,9 +84,10 @@ class DepartemenCabangController extends Controller
     public function update($id, DepartemenCabangRequest $request)
     {
       $DepartemenCabang = DepartemenCabang::find($id);
+      $lempar  = $DepartemenCabang->id_cabang;
       $DepartemenCabang->update($request->all());
 
-      return redirect()->action('DepartemenCabangController@edit', ['id' => $id]);
+      return redirect('departemencabang/'.$lempar)->with('ubah', 'Berhasil Mengubah Departemen Cabang');
     }
 
     /**

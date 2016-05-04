@@ -1,18 +1,18 @@
 @extends('layouts.master')
 
 @section('title')
-  <title>Tambah Data Cabang Client</title>
+  <title>Tambah Departemen Cabang Client</title>
 @stop
 
 @section('breadcrumb')
   <h1>
-    Cabang Client
+    Departemen Cabang
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
     <li><a href="{{ url('masterclient')}}"> Master Client</a></li>
-    <li><a href="{{ url()->previous()}}"> Cabang</a></li>
-    <li class="active">Cabang Client</li>
+    <li><a href="{{ url()->previous()}}"> Cabang Client</a></li>
+    <li class="active">Departemen Cabang</li>
   </ol>
 @stop
 
@@ -123,25 +123,6 @@
                 </div><!-- /.box-header -->
                 <div class="box-body">
                   <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                    <div class="row">
-                      <div class="col-sm-6">
-                        <div class="dataTables_length" id="example1_length"><label>Show
-                          <select name="example1_length" aria-controls="example1" class="form-control input-sm">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                          </select> entries</label>
-                        </div>
-                      </div>
-                      <div class="col-sm-6">
-                        <div id="example1_filter" class="dataTables_filter">
-                          <label>Search:
-                            <input type="search" class="form-control input-sm" placeholder="" aria-controls="example1">
-                          </label>
-                        </div>
-                      </div>
-                    </div>
                     <div class="row">
                       <div class="col-sm-12">
                         <table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">

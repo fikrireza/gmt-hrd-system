@@ -72,9 +72,10 @@ class CabangClientController extends Controller
     public function update($id, CabangClientRequest $request)
     {
       $cabangClient = CabangClient::find($id);
+      $lempar = $cabangClient->id_client;
       $cabangClient->update($request->all());
 
-      return redirect()->action('CabangClientController@edit', ['id' => $id]);
+      return redirect('masterclient/cabang/'.$lempar)->with('ubah', 'Berhasil Mengubah Cabang Client');
     }
 
     /**

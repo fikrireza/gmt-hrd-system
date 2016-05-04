@@ -34,7 +34,6 @@ Route::get('masterbahasaasing/delete/{id}', ['as'=>'masterbahasaasing.delete', '
 
 Route::resource('masterclient','MasterClientController');
 Route::get('masterclient/cabang/{id}','MasterClientController@cabang_client_show');
-Route::get('masterclient/departemen/{id}','MasterClientController@departemen_client_show');
 Route::resource('cabangclient','CabangClientController');
 Route::resource('departemencabang','DepartemenCabangController');
 
