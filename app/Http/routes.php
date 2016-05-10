@@ -38,3 +38,4 @@ Route::resource('cabangclient','CabangClientController');
 Route::resource('departemencabang','DepartemenCabangController');
 
 Route::resource('useraccount', 'AkunController');
+Route::resource('masterpelengkappegawai', 'MasterPelengkapPegawaiController');
