@@ -65,7 +65,16 @@
         <li><a href="{{ route('masterbahasaasing.create') }}"><i class="fa fa-circle-o"></i> Kelola Data Bahasa Asing</a></li>
       </ul>
     </li>
-
+    <li class="treeview">
+         <a href="#">
+           <i class="fa fa-file-text"></i>
+           <span>Master Pelengkap Pegawai</span>
+           <i class="fa fa-angle-left pull-right"></i>
+         </a>
+         <ul class="treeview-menu">
+           <li><a href="{{ route('masterpelengkappegawai.create') }}"><i class="fa fa-circle-o"></i> Kelola Data Pelengkap Pegawai</a></li>
+         </ul>
+       </li>
     <li class="treeview">
       <a href="#">
         <i class="fa fa-building-o"></i>
