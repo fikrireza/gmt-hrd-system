@@ -55,7 +55,7 @@
         <li><a href="{{ route('masterjabatan.create') }}"><i class="fa fa-circle-o"></i> Kelola Data Jabatan</a></li>
       </ul>
     </li>
-    <li class="treeview">
+    {{-- <li class="treeview">
       <a href="#">
         <i class="fa fa-commenting-o"></i>
         <span>Master Bahasa Asing</span>
@@ -64,11 +64,11 @@
       <ul class="treeview-menu">
         <li><a href="{{ route('masterbahasaasing.create') }}"><i class="fa fa-circle-o"></i> Kelola Data Bahasa Asing</a></li>
       </ul>
-    </li>
+    </li> --}}
     <li class="treeview">
          <a href="#">
            <i class="fa fa-file-text"></i>
-           <span>Master Pelengkap Pegawai</span>
+           <span>Pelengkap Pegawai</span>
            <i class="fa fa-angle-left pull-right"></i>
          </a>
          <ul class="treeview-menu">

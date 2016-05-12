@@ -29,8 +29,8 @@ Route::get('datatables', ['as'=>'datatables.data', 'uses'=>'MasterPegawaiControl
 Route::resource('masterjabatan', 'MasterJabatanController');
 Route::get('masterjabatan/hapusjabatan/{id}', ['as'=>'masterjabatan.hapusjabatan', 'uses'=>'MasterJabatanController@hapusJabatan']);
 
-Route::resource('masterbahasaasing', 'MasterBahasaAsingController');
-Route::get('masterbahasaasing/delete/{id}', ['as'=>'masterbahasaasing.delete', 'uses'=>'MasterBahasaAsingController@delete']);
+// Route::resource('masterbahasaasing', 'MasterBahasaAsingController');
+// Route::get('masterbahasaasing/delete/{id}', ['as'=>'masterbahasaasing.delete', 'uses'=>'MasterBahasaAsingController@delete']);
 
 Route::resource('masterclient','MasterClientController');
 Route::get('masterclient/cabang/{id}','MasterClientController@cabang_client_show');
