@@ -4,7 +4,7 @@
     @include('includes.head')
     @yield('title')
   </head>
-  <body class="hold-transition skin-red-light sidebar-mini">
+  <body class="hold-transition skin-blue-light sidebar-mini">
     <div class="wrapper">
 
       <header class="main-header">
