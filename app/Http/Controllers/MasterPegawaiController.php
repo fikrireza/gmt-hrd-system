@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use DB;
+
 
 use App\Http\Requests;
 use App\Http\Requests\MasterPegawaiRequest;
 use App\MasterPegawai;
+use App\Models\DataKeluarga;
+use App\Models\PengalamanKerja;
+use App\Models\KondisiKesehatan;
+
 use App\MasterJabatan;
 use Datatables;
 
@@ -30,8 +36,11 @@ class MasterPegawaiController extends Controller
      */
     public function create()
     {
-      $getjabatan = MasterJabatan::where('status', 1)->get();
+      // $getjabatan = MasterJabatan::where('status', 1)->get();
+      $getjabatan = MasterJabatan::where('status', '=', '1')->lists('nama_jabatan','id');
+
       return view('pages/tambahdatapegawai')->with('getjabatan', $getjabatan);
+      // return view('pages/tambahdatapegawai');
     }
 
     /**
@@ -42,30 +51,60 @@ class MasterPegawaiController extends Controller
      */
     public function store(MasterPegawaiRequest $request)
     {
-        $pegawai = new MasterPegawai;
-        $pegawai->nip = $request->nip;
-        $pegawai->nip_lama = $request->nip_lama;
-        $pegawai->no_ktp = $request->no_ktp;
-        $pegawai->no_kk = $request->no_kk;
-        $pegawai->npwp = $request->no_npwp;
-        $pegawai->nama = $request->nama;
-        $tglexplode = explode("-", $request->tanggal_lahir);
-        $tanggal_lahir = $tglexplode[2]."-".$tglexplode[1]."-".$tglexplode[0];
-        $pegawai->tanggal_lahir = $tanggal_lahir;
-        $pegawai->jenis_kelamin = $request->jk;
-        $pegawai->email = $request->email;
-        $pegawai->alamat = $request->alamat;
-        $pegawai->agama = $request->agama;
-        $pegawai->no_telp = $request->no_telp;
-        $pegawai->status_pajak = $request->status_pajak;
-        $pegawai->kewarganegaraan = $request->kewarganegaraan;
-        $pegawai->bpjs_kesehatan = $request->bpjs_kesehatan;
-        $pegawai->bpjs_ketenagakerjaan = $request->bpjs_ketenagakerjaan;
-        $pegawai->no_rekening = $request->no_rekening;
-        $pegawai->id_jabatan = $request->jabatan;
-        $pegawai->save();
+      //dd($request->input('data_keluarga.*.nama_keluarga'));
+      DB::transaction(function() use($request) {
+        $pegawai = MasterPegawai::create([
+                      'nip'       => $request->nip,
+                      'nip_lama'  => $request->nip_lama,
+                      'no_ktp'    => $request->no_ktp,
+                      'no_kk'     => $request->no_kk,
+                      'no_npwp'   => $request->no_npwp,
+                      'nama'      => $request->nama,
+                      'tanggal_lahir' => $request->tanggal_lahir,
+                      'jenis_kelamin' => $request->jenis_kelamin,
+                      'email'     => $request->email,
+                      'alamat'    => $request->alamat,
+                      'agama'     => $request->agama,
+                      'no_telp'   => $request->no_telp,
+                      'status_pajak'  => $request->status_pajak,
+                      'kewarganegaraan' => $request->kewarganegaraan,
+                      'bpjs_kesehatan'  => $request->bpjs_kesehatan,
+                      'bpjs_ketenagakerjaan'  => $request->bpjs_ketenagakerjaan,
+                      'no_rekening' => $request->no_rekening,
+                      'id_jabatan'  => $request->jabatan,
+        ]);
 
-        return redirect()->route('masterpegawai.create')->with('message','Berhasil memasukkan pegawai baru.');
+        $data_keluarga = array(
+                      'nama_keluarga'           => $request->input('data_keluarga.*.nama_keluarga'),
+                      'hubungan_keluarga'       => $request->input('data_keluarga.*.hubungan_keluarga'),
+                      'tanggal_lahir_keluarga'  => $request->input('data_keluarga.*.tanggal_lahir_keluarga'),
+                      'pekerjaan_keluarga'      => $request->input('data_keluarga.*.pekerjaan_keluarga'),
+                      'jenis_kelamin_keluarga'  => $request->input('data_keluarga.*.jenis_kelamin_keluarga'),
+                      'alamat_keluarga'         => $request->input('data_keluarga.*.alamat_keluarga'),
+                      // 'id_pegawai'              => $pegawai->id
+        );
+        DataKeluarga::insert($data_keluarga);
+        dd($data_keluarga);
+        //DB::table('data_keluarga')->insert($data_keluarga );
+
+        $pengalaman_kerja = PengalamanKerja::create([
+
+                      'id_pegawai'    => $pegawai->id
+        ]);
+
+        $kondisi_kesehatan = KondisiKesehatan::create([
+                      'tinggi_badan'  => $request->input('tinggi_badan'),
+                      'berat_badan'   => $request->input('berat_badan'),
+                      'warna_rambut'  => $request->input('warna_rambut'),
+                      'warna_mata'    => $request->input('warna_mata'),
+                      'berkacamata'   => $request->input('berkacamata'),
+                      'merokok'       => $request->input('merokok'),
+                      'id_pegawai'    => $pegawai->id
+        ]);
+
+      });
+
+      return redirect()->route('masterpegawai.create')->with('message','Berhasil memasukkan pegawai baru.');
     }
 
     /**
