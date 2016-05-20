@@ -14,14 +14,14 @@ class CreateDataKeluargaTable extends Migration
     {
       Schema::create('data_keluarga', function(Blueprint $table){
         $table->engine = 'InnoDB';
-        
+
         $table->increments('id');
-        $table->string('nama', 100);
-        $table->string('hubungan', 50);
-        $table->date('tanggal_lahir');
-        $table->string('alamat');
-        $table->string('pekerjaan');
-        $table->char('jenis_kelamin', 1);
+        $table->string('nama_keluarga', 100);
+        $table->string('hubungan_keluarga', 50);
+        $table->date('tanggal_lahir_keluarga');
+        $table->string('alamat_keluarga');
+        $table->string('pekerjaan_keluarga');
+        $table->char('jenis_kelamin_keluarga', 1);
         $table->integer('id_pegawai')->unsigned();
         $table->timestamps();
       });

@@ -14,10 +14,10 @@ class CreateRiwayatPenyakitTable extends Migration
     {
         Schema::create('riwayat_penyakit', function(Blueprint $table){
           $table->engine = 'InnoDB';
-          
+
           $table->increments('id');
           $table->string('nama_penyakit', 100);
-          $table->string('keterangan');
+          $table->string('keterangan_penyakit');
           $table->integer('id_pegawai')->unsigned();
           $table->timestamps();
         });

@@ -13,7 +13,7 @@ class AddNpwpToMasterPegawai extends Migration
     public function up()
     {
         Schema::table('master_pegawai', function(Blueprint $table){
-          $table->string('npwp', 20)->after('no_kk');
+          $table->string('no_npwp', 20)->after('no_kk');
         });
     }
 

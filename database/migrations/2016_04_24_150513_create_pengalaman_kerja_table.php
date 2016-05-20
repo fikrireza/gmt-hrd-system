@@ -17,7 +17,7 @@ class CreatePengalamanKerjaTable extends Migration
 
         $table->increments('id');
         $table->string('nama_perusahaan', 100);
-        $table->string('posisi', 100);
+        $table->string('posisi_perusahaan', 100);
         $table->string('tahun_awal_kerja', 4);
         $table->string('tahun_akhir_kerja', 4);
         $table->integer('id_pegawai')->unsigned();
