@@ -47,29 +47,21 @@
               {!! csrf_field() !!}
               <div class="box-body">
                 <div class="form-group {{ $errors->has('nip') ? 'has-error' : '' }}">
-                  <label class="col-sm-3 control-label">NIP Baru</label>
+                  <label class="col-sm-3 control-label">NIP</label>
                   <div class="col-sm-9">
-                    <input type="text" name="nip" class="form-control" placeholder="NIP Baru"
-                      @if(!$errors->has('nip'))
-                       value="{{ old('nip') }}"
-                      @endif
-                    >
-                    @if($errors->has('nip'))
-                      <span class="help-block">
-                        <strong>{{ $errors->first('nip')}}
-                        </strong>
-                      </span>
-                    @endif
+                  {!! Form::text('nip', null, ['class'=>'form-control', 'placeholder'=>'NIP']) !!}
+                  @if($errors->has('nip'))
+                    <span class="help-block">
+                      <strong>{{ $errors->first('nip')}}
+                      </strong>
+                    </span>
+                  @endif
                   </div>
                 </div>
                 <div class="form-group {{ $errors->has('nip_lama') ? 'has-error' : '' }}">
                   <label class="col-sm-3 control-label">NIP Lama</label>
                   <div class="col-sm-9">
-                    <input type="text" name="nip_lama" class="form-control" placeholder="NIP Lama"
-                    @if(!$errors->has('nip_lama'))
-                       value="{{ old('nip_lama') }}"
-                      @endif
-                    >
+                    {!! Form::text('nip_lama', null, ['class'=>'form-control', 'placeholder'=>'NIP Lama']) !!}
                     @if($errors->has('nip_lama'))
                       <span class="help-block">
                         <strong>{{ $errors->first('nip_lama')}}
@@ -81,11 +73,7 @@
                 <div class="form-group {{ $errors->has('nama') ? 'has-error' : '' }}">
                   <label class="col-sm-3 control-label">Nama Pegawai</label>
                   <div class="col-sm-9">
-                    <input type="text" name="nama" class="form-control" placeholder="Nama Pegawai"
-                      @if(!$errors->has('nama'))
-                       value="{{ old('nama') }}"
-                      @endif
-                    >
+                    {!! Form::text('nama', null, ['class'=>'form-control', 'placeholder'=>'Nama Pegawai']) !!}
                     @if($errors->has('nama'))
                       <span class="help-block">
                         <strong>{{ $errors->first('nama')}}
@@ -97,7 +85,7 @@
                 <div class="form-group {{ $errors->has('alamat') ? 'has-error' : '' }}">
                   <label class="col-sm-3 control-label">Alamat</label>
                   <div class="col-sm-9">
-                    <textarea class="form-control" name="alamat" rows="3" cols="40" placeholder="Alamat">{{ !$errors->has('alamat') ? old('alamat') : '' }}</textarea>
+                    {!! Form::textarea('alamat', null, ['class'=>'form-control', 'placeholder'=>'Alamat', 'size' => '2x2']) !!}
                     @if($errors->has('alamat'))
                       <span class="help-block">
                         <strong>{{ $errors->first('alamat')}}
@@ -113,11 +101,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control pull-right" id="tanggal_lahir" name="tanggal_lahir" data-date-format="dd-mm-yyyy"
-                        @if(!$errors->has('tanggal_lahir'))
-                         value="{{ old('tanggal_lahir') }}"
-                        @endif
-                      >
+                      {!! Form::text('tanggal_lahir', null, ['class'=>'form-control', 'placeholder'=>'yyyy-mm-dd', 'id' => 'tanggal_lahir', 'data-date-format' => 'yyyy-mm-dd']) !!}
                     </div><!-- /.input group -->
                     @if($errors->has('tanggal_lahir'))
                       <span class="help-block">
@@ -130,14 +114,10 @@
                 <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
                   <label for="inputEmail3" class="col-sm-3 control-label">Email</label>
                   <div class="col-sm-9">
-                    <input type="email" name="email" class="form-control" placeholder="Email"
-                      @if(!$errors->has('email'))
-                       value="{{ old('email') }}"
-                      @endif
-                    >
+                    {!! Form::email('email', null, ['class'=>'form-control', 'placeholder'=>'Email']) !!}
                     @if($errors->has('email'))
-                          <span class="help-block">
-                            <strong>{{ $errors->first('email')}}
+                      <span class="help-block">
+                        <strong>{{ $errors->first('email')}}
                         </strong>
                       </span>
                     @endif
@@ -148,13 +128,13 @@
                   <div class="col-sm-9">
                     <div class="col-sm-9">
                       <label>
-                        <input type="radio" name="jk" class="minimal" value="L" {{ old('jk') == 'L' ? 'checked' : '' }}>
+                        <input type="radio" name="jenis_kelamin" class="minimal" value="L" {{ old('jk') == 'L' ? 'checked' : '' }}>
                       </label>
                       &nbsp;
                       <label>Pria</label>
                       &nbsp;&nbsp;&nbsp;&nbsp;
                       <label>
-                        <input type="radio" name="jk" class="minimal" value="P" {{ old('jk') == 'P' ? 'checked' : '' }}>
+                        <input type="radio" name="jenis_kelamin" class="minimal" value="P" {{ old('jk') == 'P' ? 'checked' : '' }}>
                       </label>
                       &nbsp;
                       <label>Wanita</label>
@@ -170,14 +150,12 @@
                 <div class="form-group {{ $errors->has('agama') ? 'has-error' : '' }}">
                   <label class="col-sm-3 control-label">Agama</label>
                   <div class="col-sm-9">
-                    <select class="form-control" name="agama">
-                      <option value="" disabled selected>-- Pilih Agama --</option>
-                      <option value="Islam" {{ old('agama') == 'Islam' ? 'selected="selected"' : '' }}>Islam</option>
-                      <option value="Kristen" {{ old('agama') == 'Kristen' ? 'selected="selected"' : '' }}>Kristen</option>
-                      <option value="Hindu" {{ old('agama') == 'Hindu' ? 'selected="selected"' : '' }}>Hindu</option>
-                      <option value="Budha" {{ old('agama') == 'Budha' ? 'selected="selected"' : '' }}>Budha</option>
-                      <option value="Lainnya" {{ old('agama') == 'Lainnya' ? 'selected="selected"' : '' }}>Lainnya</option>
-                    </select>
+                    {!! Form::select('agama', array('Islam' => 'Islam',
+                                                    'Kristen' => 'Kristen',
+                                                    'Hindu' => 'Hindu',
+                                                    'Budha' => 'Budha',
+                                                    'Lainnya' => 'Lainnya'),
+                                      null, ['class' => 'form-control', 'placeholder' => '-- Pilih Agama --']) !!}
                     @if($errors->has('agama'))
                       <span class="help-block">
                         <strong>{{ $errors->first('agama')}}
@@ -189,12 +167,13 @@
                 <div class="form-group {{ $errors->has('jabatan') ? 'has-error' : '' }}">
                   <label class="col-sm-3 control-label">Jabatan</label>
                   <div class="col-sm-9">
-                    <select class="form-control" name="jabatan">
+                    {{-- <select class="form-control" name="jabatan">
                       <option value="" disabled selected>-- Pilih Jabatan --</option>
                       @foreach($getjabatan as $key)
                         <option value="{{ $key->id }}" {{ old('jabatan') == $key->id ? 'selected="selected"' : '' }}>{{ $key->kode_jabatan }} - {{ $key->nama_jabatan }}</option>
                       @endforeach
-                    </select>
+                    </select> --}}
+                    {!! Form::select('jabatan', $getjabatan, null, ['class' => 'form-control','placeholder' => '-- Pilih Jabatan --']) !!}
                     @if($errors->has('jabatan'))
                       <span class="help-block">
                         <strong>{{ $errors->first('jabatan')}}
@@ -206,12 +185,10 @@
                 <div class="form-group {{ $errors->has('status_karyawan') ? 'has-error' : '' }}">
                   <label class="col-sm-3 control-label">Status</label>
                   <div class="col-sm-9">
-                    <select class="form-control" name="status_karyawan">
-                      <option value="" disabled selected>-- Pilih Status Karyawan --</option>
-                      <option value="Kontrak" {{ old('status_karyawan') == 'Kontrak' ? 'selected="selected"' : '' }}>Kontrak</option>
-                      <option value="Freelance" {{ old('status_karyawan') == 'Freelance' ? 'selected="selected"' : '' }}>Freelance</option>
-                      <option value="Tetap" {{ old('status_karyawan') == 'Tetap' ? 'selected="selected"' : '' }}>Tetap</option>
-                    </select>
+                    {!! Form::select('status_karyawan', array('Kontrak' => 'Kontrak',
+                                                    'Freelance' => 'Freelance',
+                                                    'Tetap' => 'Tetap'),
+                                      null, ['class' => 'form-control', 'placeholder' => '-- Pilih Status Karyawan --']) !!}
                     @if($errors->has('status_karyawan'))
                       <span class="help-block">
                         <strong>{{ $errors->first('status_karyawan')}}
@@ -233,11 +210,7 @@
               <div class="form-group {{ $errors->has('no_ktp') ? 'has-error' : '' }}">
                 <label class="col-sm-3 control-label">KTP</label>
                 <div class="col-sm-9">
-                  <input type="text" name="no_ktp" maxlength="16" class="form-control" placeholder="Nomor KTP"
-                  @if(!$errors->has('no_ktp'))
-                   value="{{ old('no_ktp') }}"
-                  @endif
-                  >
+                  {!! Form::text('no_ktp', null, ['class'=>'form-control', 'maxlength' => '16', 'placeholder'=>'Nomor KTP']) !!}
                   @if($errors->has('no_ktp'))
                     <span class="help-block">
                       <strong>{{ $errors->first('no_ktp')}}
@@ -249,11 +222,7 @@
               <div class="form-group {{ $errors->has('no_kk') ? 'has-error' : '' }}">
                 <label class="col-sm-3 control-label">Kartu Keluarga</label>
                 <div class="col-sm-9">
-                  <input type="text" name="no_kk" class="form-control" placeholder="Nomor KK"
-                    @if(!$errors->has('no_kk'))
-                     value="{{ old('no_kk') }}"
-                    @endif
-                  >
+                  {!! Form::text('no_kk', null, ['class'=>'form-control', 'maxlength' => '16', 'placeholder'=>'Nomor Kartu Keluarga']) !!}
                   @if($errors->has('no_kk'))
                     <span class="help-block">
                       <strong>{{ $errors->first('no_kk')}}
@@ -265,11 +234,7 @@
               <div class="form-group {{ $errors->has('no_npwp') ? 'has-error' : '' }}">
                 <label class="col-sm-3 control-label">NPWP</label>
                 <div class="col-sm-9">
-                  <input type="text" name="no_npwp" class="form-control" placeholder="Nomor NPWP"
-                    @if(!$errors->has('no_npwp'))
-                     value="{{ old('no_npwp') }}"
-                    @endif
-                  >
+                  {!! Form::text('no_npwp', null, ['class'=>'form-control', 'maxlength' => '16', 'placeholder'=>'Nomor NPWP']) !!}
                   @if($errors->has('no_npwp'))
                     <span class="help-block">
                       <strong>{{ $errors->first('no_npwp')}}
@@ -281,11 +246,7 @@
               <div class="form-group {{ $errors->has('no_telp') ? 'has-error' : '' }}">
                 <label class="col-sm-3 control-label">Telepon</label>
                 <div class="col-sm-9">
-                  <input type="text" name="no_telp" class="form-control" placeholder="Nomor Telepon"
-                    @if(!$errors->has('no_telp'))
-                     value="{{ old('no_telp') }}"
-                    @endif
-                  >
+                  {!! Form::text('no_telp', null, ['class'=>'form-control', 'maxlength' => '15', 'placeholder'=>'Nomor Telepon']) !!}
                   @if($errors->has('no_telp'))
                     <span class="help-block">
                       <strong>{{ $errors->first('no_telp')}}
@@ -297,11 +258,7 @@
               <div class="form-group {{ $errors->has('no_rekening') ? 'has-error' : '' }}">
                 <label class="col-sm-3 control-label">Rekening</label>
                 <div class="col-sm-9">
-                  <input type="text" name="no_rekening" class="form-control" placeholder="Nomor Rekening"
-                    @if(!$errors->has('no_rekening'))
-                     value="{{ old('no_rekening') }}"
-                    @endif
-                  >
+                  {!! Form::text('no_rekening', null, ['class'=>'form-control', 'maxlength' => '16', 'placeholder'=>'Nomor Rekening']) !!}
                   @if($errors->has('no_rekening'))
                     <span class="help-block">
                       <strong>{{ $errors->first('no_rekening')}}
@@ -313,11 +270,7 @@
               <div class="form-group {{ $errors->has('bpjs_kesehatan') ? 'has-error' : '' }}">
                 <label class="col-sm-3 control-label">BPJS Kesehatan</label>
                 <div class="col-sm-9">
-                  <input type="text" name="bpjs_kesehatan" class="form-control" placeholder="Nomor BPJS Kesehatan"
-                    @if(!$errors->has('bpjs_kesehatan'))
-                     value="{{ old('bpjs_kesehatan') }}"
-                    @endif
-                  >
+                  {!! Form::text('bpjs_kesehatan', null, ['class'=>'form-control', 'maxlength' => '16', 'placeholder'=>'BPJS Kesehatan']) !!}
                   @if($errors->has('bpjs_kesehatan'))
                     <span class="help-block">
                       <strong>{{ $errors->first('bpjs_kesehatan')}}
@@ -329,11 +282,7 @@
               <div class="form-group {{ $errors->has('bpjs_ketenagakerjaan') ? 'has-error' : '' }}">
                 <label class="col-sm-3 control-label">BPJS Ketenagakerjaan</label>
                 <div class="col-sm-9">
-                  <input type="text" name="bpjs_ketenagakerjaan" class="form-control" placeholder="Nomor BPJS Ketenagakerjaan"
-                    @if(!$errors->has('bpjs_ketenagakerjaan'))
-                     value="{{ old('bpjs_ketenagakerjaan') }}"
-                    @endif
-                  >
+                  {!! Form::text('bpjs_ketenagakerjaan', null, ['class'=>'form-control', 'maxlength' => '16', 'placeholder'=>'BPJS Ketenagakerjaan']) !!}
                   @if($errors->has('bpjs_ketenagakerjaan'))
                     <span class="help-block">
                       <strong>{{ $errors->first('bpjs_ketenagakerjaan')}}
@@ -345,11 +294,9 @@
               <div class="form-group {{ $errors->has('status_pajak') ? 'has-error' : '' }}">
                 <label class="col-sm-3 control-label">Status Pajak</label>
                 <div class="col-sm-9">
-                  <select class="form-control" name="status_pajak">
-                    <option value="" disabled selected>-- Pilih Status Pajak --</option>
-                    <option value="Wajib Pajak" {{ old('status_pajak') == 'Wajib Pajak' ? 'selected="selected"' : '' }}>Wajib Pajak</option>
-                    <option value="Tidak Wajib Pajak" {{ old('status_pajak') == 'Tidak Wajib Pajak' ? 'selected="selected"' : '' }}>Tidak Wajib Pajak</option>
-                  </select>
+                  {!! Form::select('status_pajak', array('Wajib Pajak' => 'Wajib Pajak',
+                                                  'Tidak Wajib Pajak' => 'Tidak Wajib Pajak'),
+                                    null, ['class' => 'form-control', 'placeholder' => '-- Pilih Wajib Pajak --']) !!}
                   @if($errors->has('status_pajak'))
                     <span class="help-block">
                       <strong>{{ $errors->first('status_pajak')}}
@@ -361,11 +308,9 @@
               <div class="form-group {{ $errors->has('kewarganegaraan') ? 'has-error' : '' }}">
                 <label class="col-sm-3 control-label">Kewarganegaraan</label>
                 <div class="col-sm-9">
-                  <select class="form-control" name="kewarganegaraan">
-                    <option value="" disabled selected>-- Pilih Kewarganegaraan --</option>
-                    <option value="WNI" {{ old('kewarganegaraan') == 'WNI' ? 'selected="selected"' : '' }}>WNI</option>
-                    <option value="WNA" {{ old('kewarganegaraan') == 'WNA' ? 'selected="selected"' : '' }}>WNA</option>
-                  </select>
+                  {!! Form::select('kewarganegaraan', array('WNI' => 'WNI',
+                                                  'WNA' => 'WNA'),
+                                    null, ['class' => 'form-control', 'placeholder' => '-- Pilih Wajib Pajak --']) !!}
                   @if($errors->has('kewarganegaraan'))
                     <span class="help-block">
                       <strong>{{ $errors->first('kewarganegaraan')}}
@@ -393,7 +338,7 @@
               <li><a href="#tab_Komputer" data-toggle="tab">Keahlian Komputer</a></li>
               <li><a href="#tab_Penyakit" data-toggle="tab">Riwayat Penyakit</a></li>
             </ul>
-            {{-- START TAB 1 --}}
+            {{-- START Data Keluarga --}}
             <div class="tab-content">
               <div class="tab-pane active" id="tab_Keluarga">
                 <div class="box-body">
@@ -415,28 +360,17 @@
                         <td><input type="checkbox" name="chk"/></td>
                         <td>
                           <div class="{{ $errors->has('nama_keluarga') ? 'has-error' : '' }}">
-                            <input type="text" name="nama_keluarga[0]" class="form-control" placeholder="Nama Keluarga" required="[]"
-                              @if(!$errors->has('nama_keluarga'))
-                               value="{{ old('nama_keluarga') }}"
-                              @endif
-                            >
-                              @if($errors->has('nama_keluarga'))
-                                <span class="help-block">
-                                  <strong><h6>{{ $errors->first('nama_keluarga')}}</h6></strong>
-                                </span>
-                              @endif
+                            {!! Form::text('data_keluarga[0][nama_keluarga]', null ,['class'=>'form-control', 'placeholder'=>'Nama Keluarga']) !!}
                           </div>
                         </td>
                         <td>
                           <div class="{{ $errors->has('hubungan_keluarga') ? 'has-error' : '' }}">
-                            <select class="form-control" name="hubungan_keluarga[0]" required="[]">
-                              <option value="" disabled selected>-- Pilih --</option>
-                              <option value="AYAH" {{ old('hubungan_keluarga') == 'AYAH' ? 'selected="selected"' : '' }}>AYAH</option>
-                              <option value="IBU" {{ old('hubungan_keluarga') == 'IBU' ? 'selected="selected"' : '' }}>IBU</option>
-                              <option value="KAKAK" {{ old('hubungan_keluarga') == 'KAKAK' ? 'selected="selected"' : ''}}>KAKAK</option>
-                              <option value="ADIK" {{ old('hubungan_keluarga') == 'ADIK' ? 'selected="selected"' : ''}}>ADIK</option>
-                              <option value="LAINNYA" {{ old('hubungan_keluarga') == 'LAINNYA' ? 'selected="selected"' : ''}}>LAINNYA</option>
-                            </select>
+                            {!! Form::select('data_keluarga[0][hubungan_keluarga]', array('AYAH' => 'AYAH',
+                                                            'IBU' => 'IBU',
+                                                            'KAKAK' => 'KAKAK',
+                                                            'ADIK' => 'ADIK',
+                                                            'LAINNYA' => 'LAINNYA'),
+                                              null, ['class' => 'form-control', 'placeholder' => '-- Pilih --']) !!}
                             @if($errors->has('hubungan_keluarga'))
                               <span class="help-block">
                                 <strong><h6>{{ $errors->first('hubungan_keluarga')}}</h6></strong>
@@ -450,10 +384,7 @@
                               <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                               </div>
-                              <input type="text" class="form-control pull-right" id="tanggal_lahir_keluarga" name="tanggal_lahir_keluarga[0]" data-date-format="dd-mm-yyyy"
-                              @if(!$errors->has('tanggal_lahir_keluarga'))
-                               value="{{ old('tanggal_lahir_keluarga') }}"
-                              @endif>
+                              {!! Form::text('data_keluarga[0][tanggal_lahir_keluarga]', null, ['class'=>'form-control', 'data-date-format'=>'yyyy-mm-dd', 'placeholder'=>'yyyy-mm-dd', 'id'=>'tanggal_lahir_keluarga']) !!}
                             </div>
                             @if($errors->has('tanggal_lahir_keluarga'))
                               <span class="help-block">
@@ -463,16 +394,14 @@
                           </div>
                         </td>
                         <td>
-                          <select class="form-control" name="pekerjaan_keluarga[0]">
-                            <option value="" disabled selected>-- Pilih --</option>
-                            <option value="PEGAWAINEGERI" {{ old('pekerjaan_keluarga') == 'PEGAWAINEGERI' ? 'selected="selected"' : '' }}>PEGAWAI NEGERI</option>
-                            <option value="PEGAWAISWASTA" {{ old('pekerjaan_keluarga') == 'PEGAWAISWASTA' ? 'selected="selected"' : '' }}>PEGAWAI SWASTA</option>
-                            <option value="WIRASAWASTA" {{ old('pekerjaan_keluarga') == 'WIRASAWASTA' ? 'selected="selected"' : '' }}>WIRASAWASTA</option>
-                            <option value="RUMAH TANGGA" {{ old('pekerjaan_keluarga') == 'RUMAH TANGGA' ? 'selected="selected"' : '' }}>RUMAH TANGGA</option>
-                            <option value="MAHASISWA" {{ old('pekerjaan_keluarga') == 'MAHASISWA' ? 'selected="selected"' : '' }}>MAHASISWA</option>
-                            <option value="PELAJAR" {{ old('pekerjaan_keluarga') == 'PELAJAR' ? 'selected="selected"' : '' }}>PELAJAR</option>
-                            <option value="LAINNYA" {{ old('pekerjaan_keluarga') == 'LAINNYA' ? 'selected="selected"' : '' }}>LAINNYA</option>
-                          </select>
+                          {!! Form::select('data_keluarga[0][pekerjaan_keluarga]', array('PEGAWAINEGERI' => 'PEGAWAINEGERI',
+                                                          'PEGAWAISWASTA' => 'PEGAWAISWASTA',
+                                                          'WIRASAWASTA' => 'WIRASAWASTA',
+                                                          'RUMAH TANGGA' => 'RUMAH TANGGA',
+                                                          'MAHASISWA' => 'MAHASISWA',
+                                                          'PELAJAR' => 'PELAJAR',
+                                                          'LAINNYA' => 'LAINNYA'),
+                                            null, ['class' => 'form-control', 'placeholder' => '-- Pilih --']) !!}
                           @if($errors->has('pekerjaan_keluarga'))
                             <span class="help-block">
                               <strong>{{ $errors->first('pekerjaan_keluarga')}}
@@ -483,13 +412,13 @@
                         <td>
                           {{-- <div class="form-group"> --}}
                             <label>
-                              <input type="radio" name="jenis_kelamin_keluarga[0]" class="minimal" value="L" {{ old('jenis_kelamin_keluarga') == 'L' ? 'checked' : '' }}>
+                              <input type="radio" name="data_keluarga[0][jenis_kelamin_keluarga]" class="minimal" value="L" {{ old('jenis_kelamin_keluarga') == 'L' ? 'checked' : '' }}>
                             </label>
                             {{-- &nbsp; --}}
                             <label>Pria</label>
                             &nbsp;&nbsp;&nbsp;
                             <label>
-                              <input type="radio" name="jenis_kelamin_keluarga[0]" class="minimal" value="P" {{ old('jenis_kelamin_keluarga') == 'P' ? 'checked' : '' }}>
+                              <input type="radio" name="data_keluarga[0][jenis_kelamin_keluarga]" class="minimal" value="P" {{ old('jenis_kelamin_keluarga') == 'P' ? 'checked' : '' }}>
                             </label>
                             {{-- &nbsp; --}}
                             <label>Wanita</label>
@@ -502,7 +431,7 @@
                           @endif
                         </td>
                         <td>
-                          <textarea type="text" name="alamat_keluarga[0]" class="form-control uppercase" placeholder="Alamat" rows="2">@if(!$errors->has('alamat_keluarga')){{ old('alamat_keluarga') }}@endif</textarea>
+                          {!! Form::textarea('data_keluarga[0][alamat_keluarga]', null, ['class'=>'form-control', 'placeholder'=>'Alamat', 'size' => '2x2']) !!}
                           @if($errors->has('alamat_keluarga'))
                             <span class="help-block">
                               <strong>{{ $errors->first('alamat_keluarga')}}
@@ -515,7 +444,7 @@
                   </table>
                 </div>
               </div>
-              {{-- END TAB 1 --}}
+              {{-- END Data Keluarga --}}
 
               {{-- START Pengalaman Kerja--}}
               <div class="tab-pane" id="tab_Pengalaman">
@@ -537,11 +466,7 @@
                         <td><input type="checkbox" name="chk"/></td>
                         <td>
                           <div class="{{ $errors->has('nama_perusahaan') ? 'has-error' : '' }}">
-                            <input type="text" name="nama_perusahaan[0]" id="nama_perusahaan" class="form-control" placeholder="Nama Perusahaan" required="[]"
-                              @if(!$errors->has('nama_perusahaan'))
-                               value="{{ old('nama_perusahaan') }}"
-                              @endif
-                            >
+                            {!! Form::text('pengalaman[0][nama_perusahaan]', null ,['class'=>'form-control', 'placeholder'=>'Nama Perusahaan']) !!}
                               @if($errors->has('nama_perusahaan'))
                                 <span class="help-block">
                                   <strong><h6>{{ $errors->first('nama_perusahaan')}}</h6></strong>
@@ -551,11 +476,7 @@
                         </td>
                         <td>
                           <div class="{{ $errors->has('posisi') ? 'has-error' : '' }}">
-                            <input type="text" name="posisi[0]" id="posisi" class="form-control" placeholder="Posisi" required="[]"
-                              @if(!$errors->has('posisi'))
-                               value="{{ old('posisi') }}"
-                              @endif
-                            >
+                            {!! Form::text('pengalaman[0][posisi]', null ,['class'=>'form-control', 'placeholder'=>'Posisi']) !!}
                               @if($errors->has('posisi'))
                                 <span class="help-block">
                                   <strong><h6>{{ $errors->first('posisi')}}</h6></strong>
@@ -569,10 +490,7 @@
                               <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                               </div>
-                              <input type="text" class="form-control pull-right" id="tahun_awal_kerja" name="tahun_awal_kerja[0]" data-date-format="dd-mm-yyyy" required="[]"
-                              @if(!$errors->has('tahun_awal_kerja'))
-                               value="{{ old('tahun_awal_kerja') }}"
-                              @endif>
+                              {!! Form::text('pengalaman[0][tahun_awal_kerja]', null, ['class'=>'form-control', 'data-date-format'=>'yyyy-mm-dd', 'placeholder'=>'yyyy-mm-dd', 'id'=>'tahun_awal_kerja']) !!}
                             </div>
                             @if($errors->has('tahun_awal_kerja'))
                               <span class="help-block">
@@ -587,10 +505,7 @@
                               <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                               </div>
-                              <input type="text" class="form-control pull-right" id="tahun_akhir_kerja" name="tahun_akhir_kerja[0]" data-date-format="dd-mm-yyyy" required="[]"
-                              @if(!$errors->has('tahun_akhir_kerja'))
-                               value="{{ old('tahun_akhir_kerja') }}"
-                              @endif>
+                              {!! Form::text('pengalaman[0][tahun_akhir_kerja]', null, ['class'=>'form-control', 'data-date-format'=>'yyyy-mm-dd', 'placeholder'=>'yyyy-mm-dd', 'id'=>'tahun_akhir_kerja']) !!}
                             </div>
                             @if($errors->has('tahun_akhir_kerja'))
                               <span class="help-block">
@@ -605,55 +520,31 @@
                 </div>
               </div>
               {{-- END Pengalaman Kerja--}}
-              {{-- START TAB 2 --}}
+              {{-- START Kesehatan --}}
               <div class="tab-pane" id="tab_Kesehatan">
                 <div class="box-body">
                   <div class="form-group {{ $errors->has('tinggi_badan') ? 'has-error' : '' }}">
                     <label class="col-sm-2 control-label">Tinggi Badan</label>
                     <div class="col-sm-6">
-                      <input type="text" name="tinggibadan" class="form-control" placeholder="Tinggi Badan" maxlength="4" onkeyup="validAngka(this)">
-                      @if($errors->has('tinggi_badan'))
-                        <span class="help-block">
-                          <strong>{{ $errors->first('tinggi_badan')}}
-                          </strong>
-                        </span>
-                      @endif
+                      {!! Form::text('tinggi_badan', null, ['class'=>'form-control', 'placeholder'=>'Tinggi Badan', 'onkeyup'=>'validAngka(this)']) !!}
                     </div>
                   </div>
                   <div class="form-group {{ $errors->has('berat_badan') ? 'has-error' : '' }}">
                     <label class="col-sm-2 control-label">Berat Badan</label>
                     <div class="col-sm-6">
-                      <input type="text" name="beratbadan" class="form-control" placeholder="Berat Badan" maxlength="4" onkeyup="validAngka(this)">
-                      @if($errors->has('berat_badan'))
-                        <span class="help-block">
-                          <strong>{{ $errors->first('berat_badan')}}
-                          </strong>
-                        </span>
-                      @endif
+                      {!! Form::text('berat_badan', null, ['class'=>'form-control', 'placeholder'=>'Berat Badan', 'onkeyup'=>'validAngka(this)']) !!}
                     </div>
                   </div>
                   <div class="form-group {{ $errors->has('warna_rambut') ? 'has-error' : '' }}">
                     <label class="col-sm-2 control-label">Warna Rambut</label>
                     <div class="col-sm-6">
-                      <input type="text" name="warnarambut" class="form-control  uppercase" placeholder="Warna Rambut" maxlength="10">
-                      @if($errors->has('warna_rambut'))
-                        <span class="help-block">
-                          <strong>{{ $errors->first('warna_rambut')}}
-                          </strong>
-                        </span>
-                      @endif
+                      {!! Form::text('warna_rambut', null, ['class'=>'form-control', 'placeholder'=>'Warna Rambut']) !!}
                     </div>
                   </div>
                   <div class="form-group {{ $errors->has('warna_mata') ? 'has-error' : '' }}">
                     <label class="col-sm-2 control-label">Warna Mata</label>
                       <div class="col-sm-6">
-                      <input type="text" name="warnamata" class="form-control" placeholder="Warna Mata"  maxlength="10">
-                      @if($errors->has('warna_mata'))
-                        <span class="help-block">
-                          <strong>{{ $errors->first('warna_mata')}}
-                          </strong>
-                        </span>
-                      @endif
+                        {!! Form::text('warna_mata', null, ['class'=>'form-control', 'placeholder'=>'Warna Mata']) !!}
                     </div>
                   </div>
                   <div class="form-group {{ $errors->has('berkacamata') ? 'has-error' : '' }}">
@@ -662,13 +553,13 @@
                       <div class="form-group">
                         &nbsp;&nbsp;&nbsp;
                         <label>
-                          <input type="radio" name="kacamata" class="minimal" value="Ya" {{ old('berkacamata') == 'L' ? 'checked' : '' }}>
+                          <input type="radio" name="berkacamata" class="minimal" value="Ya" {{ old('berkacamata') == 'L' ? 'checked' : '' }}>
                         </label>
                         &nbsp;
                         <label>Ya</label>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <label>
-                          <input type="radio" name="kacamata" class="minimal" value="Tidak" {{ old('berkacamata') == 'P' ? 'checked' : '' }}>
+                          <input type="radio" name="berkacamata" class="minimal" value="Tidak" {{ old('berkacamata') == 'P' ? 'checked' : '' }}>
                         </label>
                         &nbsp;
                         <label>Tidak</label>
@@ -698,9 +589,9 @@
                         &nbsp;
                         <label>Tidak</label>
                       </div>
-                      @if($errors->has('berkacamata'))
+                      @if($errors->has('merokok'))
                         <span class="help-block">
-                          <strong>{{ $errors->first('berkacamata')}}
+                          <strong>{{ $errors->first('merokok')}}
                           </strong>
                         </span>
                       @endif
@@ -729,7 +620,7 @@
                     <tr>
                       <td><input type="checkbox" name="chk"/></td>
                       <td>
-                        <select class="form-control" name="jenjangpendidikan[0]" required="">
+                        <select class="form-control" name="pendidikan[0][jenjang_pendidikan]" >
                           <option value="" disabled selected>-- Pilih --</option>
                           <option value="PELATIHANKEAHLIAN">PELATIHAN KEAHLIAN</option>
                           <option value="S2">S2 Magister</option>
@@ -748,7 +639,7 @@
                         @endif
                       </td>
                       <td>
-                        <input type="text" name="institusipendidikan[0]" class="form-control uppercase" placeholder="Institusi Pendidikan" required="">
+                        <input type="text" name="pendidikan[0][institusi_pendidikan]" class="form-control uppercase" placeholder="Institusi Pendidikan" >
                         @if($errors->has('institusi_pendidikan'))
                           <span class="help-block">
                             <strong>{{ $errors->first('institusi_pendidikan')}}
@@ -757,7 +648,7 @@
                         @endif
                       </td>
                       <td>
-                        <input type="text" name="tahunmasuk[0]" class="form-control" placeholder="Tahun Masuk" maxlength="4" onkeyup="validAngka(this)" required="">
+                        <input type="text" name="pendidikan[0][tahun_masuk_pendidikan]" class="form-control" placeholder="Tahun Masuk" maxlength="4" onkeyup="validAngka(this)" >
                         @if($errors->has('tahun_masuk'))
                           <span class="help-block">
                             <strong>{{ $errors->first('tahun_masuk')}}
@@ -766,7 +657,7 @@
                         @endif
                       </td>
                       <td>
-                        <input type="text" name="tahunlulus[0]" class="form-control" placeholder="Tahun Lulus" maxlength="4" onkeyup="validAngka(this)" required="">
+                        <input type="text" name="pendidikan[0][tahun_lulus_pendidikan]" class="form-control" placeholder="Tahun Lulus" maxlength="4" onkeyup="validAngka(this)" >
                         @if($errors->has('tahun_lulus'))
                           <span class="help-block">
                             <strong>{{ $errors->first('tahun_lulus')}}
@@ -775,13 +666,7 @@
                         @endif
                       </td>
                       <td>
-                        <input type="text" name="gelarakademik[0]" class="form-control" placeholder="Gelar Kelulusan" maxlength="10" required="">
-                        @if($errors->has('gelar_akademik'))
-                          <span class="help-block">
-                            <strong>{{ $errors->first('gelar_akademik')}}
-                            </strong>
-                          </span>
-                        @endif
+                        <input type="text" name="pendidikan[0][gelar_akademik]" class="form-control" placeholder="Gelar Kelulusan" maxlength="10" >
                       </td>
                     </tr>
                   </tbody>
@@ -808,11 +693,7 @@
                     <tr>
                       <td><input type="checkbox" name="chk"/></td>
                       <td>
-                        <input type="text" name="bahasa[0]" class="form-control uppercase" placeholder="Bahasa" required=""
-                        @if(isset($data['bindbahasaasing']))
-                          value="{{  $data['bindbahasaasing']->bahasa }}" readonly="true"
-                        @endif
-                        >
+                        {!! Form::text('bahasa[0][bahasa]', null, ['class'=>'form-control', 'placeholder'=>'Bahasa']) !!}
                         @if($errors->has('bahasa'))
                           <span class="help-block">
                             <strong>{{ $errors->first('bahasa')}}
@@ -821,7 +702,7 @@
                         @endif
                       </td>
                       <td>
-                        <select class="form-control" name="berbicara[0]" required="">
+                        <select class="form-control" name="bahasa[0][berbicara]" >
                           <option value="" disabled selected>-- Pilih --</option>
                           <option value="1" {{ old('berbicara') == '1' ? 'selected="selected"' : '' }}>BAIK</option>
                           <option value="2" {{ old('berbicara') == '2' ? 'selected="selected"' : '' }}>CUKUP</option>
@@ -835,7 +716,7 @@
                         @endif
                       </td>
                       <td>
-                        <select class="form-control" name="menulis[0]" required="">
+                        <select class="form-control" name="bahasa[0][menulis]" >
                           <option value="" disabled selected>-- Pilih --</option>
                           <option value="1" {{ old('menulis') == 'Baik' ? 'selected="selected"' : '' }}>BAIK</option>
                           <option value="2" {{ old('menulis') == 'Cukup' ? 'selected="selected"' : '' }}>CUKUP</option>
@@ -849,7 +730,7 @@
                         @endif
                       </td>
                       <td>
-                        <select class="form-control" name="mengerti[0]" required="">
+                        <select class="form-control" name="bahasa[0][mengerti]" >
                           <option value="" disabled selected>-- Pilih --</option>
                           <option value="1" {{ old('mengerti') == 'Baik' ? 'selected="selected"' : '' }}>BAIK</option>
                           <option value="2" {{ old('mengerti') == 'Cukup' ? 'selected="selected"' : '' }}>CUKUP</option>
@@ -867,8 +748,9 @@
                 </table>
               </div>
             </div>
-            {{-- END TAB 4 --}}
-            {{-- START TAB 5 --}}
+            {{-- END Bahasa --}}
+
+            {{-- START Komputer --}}
             <div class="tab-pane" id="tab_Komputer">
               <div class="box-body">
                 <table class="table table-hover" id="dKomputer">
@@ -885,11 +767,7 @@
                     <tr>
                       <td><input type="checkbox" name="chk"/></td>
                       <td>
-                        <input type="text" name="nama_program[0]" class="form-control" placeholder="Nama Program"
-                        @if(isset($data['nama_program']))
-                          value="{{  $data['nama_program']->bahasa }}"
-                        @endif
-                        >
+                        {!! Form::text('komputer[0][nama_program]', null, ['class'=>'form-control', 'placeholder'=>'Nama Program']) !!}
                         @if($errors->has('nama_program'))
                           <span class="help-block">
                             <strong>{{ $errors->first('nama_program')}}
@@ -898,7 +776,7 @@
                         @endif
                       </td>
                       <td>
-                        <select class="form-control" name="nilai[0]">
+                        <select class="form-control" name="komputer[0][nilai]">
                           <option value="" disabled selected>-- Pilih --</option>
                           <option value="1" {{ old('nilai') == '1' ? 'selected="selected"' : '' }}>BAIK</option>
                           <option value="2" {{ old('nilai') == '2' ? 'selected="selected"' : '' }}>CUKUP</option>
@@ -916,8 +794,8 @@
                 </table>
               </div>
             </div>
-            {{-- START TAB 5 --}}
-            {{-- START TAB 6 --}}
+            {{-- End Komputer --}}
+            {{-- START Penyakit --}}
             <div class="tab-pane" id="tab_Penyakit">
               <div class="box-body">
                 <table class="table table-hover" id="dPenyakit">
@@ -934,11 +812,7 @@
                     <tr>
                       <td><input type="checkbox" name="chk"/></td>
                       <td>
-                        <input type="text" name="nama_penyakit[0]" class="form-control" placeholder="Nama Penyakit"
-                        @if(isset($data['nama_penyakit']))
-                          value="{{  $data['nama_penyakit']->bahasa }}"
-                        @endif
-                        >
+                        {!! Form::text('penyakit[0][nama_penyakit]', null, ['class'=>'form-control', 'placeholder'=>'Jenis Penyakit']) !!}
                         @if($errors->has('nama_penyakit'))
                           <span class="help-block">
                             <strong>{{ $errors->first('nama_penyakit')}}
@@ -947,7 +821,7 @@
                         @endif
                       </td>
                       <td>
-                        <textarea type="text" name="keterangan[0]" class="form-control" placeholder="Keterangan" rows="2" cols="40"></textarea>
+                        {!! Form::textarea('penyakit[0][keterangan]', null, ['class'=>'form-control', 'placeholder'=>'Jenis Penyakit', 'size' => '2x2']) !!}
                         @if($errors->has('keterangan'))
                           <span class="help-block">
                             <strong>{{ $errors->first('keterangan')}}
@@ -1019,22 +893,22 @@
         cell1.innerHTML = '<input type="checkbox" name="chk[]"/>';
 
         var cell2 = row.insertCell(1);
-        cell2.innerHTML = '<input type="text" name="nama_keluarga['+numA+']" class="form-control" placeholder="Nama Keluarga" required="[]"@if(!$errors->has('nama_keluarga'))value="{{ old('nama_keluarga') }}"@endif>@if($errors->has('nama_keluarga'))<span class="help-block"><strong><h6>{{ $errors->first('nama_keluarga')}}</h6></strong></span>@endif';
+        cell2.innerHTML = '<input type="text" name="data_keluarga['+numA+'][nama_keluarga]" class="form-control" placeholder="Nama Keluarga"@if(!$errors->has('nama_keluarga'))value="{{ old('nama_keluarga') }}"@endif>@if($errors->has('nama_keluarga'))<span class="help-block"><strong><h6>{{ $errors->first('nama_keluarga')}}</h6></strong></span>@endif';
 
         var cell3 = row.insertCell(2);
-        cell3.innerHTML = '<select class="form-control" name="hubungan_keluarga['+numA+']" required="[]"><option value="" disabled selected>-- Pilih --</option><option value="AYAH" {{ old('hubungan_keluarga') == 'AYAH' ? 'selected="selected"' : '' }}>AYAH</option><option value="IBU" {{ old('hubungan_keluarga') == 'IBU' ? 'selected="selected"' : '' }}>IBU</option><option value="KAKAK" {{ old('hubungan_keluarga') == 'KAKAK' ? 'selected="selected"' : ''}}>KAKAK</option><option value="ADIK" {{ old('hubungan_keluarga') == 'ADIK' ? 'selected="selected"' : ''}}>ADIK</option><option value="LAINNYA" {{ old('hubungan_keluarga') == 'LAINNYA' ? 'selected="selected"' : ''}}>LAINNYA</option></select>@if($errors->has('hubungan_keluarga'))<span class="help-block"><strong><h6>{{ $errors->first('hubungan_keluarga')}}</h6></strong></span>@endif';
+        cell3.innerHTML = '<select class="form-control" name="data_keluarga['+numA+'][hubungan_keluarga]"><option value="" disabled selected>-- Pilih --</option><option value="AYAH" {{ old('hubungan_keluarga') == 'AYAH' ? 'selected="selected"' : '' }}>AYAH</option><option value="IBU" {{ old('hubungan_keluarga') == 'IBU' ? 'selected="selected"' : '' }}>IBU</option><option value="KAKAK" {{ old('hubungan_keluarga') == 'KAKAK' ? 'selected="selected"' : ''}}>KAKAK</option><option value="ADIK" {{ old('hubungan_keluarga') == 'ADIK' ? 'selected="selected"' : ''}}>ADIK</option><option value="LAINNYA" {{ old('hubungan_keluarga') == 'LAINNYA' ? 'selected="selected"' : ''}}>LAINNYA</option></select>@if($errors->has('hubungan_keluarga'))<span class="help-block"><strong><h6>{{ $errors->first('hubungan_keluarga')}}</h6></strong></span>@endif';
 
         var cell4 = row.insertCell(3);
-        cell4.innerHTML = '<div class="input-group"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right" id="tanggal_lahir_keluarga" name="tanggal_lahir_keluarga['+numA+']" data-date-format="dd-mm-yyyy"@if(!$errors->has('tanggal_lahir_keluarga'))value="{{ old('tanggal_lahir_keluarga') }}"@endif></div>@if($errors->has('tanggal_lahir_keluarga'))<span class="help-block"><strong><h6>{{ $errors->first('tanggal_lahir_keluarga')}}</h6></strong></span>@endif';
+        cell4.innerHTML = '<div class="input-group"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right" id="tanggal_lahir_keluarga" name="data_keluarga['+numA+'][tanggal_lahir_keluarga]" data-date-format="dd-mm-yyyy"@if(!$errors->has('tanggal_lahir_keluarga'))value="{{ old('tanggal_lahir_keluarga') }}"@endif></div>@if($errors->has('tanggal_lahir_keluarga'))<span class="help-block"><strong><h6>{{ $errors->first('tanggal_lahir_keluarga')}}</h6></strong></span>@endif';
 
         var cell5 = row.insertCell(4);
-        cell5.innerHTML = '<select class="form-control" name="pekerjaan_keluarga['+numA+']"><option value="" disabled selected>-- Pilih --</option><option value="PEGAWAINEGERI" {{ old('pekerjaan_keluarga') == 'PEGAWAINEGERI' ? 'selected="selected"' : '' }}>PEGAWAI NEGERI</option><option value="PEGAWAISWASTA" {{ old('pekerjaan_keluarga') == 'PEGAWAISWASTA' ? 'selected="selected"' : '' }}>PEGAWAI SWASTA</option><option value="WIRASAWASTA" {{ old('pekerjaan_keluarga') == 'WIRASAWASTA' ? 'selected="selected"' : '' }}>WIRASAWASTA</option><option value="RUMAH TANGGA" {{ old('pekerjaan_keluarga') == 'RUMAH TANGGA' ? 'selected="selected"' : '' }}>RUMAH TANGGA</option><option value="MAHASISWA" {{ old('pekerjaan_keluarga') == 'MAHASISWA' ? 'selected="selected"' : '' }}>MAHASISWA</option><option value="PELAJAR" {{ old('pekerjaan_keluarga') == 'PELAJAR' ? 'selected="selected"' : '' }}>PELAJAR</option><option value="LAINNYA" {{ old('pekerjaan_keluarga') == 'LAINNYA' ? 'selected="selected"' : '' }}>LAINNYA</option></select>@if($errors->has('pekerjaan_keluarga'))<span class="help-block"><strong>{{ $errors->first('pekerjaan_keluarga')}}</strong></span>@endif';
+        cell5.innerHTML = '<select class="form-control" name="data_keluarga['+numA+'][pekerjaan_keluarga]"><option value="" disabled selected>-- Pilih --</option><option value="PEGAWAINEGERI" {{ old('pekerjaan_keluarga') == 'PEGAWAINEGERI' ? 'selected="selected"' : '' }}>PEGAWAI NEGERI</option><option value="PEGAWAISWASTA" {{ old('pekerjaan_keluarga') == 'PEGAWAISWASTA' ? 'selected="selected"' : '' }}>PEGAWAI SWASTA</option><option value="WIRASAWASTA" {{ old('pekerjaan_keluarga') == 'WIRASAWASTA' ? 'selected="selected"' : '' }}>WIRASAWASTA</option><option value="RUMAH TANGGA" {{ old('pekerjaan_keluarga') == 'RUMAH TANGGA' ? 'selected="selected"' : '' }}>RUMAH TANGGA</option><option value="MAHASISWA" {{ old('pekerjaan_keluarga') == 'MAHASISWA' ? 'selected="selected"' : '' }}>MAHASISWA</option><option value="PELAJAR" {{ old('pekerjaan_keluarga') == 'PELAJAR' ? 'selected="selected"' : '' }}>PELAJAR</option><option value="LAINNYA" {{ old('pekerjaan_keluarga') == 'LAINNYA' ? 'selected="selected"' : '' }}>LAINNYA</option></select>@if($errors->has('pekerjaan_keluarga'))<span class="help-block"><strong>{{ $errors->first('pekerjaan_keluarga')}}</strong></span>@endif';
 
         var cell6 = row.insertCell(5);
-        cell6.innerHTML = '<label><input type="radio" name="jenis_kelamin_keluarga['+numA+']" class="minimal" value="L" {{ old('jenis_kelamin_keluarga') == 'L' ? 'checked' : '' }}></label><label>Pria</label>&nbsp;&nbsp;&nbsp;<label><input type="radio" name="jenis_kelamin_keluarga['+numA+']" class="minimal" value="P" {{ old('jenis_kelamin_keluarga') == 'P' ? 'checked' : '' }}></label><label>Wanita</label>@if($errors->has('jenis_kelamin_keluarga'))<span class="help-block"><strong>{{ $errors->first('jenis_kelamin_keluarga')}}</strong></span>@endif';
+        cell6.innerHTML = '<label><input type="radio" name="data_keluarga['+numA+'][jenis_kelamin_keluarga]" class="minimal" value="L" {{ old('jenis_kelamin_keluarga') == 'L' ? 'checked' : '' }}></label><label>Pria</label>&nbsp;&nbsp;&nbsp;<label><input type="radio" name="data_keluarga['+numA+'][jenis_kelamin_keluarga]" class="minimal" value="P" {{ old('jenis_kelamin_keluarga') == 'P' ? 'checked' : '' }}></label><label>Wanita</label>@if($errors->has('jenis_kelamin_keluarga'))<span class="help-block"><strong>{{ $errors->first('jenis_kelamin_keluarga')}}</strong></span>@endif';
 
         var cell7 = row.insertCell(6);
-        cell7.innerHTML = '<textarea type="text" name="alamat_keluarga['+numA+']" class="form-control uppercase" placeholder="Alamat" rows="2">@if(!$errors->has('alamat_keluarga')){{ old('alamat_keluarga')}}@endif</textarea>@if($errors->has('alamat_keluarga'))<span class="help-block"><strong>{{ $errors->first('alamat_keluarga')}}</strong></span>@endif';
+        cell7.innerHTML = '<textarea type="text" name="data_keluarga['+numA+'][alamat_keluarga]" class="form-control uppercase" placeholder="Alamat" rows="2">@if(!$errors->has('alamat_keluarga')){{ old('alamat_keluarga')}}@endif</textarea>@if($errors->has('alamat_keluarga'))<span class="help-block"><strong>{{ $errors->first('alamat_keluarga')}}</strong></span>@endif';
         numA++;
     }
 
@@ -1073,16 +947,16 @@
         cell1.innerHTML = '<input type="checkbox" name="chk[]"/>';
 
         var cell2 = row.insertCell(1);
-        cell2.innerHTML = '<input type="text" name="nama_perusahaan['+numB+']" id="nama_perusahaan" class="form-control" placeholder="Nama Perusahaan"@if(!$errors->has('nama_perusahaan'))value="{{ old('nama_perusahaan') }}"@endif>@if($errors->has('nama_perusahaan'))<span class="help-block"><strong><h6>{{ $errors->first('nama_perusahaan')}}</h6></strong></span>@endif';
+        cell2.innerHTML = '<input type="text" name="pengalaman['+numB+'][nama_perusahaan]" class="form-control" placeholder="Nama Perusahaan"@if(!$errors->has('nama_perusahaan'))value="{{ old('nama_perusahaan') }}"@endif>@if($errors->has('nama_perusahaan'))<span class="help-block"><strong><h6>{{ $errors->first('nama_perusahaan')}}</h6></strong></span>@endif';
 
         var cell3 = row.insertCell(2);
-        cell3.innerHTML = '<input type="text" name="posisi['+numB+']" id="posisi" class="form-control" placeholder="Posisi" required="[]"@if(!$errors->has('posisi'))value="{{ old('posisi') }}"@endif>@if($errors->has('posisi'))<span class="help-block"><strong><h6>{{ $errors->first('posisi')}}</h6></strong></span>@endif';
+        cell3.innerHTML = '<input type="text" name="pengalaman['+numB+'][posisi]" class="form-control" placeholder="Posisi" d="[]"@if(!$errors->has('posisi'))value="{{ old('posisi') }}"@endif>@if($errors->has('posisi'))<span class="help-block"><strong><h6>{{ $errors->first('posisi')}}</h6></strong></span>@endif';
 
         var cell4 = row.insertCell(3);
-        cell4.innerHTML = '<div class="input-group"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right" id="tahun_awal_kerja" name="tahun_awal_kerja['+numB+']" data-date-format="dd-mm-yyyy" required="[]"@if(!$errors->has('tahun_awal_kerja'))value="{{ old('tahun_awal_kerja') }}"@endif></div>@if($errors->has('tahun_awal_kerja'))<span class="help-block"><strong><h6>{{ $errors->first('tahun_awal_kerja')}}</h6></strong></span>@endif';
+        cell4.innerHTML = '<div class="input-group"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right" id="tahun_awal_kerja" name="pengalaman['+numB+'][tahun_awal_kerja]" data-date-format="dd-mm-yyyy" @if(!$errors->has('tahun_awal_kerja'))value="{{ old('tahun_awal_kerja') }}"@endif></div>@if($errors->has('tahun_awal_kerja'))<span class="help-block"><strong><h6>{{ $errors->first('tahun_awal_kerja')}}</h6></strong></span>@endif';
 
         var cell5 = row.insertCell(4);
-        cell5.innerHTML = '<div class="input-group"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right" id="tahun_akhir_kerja" name="tahun_akhir_kerja['+numB+']" data-date-format="dd-mm-yyyy" required="[]"@if(!$errors->has('tahun_akhir_kerja'))value="{{ old('tahun_akhir_kerja') }}"@endif></div>@if($errors->has('tahun_akhir_kerja'))<span class="help-block"><strong><h6>{{ $errors->first('tahun_akhir_kerja')}}</h6></strong></span>@endif';
+        cell5.innerHTML = '<div class="input-group"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right" id="tahun_akhir_kerja" name="pengalaman['+numB+'][tahun_akhir_kerja]" data-date-format="dd-mm-yyyy" @if(!$errors->has('tahun_akhir_kerja'))value="{{ old('tahun_akhir_kerja') }}"@endif></div>@if($errors->has('tahun_akhir_kerja'))<span class="help-block"><strong><h6>{{ $errors->first('tahun_akhir_kerja')}}</h6></strong></span>@endif';
         numB++;
     }
 
@@ -1121,19 +995,19 @@
         cell1.innerHTML = '<input type="checkbox" name="chk[]"/>';
 
         var cell2 = row.insertCell(1);
-        cell2.innerHTML = '<select class="form-control" name="jenjangpendidikan['+numC+']" required=""><option value="" disabled selected>-- Pilih --</option><option value="PELATIHANKEAHLIAN">PELATIHAN KEAHLIAN</option><option value="S2">S2 Magister</option><option value="S1">S1 Universitas</option><option value="D3">D3 Akademik</option><option value="SMU">SMU</option><option value="SMP">SMP</option><option value="SD">SD</option><option value="LAINNYA">LAINNYA</option></select>@if($errors->has('jenjang_pendidikan'))<span class="help-block"><strong>{{ $errors->first('jenjang_pendidikan')}}</strong></span>@endif';
+        cell2.innerHTML = '<select class="form-control" name="pendidikan['+numC+'][jenjang_pendidikan]" ><option value="" disabled selected>-- Pilih --</option><option value="PELATIHANKEAHLIAN">PELATIHAN KEAHLIAN</option><option value="S2">S2 Magister</option><option value="S1">S1 Universitas</option><option value="D3">D3 Akademik</option><option value="SMU">SMU</option><option value="SMP">SMP</option><option value="SD">SD</option><option value="LAINNYA">LAINNYA</option></select>@if($errors->has('jenjang_pendidikan'))<span class="help-block"><strong>{{ $errors->first('jenjang_pendidikan')}}</strong></span>@endif';
 
         var cell3 = row.insertCell(2);
-        cell3.innerHTML = '<input type="text" name="institusipendidikan['+numC+']" class="form-control uppercase" placeholder="Institusi Pendidikan" required="">@if($errors->has('institusi_pendidikan'))<span class="help-block"><strong>{{ $errors->first('institusi_pendidikan')}}</strong></span>@endif';
+        cell3.innerHTML = '<input type="text" name="pendidikan['+numC+'][institusi_pendidikan]" class="form-control uppercase" placeholder="Institusi Pendidikan" >@if($errors->has('institusi_pendidikan'))<span class="help-block"><strong>{{ $errors->first('institusi_pendidikan')}}</strong></span>@endif';
 
         var cell4 = row.insertCell(3);
-        cell4.innerHTML = '<input type="text" name="tahunmasuk['+numC+']" class="form-control" placeholder="Tahun Masuk" maxlength="4" onkeyup="validAngka(this)" required="">@if($errors->has('tahun_masuk'))<span class="help-block"><strong>{{ $errors->first('tahun_masuk')}}</strong></span>@endif';
+        cell4.innerHTML = '<input type="text" name="pendidikan['+numC+'][tahun_masuk_pendidikan]" class="form-control" placeholder="Tahun Masuk" maxlength="4" onkeyup="validAngka(this)" >@if($errors->has('tahun_masuk'))<span class="help-block"><strong>{{ $errors->first('tahun_masuk')}}</strong></span>@endif';
 
         var cell5 = row.insertCell(4);
-        cell5.innerHTML = '<input type="text" name="tahunlulus['+numC+']" class="form-control" placeholder="Tahun Lulus" maxlength="4" onkeyup="validAngka(this)" required="">@if($errors->has('tahun_lulus'))<span class="help-block"><strong>{{ $errors->first('tahun_lulus')}}</strong></span>@endif';
+        cell5.innerHTML = '<input type="text" name="pendidikan['+numC+'][tahun_lulus_pendidikan]" class="form-control" placeholder="Tahun Lulus" maxlength="4" onkeyup="validAngka(this)" >@if($errors->has('tahun_lulus'))<span class="help-block"><strong>{{ $errors->first('tahun_lulus')}}</strong></span>@endif';
 
         var cell6 = row.insertCell(5);
-        cell6.innerHTML = '<input type="text" name="gelarakademik['+numC+']" class="form-control" placeholder="Gelar Kelulusan" maxlength="10" required="">@if($errors->has('gelar_akademik'))<span class="help-block"><strong>{{ $errors->first('gelar_akademik')}}</strong></span>@endif';
+        cell6.innerHTML = '<input type="text" name="pendidikan['+numC+'][gelar_akademik]" class="form-control" placeholder="Gelar Kelulusan" maxlength="10" >@if($errors->has('gelar_akademik'))<span class="help-block"><strong>{{ $errors->first('gelar_akademik')}}</strong></span>@endif';
         numC++;
     }
 
@@ -1172,16 +1046,16 @@
         cell1.innerHTML = '<input type="checkbox" name="chk[]"/>';
 
         var cell2 = row.insertCell(1);
-        cell2.innerHTML = '<input type="text" name="bahasa['+numD+']" class="form-control uppercase" placeholder="Bahasa" required=""@if(isset($data['bindbahasaasing']))value="{{  $data['bindbahasaasing']->bahasa }}" readonly="true"@endif>@if($errors->has('bahasa'))<span class="help-block"><strong>{{ $errors->first('bahasa')}}</strong></span>@endif';
+        cell2.innerHTML = '<input type="text" name="bahasa['+numD+'][bahasa]" class="form-control uppercase" placeholder="Bahasa" @if(isset($data['bindbahasaasing']))value="{{  $data['bindbahasaasing']->bahasa }}" readonly="true"@endif>@if($errors->has('bahasa'))<span class="help-block"><strong>{{ $errors->first('bahasa')}}</strong></span>@endif';
 
         var cell3 = row.insertCell(2);
-        cell3.innerHTML = '<select class="form-control" name="berbicara['+numD+']" required=""><option value="" disabled selected>-- Pilih --</option><option value="1" {{ old('berbicara') == '1' ? 'selected="selected"' : '' }}>BAIK</option><option value="2" {{ old('berbicara') == '2' ? 'selected="selected"' : '' }}>CUKUP</option><option value="3" {{ old('berbicara') == '3' ? 'selected="selected"' : '' }}>KURANG</option></select>@if($errors->has('berbicara'))<span class="help-block"><strong>{{ $errors->first('berbicara')}}</strong></span>@endif';
+        cell3.innerHTML = '<select class="form-control" name="bahasa['+numD+'][berbicara]" ><option value="" disabled selected>-- Pilih --</option><option value="1" {{ old('berbicara') == '1' ? 'selected="selected"' : '' }}>BAIK</option><option value="2" {{ old('berbicara') == '2' ? 'selected="selected"' : '' }}>CUKUP</option><option value="3" {{ old('berbicara') == '3' ? 'selected="selected"' : '' }}>KURANG</option></select>@if($errors->has('berbicara'))<span class="help-block"><strong>{{ $errors->first('berbicara')}}</strong></span>@endif';
 
         var cell4 = row.insertCell(3);
-        cell4.innerHTML = '<select class="form-control" name="menulis['+numD+']" required=""><option value="" disabled selected>-- Pilih --</option><option value="1" {{ old('menulis') == 'Baik' ? 'selected="selected"' : '' }}>BAIK</option><option value="2" {{ old('menulis') == 'Cukup' ? 'selected="selected"' : '' }}>CUKUP</option><option value="3" {{ old('menulis') == 'Kurang' ? 'selected="selected"' : '' }}>KURANG</option></select>@if($errors->has('menulis'))<span class="help-block"><strong>{{ $errors->first('menulis')}}</strong></span>@endif';
+        cell4.innerHTML = '<select class="form-control" name="bahasa['+numD+'][menulis]" ><option value="" disabled selected>-- Pilih --</option><option value="1" {{ old('menulis') == 'Baik' ? 'selected="selected"' : '' }}>BAIK</option><option value="2" {{ old('menulis') == 'Cukup' ? 'selected="selected"' : '' }}>CUKUP</option><option value="3" {{ old('menulis') == 'Kurang' ? 'selected="selected"' : '' }}>KURANG</option></select>@if($errors->has('menulis'))<span class="help-block"><strong>{{ $errors->first('menulis')}}</strong></span>@endif';
 
         var cell5 = row.insertCell(4);
-        cell5.innerHTML = '<select class="form-control" name="mengerti['+numD+']" required=""><option value="" disabled selected>-- Pilih --</option><option value="1" {{ old('mengerti') == 'Baik' ? 'selected="selected"' : '' }}>BAIK</option><option value="2" {{ old('mengerti') == 'Cukup' ? 'selected="selected"' : '' }}>CUKUP</option><option value="3" {{ old('mengerti') == 'Kurang' ? 'selected="selected"' : '' }}>KURANG</option></select>@if($errors->has('mengerti'))<span class="help-block"><strong>{{ $errors->first('mengerti')}}</strong></span>@endif';
+        cell5.innerHTML = '<select class="form-control" name="bahasa['+numD+'][mengerti]" ><option value="" disabled selected>-- Pilih --</option><option value="1" {{ old('mengerti') == 'Baik' ? 'selected="selected"' : '' }}>BAIK</option><option value="2" {{ old('mengerti') == 'Cukup' ? 'selected="selected"' : '' }}>CUKUP</option><option value="3" {{ old('mengerti') == 'Kurang' ? 'selected="selected"' : '' }}>KURANG</option></select>@if($errors->has('mengerti'))<span class="help-block"><strong>{{ $errors->first('mengerti')}}</strong></span>@endif';
         numD++;
     }
 
@@ -1220,10 +1094,10 @@
         cell1.innerHTML = '<input type="checkbox" name="chk[]"/>';
 
         var cell2 = row.insertCell(1);
-        cell2.innerHTML = '<input type="text" name="nama_program['+numE+']" class="form-control" placeholder="Nama Program"@if(isset($data['nama_program']))value="{{  $data['nama_program']->bahasa }}"@endif>@if($errors->has('nama_program'))<span class="help-block"><strong>{{ $errors->first('nama_program')}}</strong></span>@endif';
+        cell2.innerHTML = '<input type="text" name="komputer['+numE+'][nama_program]" class="form-control" placeholder="Nama Program"@if(isset($data['nama_program']))value="{{  $data['nama_program']->bahasa }}"@endif>@if($errors->has('nama_program'))<span class="help-block"><strong>{{ $errors->first('nama_program')}}</strong></span>@endif';
 
         var cell3 = row.insertCell(2);
-        cell3.innerHTML = '<select class="form-control" name="nilai['+numE+']"><option value="" disabled selected>-- Pilih --</option><option value="1" {{ old('nilai') == '1' ? 'selected="selected"' : '' }}>BAIK</option><option value="2" {{ old('nilai') == '2' ? 'selected="selected"' : '' }}>CUKUP</option><option value="3" {{ old('nilai') == '3' ? 'selected="selected"' : '' }}>KURANG</option></select>@if($errors->has('nilai'))<span class="help-block"><strong>{{ $errors->first('nilai')}}</strong></span>@endif';
+        cell3.innerHTML = '<select class="form-control" name="komputer['+numE+'][nilai]"><option value="" disabled selected>-- Pilih --</option><option value="1" {{ old('nilai') == '1' ? 'selected="selected"' : '' }}>BAIK</option><option value="2" {{ old('nilai') == '2' ? 'selected="selected"' : '' }}>CUKUP</option><option value="3" {{ old('nilai') == '3' ? 'selected="selected"' : '' }}>KURANG</option></select>@if($errors->has('nilai'))<span class="help-block"><strong>{{ $errors->first('nilai')}}</strong></span>@endif';
         numE++;
     }
 
@@ -1262,10 +1136,10 @@
         cell1.innerHTML = '<input type="checkbox" name="chk[]"/>';
 
         var cell2 = row.insertCell(1);
-        cell2.innerHTML = '<input type="text" name="nama_penyakit['+numF+']" class="form-control" placeholder="Nama Penyakit"@if(isset($data['nama_penyakit']))value="{{  $data['nama_penyakit']->bahasa }}"@endif>@if($errors->has('nama_penyakit'))<span class="help-block"><strong>{{ $errors->first('nama_penyakit')}}</strong></span>@endif';
+        cell2.innerHTML = '<input type="text" name="penyakit['+numF+'][nama_penyakit]" class="form-control" placeholder="Nama Penyakit"@if(isset($data['nama_penyakit']))value="{{  $data['nama_penyakit']->bahasa }}"@endif>@if($errors->has('nama_penyakit'))<span class="help-block"><strong>{{ $errors->first('nama_penyakit')}}</strong></span>@endif';
 
         var cell3 = row.insertCell(2);
-        cell3.innerHTML = '<textarea type="text" name="keterangan['+numF+']" class="form-control" placeholder="Keterangan" rows="2" cols="40"></textarea>@if($errors->has('keterangan'))<span class="help-block"><strong>{{ $errors->first('keterangan')}}</strong></span>@endif';
+        cell3.innerHTML = '<textarea type="text" name="penyakit['+numF+'][keterangan]" class="form-control" placeholder="Keterangan" rows="2" cols="40"></textarea>@if($errors->has('keterangan'))<span class="help-block"><strong>{{ $errors->first('keterangan')}}</strong></span>@endif';
         numF++;
     }
 

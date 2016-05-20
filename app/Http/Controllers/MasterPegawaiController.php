@@ -36,7 +36,7 @@ class MasterPegawaiController extends Controller
      */
     public function create()
     {
-      // $getjabatan = MasterJabatan::where('status', 1)->get();
+      //$getjabatan = MasterJabatan::where('status', 1)->get();
       $getjabatan = MasterJabatan::where('status', '=', '1')->lists('nama_jabatan','id');
 
       return view('pages/tambahdatapegawai')->with('getjabatan', $getjabatan);
@@ -51,46 +51,42 @@ class MasterPegawaiController extends Controller
      */
     public function store(MasterPegawaiRequest $request)
     {
-      //dd($request->input('data_keluarga.*.nama_keluarga'));
+      dd($request);
       DB::transaction(function() use($request) {
         $pegawai = MasterPegawai::create([
-                      'nip'       => $request->nip,
-                      'nip_lama'  => $request->nip_lama,
-                      'no_ktp'    => $request->no_ktp,
-                      'no_kk'     => $request->no_kk,
-                      'no_npwp'   => $request->no_npwp,
-                      'nama'      => $request->nama,
+                      'nip'           => $request->nip,
+                      'nip_lama'      => $request->nip_lama,
+                      'no_ktp'        => $request->no_ktp,
+                      'no_kk'         => $request->no_kk,
+                      'no_npwp'       => $request->no_npwp,
+                      'nama'          => $request->nama,
                       'tanggal_lahir' => $request->tanggal_lahir,
                       'jenis_kelamin' => $request->jenis_kelamin,
-                      'email'     => $request->email,
-                      'alamat'    => $request->alamat,
-                      'agama'     => $request->agama,
-                      'no_telp'   => $request->no_telp,
+                      'email'         => $request->email,
+                      'alamat'        => $request->alamat,
+                      'agama'         => $request->agama,
+                      'no_telp'       => $request->no_telp,
                       'status_pajak'  => $request->status_pajak,
                       'kewarganegaraan' => $request->kewarganegaraan,
                       'bpjs_kesehatan'  => $request->bpjs_kesehatan,
                       'bpjs_ketenagakerjaan'  => $request->bpjs_ketenagakerjaan,
-                      'no_rekening' => $request->no_rekening,
-                      'id_jabatan'  => $request->jabatan,
+                      'no_rekening'   => $request->no_rekening,
+                      'id_jabatan'     => $request->jabatan,
         ]);
 
-        $data_keluarga = array(
-                      'nama_keluarga'           => $request->input('data_keluarga.*.nama_keluarga'),
-                      'hubungan_keluarga'       => $request->input('data_keluarga.*.hubungan_keluarga'),
-                      'tanggal_lahir_keluarga'  => $request->input('data_keluarga.*.tanggal_lahir_keluarga'),
-                      'pekerjaan_keluarga'      => $request->input('data_keluarga.*.pekerjaan_keluarga'),
-                      'jenis_kelamin_keluarga'  => $request->input('data_keluarga.*.jenis_kelamin_keluarga'),
-                      'alamat_keluarga'         => $request->input('data_keluarga.*.alamat_keluarga'),
-                      // 'id_pegawai'              => $pegawai->id
-        );
-        DataKeluarga::insert($data_keluarga);
+        $data_keluarga = DataKeluarga::create([
+
+
+                      'id_pegawai'              => $pegawai->id
+        ]);
         dd($data_keluarga);
-        //DB::table('data_keluarga')->insert($data_keluarga );
 
         $pengalaman_kerja = PengalamanKerja::create([
 
+
                       'id_pegawai'    => $pegawai->id
         ]);
+        dd($pengalaman_kerja);
 
         $kondisi_kesehatan = KondisiKesehatan::create([
                       'tinggi_badan'  => $request->input('tinggi_badan'),
@@ -101,6 +97,9 @@ class MasterPegawaiController extends Controller
                       'merokok'       => $request->input('merokok'),
                       'id_pegawai'    => $pegawai->id
         ]);
+        dd($kondisi_kesehatan);
+
+
 
       });
 
