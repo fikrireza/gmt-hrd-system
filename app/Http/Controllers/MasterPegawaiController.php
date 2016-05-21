@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use DB;
 
-
 use App\Http\Requests;
 use App\Http\Requests\MasterPegawaiRequest;
 use App\MasterPegawai;
@@ -51,7 +50,6 @@ class MasterPegawaiController extends Controller
      */
     public function store(MasterPegawaiRequest $request)
     {
-      dd($request);
       DB::transaction(function() use($request) {
         $pegawai = MasterPegawai::create([
                       'nip'           => $request->nip,
@@ -74,20 +72,6 @@ class MasterPegawaiController extends Controller
                       'id_jabatan'     => $request->jabatan,
         ]);
 
-        $data_keluarga = DataKeluarga::create([
-
-
-                      'id_pegawai'              => $pegawai->id
-        ]);
-        dd($data_keluarga);
-
-        $pengalaman_kerja = PengalamanKerja::create([
-
-
-                      'id_pegawai'    => $pegawai->id
-        ]);
-        dd($pengalaman_kerja);
-
         $kondisi_kesehatan = KondisiKesehatan::create([
                       'tinggi_badan'  => $request->input('tinggi_badan'),
                       'berat_badan'   => $request->input('berat_badan'),
@@ -97,10 +81,35 @@ class MasterPegawaiController extends Controller
                       'merokok'       => $request->input('merokok'),
                       'id_pegawai'    => $pegawai->id
         ]);
-        dd($kondisi_kesehatan);
 
+        /*
+         * Belum masukin foreign key id_pegawai
+         * $pegawai->id inject into array
+         *
+         */
+        $keluarga = $request->input('data_keluarga');
+        dd($keluarga);
+        DB::table('data_keluarga')->insert($keluarga);
 
+        $pengalaman_kerja = $request->input('pengalaman');
+        dd($pengalaman_kerja);
+        DB::table('pengalaman_kerja')->insert($pengalaman_kerja);
 
+        $pendidikan = $request->input('pendidikan');
+        dd($pendidikan);
+        DB::table('pendidikan')->insert($pendidikan);
+
+        $bahasa = $request->input('bahasa');
+        dd($bahasa);
+        DB::table('bahasa_asing')->insert($bahasa);
+
+        $komputer = $request->insert('komputer');
+        dd($komputer);
+        DB::table('keahlian_komputer')->insert($komputer);
+
+        $penyakit = $request->input('penyakit');
+        dd($penyakit);
+        DB::table('riwayat_penyakit')->insert($penyakit);
       });
 
       return redirect()->route('masterpegawai.create')->with('message','Berhasil memasukkan pegawai baru.');

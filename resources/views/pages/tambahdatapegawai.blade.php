@@ -878,6 +878,15 @@
       $('#tahun_akhir_kerja').datepicker();
     });
   </script>
+  <script type="text/javascript">
+    function validAngka(evt)
+    {
+    	if(!/^[0-9.]+$/.test(evt.value))
+    	{
+    	evt.value = evt.value.substring(0,evt.value.length-1000);
+    	}
+    }
+  </script>
 
   <script language="javascript">
     var numA=1;
