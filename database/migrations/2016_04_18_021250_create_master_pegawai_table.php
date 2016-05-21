@@ -19,6 +19,7 @@ class CreateMasterPegawaiTable extends Migration
         $table->string('nama');
         $table->string('email')->unique();
         $table->string('alamat');
+        $table->string('status_kontrak');
         $table->integer('status')->default(1);
         //0 = non-aktif, 1 = aktif
         $table->timestamps();

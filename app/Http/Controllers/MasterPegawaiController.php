@@ -42,7 +42,7 @@ class MasterPegawaiController extends Controller
       //$getjabatan = MasterJabatan::where('status', 1)->get();
       $getjabatan = MasterJabatan::where('status', '=', '1')->lists('nama_jabatan','id');
 
-      return view('pages/tambahdatapegawai')->with('getjabatan', $getjabatan);
+      return view('pages/MasterPegawai/tambahdatapegawai')->with('getjabatan', $getjabatan);
       // return view('pages/tambahdatapegawai');
     }
 
@@ -68,6 +68,7 @@ class MasterPegawaiController extends Controller
                       'email'         => $request->email,
                       'alamat'        => $request->alamat,
                       'agama'         => $request->agama,
+                      'status_kontrak'=> $request->status_kontrak,
                       'no_telp'       => $request->no_telp,
                       'status_pajak'  => $request->status_pajak,
                       'kewarganegaraan' => $request->kewarganegaraan,
@@ -157,9 +158,9 @@ class MasterPegawaiController extends Controller
         if($penyakits == !null){
           foreach ($penyakits as $penyakit) {
             $isiPenyakit  = new RiwayatPenyakit;
-            $isiPenyakit->nama_penyakit = $penyakit['nama_penyakit'];
-            $isiPenyakit->keterangan_penyakit    = $penyakit['keterangan'];
-            $isiPenyakit->id_pegawai    = $pegawai->id;
+            $isiPenyakit->nama_penyakit       = $penyakit['nama_penyakit'];
+            $isiPenyakit->keterangan_penyakit = $penyakit['keterangan'];
+            $isiPenyakit->id_pegawai          = $pegawai->id;
             $isiPenyakit->save();
           }
         }
@@ -177,7 +178,16 @@ class MasterPegawaiController extends Controller
      */
     public function show($id)
     {
-        //
+      $DataPegawai    = MasterPegawai::where('id', '=', $id)->get();
+      $DataKeluarga   = DataKeluarga::where('id_pegawai', '=', $id)->get();
+      $DataPendidikan = Pendidikan::where('id_pegawai', '=', $id)->get();
+      $DataPengalaman = PengalamanKerja::where('id_pegawai', '=', $id)->get();
+      $DataKomputer   = KeahlianKomputer::where('id_pegawai', '=', $id)->get();
+      $DataBahasa     = BahasaAsing::where('id_pegawai', '=', $id)->get();
+      $DataKesehatan  = KondisiKesehatan::where('id_pegawai', '=', $id)->get();
+      $DataPenyakit   = RiwayatPenyakit::where('id_pegawai', '=', $id)->get();
+
+      return view('pages/MasterPegawai/lihatdatapegawai', compact('DataPegawai', 'DataKeluarga', 'DataPendidikan', 'DataPengalaman', 'DataKomputer', 'DataBahasa', 'DataKesehatan', 'DataPenyakit'));
     }
 
     /**
