@@ -42,7 +42,7 @@
       </a>
       <ul class="treeview-menu">
         <li><a href="{{ route('masterpegawai.index') }}"><i class="fa fa-circle-o"></i> Lihat Data Pegawai</a></li>
-        <li><a href="{{ route('masterpegawai.create') }}"><i class="fa fa-circle-o"></i> Tambah Data Pegawai</a></li>
+        {{-- <li><a href="{{ route('masterpegawai.create') }}"><i class="fa fa-circle-o"></i> Tambah Data Pegawai</a></li> --}}
       </ul>
     </li>
     <li class="treeview">

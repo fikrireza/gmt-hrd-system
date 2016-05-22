@@ -29,7 +29,7 @@ class MasterPegawaiController extends Controller
      */
     public function index()
     {
-      return view('pages.viewpegawai');
+      return view('pages/MasterPegawai/viewpegawai');
     }
 
     /**
@@ -226,18 +226,18 @@ class MasterPegawaiController extends Controller
 
     public function getDataForDataTable()
     {
-      $users = MasterPegawai::select(['nip','nama','jenis_kelamin', 'no_telp', 'nama_jabatan'])
+      $users = MasterPegawai::select(['nip','nama','jenis_kelamin', 'no_telp', 'nama_jabatan', 'status_kontrak'])
         ->join('master_jabatan','master_pegawai.id_jabatan','=', 'master_jabatan.id')->get();
-
+      // dd($users);
       return Datatables::of($users)
-        ->addColumn('action', function(){
-          return "<a href='#' class='btn btn-primary' data-toggle='tooltip' title='Lihat Detail'><i class='fa fa-eye'></i></a>";
+        ->addColumn('action', function($user){
+          return '<a href="masterpegawai/'.$user->nip.'" class="btn btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i>Lihat</a>&nbsp;<a href="masterpegawai/'.$user->nip.'/edit" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>';
         })
         ->editColumn('jenis_kelamin', function($users){
           if($users->jenis_kelamin=="L")
-            return "Laki-Laki";
+            return "Pria";
           else
-            return "Perempuan";
+            return "Wanita";
         })
         ->make();
     }
