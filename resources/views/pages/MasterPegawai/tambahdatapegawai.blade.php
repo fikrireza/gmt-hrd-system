@@ -292,11 +292,14 @@
                 </div>
               </div>
               <div class="form-group {{ $errors->has('status_pajak') ? 'has-error' : '' }}">
-                <label class="col-sm-3 control-label">Status Pajak</label>
+                <label class="col-sm-3 control-label">Status PTKP</label>
                 <div class="col-sm-9">
-                  {!! Form::select('status_pajak', array('Wajib Pajak' => 'Wajib Pajak',
-                                                  'Tidak Wajib Pajak' => 'Tidak Wajib Pajak'),
-                                    null, ['class' => 'form-control', 'placeholder' => '-- Pilih Wajib Pajak --']) !!}
+                  {!! Form::select('status_pajak', array('TK/0' => 'TK/0',
+                                                  'K/0' => 'K/0',
+                                                  'K/1' => 'K/1',
+                                                  'K/2' => 'K/2',
+                                                  'K/3' => 'K/3'),
+                                    null, ['class' => 'form-control', 'placeholder' => '-- Pilih Status PTKP --']) !!}
                   @if($errors->has('status_pajak'))
                     <span class="help-block">
                       <strong>{{ $errors->first('status_pajak')}}
