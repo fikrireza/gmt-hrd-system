@@ -1,11 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use DB;
-
 use App\Http\Requests;
 use App\Http\Requests\MasterPegawaiRequest;
 use App\MasterPegawai;
@@ -16,10 +13,8 @@ use App\Models\Pendidikan;
 use App\Models\BahasaAsing;
 use App\Models\KeahlianKomputer;
 use App\Models\RiwayatPenyakit;
-
 use App\MasterJabatan;
 use Datatables;
-
 class MasterPegawaiController extends Controller
 {
     /**
@@ -31,7 +26,6 @@ class MasterPegawaiController extends Controller
     {
       return view('pages/MasterPegawai/viewpegawai');
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -41,11 +35,9 @@ class MasterPegawaiController extends Controller
     {
       //$getjabatan = MasterJabatan::where('status', 1)->get();
       $getjabatan = MasterJabatan::where('status', '=', '1')->lists('nama_jabatan','id');
-
       return view('pages/MasterPegawai/tambahdatapegawai')->with('getjabatan', $getjabatan);
       // return view('pages/tambahdatapegawai');
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -68,7 +60,7 @@ class MasterPegawaiController extends Controller
                       'email'         => $request->email,
                       'alamat'        => $request->alamat,
                       'agama'         => $request->agama,
-                      // 'status_kontrak'=> $request->status_kontrak,
+                      'status_kontrak'=> $request->status_karyawan,
                       'no_telp'       => $request->no_telp,
                       'status_pajak'  => $request->status_pajak,
                       'kewarganegaraan' => $request->kewarganegaraan,
@@ -77,7 +69,6 @@ class MasterPegawaiController extends Controller
                       'no_rekening'   => $request->no_rekening,
                       'id_jabatan'     => $request->jabatan,
         ]);
-
         $kondisi_kesehatan = KondisiKesehatan::create([
                       'tinggi_badan'  => $request->input('tinggi_badan'),
                       'berat_badan'   => $request->input('berat_badan'),
@@ -87,9 +78,8 @@ class MasterPegawaiController extends Controller
                       'merokok'       => $request->input('merokok'),
                       'id_pegawai'    => $pegawai->id
         ]);
-
         $keluargas = $request->input('data_keluarga');
-        if($keluargas != null){
+        if($keluargas == !null){
           foreach($keluargas as $keluarga){
             $isiKeluarga = new DataKeluarga;
             $isiKeluarga->nama_keluarga           = $keluarga['nama_keluarga'];
@@ -102,9 +92,8 @@ class MasterPegawaiController extends Controller
             $isiKeluarga->save();
           }
         }
-
         $pengalaman_kerjas = $request->input('pengalaman');
-        if($pengalaman_kerjas != null){
+        if($pengalaman_kerjas == !null){
           foreach($pengalaman_kerjas as $pengalaman_kerja){
             $isiPengalaman  = new PengalamanKerja;
             $isiPengalaman->nama_perusahaan   = $pengalaman_kerja['nama_perusahaan'];
@@ -115,9 +104,8 @@ class MasterPegawaiController extends Controller
             $isiPengalaman->save();
           }
         }
-
         $pendidikans = $request->input('pendidikan');
-        if($pendidikans != null){
+        if($pendidikans == !null){
           foreach($pendidikans as $pendidikan){
             $isiPendidikan  = new Pendidikan;
             $isiPendidikan->jenjang_pendidikan      = $pendidikan['jenjang_pendidikan'];
@@ -129,9 +117,8 @@ class MasterPegawaiController extends Controller
             $isiPendidikan->save();
           }
         }
-
         $bahasas = $request->input('bahasa');
-        if($bahasas != null){
+        if($bahasas == !null){
           foreach ($bahasas as $bahasa) {
             $isiBahasa = new BahasaAsing;
             $isiBahasa->bahasa      = $bahasa['bahasa'];
@@ -142,9 +129,8 @@ class MasterPegawaiController extends Controller
             $isiBahasa->save();
           }
         }
-
         $komputers = $request->input('komputer');
-        if($komputers != null){
+        if($komputers == !null){
           foreach ($komputers as $komputer) {
             $isiKomputer  = new KeahlianKomputer;
             $isiKomputer->nama_program  = $komputer['nama_program'];
@@ -153,9 +139,8 @@ class MasterPegawaiController extends Controller
             $isiKomputer->save();
           }
         }
-
         $penyakits = $request->input('penyakit');
-        if($penyakits != null){
+        if($penyakits == !null){
           foreach ($penyakits as $penyakit) {
             $isiPenyakit  = new RiwayatPenyakit;
             $isiPenyakit->nama_penyakit       = $penyakit['nama_penyakit'];
@@ -164,12 +149,9 @@ class MasterPegawaiController extends Controller
             $isiPenyakit->save();
           }
         }
-
       });
-
       return redirect()->route('masterpegawai.create')->with('message','Berhasil memasukkan pegawai baru.');
     }
-
     /**
      * Display the specified resource.
      *
@@ -178,18 +160,21 @@ class MasterPegawaiController extends Controller
      */
     public function show($id)
     {
-      $DataPegawai    = MasterPegawai::where('id', '=', $id)->get();
-      $DataKeluarga   = DataKeluarga::where('id_pegawai', '=', $id)->get();
-      $DataPendidikan = Pendidikan::where('id_pegawai', '=', $id)->get();
-      $DataPengalaman = PengalamanKerja::where('id_pegawai', '=', $id)->get();
-      $DataKomputer   = KeahlianKomputer::where('id_pegawai', '=', $id)->get();
-      $DataBahasa     = BahasaAsing::where('id_pegawai', '=', $id)->get();
-      $DataKesehatan  = KondisiKesehatan::where('id_pegawai', '=', $id)->get();
-      $DataPenyakit   = RiwayatPenyakit::where('id_pegawai', '=', $id)->get();
-
+      $DataPegawai    = MasterPegawai::where('nip', '=', $id)->get();
+      //bukan metode yang terbaik, cari lagi cuuuuuy metodenya..
+      $idofpegawai;
+      foreach ($DataPegawai as $k) {
+        $idofpegawai = $k->id;
+      }
+      $DataKeluarga   = DataKeluarga::where('id_pegawai', '=', $idofpegawai)->get();
+      $DataPendidikan = Pendidikan::where('id_pegawai', '=', $idofpegawai)->get();
+      $DataPengalaman = PengalamanKerja::where('id_pegawai', '=', $idofpegawai)->get();
+      $DataKomputer   = KeahlianKomputer::where('id_pegawai', '=', $idofpegawai)->get();
+      $DataBahasa     = BahasaAsing::where('id_pegawai', '=', $idofpegawai)->get();
+      $DataKesehatan  = KondisiKesehatan::where('id_pegawai', '=', $idofpegawai)->get();
+      $DataPenyakit   = RiwayatPenyakit::where('id_pegawai', '=', $idofpegawai)->get();
       return view('pages/MasterPegawai/lihatdatapegawai', compact('DataPegawai', 'DataKeluarga', 'DataPendidikan', 'DataPengalaman', 'DataKomputer', 'DataBahasa', 'DataKesehatan', 'DataPenyakit'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -200,7 +185,6 @@ class MasterPegawaiController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -212,7 +196,6 @@ class MasterPegawaiController extends Controller
     {
         //
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -223,7 +206,6 @@ class MasterPegawaiController extends Controller
     {
         //
     }
-
     public function getDataForDataTable()
     {
       $users = MasterPegawai::select(['nip','nama','jenis_kelamin', 'no_telp', 'nama_jabatan', 'status_kontrak'])
@@ -231,7 +213,7 @@ class MasterPegawaiController extends Controller
       // dd($users);
       return Datatables::of($users)
         ->addColumn('action', function($user){
-          return '<a href="masterpegawai/'.$user->nip.'" class="btn btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i>Lihat</a>&nbsp;<a href="masterpegawai/'.$user->nip.'/edit" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>';
+          return '<a href="masterpegawai/'.$user->nip.'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i> Lihat</a>&nbsp;<a href="masterpegawai/'.$user->nip.'/edit" class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit Pegawai"><i class="fa fa-edit"></i> Edit</a>';
         })
         ->editColumn('jenis_kelamin', function($users){
           if($users->jenis_kelamin=="L")

@@ -330,13 +330,13 @@
         <div class="col-md-12">
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab_Keluarga" data-toggle="tab">Data Keluarga</a></li>
-              <li><a href="#tab_Pengalaman" data-toggle="tab">Pengalaman Kerja</a></li>
-              <li><a href="#tab_Kesehatan" data-toggle="tab">Kondisi Kesehatan</a></li>
-              <li><a href="#tab_Pendidikan" data-toggle="tab">Pendidikan</a></li>
-              <li><a href="#tab_Bahasa" data-toggle="tab">Bahasa Asing</a></li>
-              <li><a href="#tab_Komputer" data-toggle="tab">Keahlian Komputer</a></li>
-              <li><a href="#tab_Penyakit" data-toggle="tab">Riwayat Penyakit</a></li>
+              <li id="tab_keluarga" class="active"><a href="#tab_Keluarga" data-toggle="tab">Data Keluarga</a></li>
+              <li id="tab_pengalaman"><a href="#tab_Pengalaman" data-toggle="tab">Pengalaman Kerja</a></li>
+              <li id="tab_kesehatan"><a href="#tab_Kesehatan" data-toggle="tab">Kondisi Kesehatan</a></li>
+              <li id="tab_pendidikan"><a href="#tab_Pendidikan" data-toggle="tab">Pendidikan</a></li>
+              <li id="tab_bahasa"><a href="#tab_Bahasa" data-toggle="tab">Bahasa Asing</a></li>
+              <li id="tab_komputer"><a href="#tab_Komputer" data-toggle="tab">Keahlian Komputer</a></li>
+              <li id="tab_penyakit"><a href="#tab_Penyakit" data-toggle="tab">Riwayat Penyakit</a></li>
             </ul>
             {{-- START Data Keluarga --}}
             <div class="tab-content">
@@ -444,8 +444,8 @@
                   <div class="col-md-6">
                     <label class="btn btn-round bg-green" onclick="addKeluarga('dKeluarga')">Tambah Anggota</label>&nbsp;<label class="btn btn-round bg-red" onclick="delKeluarga('dKeluarga')">Hapus Anggota</label>
                   </div>
-                  <div class="col-md-6 pull-right">
-                    <a href="#tab_Pengalaman" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                  <div class="col-md-6">
+                    <a href="#tab_Pengalaman" data-toggle="tab" id="btn_ke_pengalaman"><label class="btn btn-round bg-blue pull-right">Selanjutnya</label></a>
                   </div>
                 </div>
               </div>
@@ -524,8 +524,8 @@
                     <label class="btn btn-round bg-green" onclick="addPengalaman('dPengalaman')">Tambah Pengalaman</label>&nbsp;
                     <label class="btn btn-round bg-red" onclick="delPengalaman('dPengalaman')">Hapus Pengalaman</label>
                   </div>
-                  <div class="col-md-6 pull-right">
-                    <a href="#tab_Kesehatan" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                  <div class="col-md-6">
+                    <a href="#tab_Kesehatan" data-toggle="tab" id="btn_ke_kesehatan"><label class="btn btn-round bg-blue pull-right">Selanjutnya</label></a>
                   </div>
                 </div>
               </div>
@@ -610,7 +610,7 @@
               </div>
               <div class="box-footer clearfix">
                 <div class="col-md-6 pull-right">
-                  <a href="#tab_Pendidikan" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                  <a href="#tab_Pendidikan" data-toggle="tab" id="btn_ke_pendidikan"><label class="btn btn-round bg-blue pull-right">Selanjutnya</label></a>
                 </div>
               </div>
             </div>
@@ -689,7 +689,7 @@
                   <label class="btn btn-round bg-red" onclick="delPendidikan('dPendidikan')">Hapus Pendidikan</label>
                 </div>
                 <div class="col-md-6 pull-right">
-                  <a href="#tab_Bahasa" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                  <a href="#tab_Bahasa" data-toggle="tab" id="btn_ke_bahasa"><label class="btn btn-round bg-blue pull-right">Selanjutnya</label></a>
                 </div>
               </div>
             </div>
@@ -769,7 +769,7 @@
                   <label class="btn btn-round bg-red" onclick="delBahasa('dBahasa')">Hapus Bahasa</label>
                 </div>
                 <div class="col-md-6 pull-right">
-                  <a href="#tab_Komputer" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                  <a href="#tab_Komputer" data-toggle="tab" id="btn_ke_komputer"><label class="btn btn-round bg-blue pull-right">Selanjutnya</label></a>
                 </div>
               </div>
             </div>
@@ -820,7 +820,7 @@
                   <label class="btn btn-round bg-red" onclick="delKomputer('dKomputer')">Hapus Komputer</label>
                 </div>
                 <div class="col-md-6 pull-right">
-                  <a href="#tab_Penyakit" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                  <a href="#tab_Penyakit" data-toggle="tab" id="btn_ke_penyakit"><label class="btn btn-round bg-blue pull-right">Selanjutnya</label></a>
                 </div>
               </div>
             </div>
@@ -907,8 +907,39 @@
       $('#tanggal_lahir_keluarga').datepicker();
       $('#tahun_awal_kerja').datepicker();
       $('#tahun_akhir_kerja').datepicker();
+
+      $('#btn_ke_pengalaman').click(function(){
+        $('li#tab_pengalaman').attr('class','active');
+        $('li#tab_keluarga').attr('class','');
+      });
+
+      $('#btn_ke_kesehatan').click(function(){
+        $('li#tab_kesehatan').attr('class','active');
+        $('li#tab_pengalaman').attr('class','');
+      });
+
+      $('#btn_ke_pendidikan').click(function(){
+        $('li#tab_pendidikan').attr('class','active');
+        $('li#tab_kesehatan').attr('class','');
+      });
+
+      $('#btn_ke_bahasa').click(function(){
+        $('li#tab_bahasa').attr('class','active');
+        $('li#tab_pendidikan').attr('class','');
+      });
+
+      $('#btn_ke_komputer').click(function(){
+        $('li#tab_komputer').attr('class','active');
+        $('li#tab_bahasa').attr('class','');
+      });
+
+      $('#btn_ke_penyakit').click(function(){
+        $('li#tab_penyakit').attr('class','active');
+        $('li#tab_komputer').attr('class','');
+      });
     });
   </script>
+
   <script type="text/javascript">
     function validAngka(evt)
     {
