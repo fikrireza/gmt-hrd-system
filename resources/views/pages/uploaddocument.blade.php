@@ -45,7 +45,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn btn-outline pull-left" data-dismiss="modal">Tidak</button>
-            <a href="{{url('uploaddocument/delete/1')}}" class="btn btn btn-outline" id="set">Ya, saya yakin.</a>
+            <a href="" class="btn btn btn-outline" id="set">Ya, saya yakin.</a>
             {{-- <button type="button" class="btn btn btn-outline" data-dismiss="modal">Ya, saya yakin.</button> --}}
           </div>
         </div>
@@ -68,15 +68,15 @@
       <!-- Horizontal Form -->
       <div class="box box-info">
         <div class="box-header with-border">
-          @if(isset($data['bindjabatan']))
+          @if(isset($data['binduploaddocument']))
             <h3 class="box-title">Formulir Edit Data Dokumen Pegawai</h3>
           @else
             <h3 class="box-title">Formulir Tambah Data Dokumen Pegawai</h3>
           @endif
         </div><!-- /.box-header -->
         <!-- form start -->
-        @if(isset($data['bindjabatan']))
-          {!! Form::model($data['bindjabatan'], ['route' => ['masterjabatan.update', $data['bindjabatan']->id], 'method' => "patch", 'class'=>'form-horizontal']) !!}
+        @if(isset($data['binduploaddocument']))
+          {!! Form::model($data['binduploaddocument'], ['route' => ['uploaddocument.update', $data['binduploaddocument']->id], 'method' => "patch", 'class'=>'form-horizontal']) !!}
         @else
           <form class="form-horizontal" method="post" action="{{url('uploaddocument')}}">
         @endif
@@ -236,7 +236,7 @@
     $(function(){
       $('a.hapus').click(function(){
         var a = $(this).data('value');
-        $('#set').attr('href', "{{ url('/') }}/uploaddocument/delete/"+a);
+        $('#set').attr('href', "{{ url('/') }}/uploaddocument/delete");
       });
     });
   </script>

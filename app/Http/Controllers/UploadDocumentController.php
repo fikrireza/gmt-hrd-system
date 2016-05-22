@@ -75,11 +75,20 @@ class UploadDocumentController extends Controller
     return redirect()->route('masterbahasaasing.create')->with('message', 'Data bahasa asing berhasil diubah.');
   }
 
-  public function delete($id)
+  public function show($id)
   {
-    dd($id);
+      //
+  }
 
-    return redirect()->route('uploaddocument.create')->with('message', 'Data berhasil dihapus.');
+  public function destroy($id)
+  {
+      //
+  }
+
+  public function delete()
+  {
+    $getpegawai = MasterPegawai::where('status', 1)->get();
+    dd($getpegawai);
   }
 
 }
