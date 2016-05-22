@@ -343,9 +343,6 @@
               <div class="tab-pane active" id="tab_Keluarga">
                 <div class="box-body">
                   <table class="table" id="dKeluarga">
-                    <thead>
-                      <label class="btn btn-round bg-green" onclick="addKeluarga('dKeluarga')">Tambah Anggota</label>&nbsp;<label class="btn btn-round bg-red" onclick="delKeluarga('dKeluarga')">Hapus Anggota</label>
-                    </thead>
                     <tbody>
                       <tr>
                         <th></th>
@@ -443,6 +440,14 @@
                     </tbody>
                   </table>
                 </div>
+                <div class="box-footer clearfix">
+                  <div class="col-md-6">
+                    <label class="btn btn-round bg-green" onclick="addKeluarga('dKeluarga')">Tambah Anggota</label>&nbsp;<label class="btn btn-round bg-red" onclick="delKeluarga('dKeluarga')">Hapus Anggota</label>
+                  </div>
+                  <div class="col-md-6 pull-right">
+                    <a href="#tab_Pengalaman" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                  </div>
+                </div>
               </div>
               {{-- END Data Keluarga --}}
 
@@ -450,10 +455,6 @@
               <div class="tab-pane" id="tab_Pengalaman">
                 <div class="box-body">
                   <table class="table" id="dPengalaman">
-                    <thead>
-                      <label class="btn btn-round bg-green" onclick="addPengalaman('dPengalaman')">Tambah Pengalaman</label>&nbsp;
-                      <label class="btn btn-round bg-red" onclick="delPengalaman('dPengalaman')">Hapus Pengalaman</label>
-                    </thead>
                     <tbody>
                       <tr>
                         <th width="20px"></th>
@@ -517,6 +518,15 @@
                       </tr>
                     </tbody>
                   </table>
+                </div>
+                <div class="box-footer clearfix">
+                  <div class="col-md-6">
+                    <label class="btn btn-round bg-green" onclick="addPengalaman('dPengalaman')">Tambah Pengalaman</label>&nbsp;
+                    <label class="btn btn-round bg-red" onclick="delPengalaman('dPengalaman')">Hapus Pengalaman</label>
+                  </div>
+                  <div class="col-md-6 pull-right">
+                    <a href="#tab_Kesehatan" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                  </div>
                 </div>
               </div>
               {{-- END Pengalaman Kerja--}}
@@ -598,16 +608,17 @@
                     </div>
                   </div>
               </div>
+              <div class="box-footer clearfix">
+                <div class="col-md-6 pull-right">
+                  <a href="#tab_Pendidikan" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                </div>
+              </div>
             </div>
             {{-- END TAB 2 --}}
             {{-- START TAB 3 --}}
             <div class="tab-pane" id="tab_Pendidikan">
               <div class="box-body">
                 <table class="table table-hover" id="dPendidikan">
-                  <thead>
-                    <label class="btn btn-round bg-green" onclick="addPendidikan('dPendidikan')">Tambah Pendidikan</label>&nbsp;
-                    <label class="btn btn-round bg-red" onclick="delPendidikan('dPendidikan')">Hapus Pendidikan</label>
-                  <thead>
                   <tbody>
                     <tr>
                       <th width="20px"></th>
@@ -672,16 +683,21 @@
                   </tbody>
                 </table>
               </div>
+              <div class="box-footer clearfix">
+                <div class="col-md-6">
+                  <label class="btn btn-round bg-green" onclick="addPendidikan('dPendidikan')">Tambah Pendidikan</label>&nbsp;
+                  <label class="btn btn-round bg-red" onclick="delPendidikan('dPendidikan')">Hapus Pendidikan</label>
+                </div>
+                <div class="col-md-6 pull-right">
+                  <a href="#tab_Bahasa" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                </div>
+              </div>
             </div>
             {{-- END TAB 3 --}}
             {{-- START TAB 4 --}}
             <div class="tab-pane" id="tab_Bahasa">
               <div class="box-body">
                 <table class="table table-hover" id="dBahasa">
-                  <thead>
-                    <label class="btn btn-round bg-green" onclick="addBahasa('dBahasa')">Tambah Bahasa</label>&nbsp;
-                    <label class="btn btn-round bg-red" onclick="delBahasa('dBahasa')">Hapus Bahasa</label>
-                  <thead>
                   <tbody>
                     <tr>
                       <th width="20px"></th>
@@ -747,6 +763,15 @@
                   </tbody>
                 </table>
               </div>
+              <div class="box-footer clearfix">
+                <div class="col-md-6">
+                  <label class="btn btn-round bg-green" onclick="addBahasa('dBahasa')">Tambah Bahasa</label>&nbsp;
+                  <label class="btn btn-round bg-red" onclick="delBahasa('dBahasa')">Hapus Bahasa</label>
+                </div>
+                <div class="col-md-6 pull-right">
+                  <a href="#tab_Komputer" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                </div>
+              </div>
             </div>
             {{-- END Bahasa --}}
 
@@ -754,10 +779,6 @@
             <div class="tab-pane" id="tab_Komputer">
               <div class="box-body">
                 <table class="table table-hover" id="dKomputer">
-                  <thead>
-                    <label class="btn btn-round bg-green" onclick="addKomputer('dKomputer')">Tambah Komputer</label>&nbsp;
-                    <label class="btn btn-round bg-red" onclick="delKomputer('dKomputer')">Hapus Komputer</label>
-                  <thead>
                   <tbody>
                     <tr>
                       <th width="20px"></th>
@@ -793,6 +814,15 @@
                   </tbody>
                 </table>
               </div>
+              <div class="box-footer clearfix">
+                <div class="col-md-6">
+                  <label class="btn btn-round bg-green" onclick="addKomputer('dKomputer')">Tambah Komputer</label>&nbsp;
+                  <label class="btn btn-round bg-red" onclick="delKomputer('dKomputer')">Hapus Komputer</label>
+                </div>
+                <div class="col-md-6 pull-right">
+                  <a href="#tab_Penyakit" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                </div>
+              </div>
             </div>
             {{-- End Komputer --}}
             {{-- START Penyakit --}}
@@ -800,8 +830,7 @@
               <div class="box-body">
                 <table class="table table-hover" id="dPenyakit">
                   <thead>
-                    <label class="btn btn-round bg-green" onclick="addPenyakit('dPenyakit')">Tambah Penyakit</label>&nbsp;
-                    <label class="btn btn-round bg-red" onclick="delPenyakit('dPenyakit')">Hapus Penyakit</label>
+
                   </thead>
                   <tbody>
                     <tr>
@@ -833,14 +862,16 @@
                   </tbody>
                 </table>
               </div>
+              <div class="box-footer clearfix">
+                <div class="col-md-6">
+                  <label class="btn btn-round bg-green" onclick="addPenyakit('dPenyakit')">Tambah Penyakit</label>&nbsp;
+                  <label class="btn btn-round bg-red" onclick="delPenyakit('dPenyakit')">Hapus Penyakit</label>
+                </div>
+                <button type="submit" class="btn btn-info pull-right">Simpan</button>
+              </div>
             </div>
             {{-- START TAB 6 --}}
           </div>
-          {{-- START BUTTON BOTTOM --}}
-          <div class="box-footer">
-            <button type="submit" class="btn btn-info pull-right">Simpan</button>
-          </div>
-          {{-- END BUTTON BOTTOM --}}
         </div>
       </div>
       </div>   <!-- /.row -->
