@@ -292,11 +292,14 @@
                 </div>
               </div>
               <div class="form-group {{ $errors->has('status_pajak') ? 'has-error' : '' }}">
-                <label class="col-sm-3 control-label">Status Pajak</label>
+                <label class="col-sm-3 control-label">Status PTKP</label>
                 <div class="col-sm-9">
-                  {!! Form::select('status_pajak', array('Wajib Pajak' => 'Wajib Pajak',
-                                                  'Tidak Wajib Pajak' => 'Tidak Wajib Pajak'),
-                                    null, ['class' => 'form-control', 'placeholder' => '-- Pilih Wajib Pajak --']) !!}
+                  {!! Form::select('status_pajak', array('TK/0' => 'TK/0',
+                                                  'K/0' => 'K/0',
+                                                  'K/1' => 'K/1',
+                                                  'K/2' => 'K/2',
+                                                  'K/3' => 'K/3'),
+                                    null, ['class' => 'form-control', 'placeholder' => '-- Pilih Status PTKP --']) !!}
                   @if($errors->has('status_pajak'))
                     <span class="help-block">
                       <strong>{{ $errors->first('status_pajak')}}
@@ -381,7 +384,7 @@
                               <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                               </div>
-                              {!! Form::text('data_keluarga[0][tanggal_lahir_keluarga]', null, ['class'=>'form-control', 'data-date-format'=>'yyyy-mm-dd', 'placeholder'=>'yyyy-mm-dd', 'id'=>'tanggal_lahir_keluarga']) !!}
+                              {!! Form::text('data_keluarga[0][tanggal_lahir_keluarga]', null, ['class'=>'form-control tanggal_lahir_keluarga', 'data-date-format'=>'yyyy-mm-dd', 'id'=>'tanggal_lahir_keluarga']) !!}
                             </div>
                             @if($errors->has('tanggal_lahir_keluarga'))
                               <span class="help-block">
@@ -491,7 +494,7 @@
                               <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                               </div>
-                              {!! Form::text('pengalaman[0][tahun_awal_kerja]', null, ['class'=>'form-control', 'data-date-format'=>'yyyy-mm-dd', 'placeholder'=>'yyyy-mm-dd', 'id'=>'tahun_awal_kerja']) !!}
+                              {!! Form::text('pengalaman[0][tahun_awal_kerja]', null, ['class'=>'form-control tahun_awal_kerja', 'data-date-format'=>'yyyy-mm-dd', 'id'=>'tahun_awal_kerja']) !!}
                             </div>
                             @if($errors->has('tahun_awal_kerja'))
                               <span class="help-block">
@@ -506,7 +509,7 @@
                               <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                               </div>
-                              {!! Form::text('pengalaman[0][tahun_akhir_kerja]', null, ['class'=>'form-control', 'data-date-format'=>'yyyy-mm-dd', 'placeholder'=>'yyyy-mm-dd', 'id'=>'tahun_akhir_kerja']) !!}
+                              {!! Form::text('pengalaman[0][tahun_akhir_kerja]', null, ['class'=>'form-control tahun_akhir_kerja', 'data-date-format'=>'yyyy-mm-dd', 'id'=>'tahun_akhir_kerja']) !!}
                             </div>
                             @if($errors->has('tahun_akhir_kerja'))
                               <span class="help-block">
@@ -904,9 +907,9 @@
       });
 
       $('#tanggal_lahir').datepicker();
-      $('#tanggal_lahir_keluarga').datepicker();
-      $('#tahun_awal_kerja').datepicker();
-      $('#tahun_akhir_kerja').datepicker();
+      $('.tanggal_lahir_keluarga').datepicker();
+      $('.tahun_awal_kerja').datepicker();
+      $('.tahun_akhir_kerja').datepicker();
 
       $('#btn_ke_pengalaman').click(function(){
         $('li#tab_pengalaman').attr('class','active');
@@ -970,17 +973,23 @@
         cell3.innerHTML = '<select class="form-control" name="data_keluarga['+numA+'][hubungan_keluarga]"><option value="" disabled selected>-- Pilih --</option><option value="AYAH" {{ old('hubungan_keluarga') == 'AYAH' ? 'selected="selected"' : '' }}>AYAH</option><option value="IBU" {{ old('hubungan_keluarga') == 'IBU' ? 'selected="selected"' : '' }}>IBU</option><option value="KAKAK" {{ old('hubungan_keluarga') == 'KAKAK' ? 'selected="selected"' : ''}}>KAKAK</option><option value="ADIK" {{ old('hubungan_keluarga') == 'ADIK' ? 'selected="selected"' : ''}}>ADIK</option><option value="LAINNYA" {{ old('hubungan_keluarga') == 'LAINNYA' ? 'selected="selected"' : ''}}>LAINNYA</option></select>@if($errors->has('hubungan_keluarga'))<span class="help-block"><strong><h6>{{ $errors->first('hubungan_keluarga')}}</h6></strong></span>@endif';
 
         var cell4 = row.insertCell(3);
-        cell4.innerHTML = '<div class="input-group"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right" id="tanggal_lahir_keluarga" name="data_keluarga['+numA+'][tanggal_lahir_keluarga]" data-date-format="dd-mm-yyyy"@if(!$errors->has('tanggal_lahir_keluarga'))value="{{ old('tanggal_lahir_keluarga') }}"@endif></div>@if($errors->has('tanggal_lahir_keluarga'))<span class="help-block"><strong><h6>{{ $errors->first('tanggal_lahir_keluarga')}}</h6></strong></span>@endif';
+        cell4.innerHTML = '<div class="input-group"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control tanggal_lahir_keluarga" name="data_keluarga['+numA+'][tanggal_lahir_keluarga]" data-date-format="dd-mm-yyyy"@if(!$errors->has('tanggal_lahir_keluarga'))value="{{ old('tanggal_lahir_keluarga') }}"@endif></div>@if($errors->has('tanggal_lahir_keluarga'))<span class="help-block"><strong><h6>{{ $errors->first('tanggal_lahir_keluarga')}}</h6></strong></span>@endif';
 
         var cell5 = row.insertCell(4);
         cell5.innerHTML = '<select class="form-control" name="data_keluarga['+numA+'][pekerjaan_keluarga]"><option value="" disabled selected>-- Pilih --</option><option value="PEGAWAINEGERI" {{ old('pekerjaan_keluarga') == 'PEGAWAINEGERI' ? 'selected="selected"' : '' }}>PEGAWAI NEGERI</option><option value="PEGAWAISWASTA" {{ old('pekerjaan_keluarga') == 'PEGAWAISWASTA' ? 'selected="selected"' : '' }}>PEGAWAI SWASTA</option><option value="WIRASAWASTA" {{ old('pekerjaan_keluarga') == 'WIRASAWASTA' ? 'selected="selected"' : '' }}>WIRASAWASTA</option><option value="RUMAH TANGGA" {{ old('pekerjaan_keluarga') == 'RUMAH TANGGA' ? 'selected="selected"' : '' }}>RUMAH TANGGA</option><option value="MAHASISWA" {{ old('pekerjaan_keluarga') == 'MAHASISWA' ? 'selected="selected"' : '' }}>MAHASISWA</option><option value="PELAJAR" {{ old('pekerjaan_keluarga') == 'PELAJAR' ? 'selected="selected"' : '' }}>PELAJAR</option><option value="LAINNYA" {{ old('pekerjaan_keluarga') == 'LAINNYA' ? 'selected="selected"' : '' }}>LAINNYA</option></select>@if($errors->has('pekerjaan_keluarga'))<span class="help-block"><strong>{{ $errors->first('pekerjaan_keluarga')}}</strong></span>@endif';
 
         var cell6 = row.insertCell(5);
-        cell6.innerHTML = '<label><input type="radio" name="data_keluarga['+numA+'][jenis_kelamin_keluarga]" class="minimal" value="L" {{ old('jenis_kelamin_keluarga') == 'L' ? 'checked' : '' }}></label><label>Pria</label>&nbsp;&nbsp;&nbsp;<label><input type="radio" name="data_keluarga['+numA+'][jenis_kelamin_keluarga]" class="minimal" value="P" {{ old('jenis_kelamin_keluarga') == 'P' ? 'checked' : '' }}></label><label>Wanita</label>@if($errors->has('jenis_kelamin_keluarga'))<span class="help-block"><strong>{{ $errors->first('jenis_kelamin_keluarga')}}</strong></span>@endif';
+        cell6.innerHTML = '<label><input type="radio" name="data_keluarga['+numA+'][jenis_kelamin_keluarga]" class="minimal" value="L" {{ old('jenis_kelamin_keluarga') == 'L' ? 'checked' : '' }}></label><label>&nbsp;Pria</label>&nbsp;&nbsp;&nbsp;<label><input type="radio" name="data_keluarga['+numA+'][jenis_kelamin_keluarga]" class="minimal" value="P" {{ old('jenis_kelamin_keluarga') == 'P' ? 'checked' : '' }}></label><label>&nbsp;Wanita</label>@if($errors->has('jenis_kelamin_keluarga'))<span class="help-block"><strong>{{ $errors->first('jenis_kelamin_keluarga')}}</strong></span>@endif';
 
         var cell7 = row.insertCell(6);
         cell7.innerHTML = '<textarea type="text" name="data_keluarga['+numA+'][alamat_keluarga]" class="form-control uppercase" placeholder="Alamat" rows="2">@if(!$errors->has('alamat_keluarga')){{ old('alamat_keluarga')}}@endif</textarea>@if($errors->has('alamat_keluarga'))<span class="help-block"><strong>{{ $errors->first('alamat_keluarga')}}</strong></span>@endif';
         numA++;
+
+        $('.tanggal_lahir_keluarga').datepicker();
+        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+          checkboxClass: 'icheckbox_minimal-blue',
+          radioClass: 'iradio_minimal-blue'
+        });
     }
 
     function delKeluarga(tableID) {
@@ -1024,11 +1033,14 @@
         cell3.innerHTML = '<input type="text" name="pengalaman['+numB+'][posisi]" class="form-control" placeholder="Posisi" d="[]"@if(!$errors->has('posisi'))value="{{ old('posisi') }}"@endif>@if($errors->has('posisi'))<span class="help-block"><strong><h6>{{ $errors->first('posisi')}}</h6></strong></span>@endif';
 
         var cell4 = row.insertCell(3);
-        cell4.innerHTML = '<div class="input-group"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right" id="tahun_awal_kerja" name="pengalaman['+numB+'][tahun_awal_kerja]" data-date-format="dd-mm-yyyy" @if(!$errors->has('tahun_awal_kerja'))value="{{ old('tahun_awal_kerja') }}"@endif></div>@if($errors->has('tahun_awal_kerja'))<span class="help-block"><strong><h6>{{ $errors->first('tahun_awal_kerja')}}</h6></strong></span>@endif';
+        cell4.innerHTML = '<div class="input-group"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control tahun_awal_kerja" name="pengalaman['+numB+'][tahun_awal_kerja]" data-date-format="dd-mm-yyyy" @if(!$errors->has('tahun_awal_kerja'))value="{{ old('tahun_awal_kerja') }}"@endif></div>@if($errors->has('tahun_awal_kerja'))<span class="help-block"><strong><h6>{{ $errors->first('tahun_awal_kerja')}}</h6></strong></span>@endif';
 
         var cell5 = row.insertCell(4);
-        cell5.innerHTML = '<div class="input-group"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control pull-right" id="tahun_akhir_kerja" name="pengalaman['+numB+'][tahun_akhir_kerja]" data-date-format="dd-mm-yyyy" @if(!$errors->has('tahun_akhir_kerja'))value="{{ old('tahun_akhir_kerja') }}"@endif></div>@if($errors->has('tahun_akhir_kerja'))<span class="help-block"><strong><h6>{{ $errors->first('tahun_akhir_kerja')}}</h6></strong></span>@endif';
+        cell5.innerHTML = '<div class="input-group"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control tahun_akhir_kerja" name="pengalaman['+numB+'][tahun_akhir_kerja]" data-date-format="dd-mm-yyyy" @if(!$errors->has('tahun_akhir_kerja'))value="{{ old('tahun_akhir_kerja') }}"@endif></div>@if($errors->has('tahun_akhir_kerja'))<span class="help-block"><strong><h6>{{ $errors->first('tahun_akhir_kerja')}}</h6></strong></span>@endif';
         numB++;
+
+        $('.tahun_awal_kerja').datepicker();
+        $('.tahun_akhir_kerja').datepicker();
     }
 
     function delPengalaman(tableID) {
