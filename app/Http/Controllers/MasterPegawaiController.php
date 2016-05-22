@@ -68,7 +68,7 @@ class MasterPegawaiController extends Controller
                       'email'         => $request->email,
                       'alamat'        => $request->alamat,
                       'agama'         => $request->agama,
-                      'status_kontrak'=> $request->status_kontrak,
+                      // 'status_kontrak'=> $request->status_kontrak,
                       'no_telp'       => $request->no_telp,
                       'status_pajak'  => $request->status_pajak,
                       'kewarganegaraan' => $request->kewarganegaraan,
@@ -89,7 +89,7 @@ class MasterPegawaiController extends Controller
         ]);
 
         $keluargas = $request->input('data_keluarga');
-        if($keluargas == !null){
+        if($keluargas != null){
           foreach($keluargas as $keluarga){
             $isiKeluarga = new DataKeluarga;
             $isiKeluarga->nama_keluarga           = $keluarga['nama_keluarga'];
@@ -104,7 +104,7 @@ class MasterPegawaiController extends Controller
         }
 
         $pengalaman_kerjas = $request->input('pengalaman');
-        if($pengalaman_kerjas == !null){
+        if($pengalaman_kerjas != null){
           foreach($pengalaman_kerjas as $pengalaman_kerja){
             $isiPengalaman  = new PengalamanKerja;
             $isiPengalaman->nama_perusahaan   = $pengalaman_kerja['nama_perusahaan'];
@@ -117,7 +117,7 @@ class MasterPegawaiController extends Controller
         }
 
         $pendidikans = $request->input('pendidikan');
-        if($pendidikans == !null){
+        if($pendidikans != null){
           foreach($pendidikans as $pendidikan){
             $isiPendidikan  = new Pendidikan;
             $isiPendidikan->jenjang_pendidikan      = $pendidikan['jenjang_pendidikan'];
@@ -131,7 +131,7 @@ class MasterPegawaiController extends Controller
         }
 
         $bahasas = $request->input('bahasa');
-        if($bahasas == !null){
+        if($bahasas != null){
           foreach ($bahasas as $bahasa) {
             $isiBahasa = new BahasaAsing;
             $isiBahasa->bahasa      = $bahasa['bahasa'];
@@ -144,7 +144,7 @@ class MasterPegawaiController extends Controller
         }
 
         $komputers = $request->input('komputer');
-        if($komputers == !null){
+        if($komputers != null){
           foreach ($komputers as $komputer) {
             $isiKomputer  = new KeahlianKomputer;
             $isiKomputer->nama_program  = $komputer['nama_program'];
@@ -155,7 +155,7 @@ class MasterPegawaiController extends Controller
         }
 
         $penyakits = $request->input('penyakit');
-        if($penyakits == !null){
+        if($penyakits != null){
           foreach ($penyakits as $penyakit) {
             $isiPenyakit  = new RiwayatPenyakit;
             $isiPenyakit->nama_penyakit       = $penyakit['nama_penyakit'];

@@ -182,7 +182,7 @@
                     @endif
                   </div>
                 </div>
-                <div class="form-group {{ $errors->has('status_karyawan') ? 'has-error' : '' }}">
+                {{-- <div class="form-group {{ $errors->has('status_karyawan') ? 'has-error' : '' }}">
                   <label class="col-sm-3 control-label">Status</label>
                   <div class="col-sm-9">
                     {!! Form::select('status_karyawan', array('Kontrak' => 'Kontrak',
@@ -196,7 +196,7 @@
                       </span>
                     @endif
                   </div>
-                </div>
+                </div> --}}
               </div><!-- /.box-body -->
           </div><!-- /.box -->
         </div><!--/.col -->
