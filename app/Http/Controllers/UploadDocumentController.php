@@ -45,15 +45,8 @@ class UploadDocumentController extends Controller
     $dataNew->upload_foto = $request->upload_foto;
     $dataNew->id_pegawai = $request->nip;
     // dd($dataNew);
-    // $dataNew->save();
+    $dataNew->save();
 
-    $destinationPath = '/public/images/kk/'; // upload path
-    $extension = $request("upload_kk")->getClientOriginalExtension(); // getting image extension
-    $fileName = rand(11111,99999).'.'.$extension; // renameing image
-    $request->file('image')->move(
-        base_path() . $destinationPath, $imageName
-    );
-    Input::file('upload_kk')->move($destinationPath, $fileName); // uploading file to given path
 
     return redirect()->route('uploaddocument.create')->with('message', 'Dokument Pegawai berhasil dimasukkan');
 
@@ -84,11 +77,9 @@ class UploadDocumentController extends Controller
 
   public function delete($id)
   {
-    $dataOld = MasterBahasaAsing::find($id);
-    $dataOld->status = 0;
-    $dataOld->save();
+    dd($id);
 
-    return redirect()->route('masterbahasaasing.create')->with('message', 'Data bahasa asing berhasil dihapus.');
+    return redirect()->route('uploaddocument.create')->with('message', 'Data berhasil dihapus.');
   }
 
 }
