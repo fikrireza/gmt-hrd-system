@@ -68,7 +68,7 @@ class MasterPegawaiController extends Controller
                       'email'         => $request->email,
                       'alamat'        => $request->alamat,
                       'agama'         => $request->agama,
-                      'status_kontrak'=> $request->status_kontrak,
+                      'status_kontrak'=> $request->status_karyawan,
                       'no_telp'       => $request->no_telp,
                       'status_pajak'  => $request->status_pajak,
                       'kewarganegaraan' => $request->kewarganegaraan,
@@ -178,14 +178,21 @@ class MasterPegawaiController extends Controller
      */
     public function show($id)
     {
-      $DataPegawai    = MasterPegawai::where('id', '=', $id)->get();
-      $DataKeluarga   = DataKeluarga::where('id_pegawai', '=', $id)->get();
-      $DataPendidikan = Pendidikan::where('id_pegawai', '=', $id)->get();
-      $DataPengalaman = PengalamanKerja::where('id_pegawai', '=', $id)->get();
-      $DataKomputer   = KeahlianKomputer::where('id_pegawai', '=', $id)->get();
-      $DataBahasa     = BahasaAsing::where('id_pegawai', '=', $id)->get();
-      $DataKesehatan  = KondisiKesehatan::where('id_pegawai', '=', $id)->get();
-      $DataPenyakit   = RiwayatPenyakit::where('id_pegawai', '=', $id)->get();
+      $DataPegawai    = MasterPegawai::where('nip', '=', $id)->get();
+
+      //bukan metode yang terbaik, cari lagi cuuuuuy metodenya..
+      $idofpegawai;
+      foreach ($DataPegawai as $k) {
+        $idofpegawai = $k->id;
+      }
+
+      $DataKeluarga   = DataKeluarga::where('id_pegawai', '=', $idofpegawai)->get();
+      $DataPendidikan = Pendidikan::where('id_pegawai', '=', $idofpegawai)->get();
+      $DataPengalaman = PengalamanKerja::where('id_pegawai', '=', $idofpegawai)->get();
+      $DataKomputer   = KeahlianKomputer::where('id_pegawai', '=', $idofpegawai)->get();
+      $DataBahasa     = BahasaAsing::where('id_pegawai', '=', $idofpegawai)->get();
+      $DataKesehatan  = KondisiKesehatan::where('id_pegawai', '=', $idofpegawai)->get();
+      $DataPenyakit   = RiwayatPenyakit::where('id_pegawai', '=', $idofpegawai)->get();
 
       return view('pages/MasterPegawai/lihatdatapegawai', compact('DataPegawai', 'DataKeluarga', 'DataPendidikan', 'DataPengalaman', 'DataKomputer', 'DataBahasa', 'DataKesehatan', 'DataPenyakit'));
     }
@@ -231,7 +238,7 @@ class MasterPegawaiController extends Controller
       // dd($users);
       return Datatables::of($users)
         ->addColumn('action', function($user){
-          return '<a href="masterpegawai/'.$user->nip.'" class="btn btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i>Lihat</a>&nbsp;<a href="masterpegawai/'.$user->nip.'/edit" class="btn btn-primary"><i class="fa fa-edit"></i> Edit</a>';
+          return '<a href="masterpegawai/'.$user->nip.'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i> Lihat</a>&nbsp;<a href="masterpegawai/'.$user->nip.'/edit" class="btn btn-xs btn-warning" data-toggle="tooltip" title="Edit Pegawai"><i class="fa fa-edit"></i> Edit</a>';
         })
         ->editColumn('jenis_kelamin', function($users){
           if($users->jenis_kelamin=="L")
