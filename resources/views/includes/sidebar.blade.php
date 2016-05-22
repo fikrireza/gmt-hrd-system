@@ -68,11 +68,11 @@
     <li class="treeview">
          <a href="#">
            <i class="fa fa-file-text"></i>
-           <span>Pelengkap Pegawai</span>
+           <span>Dokumen Pegawai</span>
            <i class="fa fa-angle-left pull-right"></i>
          </a>
          <ul class="treeview-menu">
-           <li><a href="{{ route('masterpelengkappegawai.create') }}"><i class="fa fa-circle-o"></i> Kelola Data Pelengkap Pegawai</a></li>
+           <li><a href="{{ route('uploaddocument.create') }}"><i class="fa fa-circle-o"></i> Kelola Dokumen Pegawai</a></li>
          </ul>
        </li>
     <li class="treeview">
