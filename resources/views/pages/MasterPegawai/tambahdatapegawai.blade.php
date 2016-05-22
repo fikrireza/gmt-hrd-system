@@ -444,8 +444,8 @@
                   <div class="col-md-6">
                     <label class="btn btn-round bg-green" onclick="addKeluarga('dKeluarga')">Tambah Anggota</label>&nbsp;<label class="btn btn-round bg-red" onclick="delKeluarga('dKeluarga')">Hapus Anggota</label>
                   </div>
-                  <div class="col-md-6 pull-right">
-                    <a href="#tab_Pengalaman" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                  <div class="col-md-6">
+                    <a href="#tab_Pengalaman" data-toggle="tab"><label class="btn btn-round bg-blue pull-right">Selanjutnya</label></a>
                   </div>
                 </div>
               </div>
@@ -524,8 +524,8 @@
                     <label class="btn btn-round bg-green" onclick="addPengalaman('dPengalaman')">Tambah Pengalaman</label>&nbsp;
                     <label class="btn btn-round bg-red" onclick="delPengalaman('dPengalaman')">Hapus Pengalaman</label>
                   </div>
-                  <div class="col-md-6 pull-right">
-                    <a href="#tab_Kesehatan" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                  <div class="col-md-6">
+                    <a href="#tab_Kesehatan" data-toggle="tab"><label class="btn btn-round bg-blue pull-right">Selanjutnya</label></a>
                   </div>
                 </div>
               </div>
@@ -610,7 +610,7 @@
               </div>
               <div class="box-footer clearfix">
                 <div class="col-md-6 pull-right">
-                  <a href="#tab_Pendidikan" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                  <a href="#tab_Pendidikan" data-toggle="tab"><label class="btn btn-round bg-blue pull-right">Selanjutnya</label></a>
                 </div>
               </div>
             </div>
@@ -689,7 +689,7 @@
                   <label class="btn btn-round bg-red" onclick="delPendidikan('dPendidikan')">Hapus Pendidikan</label>
                 </div>
                 <div class="col-md-6 pull-right">
-                  <a href="#tab_Bahasa" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                  <a href="#tab_Bahasa" data-toggle="tab"><label class="btn btn-round bg-blue pull-right">Selanjutnya</label></a>
                 </div>
               </div>
             </div>
@@ -769,7 +769,7 @@
                   <label class="btn btn-round bg-red" onclick="delBahasa('dBahasa')">Hapus Bahasa</label>
                 </div>
                 <div class="col-md-6 pull-right">
-                  <a href="#tab_Komputer" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                  <a href="#tab_Komputer" data-toggle="tab"><label class="btn btn-round bg-blue pull-right">Selanjutnya</label></a>
                 </div>
               </div>
             </div>
@@ -820,7 +820,7 @@
                   <label class="btn btn-round bg-red" onclick="delKomputer('dKomputer')">Hapus Komputer</label>
                 </div>
                 <div class="col-md-6 pull-right">
-                  <a href="#tab_Penyakit" data-toggle="tab"><label class="btn btn-round bg-blue">Next</label></a>
+                  <a href="#tab_Penyakit" data-toggle="tab"><label class="btn btn-round bg-blue pull-right">Selanjutnya</label></a>
                 </div>
               </div>
             </div>
