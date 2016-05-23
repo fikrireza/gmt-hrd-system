@@ -325,7 +325,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
           </div>
         </div>
     </form>
@@ -398,6 +398,87 @@
                   </td>
                   <td>
                     <input type="text" name="gelar_akademik" class="form-control">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+
+  {{-- modal edit pendidikan --}}
+  <div class="modal modal-default fade" id="editpendidikan" role="dialog">
+    <div class="modal-dialog" style="width:1000px;">
+      <!-- Modal content-->
+      <form action="#" method="post">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit Data Pendidikan</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>Jenjang</th>
+                  <th>Institusi</th>
+                  <th width="200px;">Tahun Masuk</th>
+                  <th width="200px;">Tahun Lulus</th>
+                  <th>Gelar</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->id;
+                      }
+                    ?>">
+                    <input class="form-control" type="hidden" name="nip" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->nip;
+                      }
+                    ?>">
+                    <select class="form-control" name="edit_jenjang_pendidikan">
+                      <option>-- Pilih --</option>
+                      <option value="PELATIHAN KEAHLIAN" id="pend_pelatihan">PELATIHAN KEAHLIAN</option>
+                      <option value="S2" id="pend_s2">S2 Magister</option>
+                      <option value="S1" id="pend_s1">S1 Strata</option>
+                      <option value="D3" id="pend_d3">D3 Akademik</option>
+                      <option value="SMU" id="pend_smu">SMU</option>
+                      <option value="SMP" id="pend_smp">SMP</option>
+                      <option value="SD" id="pend_sd">SD</option>
+                      <option value="LAINNYA" id="pend_lain">LAINNYA</option>
+                    </select>
+                    <input type="text" name="id_pendidikan" class="form-control" id="id_pendidikan">
+                  </td>
+                  <td>
+                    <input type="text" name="institusi_pendidikan" class="form-control" id="edit_institusi_pendidikan">
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" name="tahun_masuk_pendidikan" class="form-control tahun_masuk_pendidikan" id="edit_tahun_masuk_pendidikan" required>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" name="tahun_lulus_pendidikan" class="form-control tahun_lulus_pendidikan" id="edit_tahun_lulus_pendidikan" required>
+                    </div>
+                  </td>
+                  <td>
+                    <input type="text" name="gelar_akademik" class="form-control" id="edit_gelar_akademik">
                   </td>
                 </tr>
               </tbody>
@@ -650,7 +731,7 @@
     </div>
   </div>
 
-  {{-- modal edit kesehatan --}}hub_lainnya
+  {{-- modal edit kesehatan --}}
   <div class="modal modal-default fade" id="modalkesehatan" role="dialog">
     <div class="modal-dialog" style="width:1000px;">
       <!-- Modal content-->
@@ -951,6 +1032,9 @@
                     <span data-toggle="tooltip" title="Hapus Data">
                       <a href="" class="btn btn-xs btn-danger hapuspendidikan" data-toggle="modal" data-target="#hapuspendidikan" data-value="{{$pendidikan->id}}"><i class="fa fa-remove"></i></a>
                     </span>
+                    <span data-toggle="tooltip" title="Edit Data">
+                      <a href="" class="btn btn-xs btn-warning editpendidikan" data-toggle="modal" data-target="#editpendidikan" data-value="{{$pendidikan->id}}"><i class="fa fa-edit"></i></a>
+                    </span>
                   </td>
                 </tr>
                 @endforeach
@@ -980,6 +1064,9 @@
                     <span data-toggle="tooltip" title="Hapus Data">
                       <a href="" class="btn btn-xs btn-danger hapuspengalaman" data-toggle="modal" data-target="#hapuspengalaman" data-value="{{$pengalaman->id}}"><i class="fa fa-remove"></i></a>
                     </span>
+                    <span data-toggle="tooltip" title="Edit Data">
+                      <a href="" class="btn btn-xs btn-warning editpengalaman" data-toggle="modal" data-target="#editpengalaman" data-value="{{$pengalaman->id}}"><i class="fa fa-edit"></i></a>
+                    </span>
                   </td>
                 </tr>
                 @endforeach
@@ -1008,6 +1095,9 @@
                   <td>
                     <span data-toggle="tooltip" title="Hapus Data">
                       <a href="" class="btn btn-xs btn-danger hapuskomputer" data-toggle="modal" data-target="#hapuskomputer" data-value="{{$komputer->id}}"><i class="fa fa-remove"></i></a>
+                    </span>
+                    <span data-toggle="tooltip" title="Edit Data">
+                      <a href="" class="btn btn-xs btn-warning editkomputer" data-toggle="modal" data-target="#editkomputer" data-value="{{$komputer->id}}"><i class="fa fa-edit"></i></a>
                     </span>
                   </td>
                 </tr>
@@ -1052,7 +1142,10 @@
                   @endif</td>
                   <td>
                     <span data-toggle="tooltip" title="Hapus Data">
-                      <a type="button" class="btn btn-xs btn-danger hapusbahasa" data-toggle="modal" data-target="#hapusbahasa"><i class="fa fa-remove"></i></a>
+                      <a type="button" class="btn btn-xs btn-danger hapusbahasa" data-toggle="modal" data-target="#hapusbahasa" data-value="{{$bahasa->id}}"><i class="fa fa-remove"></i></a>
+                    </span>
+                    <span data-toggle="tooltip" title="Edit Data">
+                      <a href="" class="btn btn-xs btn-warning editbahasa" data-toggle="modal" data-target="#editbahasa" data-value="{{$bahasa->id}}"><i class="fa fa-edit"></i></a>
                     </span>
                   </td>
                 </tr>
@@ -1116,6 +1209,9 @@
                   <td>
                     <span data-toggle="tooltip" title="Hapus Data">
                       <a href="" class="btn btn-xs btn-danger hapuspenyakit" data-toggle="modal" data-target="#hapuspenyakit" data-value="{{$penyakit->id}}"><i class="fa fa-remove"></i></a>
+                    </span>
+                    <span data-toggle="tooltip" title="Edit Data">
+                      <a href="" class="btn btn-xs btn-warning editpenyakit" data-toggle="modal" data-target="#editpenyakit" data-value="{{$penyakit->id}}"><i class="fa fa-edit"></i></a>
                     </span>
                   </td>
                 </tr>
