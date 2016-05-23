@@ -526,6 +526,54 @@
     </div>
   </div>
 
+  {{-- modal tambah riwayat penyakit --}}
+  <div class="modal modal-default fade" id="modalpenyakit" role="dialog">
+    <div class="modal-dialog" style="width:600px;">
+      <!-- Modal content-->
+      <form action="{{url('addpenyakit')}}" method="post">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Tambah Data Riwayat Pendidikan</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>Nama Penyakit</th>
+                  <th>Keterangan</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->id;
+                      }
+                    ?>">
+                    <input class="form-control" type="hidden" name="nip" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->nip;
+                      }
+                    ?>">
+                    <input type="text" name="nama_penyakit" class="form-control">
+                  </td>
+                  <td>
+                    <textarea name="keterangan_penyakit" rows="5" class="form-control"></textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+
   <div class="row">
     <script>
       window.setTimeout(function() {
@@ -822,7 +870,6 @@
 
           <div class="tab-pane" id="dKesehatan">
             <h3>Kondisi Kesehatan</h3>
-            <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalkesehatan"><i class="fa fa-plus"></i> Tambah Data Kesehatan</button>
             <table class="table table-bordered">
               <tbody>
                 <tr class="bg-navy">
@@ -851,8 +898,8 @@
                     Ya
                   @endif</td>
                   <td>
-                    <span data-toggle="tooltip" title="Hapus Data">
-                      <a href="" class="btn btn-xs btn-danger hapuskesehatan" data-toggle="modal" data-target="#hapuskesehatan" data-value="{{$kesehatan->id}}"><i class="fa fa-remove"></i></a>
+                    <span data-toggle="tooltip" title="Edit Data">
+                      <a href="" class="btn btn-xs btn-warning hapuskesehatan" data-toggle="modal" data-target="#hapuskesehatan" data-value="{{$kesehatan->id}}"><i class="fa fa-edit"></i></a>
                     </span>
                   </td>
                 </tr>

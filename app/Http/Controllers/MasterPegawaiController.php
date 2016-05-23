@@ -261,7 +261,7 @@ class MasterPegawaiController extends Controller
       $keluarga->id_pegawai = $request->id_pegawai;
       $keluarga->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data keluarga.');;
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data keluarga.');
     }
 
     public function hapusKeluarga($id)
@@ -270,7 +270,7 @@ class MasterPegawaiController extends Controller
       $getnip = MasterPegawai::find($keluarga->id_pegawai);
       $keluarga->delete();
 
-      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data keluarga.');;
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data keluarga.');
     }
 
     public function addPendidikan(Request $request)
@@ -284,7 +284,7 @@ class MasterPegawaiController extends Controller
       $didik->id_pegawai = $request->id_pegawai;
       $didik->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data pendidikan.');;
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data pendidikan.');
     }
 
     public function hapusPendidikan($id)
@@ -293,7 +293,7 @@ class MasterPegawaiController extends Controller
       $getnip = MasterPegawai::find($didik->id_pegawai);
       $didik->delete();
 
-      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data pendidikan.');;
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data pendidikan.');
     }
 
     public function addPengalaman(Request $request)
@@ -306,7 +306,7 @@ class MasterPegawaiController extends Controller
       $kerja->id_pegawai = $request->id_pegawai;
       $kerja->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data pengalaman kerja.');;
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data pengalaman kerja.');
     }
 
     public function hapusPengalaman($id)
@@ -315,7 +315,7 @@ class MasterPegawaiController extends Controller
       $getnip = MasterPegawai::find($kerja->id_pegawai);
       $kerja->delete();
 
-      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data pengalaman kerja.');;
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data pengalaman kerja.');
     }
 
     public function addKomputer(Request $request)
@@ -326,7 +326,7 @@ class MasterPegawaiController extends Controller
       $komp->id_pegawai = $request->id_pegawai;
       $komp->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data keahlian komputer.');;
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data keahlian komputer.');
     }
 
     public function hapusKomputer($id)
@@ -335,7 +335,7 @@ class MasterPegawaiController extends Controller
       $getnip = MasterPegawai::find($komp->id_pegawai);
       $komp->delete();
 
-      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data keahlian komputer.');;
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data keahlian komputer.');
     }
 
     public function addBahasa(Request $request)
@@ -348,7 +348,7 @@ class MasterPegawaiController extends Controller
       $bahasa->id_pegawai = $request->id_pegawai;
       $bahasa->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data bahasa asing.');;
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data bahasa asing.');
     }
 
     public function hapusBahasa($id)
@@ -357,25 +357,26 @@ class MasterPegawaiController extends Controller
       $getnip = MasterPegawai::find($x->id_pegawai);
       $x->delete();
 
-      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data bahasa asing.');;
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data bahasa asing.');
     }
 
-    public function addKesehatan(Request $request)
-    {
-
-    }
-
-    public function hapusKesehatan($id)
-    {
-
-    }
     public function addPenyakit(Request $request)
     {
+      $peny = new RiwayatPenyakit;
+      $peny->nama_penyakit = $request->nama_penyakit;
+      $peny->keterangan_penyakit = $request->keterangan_penyakit;
+      $peny->id_pegawai = $request->id_pegawai;
+      $peny->save();
 
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data riwayat penyakit.');
     }
 
     public function hapusPenyakit($id)
     {
+      $x = RiwayatPenyakit::find($id);
+      $getnip = MasterPegawai::find($x->id_pegawai);
+      $x->delete();
 
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data riwayat penyakit.');
     }
 }
