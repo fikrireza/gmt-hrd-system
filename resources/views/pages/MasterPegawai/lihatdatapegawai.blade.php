@@ -679,6 +679,60 @@
     </div>
   </div>
 
+  {{-- modal edit komputer --}}
+  <div class="modal modal-default fade" id="editkomputer" role="dialog">
+    <div class="modal-dialog" style="width:600px;">
+      <!-- Modal content-->
+      <form action="{{url('masterpegawai/savekomputer')}}" method="post">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit Data Keahlian Komputer</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>Nama Program</th>
+                  <th>Nilai</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->id;
+                      }
+                    ?>">
+                    <input class="form-control" type="hidden" name="nip" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->nip;
+                      }
+                    ?>">
+                    <input type="hidden" name="id_komputer" class="form-control" id="id_komputer">
+                    <input type="text" name="nama_program" class="form-control" id="edit_nama_program">
+                  </td>
+                  <td>
+                    <select class="form-control" name="nilai_komputer">
+                      <option>-- Pilih --</option>
+                      <option value="1" id="komp_baik">BAIK</option>
+                      <option value="2" id="komp_cukup">CUKUP</option>
+                      <option value="3" id="komp_kurang">KURANG</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+
   {{-- modal tambah bahasa --}}
   <div class="modal modal-default fade" id="modalbahasa" role="dialog">
     <div class="modal-dialog" style="width:1000px;">
@@ -735,6 +789,78 @@
                       <option value="BAIK">BAIK</option>
                       <option value="CUKUP">CUKUP</option>
                       <option value="KURANG">KURANG</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+
+  {{-- modal edit bahasa --}}
+  <div class="modal modal-default fade" id="editbahasa" role="dialog">
+    <div class="modal-dialog" style="width:1000px;">
+      <!-- Modal content-->
+      <form action="{{url('masterpegawai/savebahasa')}}" method="post">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit Data Bahasa Asing</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>Bahasa</th>
+                  <th>Berbicara</th>
+                  <th>Menulis</th>
+                  <th>Mengerti</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->id;
+                      }
+                    ?>">
+                    <input class="form-control" type="hidden" name="nip" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->nip;
+                      }
+                    ?>">
+                    <input type="hidden" name="id_bahasa" class="form-control" id="id_bahasa">
+                    <input type="text" name="bahasa" class="form-control" id="edit_bahasa">
+                  </td>
+                  <td>
+                    <select class="form-control" name="berbicara">
+                      <option>-- Pilih --</option>
+                      <option value="1" id="bicara_baik">BAIK</option>
+                      <option value="2" id="bicara_cukup">CUKUP</option>
+                      <option value="3" id="bicara_kurang">KURANG</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-control" name="menulis">
+                      <option>-- Pilih --</option>
+                      <option value="1" id="menulis_baik">BAIK</option>
+                      <option value="2" id="menulis_cukup">CUKUP</option>
+                      <option value="3" id="menulis_kurang">KURANG</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-control" name="mengerti">
+                      <option>-- Pilih --</option>
+                      <option value="1" id="mengerti_baik">BAIK</option>
+                      <option value="2" id="mengerti_cukup">CUKUP</option>
+                      <option value="3" id="mengerti_kurang">KURANG</option>
                     </select>
                   </td>
                 </tr>
@@ -1541,6 +1667,83 @@
 
             // set akhir awal
             $('input[type="text"]#edit_tahun_akhir_kerja').attr('value', thakhir);
+          }
+        });
+      });
+
+      $('a.editkomputer').click(function(){
+        var a = $(this).data('value');
+        $.ajax({
+          url: "{{ url('/') }}/masterpegawai/getkomputer/"+a,
+          dataType: 'json',
+          success: function(data){
+            var id_komputer = data.id;
+            var program = data.nama_program;
+            var nilai = data.nilai_komputer;
+
+            // set id
+            $('input[type="hidden"]#id_komputer').attr('value', id_komputer);
+            $('input[type="text"]#edit_nama_program').attr('value', program);
+
+            if(nilai=="1") {
+              $('option#komp_baik').attr('selected', 'true');
+            }
+            else if (nilai=="2") {
+              $('option#komp_cukup').attr('selected', 'true');
+            }
+            else if (nilai=="3") {
+              $('option#komp_kurang').attr('selected', 'true');
+            }
+          }
+        });
+      });
+
+      $('a.editbahasa').click(function(){
+        var a = $(this).data('value');
+        $.ajax({
+          url: "{{ url('/') }}/masterpegawai/getbahasa/"+a,
+          dataType: 'json',
+          success: function(data){
+            var id = data.id;
+            var bahasa = data.bahasa;
+            var berbicara = data.berbicara;
+            var menulis = data.menulis;
+            var mengerti = data.mengerti;
+
+            // set
+            $('#id_bahasa').attr('value', id);
+
+            $('input[type="text"]#edit_bahasa').attr('value', bahasa);
+
+            if(berbicara=="1") {
+              $('option#bicara_baik').attr('selected', 'true');
+            }
+            else if (berbicara=="2") {
+              $('option#bicara_cukup').attr('selected', 'true');
+            }
+            else if (berbicara=="3") {
+              $('option#bicara_kurang').attr('selected', 'true');
+            }
+
+            if(menulis=="1") {
+              $('option#menulis_baik').attr('selected', 'true');
+            }
+            else if (menulis=="2") {
+              $('option#menulis_cukup').attr('selected', 'true');
+            }
+            else if (menulis=="3") {
+              $('option#menulis_kurang').attr('selected', 'true');
+            }
+
+            if(mengerti=="1") {
+              $('option#mengerti_baik').attr('selected', 'true');
+            }
+            else if (mengerti=="2") {
+              $('option#mengerti_cukup').attr('selected', 'true');
+            }
+            else if (mengerti=="3") {
+              $('option#mengerti_kurang').attr('selected', 'true');
+            }
           }
         });
       });

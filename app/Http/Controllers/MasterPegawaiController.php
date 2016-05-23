@@ -453,4 +453,39 @@ class MasterPegawaiController extends Controller
 
       return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data kesehatan.');
     }
+
+    public function getKomputerByID($id)
+    {
+      $get = KeahlianKomputer::find($id);
+      return $get;
+    }
+
+    public function saveChangesKomputer(Request $request)
+    {
+      // dd($request);
+      $komp = KeahlianKomputer::find($request->id_komputer);
+      $komp->nama_program = $request->nama_program;
+      $komp->nilai_komputer = $request->nilai_komputer;
+      $komp->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data keahlian komputer.');
+    }
+
+    public function getBahasaByID($id)
+    {
+      $get = BahasaAsing::find($id);
+      return $get;
+    }
+
+    public function saveChangesBahasa(Request $request)
+    {
+      $bahasa = BahasaAsing::find($request->id_bahasa);
+      $bahasa->bahasa = $request->bahasa;
+      $bahasa->berbicara = $request->berbicara;
+      $bahasa->menulis = $request->menulis;
+      $bahasa->mengerti = $request->mengerti;
+      $bahasa->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data bahasa asing.');
+    }
 }
