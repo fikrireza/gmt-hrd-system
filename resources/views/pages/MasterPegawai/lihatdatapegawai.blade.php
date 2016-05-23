@@ -924,6 +924,55 @@
     </div>
   </div>
 
+  {{-- modal edit riwayat penyakit --}}
+  <div class="modal modal-default fade" id="editpenyakit" role="dialog">
+    <div class="modal-dialog" style="width:600px;">
+      <!-- Modal content-->
+      <form action="{{url('masterpegawai/savepenyakit')}}" method="post">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit Data Riwayat Pendidikan</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>Nama Penyakit</th>
+                  <th>Keterangan</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->id;
+                      }
+                    ?>">
+                    <input class="form-control" type="hidden" name="nip" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->nip;
+                      }
+                    ?>">
+                    <input type="hidden" name="id_penyakit" class="form-control" id="id_penyakit">
+                    <input type="text" name="nama_penyakit" class="form-control" id="edit_nama_penyakit">
+                  </td>
+                  <td>
+                    <textarea name="keterangan_penyakit" rows="5" class="form-control" id="edit_keterangan_penyakit"></textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+
   {{-- modal edit kesehatan --}}
   <div class="modal modal-default fade" id="modalkesehatan" role="dialog">
     <div class="modal-dialog" style="width:1000px;">
@@ -1744,6 +1793,24 @@
             else if (mengerti=="3") {
               $('option#mengerti_kurang').attr('selected', 'true');
             }
+          }
+        });
+      });
+
+      $('a.editpenyakit').click(function(){
+        var a = $(this).data('value');
+        $.ajax({
+          url: "{{ url('/') }}/masterpegawai/getpenyakit/"+a,
+          dataType: 'json',
+          success: function(data){
+            var id_penyakit = data.id;
+            var nama = data.nama_penyakit;
+            var ket = data.keterangan_penyakit;
+            
+            // set
+            $('#id_penyakit').attr('value', id_penyakit);
+            $('#edit_nama_penyakit').attr('value', nama);
+            $('textarea#edit_keterangan_penyakit').val(ket);
           }
         });
       });

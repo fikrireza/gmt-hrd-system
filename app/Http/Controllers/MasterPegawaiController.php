@@ -488,4 +488,20 @@ class MasterPegawaiController extends Controller
 
       return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data bahasa asing.');
     }
+
+    public function getPenyakitByID($id)
+    {
+      $get = RiwayatPenyakit::find($id);
+      return $get;
+    }
+
+    public function saveChangesPenyakit(Request $request)
+    {
+      $peny = RiwayatPenyakit::find($request->id_penyakit);
+      $peny->nama_penyakit = $request->nama_penyakit;
+      $peny->keterangan_penyakit = $request->keterangan_penyakit;
+      $peny->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data riwayat penyakit.');
+    }
 }

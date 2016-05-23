@@ -71,3 +71,5 @@ Route::post('masterpegawai/savekesehatan', 'MasterPegawaiController@saveChangesK
 
 Route::post('addpenyakit', 'MasterPegawaiController@addPenyakit');
 Route::get('masterpegawai/hapuspenyakit/{id}', 'MasterPegawaiController@hapusPenyakit');
+Route::get('masterpegawai/getpenyakit/{id}', 'MasterPegawaiController@getPenyakitByID');
+Route::post('masterpegawai/savepenyakit', 'MasterPegawaiController@saveChangesPenyakit');
