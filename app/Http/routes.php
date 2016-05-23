@@ -39,3 +39,5 @@ Route::resource('departemencabang','DepartemenCabangController');
 
 Route::resource('useraccount', 'AkunController');
 Route::resource('uploaddocument', 'UploadDocumentController');
+
+Route::post('addkeluarga', 'MasterPegawaiController@addKeluarga');

@@ -248,4 +248,20 @@ class MasterPegawaiController extends Controller
         })
         ->make();
     }
+
+    public function addKeluarga(Request $request)
+    {
+      $keluarga = new DataKeluarga;
+      $keluarga->nama_keluarga = $request->nama_keluarga;
+      $keluarga->hubungan_keluarga = $request->hubungan_keluarga;
+      $keluarga->tanggal_lahir_keluarga = $request->tanggal_lahir_keluarga;
+      $keluarga->alamat_keluarga = $request->alamat_keluarga;
+      $keluarga->pekerjaan_keluarga = $request->pekerjaan_keluarga;
+      $keluarga->jenis_kelamin_keluarga = $request->jenis_kelamin_keluarga;
+      $keluarga->id_pegawai = $request->id_pegawai;
+      $keluarga->save();
+
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data keluarga.');;
+    }
 }

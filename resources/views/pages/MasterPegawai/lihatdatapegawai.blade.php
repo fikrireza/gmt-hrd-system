@@ -2,6 +2,10 @@
 
 @section('title')
   <title>Lihat Data Pegawai</title>
+  <link rel="stylesheet" href="{{asset('plugins/iCheck/all.css')}}">
+  <style>
+  .datepicker{z-index:1151 !important;}
+  </style>
 @stop
 
 @section('breadcrumb')
@@ -16,7 +20,119 @@
 @stop
 
 @section('content')
+
+  <div class="modal modal-default fade" id="modalkeluarga" role="dialog">
+    <div class="modal-dialog" style="width:1000px;">
+      <!-- Modal content-->
+      <form action="{{url('addkeluarga')}}" method="post">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Tambah Data Keluarga</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table" id="dKeluarga">
+              <tbody>
+                <tr>
+                  <th>Nama</th>
+                  <th>Hubungan</th>
+                  <th width="200px;">Tanggal Lahir</th>
+                  <th>Pekerjaan</th>
+                  <th>Jenis Kelamin</th>
+                  <th>Alamat</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->id;
+                      }
+                    ?>">
+                    <input class="form-control" type="hidden" name="nip" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->nip;
+                      }
+                    ?>">
+                    <input class="form-control" type="text" name="nama_keluarga" placeholder="Nama">
+                  </td>
+                  <td>
+                    <select class="form-control" name="hubungan_keluarga">
+                      <option>-- Pilih --</option>
+                      <option value="AYAH">AYAH</option>
+                      <option value="IBU">IBU</option>
+                      <option value="KAKAK">KAKAK</option>
+                      <option value="ADIK">ADIK</option>
+                      <option value="LAINNYA">LAINNYA</option>
+                    </select>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" name="tanggal_lahir_keluarga" class="form-control tanggal_lahir_keluarga">
+                    </div>
+                  </td>
+                  <td>
+                    <select class="form-control" name="pekerjaan_keluarga">
+                      <option>-- Pilih --</option>
+                      <option value="PEGAWAI NEGERI">PEGAWAI NEGERI</option>
+                      <option value="PEGAWAI SWASTA">PEGAWAI SWASTA</option>
+                      <option value="WIRAUSAHA">WIRAUSAHA</option>
+                      <option value="RUMAH TANGGA">RUMAH TANGGA</option>
+                      <option value="MAHASISWA">MAHASISWA</option>
+                      <option value="PELAJAR">PELAJAR</option>
+                      <option value="LAINNYA">LAINNYA</option>
+                    </select>
+                  </td>
+                  <td>
+                    <label>
+                      <input type="radio" name="jenis_kelamin_keluarga" class="minimal" value="L">
+                    </label>&nbsp;&nbsp;
+                    {{-- &nbsp; --}}
+                    <label>Pria</label>
+                    <br>
+                    <label>
+                      <input type="radio" name="jenis_kelamin_keluarga" class="minimal" value="P">
+                    </label>&nbsp;&nbsp;
+                    {{-- &nbsp; --}}
+                    <label>Wanita</label>
+                  </td>
+                  <td>
+                    <textarea name="alamat_keluarga" rows="3" class="form-control"></textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+
   <div class="row">
+    <script>
+      window.setTimeout(function() {
+        $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+      }, 2000);
+    </script>
+
+    <div class="col-md-12">
+      @if(Session::has('message'))
+        <div class="alert alert-success">
+          <h4>Berhasil!</h4>
+          <p>{{ Session::get('message') }}</p>
+        </div>
+      @endif
+    </div>
+    
     <div class="col-md-4">
       <!-- Data Pegawai -->
       <div class="box box-primary">
@@ -126,6 +242,7 @@
         <div class="tab-content">
           <div class="active tab-pane" id="dKeluarga">
             <h3>Data Keluarga</h3>
+            <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalkeluarga"><i class="fa fa-plus"></i> Tambah Data Keluarga</button>
             <table class="table table-bordered">
               <tbody>
                 <tr class="bg-navy">
@@ -328,4 +445,25 @@
   <script src="{{asset('dist/js/app.min.js')}}"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="{{asset('dist/js/demo.js')}}"></script>
+
+  <!-- iCheck -->
+  <script src="{{asset('plugins/iCheck/icheck.min.js')}}"></script>
+
+  <!-- date time -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+  <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+
+  <script type="text/javascript">
+    $(function(){
+      $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+        checkboxClass: 'icheckbox_minimal-blue',
+        radioClass: 'iradio_minimal-blue'
+      });
+
+      $('.tanggal_lahir_keluarga').datepicker({
+        format: 'yyyy/mm/dd'
+      });
+    });
+  </script>
+
 @stop
