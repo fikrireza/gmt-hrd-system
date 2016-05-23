@@ -42,3 +42,6 @@ Route::resource('uploaddocument', 'UploadDocumentController');
 
 Route::post('addkeluarga', 'MasterPegawaiController@addKeluarga');
 Route::get('masterpegawai/hapuskeluarga/{id}', 'MasterPegawaiController@hapusKeluarga');
+
+Route::post('addpendidikan', 'MasterPegawaiController@addPendidikan');
+Route::get('masterpegawai/hapuspendidikan/{id}', 'MasterPegawaiController@hapusPendidikan');

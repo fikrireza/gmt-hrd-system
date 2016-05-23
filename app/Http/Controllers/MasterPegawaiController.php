@@ -269,7 +269,30 @@ class MasterPegawaiController extends Controller
       $keluarga = DataKeluarga::find($id);
       $getnip = MasterPegawai::find($keluarga->id_pegawai);
       $keluarga->delete();
-      
+
       return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data keluarga.');;
+    }
+
+    public function addPendidikan(Request $request)
+    {
+      $didik = new Pendidikan;
+      $didik->jenjang_pendidikan = $request->jenjang_pendidikan;
+      $didik->institusi_pendidikan = $request->institusi_pendidikan;
+      $didik->tahun_masuk_pendidikan = $request->tahun_masuk_pendidikan;
+      $didik->tahun_lulus_pendidikan = $request->tahun_lulus_pendidikan;
+      $didik->gelar_akademik = $request->gelar_akademik;
+      $didik->id_pegawai = $request->id_pegawai;
+      $didik->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data pendidikan.');;
+    }
+
+    public function hapusPendidikan($id)
+    {
+      $didik = Pendidikan::find($id);
+      $getnip = MasterPegawai::find($didik->id_pegawai);
+      $didik->delete();
+
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data pendidikan.');;
     }
 }
