@@ -273,8 +273,8 @@
                 <tr>
                   <th>Jenjang</th>
                   <th>Institusi</th>
-                  <th>Tahun Masuk</th>
-                  <th>Tahun Lulus</th>
+                  <th width="200px;">Tahun Masuk</th>
+                  <th width="200px;">Tahun Lulus</th>
                   <th>Gelar</th>
                 </tr>
                 <tr>
@@ -305,10 +305,20 @@
                     <input type="text" name="institusi_pendidikan" class="form-control">
                   </td>
                   <td>
-                    <input type="text" name="tahun_masuk_pendidikan" class="form-control">
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" name="tahun_masuk_pendidikan" class="form-control tahun_masuk_pendidikan" required>
+                    </div>
                   </td>
                   <td>
-                    <input type="text" name="tahun_lulus_pendidikan" class="form-control">
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" name="tahun_lulus_pendidikan" class="form-control tahun_lulus_pendidikan" required>
+                    </div>
                   </td>
                   <td>
                     <input type="text" name="gelar_akademik" class="form-control">
@@ -796,6 +806,18 @@
       });
 
       $('.tahun_akhir_kerja').datepicker({
+        format: 'yyyy',
+        startView: "years",
+        minViewMode: "years"
+      });
+
+      $('.tahun_masuk_pendidikan').datepicker({
+        format: 'yyyy',
+        startView: "years",
+        minViewMode: "years"
+      });
+
+      $('.tahun_lulus_pendidikan').datepicker({
         format: 'yyyy',
         startView: "years",
         minViewMode: "years"
