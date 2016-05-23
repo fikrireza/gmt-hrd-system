@@ -63,6 +63,7 @@ Route::get('masterpegawai/hapusbahasa/{id}', 'MasterPegawaiController@hapusBahas
 
 Route::post('addkesehatan', 'MasterPegawaiController@addKesehatan');
 Route::get('masterpegawai/hapuskesehatan/{id}', 'MasterPegawaiController@hapusKesehatan');
+Route::post('masterpegawai/savekesehatan', 'MasterPegawaiController@saveChangesKesehatan');
 
 Route::post('addpenyakit', 'MasterPegawaiController@addPenyakit');
 Route::get('masterpegawai/hapuspenyakit/{id}', 'MasterPegawaiController@hapusPenyakit');

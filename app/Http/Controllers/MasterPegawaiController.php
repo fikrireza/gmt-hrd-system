@@ -438,4 +438,19 @@ class MasterPegawaiController extends Controller
 
       return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data pengalaman.');
     }
+
+    public function saveChangesKesehatan(Request $request)
+    {
+      // dd($request);
+      $set = KondisiKesehatan::find($request->id_kesehatan);
+      $set->tinggi_badan = $request->tinggi_badan;
+      $set->berat_badan = $request->berat_badan;
+      $set->warna_rambut = $request->warna_rambut;
+      $set->warna_mata = $request->warna_mata;
+      $set->berkacamata = $request->berkacamata;
+      $set->merokok = $request->merokok;
+      $set->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data kesehatan.');
+    }
 }

@@ -802,7 +802,7 @@
   <div class="modal modal-default fade" id="modalkesehatan" role="dialog">
     <div class="modal-dialog" style="width:1000px;">
       <!-- Modal content-->
-      <form action="#" method="post">
+      <form action="{{url('masterpegawai/savekesehatan')}}" method="post">
         {!! csrf_field() !!}
         <div class="modal-content">
           <div class="modal-header">
@@ -833,6 +833,7 @@
                           echo $k->nip;
                         }
                       ?>">
+                      <input type="hidden" name="id_kesehatan" class="form-control" value="{{ $kes->id }}">
                       <input type="text" name="tinggi_badan" class="form-control" value="{{ $kes->tinggi_badan }}">
                     </td>
                     <td>
