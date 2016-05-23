@@ -173,7 +173,7 @@
             <h4 class="modal-title">Tambah Data Keluarga</h4>
           </div>
           <div class="modal-body">
-            <table class="table" id="dKeluarga">
+            <table class="table">
               <tbody>
                 <tr>
                   <th>Nama</th>
@@ -268,7 +268,7 @@
             <h4 class="modal-title">Tambah Data Pendidikan</h4>
           </div>
           <div class="modal-body">
-            <table class="table" id="dKeluarga">
+            <table class="table">
               <tbody>
                 <tr>
                   <th>Jenjang</th>
@@ -312,6 +312,72 @@
                   </td>
                   <td>
                     <input type="text" name="gelar_akademik" class="form-control">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+
+  {{-- modal tambah pengalaman --}}
+  <div class="modal modal-default fade" id="modalpengalaman" role="dialog">
+    <div class="modal-dialog" style="width:1000px;">
+      <!-- Modal content-->
+      <form action="{{url('addpengalaman')}}" method="post">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Tambah Data Pengalaman Kerja</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>Nama Perusahaan</th>
+                  <th>Posisi</th>
+                  <th width="200px;">Tahun Awal Kerja</th>
+                  <th width="200px;">Tahun Akhir Kerja</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->id;
+                      }
+                    ?>">
+                    <input class="form-control" type="hidden" name="nip" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->nip;
+                      }
+                    ?>">
+                    <input type="text" name="nama_perusahaan" class="form-control">
+                  </td>
+                  <td>
+                    <input type="text" name="posisi_perusahaan" class="form-control">
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" name="tahun_awal_kerja" class="form-control tahun_awal_kerja" required>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" name="tahun_akhir_kerja" class="form-control tahun_akhir_kerja" required>
+                    </div>
                   </td>
                 </tr>
               </tbody>
@@ -723,6 +789,18 @@
         format: 'yyyy/mm/dd'
       });
 
+      $('.tahun_awal_kerja').datepicker({
+        format: 'yyyy',
+        startView: "years",
+        minViewMode: "years"
+      });
+
+      $('.tahun_akhir_kerja').datepicker({
+        format: 'yyyy',
+        startView: "years",
+        minViewMode: "years"
+      });
+
       $('a.hapuskeluarga').click(function(){
         var a = $(this).data('value');
         $('#setkeluarga').attr('href', "{{ url('/') }}/masterpegawai/hapuskeluarga/"+a);
@@ -731,6 +809,31 @@
       $('a.hapuspendidikan').click(function(){
         var a = $(this).data('value');
         $('#setpendidikan').attr('href', "{{ url('/') }}/masterpegawai/hapuspendidikan/"+a);
+      });
+
+      $('a.hapuskomputer').click(function(){
+        var a = $(this).data('value');
+        $('#setkomputer').attr('href', "{{ url('/') }}/masterpegawai/hapuskomputer/"+a);
+      });
+
+      $('a.hapusbahasa').click(function(){
+        var a = $(this).data('value');
+        $('#setbahasa').attr('href', "{{ url('/') }}/masterpegawai/hapusbahasa/"+a);
+      });
+
+      $('a.hapuspengalaman').click(function(){
+        var a = $(this).data('value');
+        $('#setpengalaman').attr('href', "{{ url('/') }}/masterpegawai/hapuspengalaman/"+a);
+      });
+
+      $('a.hapuskesehatan').click(function(){
+        var a = $(this).data('value');
+        $('#setkesehatan').attr('href', "{{ url('/') }}/masterpegawai/hapuskesehatan/"+a);
+      });
+
+      $('a.hapuspenyakit').click(function(){
+        var a = $(this).data('value');
+        $('#setpenyakit').attr('href', "{{ url('/') }}/masterpegawai/hapuspenyakit/"+a);
       });
     });
   </script>

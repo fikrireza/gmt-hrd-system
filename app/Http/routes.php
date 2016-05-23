@@ -45,3 +45,18 @@ Route::get('masterpegawai/hapuskeluarga/{id}', 'MasterPegawaiController@hapusKel
 
 Route::post('addpendidikan', 'MasterPegawaiController@addPendidikan');
 Route::get('masterpegawai/hapuspendidikan/{id}', 'MasterPegawaiController@hapusPendidikan');
+
+Route::post('addpengalaman', 'MasterPegawaiController@addPengalaman');
+Route::get('masterpegawai/hapuspengalaman/{id}', 'MasterPegawaiController@hapusPengalaman');
+
+Route::post('addkomputer', 'MasterPegawaiController@addKomputer');
+Route::get('masterpegawai/hapuskomputer/{id}', 'MasterPegawaiController@hapusKomputer');
+
+Route::post('addBahasa', 'MasterPegawaiController@addBahasa');
+Route::get('masterpegawai/hapusbahasa/{id}', 'MasterPegawaiController@hapusBahasa');
+
+Route::post('addkesehatan', 'MasterPegawaiController@addKesehatan');
+Route::get('masterpegawai/hapuskesehatan/{id}', 'MasterPegawaiController@hapusKesehatan');
+
+Route::post('addpenyakit', 'MasterPegawaiController@addPenyakit');
+Route::get('masterpegawai/hapuspenyakit/{id}', 'MasterPegawaiController@hapusPenyakit');

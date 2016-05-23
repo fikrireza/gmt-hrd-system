@@ -295,4 +295,65 @@ class MasterPegawaiController extends Controller
 
       return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data pendidikan.');;
     }
+
+    public function addPengalaman(Request $request)
+    {
+      $kerja = new PengalamanKerja;
+      $kerja->nama_perusahaan = $request->nama_perusahaan;
+      $kerja->posisi_perusahaan = $request->posisi_perusahaan;
+      $kerja->tahun_awal_kerja = $request->tahun_awal_kerja;
+      $kerja->tahun_akhir_kerja = $request->tahun_akhir_kerja;
+      $kerja->id_pegawai = $request->id_pegawai;
+      $kerja->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data pengalaman kerja.');;
+    }
+
+    public function hapusPengalaman($id)
+    {
+      $kerja = PengalamanKerja::find($id);
+      $getnip = MasterPegawai::find($kerja->id_pegawai);
+      $kerja->delete();
+
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data pengalaman kerja.');;
+    }
+
+    public function addKomputer(Request $request)
+    {
+
+    }
+
+    public function hapusKomputer($id)
+    {
+
+    }
+
+    public function addBahasa(Request $request)
+    {
+
+    }
+
+    public function hapusBahasa($id)
+    {
+
+    }
+
+    public function addKesehatan(Request $request)
+    {
+
+    }
+
+    public function hapusKesehatan($id)
+    {
+
+    }
+    public function addPenyakit(Request $request)
+    {
+
+    }
+
+    public function hapusPenyakit($id)
+    {
+
+    }
 }
