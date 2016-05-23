@@ -402,6 +402,130 @@
     </div>
   </div>
 
+  {{-- modal tambah komputer --}}
+  <div class="modal modal-default fade" id="modalkomputer" role="dialog">
+    <div class="modal-dialog" style="width:600px;">
+      <!-- Modal content-->
+      <form action="{{url('addkomputer')}}" method="post">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Tambah Data Keahlian Komputer</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>Nama Program</th>
+                  <th>Nilai</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->id;
+                      }
+                    ?>">
+                    <input class="form-control" type="hidden" name="nip" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->nip;
+                      }
+                    ?>">
+                    <input type="text" name="nama_program" class="form-control">
+                  </td>
+                  <td>
+                    <select class="form-control" name="nilai_komputer">
+                      <option>-- Pilih --</option>
+                      <option value="BAIK">BAIK</option>
+                      <option value="CUKUP">CUKUP</option>
+                      <option value="KURANG">KURANG</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+
+  {{-- modal tambah bahasa --}}
+  <div class="modal modal-default fade" id="modalbahasa" role="dialog">
+    <div class="modal-dialog" style="width:1000px;">
+      <!-- Modal content-->
+      <form action="{{url('addbahasa')}}" method="post">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Tambah Data Bahasa Asing</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>Bahasa</th>
+                  <th>Berbicara</th>
+                  <th>Menulis</th>
+                  <th>Mengerti</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->id;
+                      }
+                    ?>">
+                    <input class="form-control" type="hidden" name="nip" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->nip;
+                      }
+                    ?>">
+                    <input type="text" name="bahasa" class="form-control">
+                  </td>
+                  <td>
+                    <select class="form-control" name="berbicara">
+                      <option>-- Pilih --</option>
+                      <option value="BAIK">BAIK</option>
+                      <option value="CUKUP">CUKUP</option>
+                      <option value="KURANG">KURANG</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-control" name="menulis">
+                      <option>-- Pilih --</option>
+                      <option value="BAIK">BAIK</option>
+                      <option value="CUKUP">CUKUP</option>
+                      <option value="KURANG">KURANG</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-control" name="mengerti">
+                      <option>-- Pilih --</option>
+                      <option value="BAIK">BAIK</option>
+                      <option value="CUKUP">CUKUP</option>
+                      <option value="KURANG">KURANG</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+
   <div class="row">
     <script>
       window.setTimeout(function() {

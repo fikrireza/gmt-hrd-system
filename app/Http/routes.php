@@ -52,7 +52,7 @@ Route::get('masterpegawai/hapuspengalaman/{id}', 'MasterPegawaiController@hapusP
 Route::post('addkomputer', 'MasterPegawaiController@addKomputer');
 Route::get('masterpegawai/hapuskomputer/{id}', 'MasterPegawaiController@hapusKomputer');
 
-Route::post('addBahasa', 'MasterPegawaiController@addBahasa');
+Route::post('addbahasa', 'MasterPegawaiController@addBahasa');
 Route::get('masterpegawai/hapusbahasa/{id}', 'MasterPegawaiController@hapusBahasa');
 
 Route::post('addkesehatan', 'MasterPegawaiController@addKesehatan');

@@ -320,22 +320,44 @@ class MasterPegawaiController extends Controller
 
     public function addKomputer(Request $request)
     {
+      $komp = new KeahlianKomputer;
+      $komp->nama_program = $request->nama_program;
+      $komp->nilai_komputer = $request->nilai_komputer;
+      $komp->id_pegawai = $request->id_pegawai;
+      $komp->save();
 
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data keahlian komputer.');;
     }
 
     public function hapusKomputer($id)
     {
+      $komp = KeahlianKomputer::find($id);
+      $getnip = MasterPegawai::find($komp->id_pegawai);
+      $komp->delete();
 
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data keahlian komputer.');;
     }
 
     public function addBahasa(Request $request)
     {
+      $bahasa = new BahasaAsing;
+      $bahasa->bahasa = $request->bahasa;
+      $bahasa->berbicara = $request->berbicara;
+      $bahasa->menulis = $request->menulis;
+      $bahasa->mengerti = $request->mengerti;
+      $bahasa->id_pegawai = $request->id_pegawai;
+      $bahasa->save();
 
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data bahasa asing.');;
     }
 
     public function hapusBahasa($id)
     {
+      $x = BahasaAsing::find($id);
+      $getnip = MasterPegawai::find($x->id_pegawai);
+      $x->delete();
 
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data bahasa asing.');;
     }
 
     public function addKesehatan(Request $request)
