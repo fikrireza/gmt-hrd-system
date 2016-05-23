@@ -21,6 +21,30 @@
 
 @section('content')
 
+  {{-- modal delete keluarga --}}
+  <div class="modal modal-default fade" id="hapuskeluarga" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Hapus Data Jabatan</h4>
+        </div>
+        <div class="modal-body">
+          <p>Apakah anda yakin untuk menghapus data jabatan ini?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+          <a href="{{url('masterjabatan/hapusjabatan/1')}}" class="btn btn-primary" id="set">Ya, saya yakin.</a>
+          {{-- <button type="button" class="btn btn btn-outline" data-dismiss="modal">Ya, saya yakin.</button> --}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {{-- modal tambah keluarga --}}
   <div class="modal modal-default fade" id="modalkeluarga" role="dialog">
     <div class="modal-dialog" style="width:1000px;">
       <!-- Modal content-->
@@ -132,7 +156,7 @@
         </div>
       @endif
     </div>
-    
+
     <div class="col-md-4">
       <!-- Data Pegawai -->
       <div class="box box-primary">
@@ -252,6 +276,7 @@
                   <th>Pekerjaan</th>
                   <th>Jenis Kelamin</th>
                   <th>Alamat</th>
+                  <th>Aksi</th>
                 </tr>
                 @foreach($DataKeluarga as $keluarga)
                 <tr>
@@ -265,6 +290,11 @@
                     Wanita
                   @endif</td>
                   <td>{{ $keluarga->alamat_keluarga }}</td>
+                  <td>
+                    <span data-toggle="tooltip" title="Hapus Data">
+                      <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#hapuskeluarga" data-value="{{$keluarga->id}}"><i class="fa fa-remove"></i></a>
+                    </span>
+                  </td>
                 </tr>
                 @endforeach
               </tbody>
@@ -463,7 +493,11 @@
       $('.tanggal_lahir_keluarga').datepicker({
         format: 'yyyy/mm/dd'
       });
+
+      $('a.hapus').click(function(){
+        var a = $(this).data('value');
+        $('#set').attr('href', "{{ url('/') }}/masterpegawai/hapuskeluarga/"+a);
+      });
     });
   </script>
-
 @stop

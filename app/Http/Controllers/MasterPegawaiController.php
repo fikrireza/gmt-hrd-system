@@ -261,7 +261,15 @@ class MasterPegawaiController extends Controller
       $keluarga->id_pegawai = $request->id_pegawai;
       $keluarga->save();
 
-
       return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data keluarga.');;
+    }
+
+    public function hapusKeluarga($id)
+    {
+      $keluarga = DataKeluarga::find($id);
+      $getnip = MasterPegawai::find($keluarga->id_pegawai);
+      $keluarga->delete();
+      
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data keluarga.');;
     }
 }
