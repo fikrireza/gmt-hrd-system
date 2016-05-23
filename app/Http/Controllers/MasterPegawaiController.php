@@ -379,4 +379,25 @@ class MasterPegawaiController extends Controller
 
       return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data riwayat penyakit.');
     }
+
+    public function getDataKeluargaByID($id)
+    {
+      $get = DataKeluarga::find($id);
+      return $get;
+    }
+
+    public function saveChangesKeluarga(Request $request)
+    {
+      // dd($request);
+      $set = DataKeluarga::find($request->id_keluarga);
+      $set->nama_keluarga = $request->nama_keluarga;
+      $set->hubungan_keluarga = $request->hubungan_keluarga;
+      $set->tanggal_lahir_keluarga = $request->tanggal_lahir_keluarga;
+      $set->pekerjaan_keluarga = $request->pekerjaan_keluarga;
+      $set->jenis_kelamin_keluarga = $request->jenis_kelamin_keluarga;
+      $set->alamat_keluarga = $request->alamat_keluarga;
+      $set->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data keluarga.');
+    }
 }

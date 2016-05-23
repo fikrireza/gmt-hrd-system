@@ -121,26 +121,6 @@
     </div>
   </div>
 
-  {{-- modal delete kesehatan --}}
-  <div class="modal modal-default fade" id="hapuskesehatan" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Hapus Data Kondisi Kesehatan</h4>
-        </div>
-        <div class="modal-body">
-          <p>Apakah anda yakin untuk menghapus data kondisi kesehatan ini?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
-          <a href="#" class="btn btn-primary" id="setkesehatan">Ya, saya yakin.</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
   {{-- modal delete penyakit --}}
   <div class="modal modal-default fade" id="hapuspenyakit" role="dialog">
     <div class="modal-dialog">
@@ -242,6 +222,102 @@
                   </td>
                   <td>
                     <textarea name="alamat_keluarga" rows="3" class="form-control"></textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+
+  {{-- modal edit keluarga --}}
+  <div class="modal modal-default fade" id="editkeluarga" role="dialog">
+    <div class="modal-dialog" style="width:1000px;">
+      <!-- Modal content-->
+      <form action="{{url('masterpegawai/savekeluarga')}}" method="post">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit Data Keluarga</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>Nama</th>
+                  <th>Hubungan</th>
+                  <th width="200px;">Tanggal Lahir</th>
+                  <th>Pekerjaan</th>
+                  <th>Jenis Kelamin</th>
+                  <th>Alamat</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->id;
+                      }
+                    ?>">
+                    <input class="form-control" type="hidden" name="nip" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->nip;
+                      }
+                    ?>">
+                    <input class="form-control" type="hidden" name="id_keluarga" id="id_keluarga" required>
+                    <input class="form-control" type="text" name="nama_keluarga" placeholder="Nama" id="edit_nama_keluarga" required>
+                  </td>
+                  <td>
+                    <select class="form-control" name="hubungan_keluarga">
+                      <option>-- Pilih --</option>
+                      <option value="AYAH" id="hub_ayah">AYAH</option>
+                      <option value="IBU" id="hub_ibu">IBU</option>
+                      <option value="KAKAK" id="hub_kakak">KAKAK</option>
+                      <option value="ADIK" id="hub_adik">ADIK</option>
+                      <option value="LAINNYA" id="hub_lain">LAINNYA</option>
+                    </select>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" name="tanggal_lahir_keluarga" class="form-control tanggal_lahir_keluarga" id="edit_tanggal_lahir_keluarga" required>
+                    </div>
+                  </td>
+                  <td>
+                    <select class="form-control" name="pekerjaan_keluarga">
+                      <option>-- Pilih --</option>
+                      <option value="PEGAWAI NEGERI" id="kerja_pn">PEGAWAI NEGERI</option>
+                      <option value="PEGAWAI SWASTA" id="kerja_ps">PEGAWAI SWASTA</option>
+                      <option value="WIRAUSAHA" id="kerja_wira">WIRAUSAHA</option>
+                      <option value="RUMAH TANGGA" id="kerja_rt">RUMAH TANGGA</option>
+                      <option value="MAHASISWA" id="kerja_maha">MAHASISWA</option>
+                      <option value="PELAJAR" id="kerja_pel">PELAJAR</option>
+                      <option value="LAINNYA" id="kerja_lain">LAINNYA</option>
+                    </select>
+                  </td>
+                  <td>
+                    <label>
+                      <input type="radio" name="jenis_kelamin_keluarga" class="minimal" value="L" id="jk_pria">
+                    </label>&nbsp;&nbsp;
+                    {{-- &nbsp; --}}
+                    <label>Pria</label>
+                    <br>
+                    <label>
+                      <input type="radio" name="jenis_kelamin_keluarga" class="minimal" value="P" id="jk_wanita">
+                    </label>&nbsp;&nbsp;
+                    {{-- &nbsp; --}}
+                    <label>Wanita</label>
+                  </td>
+                  <td>
+                    <textarea name="alamat_keluarga" rows="3" class="form-control" id="edit_alamat_keluarga"></textarea>
                   </td>
                 </tr>
               </tbody>
@@ -574,6 +650,120 @@
     </div>
   </div>
 
+  {{-- modal edit kesehatan --}}hub_lainnya
+  <div class="modal modal-default fade" id="modalkesehatan" role="dialog">
+    <div class="modal-dialog" style="width:1000px;">
+      <!-- Modal content-->
+      <form action="#" method="post">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Tambah Data Riwayat Pendidikan</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>Tinggi Badan</th>
+                  <th>Berat Badan</th>
+                  <th>Warna Rambut</th>
+                  <th>Warna Mata</th>
+                  <th>Berkacamata</th>
+                  <th>Merokok</th>
+                </tr>
+                <tr>
+                  @foreach($DataKesehatan as $kes)
+                    <td>
+                      <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                        foreach ($DataPegawai as $k) {
+                          echo $k->id;
+                        }
+                      ?>">
+                      <input class="form-control" type="hidden" name="nip" value="<?php
+                        foreach ($DataPegawai as $k) {
+                          echo $k->nip;
+                        }
+                      ?>">
+                      <input type="text" name="tinggi_badan" class="form-control" value="{{ $kes->tinggi_badan }}">
+                    </td>
+                    <td>
+                      <input type="text" name="berat_badan" class="form-control" value="{{ $kes->berat_badan }}">
+                    </td>
+                    <td>
+                      <input type="text" name="warna_rambut" class="form-control" value="{{ $kes->warna_rambut }}">
+                    </td>
+                    <td>
+                      <input type="text" name="warna_mata" class="form-control" value="{{ $kes->warna_mata }}">
+                    </td>
+                    <td>
+                      @if($kes->berkacamata==1)
+                        <label>
+                          <input type="radio" name="berkacamata" class="minimal" value="1" checked="true">
+                        </label>&nbsp;&nbsp;
+                        {{-- &nbsp; --}}
+                        <label>Ya</label>
+                        <br>
+                        <label>
+                          <input type="radio" name="berkacamata" class="minimal" value="0">
+                        </label>&nbsp;&nbsp;
+                        {{-- &nbsp; --}}
+                        <label>Tidak</label>
+                      @else
+                        <label>
+                          <input type="radio" name="berkacamata" class="minimal" value="1">
+                        </label>&nbsp;&nbsp;
+                        {{-- &nbsp; --}}
+                        <label>Ya</label>
+                        <br>
+                        <label>
+                          <input type="radio" name="berkacamata" class="minimal" value="0" checked="true">
+                        </label>&nbsp;&nbsp;
+                        {{-- &nbsp; --}}
+                        <label>Tidak</label>
+                      @endif
+                    </td>
+                    <td>
+                      @if($kes->merokok==1)
+                        <label>
+                          <input type="radio" name="merokok" class="minimal" value="1" checked="true">
+                        </label>&nbsp;&nbsp;
+                        {{-- &nbsp; --}}
+                        <label>Ya</label>
+                        <br>
+                        <label>
+                          <input type="radio" name="merokok" class="minimal" value="0">
+                        </label>&nbsp;&nbsp;
+                        {{-- &nbsp; --}}
+                        <label>Tidak</label>
+                      @else
+                        <label>
+                          <input type="radio" name="merokok" class="minimal" value="1">
+                        </label>&nbsp;&nbsp;
+                        {{-- &nbsp; --}}
+                        <label>Ya</label>
+                        <br>
+                        <label>
+                          <input type="radio" name="merokok" class="minimal" value="0" checked="true">
+                        </label>&nbsp;&nbsp;
+                        {{-- &nbsp; --}}
+                        <label>Tidak</label>
+                      @endif
+                    </td>
+                  @endforeach
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+
   <div class="row">
     <script>
       window.setTimeout(function() {
@@ -729,6 +919,9 @@
                     <span data-toggle="tooltip" title="Hapus Data">
                       <a href="" class="btn btn-xs btn-danger hapuskeluarga" data-toggle="modal" data-target="#hapuskeluarga" data-value="{{$keluarga->id}}"><i class="fa fa-remove"></i></a>
                     </span>
+                    <span data-toggle="tooltip" title="Edit Data">
+                      <a href="" class="btn btn-xs btn-warning editkeluarga" data-toggle="modal" data-target="#editkeluarga" data-value="{{$keluarga->id}}"><i class="fa fa-edit"></i></a>
+                    </span>
                   </td>
                 </tr>
                 @endforeach
@@ -859,7 +1052,7 @@
                   @endif</td>
                   <td>
                     <span data-toggle="tooltip" title="Hapus Data">
-                      <a href="" class="btn btn-xs btn-danger hapusbahasa" data-toggle="modal" data-target="#hapusbahasa" data-value="{{$bahasa->id}}"><i class="fa fa-remove"></i></a>
+                      <a type="button" class="btn btn-xs btn-danger hapusbahasa" data-toggle="modal" data-target="#hapusbahasa"><i class="fa fa-remove"></i></a>
                     </span>
                   </td>
                 </tr>
@@ -899,7 +1092,7 @@
                   @endif</td>
                   <td>
                     <span data-toggle="tooltip" title="Edit Data">
-                      <a href="" class="btn btn-xs btn-warning hapuskesehatan" data-toggle="modal" data-target="#hapuskesehatan" data-value="{{$kesehatan->id}}"><i class="fa fa-edit"></i></a>
+                      <a href="" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalkesehatan" data-value="{{$kesehatan->id}}"><i class="fa fa-edit"></i></a>
                     </span>
                   </td>
                 </tr>
@@ -1028,6 +1221,81 @@
         var a = $(this).data('value');
         $('#setpenyakit').attr('href', "{{ url('/') }}/masterpegawai/hapuspenyakit/"+a);
       });
+
+      $('a.editkeluarga').click(function(){
+        var a = $(this).data('value');
+        $.ajax({
+          url: "{{ url('/') }}/masterpegawai/getkeluarga/"+a,
+          dataType: 'json',
+          success: function(data){
+            var id_keluarga = data.id;
+            $('#id_keluarga').attr('value', id_keluarga);
+
+            var nama = data.nama_keluarga;
+            $('input[type="text"]#edit_nama_keluarga').attr('value', nama);
+
+            var hub = data.hubungan_keluarga;
+            if(hub=="AYAH") {
+              $('option#hub_ayah').attr('selected', 'true');
+            }
+            else if (hub=="IBU") {
+              $('option#hub_ibu').attr('selected', 'true');
+            }
+            else if (hub=="KAKAK") {
+              $('option#hub_kakak').attr('selected', 'true');
+            }
+            else if (hub=="ADIK") {
+              $('option#hub_adik').attr('selected', 'true');
+            }
+            else if (hub=="LAINNYA") {
+              $('option#hub_lainnya').attr('selected', 'true');
+            }
+
+            var tgl = data.tanggal_lahir_keluarga;
+            $('input[type="text"]#edit_tanggal_lahir_keluarga').attr('value', tgl);
+
+            var kerja = data.pekerjaan_keluarga;
+            if(kerja=="PEGAWAI NEGERI") {
+              $('option#kerja_pn').attr('selected', 'true');
+            }
+            else if (kerja=="PEGAWAI SWASTA") {
+              $('option#kerja_ps').attr('selected', 'true');
+            }
+            else if (kerja=="WIRAUSAHA") {
+              $('option#kerja_wira').attr('selected', 'true');
+            }
+            else if (kerja=="RUMAH TANGGA") {
+              $('option#kerja_rt').attr('selected', 'true');
+            }
+            else if (kerja=="MAHASISWA") {
+              $('option#kerja_maha').attr('selected', 'true');
+            }
+            else if (kerja=="PELAJAR") {
+              $('option#kerja_pel').attr('selected', 'true');
+            }
+            else if (kerja=="LAINNYA") {
+              $('option#kerja_lain').attr('selected', 'true');
+            }
+
+            var jk = data.jenis_kelamin_keluarga;
+            if(jk=="L") {
+              $('input[type="radio"]#jk_pria').attr('checked','true');
+            }
+            else {
+              $('input[type="radio"]#jk_wanita').attr('checked','true');
+            }
+
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+              checkboxClass: 'icheckbox_minimal-blue',
+              radioClass: 'iradio_minimal-blue'
+            });
+
+            var alamat = data.alamat_keluarga;
+            $('textarea#edit_alamat_keluarga').val(alamat);
+          }
+        });
+      })
+
     });
   </script>
 @stop
