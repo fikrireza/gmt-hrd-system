@@ -388,7 +388,6 @@ class MasterPegawaiController extends Controller
 
     public function saveChangesKeluarga(Request $request)
     {
-      // dd($request);
       $set = DataKeluarga::find($request->id_keluarga);
       $set->nama_keluarga = $request->nama_keluarga;
       $set->hubungan_keluarga = $request->hubungan_keluarga;
@@ -399,5 +398,44 @@ class MasterPegawaiController extends Controller
       $set->save();
 
       return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data keluarga.');
+    }
+
+    public function getPendidikanByID($id)
+    {
+      $get = Pendidikan::find($id);
+      return $get;
+    }
+
+    public function saveChangesPendidikan(Request $request)
+    {
+      // dd($request);
+      $set = Pendidikan::find($request->id_pendidikan);
+      $set->jenjang_pendidikan = $request->edit_jenjang_pendidikan;
+      $set->institusi_pendidikan = $request->institusi_pendidikan;
+      $set->tahun_masuk_pendidikan = $request->tahun_masuk_pendidikan;
+      $set->tahun_lulus_pendidikan = $request->tahun_lulus_pendidikan;
+      $set->gelar_akademik = $request->gelar_akademik;
+      $set->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data pendidikan.');
+    }
+
+    public function getPengalamanByID($id)
+    {
+      $get = PengalamanKerja::find($id);
+      return $get;
+    }
+
+    public function saveChangesPengalaman(Request $request)
+    {
+      // dd($request);
+      $set = PengalamanKerja::find($request->id_pengalaman);
+      $set->nama_perusahaan = $request->nama_perusahaan;
+      $set->posisi_perusahaan = $request->posisi_perusahaan;
+      $set->tahun_awal_kerja = $request->tahun_awal_kerja;
+      $set->tahun_akhir_kerja = $request->tahun_akhir_kerja;
+      $set->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data pengalaman.');
     }
 }

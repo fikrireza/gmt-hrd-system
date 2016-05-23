@@ -47,9 +47,13 @@ Route::post('masterpegawai/savekeluarga', 'MasterPegawaiController@saveChangesKe
 
 Route::post('addpendidikan', 'MasterPegawaiController@addPendidikan');
 Route::get('masterpegawai/hapuspendidikan/{id}', 'MasterPegawaiController@hapusPendidikan');
+Route::get('masterpegawai/getpendidikan/{id}', 'MasterPegawaiController@getPendidikanByID');
+Route::post('masterpegawai/savependidikan', 'MasterPegawaiController@saveChangesPendidikan');
 
 Route::post('addpengalaman', 'MasterPegawaiController@addPengalaman');
 Route::get('masterpegawai/hapuspengalaman/{id}', 'MasterPegawaiController@hapusPengalaman');
+Route::get('masterpegawai/getpengalaman/{id}', 'MasterPegawaiController@getPengalamanByID');
+Route::post('masterpegawai/savepengalaman', 'MasterPegawaiController@saveChangesPengalaman');
 
 Route::post('addkomputer', 'MasterPegawaiController@addKomputer');
 Route::get('masterpegawai/hapuskomputer/{id}', 'MasterPegawaiController@hapusKomputer');

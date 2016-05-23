@@ -416,7 +416,7 @@
   <div class="modal modal-default fade" id="editpendidikan" role="dialog">
     <div class="modal-dialog" style="width:1000px;">
       <!-- Modal content-->
-      <form action="#" method="post">
+      <form action="{{url('masterpegawai/savependidikan')}}" method="post">
         {!! csrf_field() !!}
         <div class="modal-content">
           <div class="modal-header">
@@ -456,7 +456,7 @@
                       <option value="SD" id="pend_sd">SD</option>
                       <option value="LAINNYA" id="pend_lain">LAINNYA</option>
                     </select>
-                    <input type="text" name="id_pendidikan" class="form-control" id="id_pendidikan">
+                    <input name="id_pendidikan" type="hidden" class="form-control" id="id_pendidikan">
                   </td>
                   <td>
                     <input type="text" name="institusi_pendidikan" class="form-control" id="edit_institusi_pendidikan">
@@ -553,6 +553,73 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
             <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+
+  {{-- modal edit pengalaman --}}
+  <div class="modal modal-default fade" id="editpengalaman" role="dialog">
+    <div class="modal-dialog" style="width:1000px;">
+      <!-- Modal content-->
+      <form action="{{url('masterpegawai/savepengalaman')}}" method="post">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit Data Pengalaman Kerja</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>Nama Perusahaan</th>
+                  <th>Posisi</th>
+                  <th width="200px;">Tahun Awal Kerja</th>
+                  <th width="200px;">Tahun Akhir Kerja</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->id;
+                      }
+                    ?>">
+                    <input class="form-control" type="hidden" name="nip" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->nip;
+                      }
+                    ?>">
+                    <input type="hidden" name="id_pengalaman" class="form-control" id="id_pengalaman">
+                    <input type="text" name="nama_perusahaan" class="form-control" id="edit_nama_perusahaan">
+                  </td>
+                  <td>
+                    <input type="text" name="posisi_perusahaan" class="form-control" id="edit_posisi_perusahaan">
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" name="tahun_awal_kerja" class="form-control tahun_awal_kerja" id="edit_tahun_awal_kerja" required>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" name="tahun_akhir_kerja" class="form-control tahun_akhir_kerja" id="edit_tahun_akhir_kerja" required>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
           </div>
         </div>
     </form>
@@ -1390,7 +1457,92 @@
             $('textarea#edit_alamat_keluarga').val(alamat);
           }
         });
-      })
+      });
+
+      $('a.editpendidikan').click(function(){
+        var a = $(this).data('value');
+        $.ajax({
+          url: "{{ url('/') }}/masterpegawai/getpendidikan/"+a,
+          dataType: 'json',
+          success: function(data){
+            var id_pendidikan = data.id;
+            var jenjang = data.jenjang_pendidikan;
+            var institusi = data.institusi_pendidikan;
+            var thmasuk = data.tahun_masuk_pendidikan;
+            var thlulus = data.tahun_lulus_pendidikan;
+            var gelar = data.gelar_akademik;
+
+            // set id_pendidikan
+            $('input[type="hidden"]#id_pendidikan').attr('value', id_pendidikan);
+
+            // set jenjang
+            if(jenjang=="PELATIHAN KEAHLIAN") {
+              $('option#pend_pelatihan').attr('selected','true');
+            }
+            else if (jenjang=="S2") {
+              $('option#pend_s2').attr('selected','true');
+            }
+            else if (jenjang=="S1") {
+              $('option#pend_s1').attr('selected','true');
+            }
+            else if (jenjang=="D3") {
+              $('option#pend_d3').attr('selected','true');
+            }
+            else if (jenjang=="SMU") {
+              $('option#pend_smu').attr('selected','true');
+            }
+            else if (jenjang=="SMP") {
+              $('option#pend_smp').attr('selected','true');
+            }
+            else if (jenjang=="SD") {
+              $('option#pend_sd').attr('selected','true');
+            }
+            else if (jenjang=="LAINNYA") {
+              $('option#pend_lain').attr('selected','true');
+            }
+
+            // set institusi
+            $('input[type="text"]#edit_institusi_pendidikan').attr('value', institusi);
+
+            // set tahun
+            $('input[type=text]#edit_tahun_masuk_pendidikan').attr('value', thmasuk);
+            $('input[type=text]#edit_tahun_lulus_pendidikan').attr('value', thlulus);
+
+            // set gelar
+            $('input[type=text]#edit_gelar_akademik').attr('value', gelar);
+          }
+        });
+      });
+
+      $('a.editpengalaman').click(function(){
+        var a = $(this).data('value');
+        $.ajax({
+          url: "{{ url('/') }}/masterpegawai/getpengalaman/"+a,
+          dataType: 'json',
+          success: function(data){
+            var id_pengalaman = data.id;
+            var nama = data.nama_perusahaan;
+            var posisi = data.posisi_perusahaan;
+            var thawal = data.tahun_awal_kerja;
+            var thakhir = data.tahun_akhir_kerja;
+
+            // set id_pengalaman
+            $('input[type="hidden"]#id_pengalaman').attr('value', id_pengalaman);
+
+            // set nama
+            $('input[type="text"]#edit_nama_perusahaan').attr('value', nama);
+
+            // set posisi
+            $('input[type="text"]#edit_posisi_perusahaan').attr('value', posisi);
+
+            // set tahun awal
+            $('input[type="text"]#edit_tahun_awal_kerja').attr('value', thawal);
+
+            // set akhir awal
+            $('input[type="text"]#edit_tahun_akhir_kerja').attr('value', thakhir);
+          }
+        });
+      });
 
     });
   </script>
