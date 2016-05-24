@@ -44,9 +44,24 @@ class UploadDocumentController extends Controller
     $dataNew->upload_ijazah = $request->upload_ijazah;
     $dataNew->upload_foto = $request->upload_foto;
     $dataNew->id_pegawai = $request->nip;
-    // dd($dataNew);
-    $dataNew->save();
 
+    $imageKK = $request->upload_kk . '.' .
+    $request->file('upload_kk')->getClientOriginalExtension();
+    $request->file('upload_kk')->move(base_path() . '/public/images/kk/', $imageKK);
+
+    $imageKTP = $request->upload_ktp . '.' .
+    $request->file('upload_ktp')->getClientOriginalExtension();
+    $request->file('upload_ktp')->move(base_path() . '/public/images/ktp/', $imageKTP);
+
+    $imageIjazah = $request->upload_ijazah . '.' .
+    $request->file('upload_ijazah')->getClientOriginalExtension();
+    $request->file('upload_ijazah')->move(base_path() . '/public/images/ijazah/', $imageIjazah);
+
+    $imageFoto = $request->upload_foto . '.' .
+    $request->file('upload_foto')->getClientOriginalExtension();
+    $request->file('upload_foto')->move(base_path() . '/public/images/foto/', $imageFoto);
+
+    $dataNew->save();
 
     return redirect()->route('uploaddocument.create')->with('message', 'Dokument Pegawai berhasil dimasukkan');
 
@@ -85,10 +100,9 @@ class UploadDocumentController extends Controller
       //
   }
 
-  public function delete()
+  public function hapusDocument($id)
   {
-    $getpegawai = MasterPegawai::where('status', 1)->get();
-    dd($getpegawai);
+    dd("asdasdasd");
   }
 
 }

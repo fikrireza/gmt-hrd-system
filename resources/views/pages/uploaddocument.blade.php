@@ -78,7 +78,7 @@
         @if(isset($data['binduploaddocument']))
           {!! Form::model($data['binduploaddocument'], ['route' => ['uploaddocument.update', $data['binduploaddocument']->id], 'method' => "patch", 'class'=>'form-horizontal']) !!}
         @else
-          <form class="form-horizontal" method="post" action="{{url('uploaddocument')}}">
+          <form class="form-horizontal" method="post" action="{{url('uploaddocument')}}" enctype="multipart/form-data">
         @endif
           {!! csrf_field() !!}
           <div class="box-body">
