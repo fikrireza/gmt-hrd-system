@@ -31,7 +31,7 @@
     </script>
 
     <!-- Modal -->
-    <div class="modal modal-warning fade" id="myModal" role="dialog">
+    <div class="modal modal-primary fade" id="myModal" role="dialog">
       <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -45,7 +45,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn btn-outline pull-left" data-dismiss="modal">Tidak</button>
-            <a href="{{url('masterjabatan/hapusjabatan/1')}}" class="btn btn btn-outline" id="set">Ya, saya yakin.</a>
+            <a href="" class="btn btn btn-outline" id="set">Ya, saya yakin.</a>
             {{-- <button type="button" class="btn btn btn-outline" data-dismiss="modal">Ya, saya yakin.</button> --}}
           </div>
         </div>
@@ -68,15 +68,15 @@
       <!-- Horizontal Form -->
       <div class="box box-info">
         <div class="box-header with-border">
-          @if(isset($data['bindjabatan']))
+          @if(isset($data['binduploaddocument']))
             <h3 class="box-title">Formulir Edit Data Dokumen Pegawai</h3>
           @else
             <h3 class="box-title">Formulir Tambah Data Dokumen Pegawai</h3>
           @endif
         </div><!-- /.box-header -->
         <!-- form start -->
-        @if(isset($data['bindjabatan']))
-          {!! Form::model($data['bindjabatan'], ['route' => ['masterjabatan.update', $data['bindjabatan']->id], 'method' => "patch", 'class'=>'form-horizontal']) !!}
+        @if(isset($data['binduploaddocument']))
+          {!! Form::model($data['binduploaddocument'], ['route' => ['uploaddocument.update', $data['binduploaddocument']->id], 'method' => "patch", 'class'=>'form-horizontal']) !!}
         @else
           <form class="form-horizontal" method="post" action="{{url('uploaddocument')}}">
         @endif
@@ -85,9 +85,15 @@
             <div class="form-group {{ $errors->has('upload_kk') ? 'has-error' : '' }}">
               <label class="col-sm-3 control-label">Unggah KK</label>
               <div class="col-sm-9">
-                {!! Form::open(array('url'=>'items','files'=>true,'class'=>'register-form')) !!}
-                        {!! Form::file('upload_kk') !!}
-                {!! Form::close() !!}
+                <input
+                  @if(isset($data['binduploaddocument']))
+                    value="{{$data['binduploaddocument']->upload_kk}}"
+                  @endif
+                  type="file" name="upload_kk"
+                  @if(!$errors->has('upload_kk'))
+                   value="{{ old('upload_kk') }}"
+                  @endif
+                >
               </div>
             </div>
             <div class="form-group {{ $errors->has('upload_ktp') ? 'has-error' : '' }}">
@@ -175,8 +181,11 @@
           <table class="table table-hover">
             <tr>
               <th>No</th>
-              <th>Tipe Dokumen</th>
-              <th>Nama Dokumen</th>
+              <th>Nama Pegawai</th>
+              <th>Nama KK</th>
+              <th>Nama KTP</th>
+              <th>Nama IJAZAH</th>
+              <th>Nama FOTO</th>
               <th>Aksi</th>
             </tr>
             <?php $pageget = 1; ?>
@@ -184,11 +193,14 @@
               <tr>
                 <td>{{ $pageget }}</td>
                 <td>{{ $key->id_pegawai }}</td>
+                <td>{{ $key->upload_kk }}</td>
+                <td>{{ $key->upload_ktp }}</td>
+                <td>{{ $key->upload_ijazah }}</td>
                 <td>{{ $key->upload_foto }}</td>
                 <td>
-                  <a href="{{ route('masterjabatan.edit', $key->id) }}" class="btn btn-warning" data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit"></i></a>
+                  <a href="{{ route('masterjabatan.edit', $key->id) }}" class="btn btn-warning btn-xs" data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit"></i></a>
                   <span data-toggle="tooltip" title="Hapus Data">
-                    <a href="" class="btn btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
+                    <a href="" class="btn btn-danger btn-xs hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
                   </span>
                 </td>
               </tr>
@@ -224,7 +236,7 @@
     $(function(){
       $('a.hapus').click(function(){
         var a = $(this).data('value');
-        $('#set').attr('href', "{{ url('/') }}/masterjabatan/hapusjabatan/"+a);
+        $('#set').attr('href', "{{ url('/') }}/uploaddocument/delete");
       });
     });
   </script>

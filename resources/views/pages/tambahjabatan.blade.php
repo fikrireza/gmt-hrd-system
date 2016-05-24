@@ -29,7 +29,7 @@
     </script>
 
     <!-- Modal -->
-    <div class="modal modal-warning fade" id="myModal" role="dialog">
+    <div class="modal modal-default fade" id="myModal" role="dialog">
       <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -42,8 +42,8 @@
             <p>Apakah anda yakin untuk menghapus data jabatan ini?</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn btn-outline pull-left" data-dismiss="modal">Tidak</button>
-            <a href="{{url('masterjabatan/hapusjabatan/1')}}" class="btn btn btn-outline" id="set">Ya, saya yakin.</a>
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+            <a href="{{url('masterjabatan/hapusjabatan/1')}}" class="btn btn-primary" id="set">Ya, saya yakin.</a>
             {{-- <button type="button" class="btn btn btn-outline" data-dismiss="modal">Ya, saya yakin.</button> --}}
           </div>
         </div>
@@ -164,9 +164,9 @@
                 <td>{{ $key->kode_jabatan }}</td>
                 <td>{{ $key->nama_jabatan }}</td>
                 <td>
-                  <a href="{{ route('masterjabatan.edit', $key->id) }}" class="btn btn-warning" data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit"></i></a>
+                  <a href="{{ route('masterjabatan.edit', $key->id) }}" class="btn btn-xs btn-warning" data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit"></i> Edit</a>
                   <span data-toggle="tooltip" title="Hapus Data">
-                    <a href="" class="btn btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
+                    <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i> Hapus</a>
                   </span>
                 </td>
               </tr>

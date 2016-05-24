@@ -223,4 +223,260 @@ class MasterPegawaiController extends Controller
         })
         ->make();
     }
+
+    public function addKeluarga(Request $request)
+    {
+      $keluarga = new DataKeluarga;
+      $keluarga->nama_keluarga = $request->nama_keluarga;
+      $keluarga->hubungan_keluarga = $request->hubungan_keluarga;
+      $keluarga->tanggal_lahir_keluarga = $request->tanggal_lahir_keluarga;
+      $keluarga->alamat_keluarga = $request->alamat_keluarga;
+      $keluarga->pekerjaan_keluarga = $request->pekerjaan_keluarga;
+      $keluarga->jenis_kelamin_keluarga = $request->jenis_kelamin_keluarga;
+      $keluarga->id_pegawai = $request->id_pegawai;
+      $keluarga->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data keluarga.');
+    }
+
+    public function hapusKeluarga($id)
+    {
+      $keluarga = DataKeluarga::find($id);
+      $getnip = MasterPegawai::find($keluarga->id_pegawai);
+      $keluarga->delete();
+
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data keluarga.');
+    }
+
+    public function addPendidikan(Request $request)
+    {
+      $didik = new Pendidikan;
+      $didik->jenjang_pendidikan = $request->jenjang_pendidikan;
+      $didik->institusi_pendidikan = $request->institusi_pendidikan;
+      $didik->tahun_masuk_pendidikan = $request->tahun_masuk_pendidikan;
+      $didik->tahun_lulus_pendidikan = $request->tahun_lulus_pendidikan;
+      $didik->gelar_akademik = $request->gelar_akademik;
+      $didik->id_pegawai = $request->id_pegawai;
+      $didik->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data pendidikan.');
+    }
+
+    public function hapusPendidikan($id)
+    {
+      $didik = Pendidikan::find($id);
+      $getnip = MasterPegawai::find($didik->id_pegawai);
+      $didik->delete();
+
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data pendidikan.');
+    }
+
+    public function addPengalaman(Request $request)
+    {
+      $kerja = new PengalamanKerja;
+      $kerja->nama_perusahaan = $request->nama_perusahaan;
+      $kerja->posisi_perusahaan = $request->posisi_perusahaan;
+      $kerja->tahun_awal_kerja = $request->tahun_awal_kerja;
+      $kerja->tahun_akhir_kerja = $request->tahun_akhir_kerja;
+      $kerja->id_pegawai = $request->id_pegawai;
+      $kerja->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data pengalaman kerja.');
+    }
+
+    public function hapusPengalaman($id)
+    {
+      $kerja = PengalamanKerja::find($id);
+      $getnip = MasterPegawai::find($kerja->id_pegawai);
+      $kerja->delete();
+
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data pengalaman kerja.');
+    }
+
+    public function addKomputer(Request $request)
+    {
+      $komp = new KeahlianKomputer;
+      $komp->nama_program = $request->nama_program;
+      $komp->nilai_komputer = $request->nilai_komputer;
+      $komp->id_pegawai = $request->id_pegawai;
+      $komp->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data keahlian komputer.');
+    }
+
+    public function hapusKomputer($id)
+    {
+      $komp = KeahlianKomputer::find($id);
+      $getnip = MasterPegawai::find($komp->id_pegawai);
+      $komp->delete();
+
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data keahlian komputer.');
+    }
+
+    public function addBahasa(Request $request)
+    {
+      $bahasa = new BahasaAsing;
+      $bahasa->bahasa = $request->bahasa;
+      $bahasa->berbicara = $request->berbicara;
+      $bahasa->menulis = $request->menulis;
+      $bahasa->mengerti = $request->mengerti;
+      $bahasa->id_pegawai = $request->id_pegawai;
+      $bahasa->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data bahasa asing.');
+    }
+
+    public function hapusBahasa($id)
+    {
+      $x = BahasaAsing::find($id);
+      $getnip = MasterPegawai::find($x->id_pegawai);
+      $x->delete();
+
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data bahasa asing.');
+    }
+
+    public function addPenyakit(Request $request)
+    {
+      $peny = new RiwayatPenyakit;
+      $peny->nama_penyakit = $request->nama_penyakit;
+      $peny->keterangan_penyakit = $request->keterangan_penyakit;
+      $peny->id_pegawai = $request->id_pegawai;
+      $peny->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data riwayat penyakit.');
+    }
+
+    public function hapusPenyakit($id)
+    {
+      $x = RiwayatPenyakit::find($id);
+      $getnip = MasterPegawai::find($x->id_pegawai);
+      $x->delete();
+
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data riwayat penyakit.');
+    }
+
+    public function getDataKeluargaByID($id)
+    {
+      $get = DataKeluarga::find($id);
+      return $get;
+    }
+
+    public function saveChangesKeluarga(Request $request)
+    {
+      $set = DataKeluarga::find($request->id_keluarga);
+      $set->nama_keluarga = $request->nama_keluarga;
+      $set->hubungan_keluarga = $request->hubungan_keluarga;
+      $set->tanggal_lahir_keluarga = $request->tanggal_lahir_keluarga;
+      $set->pekerjaan_keluarga = $request->pekerjaan_keluarga;
+      $set->jenis_kelamin_keluarga = $request->jenis_kelamin_keluarga;
+      $set->alamat_keluarga = $request->alamat_keluarga;
+      $set->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data keluarga.');
+    }
+
+    public function getPendidikanByID($id)
+    {
+      $get = Pendidikan::find($id);
+      return $get;
+    }
+
+    public function saveChangesPendidikan(Request $request)
+    {
+      // dd($request);
+      $set = Pendidikan::find($request->id_pendidikan);
+      $set->jenjang_pendidikan = $request->edit_jenjang_pendidikan;
+      $set->institusi_pendidikan = $request->institusi_pendidikan;
+      $set->tahun_masuk_pendidikan = $request->tahun_masuk_pendidikan;
+      $set->tahun_lulus_pendidikan = $request->tahun_lulus_pendidikan;
+      $set->gelar_akademik = $request->gelar_akademik;
+      $set->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data pendidikan.');
+    }
+
+    public function getPengalamanByID($id)
+    {
+      $get = PengalamanKerja::find($id);
+      return $get;
+    }
+
+    public function saveChangesPengalaman(Request $request)
+    {
+      // dd($request);
+      $set = PengalamanKerja::find($request->id_pengalaman);
+      $set->nama_perusahaan = $request->nama_perusahaan;
+      $set->posisi_perusahaan = $request->posisi_perusahaan;
+      $set->tahun_awal_kerja = $request->tahun_awal_kerja;
+      $set->tahun_akhir_kerja = $request->tahun_akhir_kerja;
+      $set->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data pengalaman.');
+    }
+
+    public function saveChangesKesehatan(Request $request)
+    {
+      // dd($request);
+      $set = KondisiKesehatan::find($request->id_kesehatan);
+      $set->tinggi_badan = $request->tinggi_badan;
+      $set->berat_badan = $request->berat_badan;
+      $set->warna_rambut = $request->warna_rambut;
+      $set->warna_mata = $request->warna_mata;
+      $set->berkacamata = $request->berkacamata;
+      $set->merokok = $request->merokok;
+      $set->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data kesehatan.');
+    }
+
+    public function getKomputerByID($id)
+    {
+      $get = KeahlianKomputer::find($id);
+      return $get;
+    }
+
+    public function saveChangesKomputer(Request $request)
+    {
+      // dd($request);
+      $komp = KeahlianKomputer::find($request->id_komputer);
+      $komp->nama_program = $request->nama_program;
+      $komp->nilai_komputer = $request->nilai_komputer;
+      $komp->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data keahlian komputer.');
+    }
+
+    public function getBahasaByID($id)
+    {
+      $get = BahasaAsing::find($id);
+      return $get;
+    }
+
+    public function saveChangesBahasa(Request $request)
+    {
+      $bahasa = BahasaAsing::find($request->id_bahasa);
+      $bahasa->bahasa = $request->bahasa;
+      $bahasa->berbicara = $request->berbicara;
+      $bahasa->menulis = $request->menulis;
+      $bahasa->mengerti = $request->mengerti;
+      $bahasa->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data bahasa asing.');
+    }
+
+    public function getPenyakitByID($id)
+    {
+      $get = RiwayatPenyakit::find($id);
+      return $get;
+    }
+
+    public function saveChangesPenyakit(Request $request)
+    {
+      $peny = RiwayatPenyakit::find($request->id_penyakit);
+      $peny->nama_penyakit = $request->nama_penyakit;
+      $peny->keterangan_penyakit = $request->keterangan_penyakit;
+      $peny->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data riwayat penyakit.');
+    }
 }
