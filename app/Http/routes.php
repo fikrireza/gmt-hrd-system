@@ -26,6 +26,11 @@ Route::get('logoutprocess', 'CustomAuthController@logoutprocess');
 Route::resource('masterpegawai', 'MasterPegawaiController');
 Route::get('datatables', ['as'=>'datatables.data', 'uses'=>'MasterPegawaiController@getDataForDataTable']);
 
+Route::get('data-pkwt', 'PKWTController@index');
+Route::get('datatablespkwt', ['as'=>'datatables.pkwt', 'uses'=>'PKWTController@getPKWTforDataTables']);
+Route::get('add-pkwt', ['as'=>'datapkwt.create', 'uses'=>'PKWTController@create']);
+Route::post('add-pkwt/proses', 'PKWTController@store');
+
 Route::resource('masterjabatan', 'MasterJabatanController');
 Route::get('masterjabatan/hapusjabatan/{id}', ['as'=>'masterjabatan.hapusjabatan', 'uses'=>'MasterJabatanController@hapusJabatan']);
 

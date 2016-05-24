@@ -47,6 +47,26 @@
     </li>
     <li class="treeview">
       <a href="#">
+        <i class="fa fa-file-text"></i>
+        <span>Dokumen Pegawai</span>
+        <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <li><a href="{{ route('uploaddocument.create') }}"><i class="fa fa-circle-o"></i> Kelola Dokumen Pegawai</a></li>
+      </ul>
+    </li>
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-file-text"></i>
+        <span>Data PKWT</span>
+        <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <li><a href="{{url('data-pkwt')}}"><i class="fa fa-circle-o"></i> Kelola Data PKWT</a></li>
+      </ul>
+    </li>
+    <li class="treeview">
+      <a href="#">
         <i class="fa fa-briefcase"></i>
         <span>Master Jabatan</span>
         <i class="fa fa-angle-left pull-right"></i>
@@ -65,16 +85,6 @@
         <li><a href="{{ route('masterbahasaasing.create') }}"><i class="fa fa-circle-o"></i> Kelola Data Bahasa Asing</a></li>
       </ul>
     </li> --}}
-    <li class="treeview">
-         <a href="#">
-           <i class="fa fa-file-text"></i>
-           <span>Dokumen Pegawai</span>
-           <i class="fa fa-angle-left pull-right"></i>
-         </a>
-         <ul class="treeview-menu">
-           <li><a href="{{ route('uploaddocument.create') }}"><i class="fa fa-circle-o"></i> Kelola Dokumen Pegawai</a></li>
-         </ul>
-       </li>
     <li class="treeview">
       <a href="#">
         <i class="fa fa-building-o"></i>

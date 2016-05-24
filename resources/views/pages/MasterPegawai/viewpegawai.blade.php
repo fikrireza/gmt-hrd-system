@@ -32,7 +32,7 @@
                 <th>Jenis Kelamin</th>
                 <th>No Telp</th>
                 <th>Jabatan</th>
-                <th>Status Kontrak</th>
+                {{-- <th>Status Kontrak</th> --}}
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -72,7 +72,7 @@
               {data: '1', name: 'name'},
               {data: '2', name: 'jenis_kelamin'},
               {data: '3', name: 'no_telp'},
-              {data: '4', name: 'status_kontrak'},
+              // {data: '4', name: 'status_kontrak'},
               {data: '5', name: 'nama_jabatan'},
               {data: '6', name: 'action', orderable: false, searchable: false}
             ]
