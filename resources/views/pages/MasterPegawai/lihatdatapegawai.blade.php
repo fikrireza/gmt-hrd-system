@@ -493,6 +493,69 @@
     </div>
   </div>
 
+  {{-- modal edit hubungan darurat --}}
+  <div class="modal modal-default fade" id="editdarurat" role="dialog">
+    <div class="modal-dialog" style="width:1000px;">
+      <!-- Modal content-->
+      <form action="{{url('masterpegawai/savedarurat')}}" method="post">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit Data Hubungan Darurat</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>Nama</th>
+                  <th>Hubungan</th>
+                  <th>Alamat</th>
+                  <th>Telepon</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="text" name="nama_darurat" class="form-control" id="edit_nama_darurat">
+                  </td>
+                  <td>
+                    <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->id;
+                      }
+                    ?>">
+                    <input class="form-control" type="hidden" name="nip" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->nip;
+                      }
+                    ?>">
+                    <select class="form-control" name="hubungan_darurat">
+                      <option value="">-- Pilih --</option>
+                      <option value="AYAH" id="hub_ayah">AYAH</option>
+                      <option value="IBU" id="hub_ibu">IBU</option>
+                      <option value="KAKAK" id="hub_kakak">KAKAK</option>
+                      <option value="ADIK" id="hub_adik">ADIK</option>
+                      <option value="LAINNYA" id="hub_lain">LAINNYA</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="text" name="alamat_darurat" class="form-control" id="edit_alamat_darurat">
+                  </td>
+                  <td>
+                    <input type="text" name="telepon_darurat" class="form-control" id="edit_telepon_darurat">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+
   {{-- modal tambah pengalaman --}}
   <div class="modal modal-default fade" id="modalpengalaman" role="dialog">
     <div class="modal-dialog" style="width:1000px;">
@@ -982,7 +1045,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Tambah Data Riwayat Pendidikan</h4>
+            <h4 class="modal-title">Edit Data Kondisi Kesehatan</h4>
           </div>
           <div class="modal-body">
             <table class="table">
@@ -1364,6 +1427,31 @@
               </tbody>
             </table>
 
+            <h3>Hubungan Darurat</h3>
+            <table class="table table-bordered">
+              <tbody>
+                <tr class="bg-navy">
+                  <th>Nama</th>
+                  <th>Hubungan Darurat</th>
+                  <th>Alamat</th>
+                  <th>Telepon</th>
+                  <th>Aksi</th>
+                </tr>
+                @foreach($DataPegawai as $darurat)
+                <tr>
+                  <td>{{ $darurat->nama_darurat }}</td>
+                  <td>{{ $darurat->hubungan_darurat }}</td>
+                  <td>{{ $darurat->alamat_darurat }}</td>
+                  <td>{{ $darurat->telepon_darurat }}</td>
+                  <td>
+                    <span data-toggle="tooltip" title="Edit Data">
+                      <a href="" class="btn btn-xs btn-warning editdarurat" data-toggle="modal" data-target="#editdarurat" data-value="{{$darurat->id}}"><i class="fa fa-edit"></i></a>
+                    </span>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
           </div><!-- /.End Keluarga -->
           <div class="tab-pane" id="dPengalaman">
             <h3>Pengalaman Kerja</h3>
