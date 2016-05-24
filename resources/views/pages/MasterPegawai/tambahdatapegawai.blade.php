@@ -782,7 +782,7 @@
                   </div>
                 </div>
                 <div class="form-group {{ $errors->has('hubungan_darurat') ? 'has-error' : '' }}">
-                  <label class="col-sm-2 control-label">Alamat Darurat</label>
+                  <label class="col-sm-2 control-label">Hubungan Darurat</label>
                   <div class="col-sm-6">
                     {!! Form::select('hubungan_darurat', array('AYAH' => 'AYAH',
                                                     'IBU' => 'IBU',

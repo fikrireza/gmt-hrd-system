@@ -93,7 +93,7 @@ class MasterPegawaiController extends Controller
         ]);
 
         $keluargas = $request->input('data_keluarga');
-        if($keluargas == !null){
+        if($keluargas != ""){
           foreach($keluargas as $keluarga){
             $isiKeluarga = new DataKeluarga;
             $isiKeluarga->nama_keluarga           = $keluarga['nama_keluarga'];
@@ -108,7 +108,7 @@ class MasterPegawaiController extends Controller
         }
 
         $pengalaman_kerjas = $request->input('pengalaman');
-        if($pengalaman_kerjas == !null){
+        if($pengalaman_kerjas != ""){
           foreach($pengalaman_kerjas as $pengalaman_kerja){
             $isiPengalaman  = new PengalamanKerja;
             $isiPengalaman->nama_perusahaan   = $pengalaman_kerja['nama_perusahaan'];
@@ -121,7 +121,7 @@ class MasterPegawaiController extends Controller
         }
 
         $pendidikans = $request->input('pendidikan');
-        if($pendidikans == !null){
+        if($pendidikans != ""){
           foreach($pendidikans as $pendidikan){
             $isiPendidikan  = new Pendidikan;
             $isiPendidikan->jenjang_pendidikan      = $pendidikan['jenjang_pendidikan'];
@@ -135,7 +135,7 @@ class MasterPegawaiController extends Controller
         }
 
         $bahasas = $request->input('bahasa');
-        if($bahasas == !null){
+        if($bahasas != ""){
           foreach ($bahasas as $bahasa) {
             $isiBahasa = new BahasaAsing;
             $isiBahasa->bahasa      = $bahasa['bahasa'];
@@ -148,7 +148,7 @@ class MasterPegawaiController extends Controller
         }
 
         $komputers = $request->input('komputer');
-        if($komputers == !null){
+        if($komputers != ""){
           foreach ($komputers as $komputer) {
             $isiKomputer  = new KeahlianKomputer;
             $isiKomputer->nama_program  = $komputer['nama_program'];
@@ -159,7 +159,7 @@ class MasterPegawaiController extends Controller
         }
 
         $penyakits = $request->input('penyakit');
-        if($penyakits == !null){
+        if($penyakits != ""){
           foreach ($penyakits as $penyakit) {
             $isiPenyakit  = new RiwayatPenyakit;
             $isiPenyakit->nama_penyakit       = $penyakit['nama_penyakit'];
@@ -532,5 +532,18 @@ class MasterPegawaiController extends Controller
       $pegawai->save();
 
       return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data pegawai.');
+    }
+
+    public function saveChangesDarurat(Request $request)
+    {
+      //dd($request);
+      $set = MasterPegawai::find($request->id_pegawai);
+      $set->nama_darurat = $request->nama_darurat;
+      $set->hubungan_darurat = $request->hubungan_darurat;
+      $set->alamat_darurat = $request->alamat_darurat;
+      $set->telepon_darurat = $request->telepon_darurat;
+      $set->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data darurat.');
     }
 }
