@@ -1114,90 +1114,170 @@
           <img class="profile-user-img img-responsive img-circle" src="{{ asset('dist/img/user2-160x160.jpg')}}" alt="User profile picture">
           <h3 class="profile-username text-center">{{ $pegawai->nama}}</h3>
           <p class="text-muted text-center">{{ $pegawai->status_kontrak}} | {{ $pegawai->id_jabatan}}</p>
-
+          <form action="{{url('masterpegawai/savepegawai')}}" method="post">
+            {!! csrf_field() !!}
           <table class="table table-condensed">
             <tbody>
               <tr>
                 <td>NIP</td>
                 <td>:</td>
-                <td><b>{{ $pegawai->nip}}</b></td>
+                <td id="tdlabelnip"><b>{{ $pegawai->nip}}</b></td>
+                <td id="tdtextnip"><input type="text" class="form-control" name="nip" value="{{$pegawai->nip}}"></td>
               </tr>
               <tr>
                 <td>NIP Lama</td>
                 <td>:</td>
-                <td><b>{{ $pegawai->nip_lama}}</b></td>
+                <td id="tdlabelniplama"><b>{{ $pegawai->nip_lama}}</b></td>
+                <td id="tdtextniplama"><input type="text" class="form-control" name="niplama" value="{{$pegawai->nip}}"></td>
               </tr>
               <tr>
                 <td>Tanggal Lahir</td>
                 <td>:</td>
-                <td><b>{{ $pegawai->tanggal_lahir}}</b></td>
+                <td id="tdlabeltgllahir"><b>{{ $pegawai->tanggal_lahir}}</b></td>
+                <td id="tdtexttgllahir">
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" class="form-control" name="tgllahir" id="tanggal_lahir" value="{{$pegawai->tanggal_lahir}}">
+                  </div><!-- /.input group -->
+                </td>
               </tr>
               <tr>
                 <td>Jenis Kelamin</td>
                 <td>:</td>
-                <td><b>@if($pegawai->jenis_kelamin == 'L')
+                <td id="tdlabeljk"><b>@if($pegawai->jenis_kelamin == 'L')
                  Pria
                @else
                  Wanita
                @endif</b></td>
+               <td id="tdtextjk">
+                 @if($pegawai->jenis_kelamin=="L")
+                   <label>
+                     <input type="radio" name="jenis_kelamin" class="minimal" value="L" checked="true">
+                   </label>
+                   <label>Pria</label>
+                   &nbsp;&nbsp;&nbsp;
+                   <label>
+                     <input type="radio" name="jenis_kelamin" class="minimal" value="P">
+                   </label>
+                   <label>Wanita</label>
+                 @else
+                   <label>
+                     <input type="radio" name="jenis_kelamin" class="minimal" value="L">
+                   </label>
+                   <label>Pria</label>
+                   &nbsp;&nbsp;&nbsp;
+                   <label>
+                     <input type="radio" name="jenis_kelamin" class="minimal" value="P" checked="true">
+                   </label>
+                   <label>Wanita</label>
+                 @endif
+               </td>
               </tr>
               <tr>
                 <td>E-mail</td>
                 <td>:</td>
-                <td><b>{{ $pegawai->email}}</b></td>
+                <td id="tdlabelemail"><b>{{ $pegawai->email}}</b></td>
+                <td id="tdtextemail"><input type="email" class="form-control" name="email" value="{{$pegawai->email}}"></td>
               </tr>
               <tr>
                 <td>Agama</td>
                 <td>:</td>
-                <td><b>{{ $pegawai->agama}}</b></td>
+                <td id="tdlabelagama"><b data-value="{{$pegawai->agama}}" id="valagama">{{ $pegawai->agama }}</b></td>
+                <td id="tdtextagama">
+                  <select class="form-control" name="agama">
+                    <option>-- Pilih --</option>
+                    <option value="Islam" id="valislam">Islam</option>
+                    <option value="Kristen" id="valkristen">Kristen</option>
+                    <option value="Hindu" id="valhindu">Hindu</option>
+                    <option value="Budha" id="valbudha">Budha</option>
+                    <option value="Lainnya" id="vallain">Lainnya</option>
+                  </select>
+                </td>
               </tr>
               <tr>
                 <td>Alamat</td>
                 <td>:</td>
-                <td><b>{{ $pegawai->alamat}}</b></td>
+                <td id="tdlabelalamat"><b>{{ $pegawai->alamat}}</b></td>
+                <td id="tdtextalamat">
+                  <textarea name="alamat" class="form-control" rows="3">{{$pegawai->alamat}}</textarea>
+                </td>
               </tr>
               <tr>
                 <td>No Telp</td>
                 <td>:</td>
-                <td><b>{{ $pegawai->no_telp}}</b></td>
+                <td id="tdlabeltelp"><b>{{ $pegawai->no_telp}}</b></td>
+                <td id="tdtexttelp">
+                  <input type="text" name="telp" class="form-control" value="{{$pegawai->no_telp}}">
+                </td>
               </tr>
               <tr>
                 <td>No KTP</td>
                 <td>:</td>
-                <td><b>{{ $pegawai->no_ktp}}</b></td>
+                <td id="tdlabelktp"><b>{{ $pegawai->no_ktp}}</b></td>
+                <td id="tdtextktp">
+                  <input type="text" name="ktp" class="form-control" value="{{$pegawai->no_ktp}}">
+                </td>
               </tr>
               <tr>
                 <td>No KK</td>
                 <td>:</td>
-                <td><b>{{ $pegawai->no_kk}}</b></td>
+                <td id="tdlabelkk"><b>{{ $pegawai->no_kk}}</b></td>
+                <td id="tdtextkk">
+                  <input type="text" name="kk" class="form-control" value="{{$pegawai->no_kk}}">
+                </td>
               </tr>
               <tr>
                 <td>No NPWP</td>
                 <td>:</td>
-                <td><b>{{ $pegawai->no_npwp}}</b></td>
+                <td id="tdlabelnpwp"><b>{{ $pegawai->no_npwp}}</b></td>
+                <td id="tdtextnpwp">
+                  <input type="text" name="npwp" class="form-control" value="{{$pegawai->no_npwp}}">
+                </td>
               </tr>
               <tr>
                 <td>BPJS Ketenagakerjaan</td>
                 <td>:</td>
-                <td><b>{{ $pegawai->bpjs_ketenagakerjaan}}</b></td>
+                <td id="tdlabelbpjskerja"><b>{{ $pegawai->bpjs_ketenagakerjaan}}</b></td>
+                <td id="tdtextbpjskerja">
+                  <input type="text" name="bpjskerja" class="form-control" value="{{$pegawai->bpjs_ketenagakerjaan}}">
+                </td>
               </tr>
               <tr>
                 <td>BPJS Kesehatan</td>
                 <td>:</td>
-                <td><b>{{ $pegawai->bpjs_kesehatan}}</b></td>
+                <td id="tdlabelbpjssehat"><b>{{ $pegawai->bpjs_kesehatan}}</b></td>
+                <td id="tdtextbpjssehat">
+                  <input type="text" name="bpjssehat" class="form-control" value="{{$pegawai->bpjs_kesehatan}}">
+                </td>
               </tr>
               <tr>
                 <td>No Rekening</td>
                 <td>:</td>
-                <td><b>{{ $pegawai->no_rekening}}</b></td>
+                <td id="tdlabelrekening"><b>{{ $pegawai->no_rekening}}</b></td>
+                <td id="tdtextrekening">
+                  <input type="text" name="rekening" class="form-control" value="{{$pegawai->no_rekening}}">
+                </td>
               </tr>
               <tr>
-                <td>kewarganegaraan</td>
+                <td>Kewarganegaraan</td>
                 <td>:</td>
-                <td><b>{{ $pegawai->kewarganegaraan}}</b></td>
+                <td id="tdlabelwarga"><b data-value="{{$pegawai->kewarganegaraan}}" id="valwarga">{{ $pegawai->kewarganegaraan}}</b></td>
+                <td id="tdtextwarga">
+                  <select class="form-control" name="warga">
+                    <option>-- Pilih --</option>
+                    <option value="WNI" id="valwni">WNI</option>
+                    <option value="WNA" id="valwna">WNA</option>
+                  </select>
+                  <input type="hidden" name="id_pegawai" class="form-control" value="{{$pegawai->id}}">
+                </td>
               </tr>
             </tbody>
           </table>
+          <a class="btn btn-xs bg-yellow pull-right" id="editpegawai"><i class="fa fa-edit"></i> Edit Data Pegawai</a>
+          <button type="submit" class="btn btn-xs bg-blue pull-right" id="btnsavepegawai"><i class="fa fa-check"></i> Simpan Perubahan</button>
+        </form>
           @endforeach
         </div><!-- /.box-body -->
       </div>
@@ -1498,8 +1578,12 @@
         radioClass: 'iradio_minimal-blue'
       });
 
+      $('#tanggal_lahir').datepicker({
+        format: 'yyyy-mm-dd'
+      });
+
       $('.tanggal_lahir_keluarga').datepicker({
-        format: 'yyyy/mm/dd'
+        format: 'yyyy-mm-dd'
       });
 
       $('.tahun_awal_kerja').datepicker({
@@ -1806,7 +1890,7 @@
             var id_penyakit = data.id;
             var nama = data.nama_penyakit;
             var ket = data.keterangan_penyakit;
-            
+
             // set
             $('#id_penyakit').attr('value', id_penyakit);
             $('#edit_nama_penyakit').attr('value', nama);
@@ -1815,6 +1899,84 @@
         });
       });
 
+
+      $('#tdtextnip').hide();
+      $('#tdtextniplama').hide();
+      $('#tdtexttgllahir').hide();
+      $('#tdtextjk').hide();
+      $('#tdtextemail').hide();
+      $('#tdtextagama').hide();
+      $('#tdtextalamat').hide();
+      $('#tdtexttelp').hide();
+      $('#tdtextktp').hide();
+      $('#tdtextkk').hide();
+      $('#tdtextnpwp').hide();
+      $('#tdtextbpjskerja').hide();
+      $('#tdtextbpjssehat').hide();
+      $('#tdtextrekening').hide();
+      $('#tdtextwarga').hide();
+      $('#btnsavepegawai').hide();
+
+      $('a#editpegawai').click(function(){
+        $('#tdlabelnip').hide();
+        $('#tdlabelniplama').hide();
+        $('#tdlabeltgllahir').hide();
+        $('#tdlabeljk').hide();
+        $('#tdlabelemail').hide();
+        $('#tdlabelagama').hide();
+        $('#tdlabelalamat').hide();
+        $('#tdlabeltelp').hide();
+        $('#tdlabelktp').hide();
+        $('#tdlabelkk').hide();
+        $('#tdlabelnpwp').hide();
+        $('#tdlabelbpjskerja').hide();
+        $('#tdlabelbpjssehat').hide();
+        $('#tdlabelrekening').hide();
+        $('#tdlabelwarga').hide();
+
+        $('#tdtextnip').show();
+        $('#tdtextniplama').show();
+        $('#tdtexttgllahir').show();
+        $('#tdtextjk').show();
+        $('#tdtextemail').show();
+        $('#tdtextagama').show();
+        $('#tdtextalamat').show();
+        $('#tdtexttelp').show();
+        $('#tdtextktp').show();
+        $('#tdtextkk').show();
+        $('#tdtextnpwp').show();
+        $('#tdtextbpjskerja').show();
+        $('#tdtextbpjssehat').show();
+        $('#tdtextrekening').show();
+        $('#tdtextwarga').show();
+
+        var a = $('b#valagama').data('value');
+        if(a=="Islam") {
+          $('option#valislam').attr('selected', 'true');
+        }
+        else if(a=="Kristen") {
+          $('option#valkristen').attr('selected', 'true');
+        }
+        else if(a=="Hindu") {
+          $('option#valhindu').attr('selected', 'true');
+        }
+        else if(a=="Budha") {
+          $('option#valbudha').attr('selected', 'true');
+        }
+        else if(a=="Lainnya") {
+          $('option#vallain').attr('selected', 'true');
+        }
+
+        var b = $('b#valwarga').data('value');
+        if(b=="WNI") {
+          $('option#valwni').attr('selected', 'true');
+        } else if (b=="WNA") {
+          $('option#valwna').attr('selected', 'true');
+        }
+
+        $('a#editpegawai').hide();
+        $('#btnsavepegawai').show();
+      });
     });
   </script>
 @stop
