@@ -75,6 +75,10 @@ class MasterPegawaiController extends Controller
                       'bpjs_kesehatan'  => $request->bpjs_kesehatan,
                       'bpjs_ketenagakerjaan'  => $request->bpjs_ketenagakerjaan,
                       'no_rekening'   => $request->no_rekening,
+                      'nama_darurat'   => $request->nama_darurat,
+                      'alamat_darurat'   => $request->alamat_darurat,
+                      'hubungan_darurat'   => $request->hubungan_darurat,
+                      'telepon_darurat'   => $request->telepon_darurat,
                       'id_jabatan'     => $request->jabatan,
         ]);
 
