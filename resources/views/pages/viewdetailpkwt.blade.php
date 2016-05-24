@@ -204,9 +204,9 @@
                         </td>
                         <td>
                           <?php
-                            date_default_timezone_set('Asia/Jakarta');
+                            // date_default_timezone_set('Asia/Jakarta');
                             $date1=date_create($key->tanggal_akhir_pkwt);
-                            $date2=date_create(date("Y-m-d"));
+                            $date2=date_create(gmdate("Y-m-d", time()+60*60*7));
                             $diff=date_diff($date2,$date1);
                             $sym = substr($diff->format("%R%a"), 0, 1);
                             $days = substr($diff->format("%R%a"), 1);

@@ -44,7 +44,7 @@ class PKWTController extends Controller
 
   public function getPKWTforDataTables()
   {
-    date_default_timezone_set('Asia/Jakarta');
+    // date_default_timezone_set('Asia/Jakarta');
 
     $pkwt = PKWT::select(['nip','nama','tanggal_awal_pkwt', 'tanggal_akhir_pkwt', 'status_pkwt'])
       ->join('master_pegawai','data_pkwt.id_pegawai','=', 'master_pegawai.id')->get();
@@ -54,7 +54,9 @@ class PKWTController extends Controller
         $tgl = explode('-', $pkwt->tanggal_akhir_pkwt);
         $tglakhir = Carbon::createFromDate($tgl[0], $tgl[1], $tgl[2]);
         // $result = Carbon::createFromDate($tgl[0], $tgl[1], $tgl[2]);
-        $result = Carbon::now()->diffInDays($tglakhir, false);
+        $now = gmdate("Y-m-d", time()+60*60*7);
+        $tglskrg = explode('-', $now);
+        $result = Carbon::createFromDate($tglskrg[0],$tglskrg[1],$tglskrg[2])->diffInDays($tglakhir, false);
         if($result == 0)
         {
           return "<span class='label bg-yellow'>Expired Hari Ini</span>";
