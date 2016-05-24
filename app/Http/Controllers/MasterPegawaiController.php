@@ -483,4 +483,29 @@ class MasterPegawaiController extends Controller
 
       return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data riwayat penyakit.');
     }
+
+    public function saveChangesPegawai(Request $request)
+    {
+      $pegawai = MasterPegawai::find($request->id_pegawai);
+      $pegawai->nip = $request->nip;
+      $pegawai->nip_lama = $request->niplama;
+      $pegawai->no_ktp = $request->ktp;
+      $pegawai->no_kk = $request->kk;
+      $pegawai->no_npwp = $request->npwp;
+      // $pegawai->nama = $request->nama;
+      $pegawai->tanggal_lahir = $request->tgllahir;
+      $pegawai->jenis_kelamin = $request->jenis_kelamin;
+      $pegawai->email = $request->email;
+      $pegawai->alamat = $request->alamat;
+      $pegawai->agama = $request->agama;
+      $pegawai->no_telp = $request->telp;
+      // $pegawai->status_pajak = $request->niplama;
+      $pegawai->kewarganegaraan = $request->warga;
+      $pegawai->bpjs_kesehatan = $request->bpjssehat;
+      $pegawai->bpjs_ketenagakerjaan = $request->bpjskerja;
+      $pegawai->no_rekening = $request->rekening;
+      $pegawai->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data pegawai.');
+    }
 }
