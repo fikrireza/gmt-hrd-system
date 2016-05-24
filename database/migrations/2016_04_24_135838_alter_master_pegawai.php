@@ -25,10 +25,10 @@ class AlterMasterPegawai extends Migration
           $table->string('bpjs_kesehatan', 20)->after('kewarganegaraan')->unique();
           $table->string('bpjs_ketenagakerjaan', 20)->after('bpjs_kesehatan')->unique();
           $table->string('no_rekening', 15)->after('bpjs_ketenagakerjaan')->unique();
-          $table->string('nama_darurat', 50)->after('no_rekening');
-          $table->string('alamat_darurat')->after('nama_darurat');
-          $table->string('hubungan_darurat', 20)->after('alamat_darurat');
-          $table->string('telepon_darurat', 15)->after('hubungan_darurat');
+          $table->string('nama_darurat', 50)->after('no_rekening')->nullable();
+          $table->string('alamat_darurat')->after('nama_darurat')->nullable();
+          $table->string('hubungan_darurat', 20)->after('alamat_darurat')->nullable();
+          $table->string('telepon_darurat', 15)->after('hubungan_darurat')->nullable();
           $table->integer('id_jabatan')->after('telepon_darurat')->unsigned();
         });
     }
