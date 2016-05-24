@@ -44,6 +44,8 @@ class PKWTController extends Controller
 
   public function getPKWTforDataTables()
   {
+    date_default_timezone_set('Asia/Jakarta');
+
     $pkwt = PKWT::select(['nip','nama','tanggal_awal_pkwt', 'tanggal_akhir_pkwt', 'status_pkwt'])
       ->join('master_pegawai','data_pkwt.id_pegawai','=', 'master_pegawai.id')->get();
 
@@ -90,27 +92,26 @@ class PKWTController extends Controller
     $id_pegawai = $getnip[0]->id;
     $getpkwt = PKWT::where('id_pegawai', $id_pegawai)->get();
 
-    // $tgl = explode('-', $getpkwt[0]->tanggal_akhir_pkwt);
-    // $tglakhir = Carbon::createFromDate($tgl[0], $tgl[1], $tgl[2]);
-    // $result = Carbon::now()->diffInDays($tglakhir, false);
-    // $keterangan;
-    // if($result == 0)
-    // {
-    //   $keterangan = "<span class='label bg-yellow'>Expired Hari Ini</span>";
-    // }
-    // else if($result < 0)
-    // {
-    //   $keterangan = "<span class='label bg-red'>Telah Expired</span>";
-    // }
-    // else if($result > 30)
-    // {
-    //   $keterangan = "<span class='label bg-green'>PKWT Aktif</span>";
-    // }
-    // else if($result > 0)
-    // {
-    //   $keterangan = "<span class='label bg-yellow'>Expired Dalam ".$result." Hari</span>";
-    // }
-
     return view('pages.viewdetailpkwt', compact('getnip', 'getpkwt'));
+  }
+
+  public function bind($id)
+  {
+    $get = PKWT::find($id);
+    return $get;
+  }
+
+  public function saveChangesPKWT(Request $request)
+  {
+    $set = PKWT::find($request->id_pkwt);
+    $set->tanggal_masuk_gmt = $request->tanggal_masuk_gmt;
+    $set->tanggal_masuk_client = $request->tanggal_masuk_client;
+    $set->tanggal_awal_pkwt = $request->tanggal_awal_pkwt;
+    $set->tanggal_akhir_pkwt = $request->tanggal_akhir_pkwt;
+    $set->status_karyawan_pkwt = $request->status_karyawan;
+    $set->status_pkwt = $request->status_pkwt;
+    $set->save();
+
+    return redirect()->route('detail.pkwt', $request->nip)->with('message', 'Berhasil mengubah data PKWT.');
   }
 }

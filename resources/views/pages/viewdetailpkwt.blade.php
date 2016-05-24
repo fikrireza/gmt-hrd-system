@@ -5,6 +5,9 @@
   <link rel="stylesheet" href="{{asset('plugins/select2/select2.min.css')}}">
   <link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css')}}">
   <link rel="stylesheet" href="{{asset('plugins/datepicker/datepicker3.css')}}">
+  <style>
+  .datepicker{z-index:1151 !important;}
+  </style>
 @stop
 
 @section('breadcrumb')
@@ -26,6 +29,113 @@
         });
       }, 2000);
     </script>
+
+    {{-- modal delete penyakit --}}
+    <div class="modal modal-default fade" id="modaleditpkwt" role="dialog">
+      <div class="modal-dialog" style="width:800px;">
+        <!-- Modal content-->
+        <form class="form-horizontal" action="{{url('savepkwt')}}" method="post">
+          {!! csrf_field() !!}
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Edit Data PKWT</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <div class="col-sm-1">
+                  {{-- divider --}}
+                </div>
+                <label class="col-sm-2">Tanggal Masuk GMT</label>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" name="tanggal_masuk_gmt" class="form-control" id="tanggal_masuk_gmt" required>
+                    <input type="hidden" name="id_pkwt" class="form-control" id="id_pkwt" required>
+                    <input type="hidden" name="nip" class="form-control" value="{{$getnip[0]->nip}}" required>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-1">
+                  {{-- divider --}}
+                </div>
+                <label class="col-sm-2">Tanggal Bekerja di Client</label>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" name="tanggal_masuk_client" class="form-control" id="tanggal_masuk_client" required>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-1">
+                  {{-- divider --}}
+                </div>
+                <label class="col-sm-2">Tanggal Awal PKWT</label>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" name="tanggal_awal_pkwt" class="form-control" id="tanggal_awal_pkwt" required>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-1">
+                  {{-- divider --}}
+                </div>
+                <label class="col-sm-2">Tanggal Akhir PKWT</label>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" name="tanggal_akhir_pkwt" class="form-control" id="tanggal_akhir_pkwt" required>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-1">
+                  {{-- divider --}}
+                </div>
+                <label class="col-sm-2">Status Karyawan</label>
+                <div class="col-sm-4">
+                  <select class="form-control" name="status_karyawan">
+                    <option>-- Pilih --</option>
+                    <option value="1" id="status_karyawan_kontrak">Kontrak</option>
+                    <option value="2" id="status_karyawan_freelance">Freelance</option>
+                    <option value="3" id="status_karyawan_tetap">Tetap</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-1">
+                  {{-- divider --}}
+                </div>
+                <label class="col-sm-2">Status PWKT</label>
+                <div class="col-sm-4">
+                  <select class="form-control" name="status_pkwt">
+                    <option>-- Pilih --</option>
+                    <option value="1" id="status_pkwt_aktif">Aktif</option>
+                    <option value="0" id="status_pkwt_tidakaktif">Tidak Aktif</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+              <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
 
   <div class="row">
     <!--column -->
@@ -84,22 +194,27 @@
                         <td>{{$key->tanggal_awal_pkwt}}</td>
                         <td>{{$key->tanggal_akhir_pkwt}}</td>
                         <td>
-                          @if($key->status_pkwt==1)
+                          @if($key->status_karyawan_pkwt==1)
                             Kontrak
-                          @elseif($key->status_pkwt==2)
+                          @elseif($key->status_karyawan_pkwt==2)
                             Freelance
-                          @elseif($key->status_pkwt==3)
+                          @elseif($key->status_karyawan_pkwt==3)
                             Tetap
                           @endif
                         </td>
                         <td>
                           <?php
+                            date_default_timezone_set('Asia/Jakarta');
                             $date1=date_create($key->tanggal_akhir_pkwt);
                             $date2=date_create(date("Y-m-d"));
                             $diff=date_diff($date2,$date1);
                             $sym = substr($diff->format("%R%a"), 0, 1);
                             $days = substr($diff->format("%R%a"), 1);
-                            if($sym=="+" && $days <= 30)
+                            if($days==0)
+                            {
+                              echo "<span class='label bg-yellow'>Expired Hari Ini</span>";
+                            }
+                            elseif($sym=="+" && $days <= 30)
                             {
                               echo "<span class='label bg-yellow'>Expired Dalam ".$days." Hari</span>";
                             }
@@ -114,7 +229,7 @@
                           ?>
                         </td>
                         <td>
-                          <a href="#" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
+                          <a href="#" data-value="{{$key->id}}" class="btn btn-xs btn-warning" id="edit_pkwt" data-toggle="modal" data-target="#modaleditpkwt"><i class="fa fa-edit"></i> Edit</a>
                         </td>
                       </tr>
                     @endforeach
@@ -164,6 +279,53 @@
       });
       $("#tanggal_masuk_client").datepicker({
         format: 'yyyy-mm-dd'
+      });
+
+      $('#edit_pkwt').click(function(){
+        var a = $(this).data('value');
+        $.ajax({
+          url: "{{ url('/') }}/edit-pkwt/getpkwt/"+a,
+          dataType: 'json',
+          success: function(data){
+            var id_pkwt = data.id;
+            var tanggal_masuk_gmt = data.tanggal_masuk_gmt;
+            var tanggal_masuk_client = data.tanggal_masuk_client;
+            var tanggal_awal_pkwt = data.tanggal_awal_pkwt;
+            var tanggal_akhir_pkwt = data.tanggal_akhir_pkwt;
+            var status_karyawan_pkwt = data.status_karyawan_pkwt;
+            var status_pkwt = data.status_pkwt;
+
+            // set
+            $('#id_pkwt').attr('value', id_pkwt);
+            $('#tanggal_masuk_gmt').attr('value', tanggal_masuk_gmt);
+            $('#tanggal_masuk_client').attr('value', tanggal_masuk_client);
+            $('#tanggal_awal_pkwt').attr('value', tanggal_awal_pkwt);
+            $('#tanggal_akhir_pkwt').attr('value', tanggal_akhir_pkwt);
+
+            // alert(status_pkwt);
+            if(status_pkwt=="1")
+            {
+              $('#status_pkwt_aktif').attr('selected', 'true');
+            }
+            else if(status_pkwt=="0")
+            {
+              $('#status_pkwt_tidakaktif').attr('selected', 'true');
+            }
+
+            if(status_karyawan_pkwt=="1")
+            {
+              $('#status_karyawan_kontrak').attr('selected', "true");
+            }
+            else if(status_karyawan_pkwt=="2")
+            {
+              $('#status_karyawan_freelance').attr('selected', "true");
+            }
+            else if(status_karyawan_pkwt=="3")
+            {
+              $('#status_karyawan_freelance').attr('selected', "true");
+            }
+          }
+        });
       });
     });
   </script>
