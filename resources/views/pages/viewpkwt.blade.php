@@ -62,7 +62,6 @@
 
   <script type="text/javascript">
     $(function() {
-
         $('#tabelpkwt').DataTable({
             processing: true,
             serverSide: true,
