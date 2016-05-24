@@ -151,7 +151,9 @@
                       <td>{!! $no++ !!}</td>
                       <td class="">{!! $Departemen->kode_departemen !!}</td>
                       <td class="">{!! $Departemen->nama_departemen !!}</td>
-                      <td><a href="{{ url('departemencabang', $Departemen->id).('/edit')}}" class="btn btn-warning"><i class="fa fa-edit"></i></a></td>
+                      <td>
+                        <a href="{{ url('departemencabang', $Departemen->id).('/edit')}}" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
+                      </td>
                     </tr>
                     @endforeach
                     </tbody>

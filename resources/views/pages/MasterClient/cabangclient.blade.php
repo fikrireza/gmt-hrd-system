@@ -170,8 +170,10 @@
                               <td class="">{!! $Cabang->kode_cabang !!}</td>
                               <td class="">{!! $Cabang->nama_cabang !!}</td>
                               <td class="">{!! $Cabang->alamat_cabang !!}</td>
-                              <td><a href="{{ url('cabangclient', $Cabang->id).('/edit')}}" class="btn btn-warning" ><i class="fa fa-edit" alt="Ubah"></i></a></td>
-                              <td><i class="glyphicon glyphicon-open"></i><a href="{{ url('departemencabang', $Cabang->id )}}">Tambah Departemen</a></td>
+                              <td>
+                                <a href="{{ url('cabangclient', $Cabang->id).('/edit')}}" class="btn btn-xs btn-warning" ><i class="fa fa-edit" alt="Ubah"></i> Edit</a>
+                                <a href="{{ url('departemencabang', $Cabang->id )}}" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> Tambah Departemen</a>
+                              </td>
                             </tr>
                           @endforeach
                         </tbody>

@@ -21,7 +21,7 @@
     <div class="col-md-12">
       <div class="box box-primary box-solid">
         <div class="box-header">
-          <label class="btn btn-round bg-red"><a href="{{ route('masterpegawai.create') }}"><i class="fa fa-users"></i> Tambah Pegawai</a></label>
+          <a class="btn btn-round bg-red" href="{{ route('masterpegawai.create') }}"><i class="fa fa-users"></i> Tambah Pegawai</a>
         </div>
         <div class="box-body">
           <table class="table table-hover" id="tabelpegawai">
