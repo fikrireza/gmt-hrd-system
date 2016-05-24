@@ -71,7 +71,7 @@ class PKWTController extends Controller
         }
       })
       ->addColumn('action', function($pkwt){
-        return '<a href="#" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i> Lihat</a>';
+        return '<a href="view-detail-pkwt/'.$pkwt->nip.'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i> Lihat</a>';
       })
       ->editColumn('status_pkwt', function($pkwt){
         if($pkwt->status_pkwt==1)
@@ -82,5 +82,35 @@ class PKWTController extends Controller
           return "Tetap";
       })
       ->make();
+  }
+
+  public function detail($nip)
+  {
+    $getnip = MasterPegawai::where('nip', $nip)->get();
+    $id_pegawai = $getnip[0]->id;
+    $getpkwt = PKWT::where('id_pegawai', $id_pegawai)->get();
+
+    // $tgl = explode('-', $getpkwt[0]->tanggal_akhir_pkwt);
+    // $tglakhir = Carbon::createFromDate($tgl[0], $tgl[1], $tgl[2]);
+    // $result = Carbon::now()->diffInDays($tglakhir, false);
+    // $keterangan;
+    // if($result == 0)
+    // {
+    //   $keterangan = "<span class='label bg-yellow'>Expired Hari Ini</span>";
+    // }
+    // else if($result < 0)
+    // {
+    //   $keterangan = "<span class='label bg-red'>Telah Expired</span>";
+    // }
+    // else if($result > 30)
+    // {
+    //   $keterangan = "<span class='label bg-green'>PKWT Aktif</span>";
+    // }
+    // else if($result > 0)
+    // {
+    //   $keterangan = "<span class='label bg-yellow'>Expired Dalam ".$result." Hari</span>";
+    // }
+
+    return view('pages.viewdetailpkwt', compact('getnip', 'getpkwt'));
   }
 }

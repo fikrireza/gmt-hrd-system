@@ -62,6 +62,7 @@
 
   <script type="text/javascript">
     $(function() {
+
         $('#tabelpkwt').DataTable({
             processing: true,
             serverSide: true,
@@ -77,6 +78,7 @@
               {data: '6', name: 'action', orderable: false, searchable: false}
             ]
         });
+
     });
   </script>
 
