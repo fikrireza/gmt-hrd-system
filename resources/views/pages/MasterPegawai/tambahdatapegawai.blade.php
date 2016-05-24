@@ -385,9 +385,9 @@
                           </div>
                         </td>
                         <td>
-                          {!! Form::select('data_keluarga[0][pekerjaan_keluarga]', array('PEGAWAINEGERI' => 'PEGAWAINEGERI',
-                                                          'PEGAWAISWASTA' => 'PEGAWAISWASTA',
-                                                          'WIRASAWASTA' => 'WIRASAWASTA',
+                          {!! Form::select('data_keluarga[0][pekerjaan_keluarga]', array('PEGAWAI NEGERI' => 'PEGAWAI NEGERI',
+                                                          'PEGAWAI SWASTA' => 'PEGAWAI SWASTA',
+                                                          'WIRAUSAHA' => 'WIRAUSAHA',
                                                           'RUMAH TANGGA' => 'RUMAH TANGGA',
                                                           'MAHASISWA' => 'MAHASISWA',
                                                           'PELAJAR' => 'PELAJAR',
@@ -396,8 +396,9 @@
                         </td>
                         <td>
                           {{-- <div class="form-group"> --}}
-                          {!! Form::radio('data_keluarga[0][jenis_kelamin_keluarga]', 'L', null, array('class'=>'minimal')) !!} Pria
-                          {!! Form::radio('data_keluarga[0][jenis_kelamin_keluarga]', 'P', null, array('class'=>'minimal')) !!} Wanita
+                          {!! Form::radio('data_keluarga[0][jenis_kelamin_keluarga]', 'L', null, array('class'=>'minimal')) !!} &nbsp;<label>Pria</label>
+                          <br>
+                          {!! Form::radio('data_keluarga[0][jenis_kelamin_keluarga]', 'P', null, array('class'=>'minimal')) !!} &nbsp;<label>Wanita</label>
                             <?php /* <label>
                               <input type="radio" name="data_keluarga[0][jenis_kelamin_keluarga]" class="minimal" value="L" {{ old('jenis_kelamin_keluarga') == 'L' ? 'checked' : '' }}>
                             </label>
@@ -593,10 +594,20 @@
                         <input type="text" name="pendidikan[0][institusi_pendidikan]" class="form-control uppercase" placeholder="Institusi Pendidikan" >
                       </td>
                       <td>
-                        <input type="text" name="pendidikan[0][tahun_masuk_pendidikan]" class="form-control" placeholder="Tahun Masuk" maxlength="4" onkeyup="validAngka(this)" >
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                          </div>
+                          <input type="text" name="pendidikan[0][tahun_masuk_pendidikan]" class="form-control tahun_masuk_pendidikan" placeholder="Tahun Masuk" maxlength="4" onkeyup="validAngka(this)" >
+                        </div>
                       </td>
                       <td>
-                        <input type="text" name="pendidikan[0][tahun_lulus_pendidikan]" class="form-control" placeholder="Tahun Lulus" maxlength="4" onkeyup="validAngka(this)">
+                        <div class="input-group">
+                          <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                          </div>
+                          <input type="text" name="pendidikan[0][tahun_lulus_pendidikan]" class="form-control tahun_lulus_pendidikan" placeholder="Tahun Lulus" maxlength="4" onkeyup="validAngka(this)">
+                        </div>
                       </td>
                       <td>
                         <input type="text" name="pendidikan[0][gelar_akademik]" class="form-control" placeholder="Gelar Kelulusan" maxlength="10" >
@@ -775,21 +786,21 @@
                     {!! Form::text('nama_darurat', null, ['class'=>'form-control', 'placeholder'=>'Nama Darurat']) !!}
                   </div>
                 </div>
-                <div class="form-group {{ $errors->has('alamat_darurat') ? 'has-error' : '' }}">
-                  <label class="col-sm-2 control-label">Alamat Darurat</label>
-                  <div class="col-sm-6">
-                    {!! Form::text('alamat_darurat', null, ['class'=>'form-control', 'placeholder'=>'Alamat Darurat']) !!}
-                  </div>
-                </div>
                 <div class="form-group {{ $errors->has('hubungan_darurat') ? 'has-error' : '' }}">
                   <label class="col-sm-2 control-label">Hubungan Darurat</label>
                   <div class="col-sm-6">
                     {!! Form::select('hubungan_darurat', array('AYAH' => 'AYAH',
-                                                    'IBU' => 'IBU',
-                                                    'KAKAK' => 'KAKAK',
-                                                    'ADIK' => 'ADIK',
-                                                    'LAINNYA' => 'LAINNYA'),
-                                      null, ['class' => 'form-control', 'placeholder' => '-- Pilih --']) !!}
+                      'IBU' => 'IBU',
+                      'KAKAK' => 'KAKAK',
+                      'ADIK' => 'ADIK',
+                      'LAINNYA' => 'LAINNYA'),
+                      null, ['class' => 'form-control', 'placeholder' => '-- Pilih --']) !!}
+                    </div>
+                  </div>
+                <div class="form-group {{ $errors->has('alamat_darurat') ? 'has-error' : '' }}">
+                  <label class="col-sm-2 control-label">Alamat Darurat</label>
+                  <div class="col-sm-6">
+                    {!! Form::text('alamat_darurat', null, ['class'=>'form-control', 'placeholder'=>'Alamat Darurat']) !!}
                   </div>
                 </div>
                 <div class="form-group {{ $errors->has('telepon_darurat') ? 'has-error' : '' }}">
@@ -840,8 +851,29 @@
 
       $('#tanggal_lahir').datepicker();
       $('.tanggal_lahir_keluarga').datepicker();
-      $('.tahun_awal_kerja').datepicker();
-      $('.tahun_akhir_kerja').datepicker();
+      $('.tahun_awal_kerja').datepicker({
+        format: 'yyyy',
+        startView: "years",
+        minViewMode: "years"
+      });
+
+      $('.tahun_akhir_kerja').datepicker({
+        format: 'yyyy',
+        startView: "years",
+        minViewMode: "years"
+      });
+
+      $('.tahun_masuk_pendidikan').datepicker({
+        format: 'yyyy',
+        startView: "years",
+        minViewMode: "years"
+      });
+
+      $('.tahun_lulus_pendidikan').datepicker({
+        format: 'yyyy',
+        startView: "years",
+        minViewMode: "years"
+      });
 
       $('#btn_ke_pengalaman').click(function(){
         $('li#tab_pengalaman').attr('class','active');
@@ -1021,14 +1053,26 @@
         cell3.innerHTML = '<input type="text" name="pendidikan['+numC+'][institusi_pendidikan]" class="form-control uppercase" placeholder="Institusi Pendidikan" >@if($errors->has('institusi_pendidikan'))<span class="help-block"><strong>{{ $errors->first('institusi_pendidikan')}}</strong></span>@endif';
 
         var cell4 = row.insertCell(3);
-        cell4.innerHTML = '<input type="text" name="pendidikan['+numC+'][tahun_masuk_pendidikan]" class="form-control" placeholder="Tahun Masuk" maxlength="4" onkeyup="validAngka(this)" >@if($errors->has('tahun_masuk'))<span class="help-block"><strong>{{ $errors->first('tahun_masuk')}}</strong></span>@endif';
+        cell4.innerHTML = '<div class="input-group"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" name="pendidikan['+numC+'][tahun_masuk_pendidikan]" class="form-control tahun_masuk_pendidikan" placeholder="Tahun Masuk" maxlength="4" onkeyup="validAngka(this)" ></div>@if($errors->has('tahun_masuk'))<span class="help-block"><strong>{{ $errors->first('tahun_masuk')}}</strong></span>@endif';
 
         var cell5 = row.insertCell(4);
-        cell5.innerHTML = '<input type="text" name="pendidikan['+numC+'][tahun_lulus_pendidikan]" class="form-control" placeholder="Tahun Lulus" maxlength="4" onkeyup="validAngka(this)" >@if($errors->has('tahun_lulus'))<span class="help-block"><strong>{{ $errors->first('tahun_lulus')}}</strong></span>@endif';
+        cell5.innerHTML = '<div class="input-group"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" name="pendidikan['+numC+'][tahun_lulus_pendidikan]" class="form-control tahun_lulus_pendidikan" placeholder="Tahun Lulus" maxlength="4" onkeyup="validAngka(this)" ></div>@if($errors->has('tahun_lulus'))<span class="help-block"><strong>{{ $errors->first('tahun_lulus')}}</strong></span>@endif';
 
         var cell6 = row.insertCell(5);
         cell6.innerHTML = '<input type="text" name="pendidikan['+numC+'][gelar_akademik]" class="form-control" placeholder="Gelar Kelulusan" maxlength="10" >@if($errors->has('gelar_akademik'))<span class="help-block"><strong>{{ $errors->first('gelar_akademik')}}</strong></span>@endif';
         numC++;
+
+        $('.tahun_masuk_pendidikan').datepicker({
+          format: 'yyyy',
+          startView: "years",
+          minViewMode: "years"
+        });
+
+        $('.tahun_lulus_pendidikan').datepicker({
+          format: 'yyyy',
+          startView: "years",
+          minViewMode: "years"
+        });
     }
 
     function delPendidikan(tableID) {
