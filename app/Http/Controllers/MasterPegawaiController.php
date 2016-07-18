@@ -16,9 +16,11 @@ use App\Models\Pendidikan;
 use App\Models\BahasaAsing;
 use App\Models\KeahlianKomputer;
 use App\Models\RiwayatPenyakit;
+use App\Models\UploadDocument;
 
 use App\MasterJabatan;
 use Datatables;
+use Image;
 
 class MasterPegawaiController extends Controller
 {
@@ -536,7 +538,6 @@ class MasterPegawaiController extends Controller
 
     public function saveChangesDarurat(Request $request)
     {
-      //dd($request);
       $set = MasterPegawai::find($request->id_pegawai);
       $set->nama_darurat = $request->nama_darurat;
       $set->hubungan_darurat = $request->hubungan_darurat;
@@ -545,5 +546,16 @@ class MasterPegawaiController extends Controller
       $set->save();
 
       return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data darurat.');
+    }
+
+    public function addDokumen(Request $request)
+    {
+      $file = $request->file('unggahdokumen');
+
+      if($file!=null)
+      {
+        $file_name = time(). '.' . $file->getClientOriginalExtension();
+        $file->move('documents', $file_name);
+      }
     }
 }

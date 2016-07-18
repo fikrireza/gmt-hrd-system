@@ -1150,6 +1150,55 @@
     </form>
     </div>
   </div>
+  {{-- end edit kesehatan --}}
+
+  {{-- start add dokumen pegawai --}}
+  <div class="modal modal-default fade" id="modaldokumenpegawai" role="dialog">
+    <div class="modal-dialog" style="width:70%">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Tambah Data Dokumen Pegawai</h4>
+        </div>
+        <form action="{{ url('adddokumen') }}" method="post" enctype="multipart/form-data">
+          {!! csrf_field() !!}
+          <div class="modal-body">
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_Dokumen">
+                <div class="box-body">
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <th width="500px">Nama Dokumen</th>
+                        <th width="700px">Unggah Dokumen</th>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div>
+                            <input type="text" name="namadokumen" class="form-control" placeholder="Nama Dokumen">
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            <input type="file" name="unggahdokumen" class="form-control">
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn btn-primary">Simpan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  {{-- end add dokumen pegawai --}}
 
   <div class="row">
     <script>
@@ -1632,8 +1681,18 @@
           </div><!-- /.End Kesehatan -->
 
           <div class="tab-pane" id="dPendukung">
-            Ini Untuk Menampilkan File Yang DiUpload (Ijazah, KTP, KK, Foto)
-          </div><!-- /.End Kesehatan -->
+            <h3>Dokumen Pegawai</h3>
+            <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modaldokumenpegawai"><i class="fa fa-plus"></i> Tambah Dokumen Pegawai</button>
+            <table class="table table-bordered">
+              <tbody>
+                <tr class="bg-navy">
+                  <th>Tipe Dokumen</th>
+                  <th>Dokumen</th>
+                  <th>Aksi</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
         </div><!-- /.tab-content -->
       </div><!-- /.nav-tabs-custom -->
@@ -2066,5 +2125,48 @@
         $('#btnsavepegawai').show();
       });
     });
+  </script>
+
+  <script language="javascript">
+    var numA=1;
+    function adduploaddocument(tableID) {
+
+        var table = document.getElementById(tableID);
+
+        var rowCount = table.rows.length;
+
+        var row = table.insertRow(rowCount);
+
+        var cell1 = row.insertCell(0);
+        cell1.innerHTML = '<input type="checkbox" name="chk[]"/>';
+
+        var cell2 = row.insertCell(1);
+        cell2.innerHTML = '<input type="text" name="data_dokumen['+numA+'][nama_dokumen]" class="form-control" placeholder="Nama Dokument"@if(!$errors->has('nama_dokumen'))value="{{ old('nama_dokumen') }}"@endif>@if($errors->has('nama_dokumen'))<span class="help-block"><strong><h6>{{ $errors->first('nama_dokumen')}}</h6></strong></span>@endif';
+
+        var cell3 = row.insertCell(2);
+        cell3.innerHTML = '<input type="file" name="data_dokumen['+numA+'][unggah_dokumen]"@if(!$errors->has('unggah_dokumen'))value="{{ old('unggah_dokumen') }}"@endif>@if($errors->has('unggah_dokumen'))<span class="help-block"><strong><h6>{{ $errors->first('unggah_dokumen')}}</h6></strong></span>@endif';
+
+        numA++;
+    }
+
+    function deluploaddocument(tableID) {
+        try {
+        var table = document.getElementById(tableID);
+        var rowCount = table.rows.length;
+
+        for(var i=0; i<rowCount; i++) {
+            var row = table.rows[i];
+            var chkbox = row.cells[0].childNodes[0];
+            if(null != chkbox && true == chkbox.checked) {
+                table.deleteRow(i);
+                rowCount--;
+                i--;
+                numA--;
+            }
+        }
+        }catch(e) {
+            alert(e);
+        }
+    }
   </script>
 @stop

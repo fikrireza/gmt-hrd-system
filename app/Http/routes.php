@@ -84,4 +84,6 @@ Route::get('masterpegawai/hapuspenyakit/{id}', 'MasterPegawaiController@hapusPen
 Route::get('masterpegawai/getpenyakit/{id}', 'MasterPegawaiController@getPenyakitByID');
 Route::post('masterpegawai/savepenyakit', 'MasterPegawaiController@saveChangesPenyakit');
 
+Route::post('adddokumen', 'MasterPegawaiController@addDokumen');
+
 Route::post('masterpegawai/savepegawai', 'MasterPegawaiController@saveChangesPegawai');
