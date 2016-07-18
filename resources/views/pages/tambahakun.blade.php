@@ -64,8 +64,9 @@
               <div class="col-sm-4">
                 <select class="form-control" name="level">
                   <option></option>
-                  <option value="1">HR Akses</option>
-                  <option value="2">Payroll Akses</option>
+                  <option value="1">Akses HR</option>
+                  <option value="2">Akses Payroll</option>
+                  <option value="3">Akses Direktur Operasional</option>
                 </select>
               </div>
             </div>
