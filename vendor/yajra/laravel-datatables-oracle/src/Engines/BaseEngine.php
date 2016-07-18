@@ -61,6 +61,7 @@ abstract class BaseEngine implements DataTableEngineContract
      * @var array
      */
     protected $columnDef = [
+        'index'     => false,
         'append'    => [],
         'edit'      => [],
         'excess'    => ['rn', 'row_num'],
@@ -163,9 +164,9 @@ abstract class BaseEngine implements DataTableEngineContract
     /**
      * Fractal serializer class.
      *
-     * @var string
+     * @var string|null
      */
-    protected $serializer;
+    protected $serializer = null;
 
     /**
      * Custom ordering callback.
@@ -233,7 +234,7 @@ abstract class BaseEngine implements DataTableEngineContract
     public function wildcardLikeString($str, $lowercase = true)
     {
         $wild   = '%';
-        $length = strlen($str);
+        $length = Str::length($str);
         if ($length) {
             for ($i = 0; $i < $length; $i++) {
                 $wild .= $str[$i] . '%';
@@ -323,7 +324,7 @@ abstract class BaseEngine implements DataTableEngineContract
      * Add column in collection.
      *
      * @param string $name
-     * @param string $content
+     * @param string|callable $content
      * @param bool|int $order
      * @return $this
      */
@@ -337,10 +338,22 @@ abstract class BaseEngine implements DataTableEngineContract
     }
 
     /**
+     * Add DT row index column on response.
+     *
+     * @return $this
+     */
+    public function addIndexColumn()
+    {
+        $this->columnDef['index'] = true;
+
+        return $this;
+    }
+
+    /**
      * Edit column's content.
      *
      * @param string $name
-     * @param string $content
+     * @param string|callable $content
      * @return $this
      */
     public function editColumn($name, $content)
@@ -621,13 +634,11 @@ abstract class BaseEngine implements DataTableEngineContract
         ], $this->appends);
 
         if (isset($this->transformer)) {
-            $fractal = new Manager();
-            if ($this->request->get('include')) {
-                $fractal->parseIncludes($this->request->get('include'));
-            }
+            $fractal = app('datatables.fractal');
 
-            $serializer = $this->serializer ?: Config::get('datatables.fractal.serializer', DataArraySerializer::class);
-            $fractal->setSerializer(new $serializer);
+            if ($this->serializer) {
+                $fractal->setSerializer(new $this->serializer);
+            }
 
             //Get transformer reflection
             //Firs method parameter should be data/object to transform
@@ -669,7 +680,8 @@ abstract class BaseEngine implements DataTableEngineContract
         $processor = new DataProcessor(
             $this->results(),
             $this->columnDef,
-            $this->templates
+            $this->templates,
+            $this->request['start']
         );
 
         return $processor->process($object);
@@ -909,5 +921,18 @@ abstract class BaseEngine implements DataTableEngineContract
     protected function isOracleSql()
     {
         return in_array($this->database, ['oracle', 'oci8']);
+    }
+
+    /**
+     * Set total records manually.
+     *
+     * @param int $total
+     * @return $this
+     */
+    public function setTotalRecords($total)
+    {
+        $this->totalRecords = $total;
+
+        return $this;
     }
 }

@@ -32,6 +32,7 @@ class UploadDocumentController extends Controller
     $data['getpegawai'] = $getpegawai;
     $getdocument = UploadDocument::where('id_pegawai', 1)->get();
     $data['getdocument'] = $getdocument;
+    
     return view('pages/uploaddocument')->with('data', $data);
   }
 

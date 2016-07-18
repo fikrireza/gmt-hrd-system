@@ -14,7 +14,7 @@ class CreateDataPkwtTable extends Migration
     {
         Schema::create('data_pkwt', function(Blueprint $table){
           $table->engine = 'InnoDB';
-          
+
           $table->increments('id');
           $table->date('tanggal_masuk_gmt');
           $table->date('tanggal_masuk_client');
