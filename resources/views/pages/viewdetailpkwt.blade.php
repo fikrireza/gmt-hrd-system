@@ -229,7 +229,7 @@
                           ?>
                         </td>
                         <td>
-                          <a href="#" data-value="{{$key->id}}" class="btn btn-xs btn-warning" id="edit_pkwt" data-toggle="modal" data-target="#modaleditpkwt"><i class="fa fa-edit"></i> Edit</a>
+                          <a href="#" data-value="{{$key->id}}" class="btn btn-xs btn-warning edit_pkwt" data-toggle="modal" data-target="#modaleditpkwt"><i class="fa fa-edit"></i> Edit</a>
                         </td>
                       </tr>
                     @endforeach
@@ -281,7 +281,7 @@
         format: 'yyyy-mm-dd'
       });
 
-      $('#edit_pkwt').click(function(){
+      $('.edit_pkwt').click(function(){
         var a = $(this).data('value');
         $.ajax({
           url: "{{ url('/') }}/edit-pkwt/getpkwt/"+a,
