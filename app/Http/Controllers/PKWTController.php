@@ -23,6 +23,7 @@ class PKWTController extends Controller
   {
     $getnip = MasterPegawai::select('id','nip','nama')->get();
     $getclient = MasterClient::select('id','kode_client','nama_client')->get();
+
     return view('pages.tambahpkwt', compact('getnip', 'getclient'));
   }
 
@@ -39,7 +40,7 @@ class PKWTController extends Controller
     $set->id_client = $request->id_client;
     $set->save();
 
-    return view('pages.viewpkwt');
+    return redirect()->route('kelola.pkwt');
   }
 
   public function getPKWTforDataTables()

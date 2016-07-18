@@ -26,7 +26,7 @@ Route::get('logoutprocess', 'CustomAuthController@logoutprocess');
 Route::resource('masterpegawai', 'MasterPegawaiController');
 Route::get('datatables', ['as'=>'datatables.data', 'uses'=>'MasterPegawaiController@getDataForDataTable']);
 
-Route::get('data-pkwt', 'PKWTController@index');
+Route::get('data-pkwt', 'PKWTController@index')->name('kelola.pkwt');
 Route::get('datatablespkwt', ['as'=>'datatables.pkwt', 'uses'=>'PKWTController@getPKWTforDataTables']);
 Route::get('datatablespkwtdash', ['as'=>'datatables.dash', 'uses'=>'PKWTController@getPKWTforDashboard']);
 Route::get('add-pkwt', ['as'=>'datapkwt.create', 'uses'=>'PKWTController@create']);
