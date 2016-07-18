@@ -118,7 +118,7 @@
           <div class="modal-body">
             <div class="box-body">
               <div class="form-group">
-                <label class="col-sm-3 control-label">NIP</label>
+                <label class="col-sm-1 control-label" style="padding-right:0px;padding-top:4px;">Pilih NIP</label>
                 <div class="col-sm-6">
                   <select name="nip" class="form-control select2" style="width: 100%;">
                     <option selected="selected"></option>
@@ -129,6 +129,7 @@
                 </div>
               </div>
             </div>
+            <br>
             <div class="tab-content">
               <div class="tab-pane active" id="tab_Dokumen">
                 <div class="box-body">
