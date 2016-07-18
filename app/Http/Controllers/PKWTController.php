@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\PKWT;
 use App\MasterPegawai;
 use App\Models\MasterClient;
+use App\Models\CabangClient;
 use Datatables;
 use Carbon\Carbon;
 use DB;
@@ -22,7 +23,7 @@ class PKWTController extends Controller
   public function create()
   {
     $getnip = MasterPegawai::select('id','nip','nama')->get();
-    $getclient = MasterClient::select('id','kode_client','nama_client')->get();
+    $getclient = CabangClient::select('id','kode_cabang','nama_cabang')->get();
 
     return view('pages.tambahpkwt', compact('getnip', 'getclient'));
   }
@@ -37,7 +38,7 @@ class PKWTController extends Controller
     $set->tanggal_akhir_pkwt = $request->tanggal_akhir_pkwt;
     $set->status_karyawan_pkwt = $request->status_karyawan;
     $set->id_pegawai = $request->id_pegawai;
-    $set->id_client = $request->id_client;
+    $set->id_cabang_client = $request->id_client;
     $set->save();
 
     return redirect()->route('kelola.pkwt');

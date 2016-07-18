@@ -64,7 +64,7 @@
                 <select name="id_client" class="form-control select2" style="width: 100%;">
                   <option selected="selected"></option>
                   @foreach($getclient as $key)
-                    <option value="{{ $key->id }}">{{ $key->kode_client }} - {{ $key->nama_client }}</option>
+                    <option value="{{ $key->id }}">{{ $key->kode_cabang }} - {{ $key->nama_cabang }}</option>
                   @endforeach
                 </select>
               </div>
