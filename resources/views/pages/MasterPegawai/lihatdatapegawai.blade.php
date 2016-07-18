@@ -1175,6 +1175,16 @@
                       <tr>
                         <td>
                           <div>
+                            <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                              foreach ($DataPegawai as $k) {
+                                echo $k->id;
+                              }
+                            ?>">
+                            <input class="form-control" type="hidden" name="nip" value="<?php
+                              foreach ($DataPegawai as $k) {
+                                echo $k->nip;
+                              }
+                            ?>">
                             <input type="text" name="namadokumen" class="form-control" placeholder="Nama Dokumen">
                           </div>
                         </td>
@@ -1690,6 +1700,24 @@
                   <th>Dokumen</th>
                   <th>Aksi</th>
                 </tr>
+                @foreach($DokumenPegawai as $key)
+                  <tr>
+                    <td>{{$key->nama_dokumen}}</td>
+                    <td>
+                      <a href="{{url('documents')}}/{{$key->file_dokumen}}" download>
+                        {{$key->file_dokumen}}
+                      </a>
+                    </td>
+                    <td>
+                      <span data-toggle="tooltip" title="Hapus Data">
+                        <a href="" class="btn btn-xs btn-danger hapusdokumen" data-toggle="modal" data-target="#hapusdokumen" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
+                      </span>
+                      <span data-toggle="tooltip" title="Edit Data">
+                        <a href="" class="btn btn-xs btn-warning editdokumen" data-toggle="modal" data-target="#editdokumen" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
+                      </span>
+                    </td>
+                  </tr>
+                @endforeach
               </tbody>
             </table>
           </div>

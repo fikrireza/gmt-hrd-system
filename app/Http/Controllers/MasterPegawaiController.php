@@ -199,8 +199,9 @@ class MasterPegawaiController extends Controller
       $DataBahasa     = BahasaAsing::where('id_pegawai', '=', $idofpegawai)->get();
       $DataKesehatan  = KondisiKesehatan::where('id_pegawai', '=', $idofpegawai)->get();
       $DataPenyakit   = RiwayatPenyakit::where('id_pegawai', '=', $idofpegawai)->get();
+      $DokumenPegawai   = UploadDocument::where('id_pegawai', '=', $idofpegawai)->get();
 
-      return view('pages/MasterPegawai/lihatdatapegawai', compact('DataPegawai', 'DataKeluarga', 'DataPendidikan', 'DataPengalaman', 'DataKomputer', 'DataBahasa', 'DataKesehatan', 'DataPenyakit'));
+      return view('pages/MasterPegawai/lihatdatapegawai', compact('DataPegawai', 'DataKeluarga', 'DataPendidikan', 'DataPengalaman', 'DataKomputer', 'DataBahasa', 'DataKesehatan', 'DataPenyakit', 'DokumenPegawai'));
     }
 
     /**
@@ -556,6 +557,14 @@ class MasterPegawaiController extends Controller
       {
         $file_name = time(). '.' . $file->getClientOriginalExtension();
         $file->move('documents', $file_name);
+
+        $set = new UploadDocument;
+        $set->id_pegawai = $request->id_pegawai;
+        $set->nama_dokumen = $request->namadokumen;
+        $set->file_dokumen = $file_name;
+        $set->save();
+
+        return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan dokumen pegawai.');
       }
     }
 }
