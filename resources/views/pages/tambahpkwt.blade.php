@@ -109,7 +109,7 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" name="tanggal_masuk_client" class="form-control" id="tanggal_masuk_client" required>
+                  <input readonly type="text" name="tanggal_masuk_client" class="form-control" id="tanggal_masuk_client" required>
                 </div>
               </div>
             </div>
@@ -179,8 +179,10 @@
       $("#tanggal_masuk_gmt").datepicker({
         format: 'yyyy-mm-dd'
       });
-      $("#tanggal_masuk_client").datepicker({
-        format: 'yyyy-mm-dd'
+
+      $('#tanggal_masuk_gmt').change(function(){
+        var value = $(this).val();
+        $('#tanggal_masuk_client').val(value);
       });
     });
   </script>
