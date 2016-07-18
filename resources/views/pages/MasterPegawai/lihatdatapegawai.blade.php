@@ -121,6 +121,26 @@
     </div>
   </div>
 
+  {{-- modal delete dokumen --}}
+  <div class="modal modal-default fade" id="hapusdokumen" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Hapus Dokumen Pegawai</h4>
+        </div>
+        <div class="modal-body">
+          <p>Apakah anda yakin untuk menghapus dokumen pegawai ini?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+          <a href="#" class="btn btn-primary" id="setdokumen">Ya, saya yakin.</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   {{-- modal delete penyakit --}}
   <div class="modal modal-default fade" id="hapuspenyakit" role="dialog">
     <div class="modal-dialog">
@@ -1818,6 +1838,11 @@
       $('a.hapuspenyakit').click(function(){
         var a = $(this).data('value');
         $('#setpenyakit').attr('href', "{{ url('/') }}/masterpegawai/hapuspenyakit/"+a);
+      });
+
+      $('a.hapusdokumen').click(function(){
+        var a = $(this).data('value');
+        $('#setdokumen').attr('href', "{{ url('/') }}/masterpegawai/hapusdokumen/"+a);
       });
 
       $('a.editkeluarga').click(function(){

@@ -303,6 +303,15 @@ class MasterPegawaiController extends Controller
       return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data pendidikan.');
     }
 
+    public function hapusDokumen($id)
+    {
+      $dokumen = UploadDocument::find($id);
+      $getnip = MasterPegawai::find($dokumen->id_pegawai);
+      $dokumen->delete();
+
+      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus dokumen pegawai.');
+    }
+
     public function addPengalaman(Request $request)
     {
       $kerja = new PengalamanKerja;
