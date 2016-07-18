@@ -12,8 +12,7 @@
 
 @section('breadcrumb')
   <h1>
-    Master Dokumen Pegawai
-    <small>Kelola Data Dokumen Pegawai</small>
+    Dokumen Pegawai
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -30,11 +29,9 @@
       }, 2000);
     </script>
 
-    <!-- Modal -->
-    <div class="modal modal-primary fade" id="myModal" role="dialog">
+    <!--start Modal delete dokumen -->
+    <div class="modal modal-default fade" id="modalDeleteDocument" role="dialog">
       <div class="modal-dialog">
-
-        <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -44,17 +41,139 @@
             <p>Apakah anda yakin untuk menghapus data Dokumen Pegawai ini?</p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn btn-outline pull-left" data-dismiss="modal">Tidak</button>
-            <a href="" class="btn btn btn-outline" id="set">Ya, saya yakin.</a>
-            {{-- <button type="button" class="btn btn btn-outline" data-dismiss="modal">Ya, saya yakin.</button> --}}
+            <button type="button" class="btn btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+            <a href="" class="btn btn btn-primary" id="set">Ya, saya yakin.</a>
           </div>
         </div>
-
       </div>
     </div>
+    <!--start Modal delete dokumen -->
+
+    <!--start Modal update dokumen -->
+    <div class="modal modal-default fade" id="modalUpdateDocument" role="dialog">
+      <div class="modal-dialog" style="width:70%">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit Data Dokumen Pegawai</h4>
+          </div>
+          <div class="modal-body">
+            <div class="box-body">
+              <div class="form-group">
+                <label class="col-sm-3 control-label">NIP</label>
+                <div class="col-sm-6">
+                  <select name="nip" class="form-control select2" style="width: 100%;">
+                    <option selected="selected"></option>
+                    @foreach($data['getpegawai'] as $key)
+                      <option value="{{ $key->id }}">{{ $key->nip }} - {{ $key->nama }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_Dokumen">
+                <div class="box-body">
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <th width="500px">Nama Dokumen</th>
+                        <th width="700px">Unggah Dokumen</th>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="{{ $errors->has('nama_dokumen') ? 'has-error' : '' }}">
+                            {!! Form::text('data_dokumen[0][nama_dokumen]', null ,['class'=>'form-control', 'placeholder'=>'Nama Dokumen']) !!}
+                          </div>
+                        </td>
+                        <td>
+                          <div class="{{ $errors->has('unggah_dokumen') ? 'has-error' : '' }}">
+                            {!! Form::file('data_dokumen[0][unggah_dokumen]', null ,['class'=>'form-control', 'placeholder'=>'Unggah Dokumen']) !!}
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <a href="" class="btn btn btn-primary" id="set">Simpan Perubahan</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--start Modal update dokumen -->
+
+    <!--start Modal add dokumen -->
+    <div class="modal modal-default fade" id="modalAddDocument" role="dialog">
+      <div class="modal-dialog" style="width:70%">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Tambah Data Dokumen Pegawai</h4>
+          </div>
+          <div class="modal-body">
+            <div class="box-body">
+              <div class="form-group">
+                <label class="col-sm-3 control-label">NIP</label>
+                <div class="col-sm-6">
+                  <select name="nip" class="form-control select2" style="width: 100%;">
+                    <option selected="selected"></option>
+                    @foreach($data['getpegawai'] as $key)
+                      <option value="{{ $key->id }}">{{ $key->nip }} - {{ $key->nama }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_Dokumen">
+                <div class="box-body">
+                  <table class="table" id="duploaddocument">
+                    <tbody>
+                      <tr>
+                        <th></th>
+                        <th width="500px">Nama Dokumen</th>
+                        <th width="700px">Unggah Dokumen</th>
+                      </tr>
+                      <tr>
+                        <td><input type="checkbox" name="chk"/></td>
+                        <td>
+                          <div class="{{ $errors->has('nama_dokumen') ? 'has-error' : '' }}">
+                            {!! Form::text('data_dokumen[0][nama_dokumen]', null ,['class'=>'form-control', 'placeholder'=>'Nama Dokumen']) !!}
+                          </div>
+                        </td>
+                        <td>
+                          <div class="{{ $errors->has('unggah_dokumen') ? 'has-error' : '' }}">
+                            {!! Form::file('data_dokumen[0][unggah_dokumen]', null ,['class'=>'form-control', 'placeholder'=>'Unggah Dokumen']) !!}
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="box-footer clearfix">
+                  <div class="col-md-9">
+                    <label class="btn btn-round bg-green" onclick="adduploaddocument('duploaddocument')">Tambah Dokumen</label>&nbsp;<label class="btn btn-round bg-red" onclick="deluploaddocument('duploaddocument')">Hapus Dokumen</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <a href="" class="btn btn btn-primary" id="set">Simpan</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--start Modal add dokumen -->
 
   <div class="row">
-    <!--column -->
+    <!--pesan sukses -->
     <div class="col-md-12">
       @if(Session::has('message'))
         <div class="alert alert-success">
@@ -64,157 +183,46 @@
         </div>
       @endif
     </div>
-    <div class="col-md-5">
-      <!-- Horizontal Form -->
-      <div class="box box-info">
-        <div class="box-header with-border">
-          @if(isset($data['binduploaddocument']))
-            <h3 class="box-title">Formulir Edit Data Dokumen Pegawai</h3>
-          @else
-            <h3 class="box-title">Formulir Tambah Data Dokumen Pegawai</h3>
-          @endif
-        </div><!-- /.box-header -->
-        <!-- form start -->
-        @if(isset($data['binduploaddocument']))
-          {!! Form::model($data['binduploaddocument'], ['route' => ['uploaddocument.update', $data['binduploaddocument']->id], 'method' => "patch", 'class'=>'form-horizontal']) !!}
-        @else
-          <form class="form-horizontal" method="post" action="{{url('uploaddocument')}}" enctype="multipart/form-data">
-        @endif
-          {!! csrf_field() !!}
-          <div class="box-body">
-            <div class="form-group {{ $errors->has('upload_kk') ? 'has-error' : '' }}">
-              <label class="col-sm-3 control-label">Unggah KK</label>
-              <div class="col-sm-9">
-                <input
-                  @if(isset($data['binduploaddocument']))
-                    value="{{$data['binduploaddocument']->upload_kk}}"
-                  @endif
-                  type="file" name="upload_kk"
-                  @if(!$errors->has('upload_kk'))
-                   value="{{ old('upload_kk') }}"
-                  @endif
-                >
-              </div>
-            </div>
-            <div class="form-group {{ $errors->has('upload_ktp') ? 'has-error' : '' }}">
-              <label class="col-sm-3 control-label">Unggah KTP</label>
-              <div class="col-sm-9">
-                <input
-                  @if(isset($data['binduploaddocument']))
-                    value="{{$data['binduploaddocument']->upload_ktp}}"
-                  @endif
-                  type="file" name="upload_ktp"
-                  @if(!$errors->has('upload_ktp'))
-                   value="{{ old('upload_ktp') }}"
-                  @endif
-                >
-              </div>
-            </div>
-            <div class="form-group {{ $errors->has('upload_ijazah') ? 'has-error' : '' }}">
-              <label class="col-sm-3 control-label">Unggah IJAZAH</label>
-              <div class="col-sm-9">
-                <input
-                  @if(isset($data['binduploaddocument']))
-                    value="{{$data['binduploaddocument']->upload_ijazah}}"
-                  @endif
-                  type="file" name="upload_ijazah"
-                  @if(!$errors->has('upload_ijazah'))
-                   value="{{ old('upload_ijazah') }}"
-                  @endif
-                >
-              </div>
-            </div>
-            <div class="form-group {{ $errors->has('upload_foto') ? 'has-error' : '' }}">
-              <label class="col-sm-3 control-label">Unggah FOTO</label>
-              <div class="col-sm-9">
-                <input
-                  @if(isset($data['binduploaddocument']))
-                    value="{{$data['binduploaddocument']->upload_foto}}"
-                  @endif
-                  type="file" name="upload_foto"
-                  @if(!$errors->has('upload_foto'))
-                   value="{{ old('upload_foto') }}"
-                  @endif
-                >
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-3 control-label">NIP</label>
-              <div class="col-sm-9">
-                <select name="nip" class="form-control select2" style="width: 100%;">
-                  <option selected="selected"></option>
-                  @foreach($data['getpegawai'] as $key)
-                    <option value="{{ $key->id }}">{{ $key->nip }} - {{ $key->nama }}</option>
-                  @endforeach
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-sm-12">
-                <button type="submit" class="btn btn-info pull-right" style="margin-left:5px;">
-                  @if(isset($data['bindjabatan']))
-                    Simpan Perubahan
-                  @else
-                    Simpan
-                  @endif
-                </button>
-                  @if(!isset($data['bindjabatan']))
-                    <button type="reset" class="btn btn-default pull-right">Reset Formulir</button>
-                  @endif
-              </div>
-            </div>
-          </div><!-- /.box-body -->
-        @if(isset($data['bindjabatan']))
-          {!! Form::close() !!}
-        @else
-          </form>
-        @endif
-      </div><!-- /.box -->
-    </div><!--/.col -->
-
-    <div class="col-md-7">
-      <div class="box box-info" style="min-height:500px">
-        <div class="box-header">
-          <h3 class="box-title">Seluruh Data Jabatan</h3>
-        </div><!-- /.box-header -->
-        <div class="box-body table-responsive no-padding">
-          <table class="table table-hover">
-            <tr>
-              <th>No</th>
-              <th>Nama Pegawai</th>
-              <th>Nama KK</th>
-              <th>Nama KTP</th>
-              <th>Nama IJAZAH</th>
-              <th>Nama FOTO</th>
-              <th>Aksi</th>
-            </tr>
-            <?php $pageget = 1; ?>
-            @foreach($data['getdocument'] as $key)
-              <tr>
-                <td>{{ $pageget }}</td>
-                <td>{{ $key->id_pegawai }}</td>
-                <td>{{ $key->upload_kk }}</td>
-                <td>{{ $key->upload_ktp }}</td>
-                <td>{{ $key->upload_ijazah }}</td>
-                <td>{{ $key->upload_foto }}</td>
-                <td>
-                  <a href="{{ route('masterjabatan.edit', $key->id) }}" class="btn btn-warning btn-xs" data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit"></i></a>
-                  <span data-toggle="tooltip" title="Hapus Data">
-                    <a href="" class="btn btn-danger btn-xs hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
-                  </span>
-                </td>
+    <!--list dokumen -->
+    <div class="col-md-12">
+        <div class="box box-info" style="min-height:500px">
+          <div class="box-header">
+            <h3>Data Dokumen</h3>
+            <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalAddDocument"><i class="fa fa-plus"></i> Tambah Dokumen </button>
+          </div>
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-bordered">
+              <tr class="bg-navy">
+                <th>No</th>
+                <th>Id Pegawai</th>
+                <th>Tipe Dokumen</th>
+                <th>Nama Dokumen</th>
+                <th>Aksi</th>
               </tr>
-              <?php $pageget++; ?>
-            @endforeach
-          </table>
-        </div><!-- /.box-body -->
-        {{-- <div class="box-footer clearfix pull-right">
-          {!! $data['getjabatan']->links() !!}
-        </div> --}}
-      </div><!-- /.box -->
+              <?php $pageget = 1; ?>
+              @foreach($data['getdocument'] as $key)
+                <tr>
+                  <td>{{ $pageget }}</td>
+                  <td>{{ $key->id_pegawai }}</td>
+                  <td>{{ $key->upload_kk }}</td>
+                  <td>{{ $key->upload_ktp }}</td>
+                  <td>
+                    <span data-toggle="tooltip" title="Edit Data">
+                      <a href="" class="btn btn-warning btn-xs edit" data-toggle="modal" data-target="#modalUpdateDocument" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
+                    </span>
+                    <span data-toggle="tooltip" title="Hapus Data">
+                      <a href="" class="btn btn-danger btn-xs hapus" data-toggle="modal" data-target="#modalDeleteDocument" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
+                    </span>
+                  </td>
+                </tr>
+                <?php $pageget++; ?>
+              @endforeach
+            </table>
+          </div>
+        </div>
+      </div>
+      <!--list dokumen -->
     </div>
-  </div>   <!-- /.row -->
-
 
   <!-- jQuery 2.1.4 -->
   <script src="{{asset('plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
@@ -232,12 +240,46 @@
       $(".select2").select2();
     });
   </script>
-  <script type="text/javascript">
-    $(function(){
-      $('a.hapus').click(function(){
-        var a = $(this).data('value');
-        $('#set').attr('href', "{{ url('/') }}/uploaddocument/delete");
-      });
-    });
+  <script language="javascript">
+    var numA=1;
+    function adduploaddocument(tableID) {
+
+        var table = document.getElementById(tableID);
+
+        var rowCount = table.rows.length;
+
+        var row = table.insertRow(rowCount);
+
+        var cell1 = row.insertCell(0);
+        cell1.innerHTML = '<input type="checkbox" name="chk[]"/>';
+
+        var cell2 = row.insertCell(1);
+        cell2.innerHTML = '<input type="text" name="data_dokumen['+numA+'][nama_dokumen]" class="form-control" placeholder="Nama Dokument"@if(!$errors->has('nama_dokumen'))value="{{ old('nama_dokumen') }}"@endif>@if($errors->has('nama_dokumen'))<span class="help-block"><strong><h6>{{ $errors->first('nama_dokumen')}}</h6></strong></span>@endif';
+
+        var cell3 = row.insertCell(2);
+        cell3.innerHTML = '<input type="file" name="data_dokumen['+numA+'][unggah_dokumen]"@if(!$errors->has('unggah_dokumen'))value="{{ old('unggah_dokumen') }}"@endif>@if($errors->has('unggah_dokumen'))<span class="help-block"><strong><h6>{{ $errors->first('unggah_dokumen')}}</h6></strong></span>@endif';
+
+        numA++;
+    }
+
+    function deluploaddocument(tableID) {
+        try {
+        var table = document.getElementById(tableID);
+        var rowCount = table.rows.length;
+
+        for(var i=0; i<rowCount; i++) {
+            var row = table.rows[i];
+            var chkbox = row.cells[0].childNodes[0];
+            if(null != chkbox && true == chkbox.checked) {
+                table.deleteRow(i);
+                rowCount--;
+                i--;
+                numA--;
+            }
+        }
+        }catch(e) {
+            alert(e);
+        }
+    }
   </script>
 @stop
