@@ -13,7 +13,7 @@ class AddColumnIdCabangClientToDataPkwt extends Migration
     public function up()
     {
         Schema::table('data_pkwt', function($table){
-          $table->integer('id_cabang_client')->after('id_pegawai')->unsigned();
+          $table->integer('id_cabang_client')->after('id_pegawai')->unsigned()->nullable();
         });
 
         Schema::table('data_pkwt', function($table){
