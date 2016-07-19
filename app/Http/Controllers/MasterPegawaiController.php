@@ -442,6 +442,12 @@ class MasterPegawaiController extends Controller
       return $get;
     }
 
+    public function getdokumen($id)
+    {
+      $get = UploadDocument::where('id_pegawai', $id)->first();
+      return $get;
+    }
+
     public function saveChangesPengalaman(Request $request)
     {
       // dd($request);
@@ -574,6 +580,31 @@ class MasterPegawaiController extends Controller
         $set->save();
 
         return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan dokumen pegawai.');
+      } else {
+        return "gagal karena tidak meng-upload file.";
       }
+    }
+
+    public function editdokumenpegawai(Request $request)
+    {
+      $file = $request->file('unggahdokumen');
+      if($file==null) {
+        $set = UploadDocument::find($request->id);
+        $set->nama_dokumen = $request->namadokumen;
+        $set->save();
+
+        return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah dokumen pegawai.');
+      } else {
+        $file_name = time(). '.' . $file->getClientOriginalExtension();
+        $file->move('documents', $file_name);
+
+        $set = UploadDocument::find($request->id);
+        $set->nama_dokumen = $request->namadokumen;
+        $set->file_dokumen = $file_name;
+        $set->save();
+
+        return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah dokumen pegawai.');
+      }
+
     }
 }

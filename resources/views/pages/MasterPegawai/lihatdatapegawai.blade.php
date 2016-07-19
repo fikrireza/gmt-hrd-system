@@ -1170,9 +1170,8 @@
     </form>
     </div>
   </div>
-  {{-- end edit kesehatan --}}
 
-  {{-- start add dokumen pegawai --}}
+  {{-- modal add dokumen pegawai --}}
   <div class="modal modal-default fade" id="modaldokumenpegawai" role="dialog">
     <div class="modal-dialog" style="width:70%">
       <div class="modal-content">
@@ -1228,7 +1227,65 @@
       </div>
     </div>
   </div>
-  {{-- end add dokumen pegawai --}}
+
+  {{-- modal edit dokumen pegawai --}}
+  <div class="modal modal-default fade" id="editdokumenpegawai" role="dialog">
+    <div class="modal-dialog" style="width:70%">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit Data Dokumen Pegawai</h4>
+        </div>
+        <form action="{{ url('masterpegawai/editdokumenpegawai') }}" method="post" enctype="multipart/form-data">
+          {!! csrf_field() !!}
+          <div class="modal-body">
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_Dokumen">
+                <div class="box-body">
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <th width="500px">Nama Dokumen</th>
+                        <th width="700px">Unggah Dokumen</th>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div>
+                            <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                              foreach ($DataPegawai as $k) {
+                                echo $k->id;
+                              }
+                            ?>">
+                            <input class="form-control" type="hidden" name="nip" value="<?php
+                              foreach ($DataPegawai as $k) {
+                                echo $k->nip;
+                              }
+                            ?>">
+                            <input type="hidden" name="id" id="iddokumen">
+                            <input type="text" name="namadokumen" class="form-control" placeholder="Nama Dokumen" id="editnamadokumen">
+                          </div>
+                        </td>
+                        <td>
+                          <div>
+                            <input type="file" name="unggahdokumen" class="form-control" id="editunggahdokumen">
+                            <span>* Biarkan kosong jika tidak ingin diganti.</span>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn btn-primary">Simpan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 
   <div class="row">
     <script>
@@ -1716,7 +1773,7 @@
             <table class="table table-bordered">
               <tbody>
                 <tr class="bg-navy">
-                  <th>Tipe Dokumen</th>
+                  <th>Nama Dokumen</th>
                   <th>Dokumen</th>
                   <th>Aksi</th>
                 </tr>
@@ -1733,7 +1790,7 @@
                         <a href="" class="btn btn-xs btn-danger hapusdokumen" data-toggle="modal" data-target="#hapusdokumen" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
                       </span>
                       <span data-toggle="tooltip" title="Edit Data">
-                        <a href="" class="btn btn-xs btn-warning editdokumen" data-toggle="modal" data-target="#editdokumen" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
+                        <a href="" class="btn btn-xs btn-warning editdokumen" data-toggle="modal" data-target="#editdokumenpegawai" data-value="{{$key->id_pegawai}}"><i class="fa fa-edit"></i></a>
                       </span>
                     </td>
                   </tr>
@@ -1843,6 +1900,20 @@
       $('a.hapusdokumen').click(function(){
         var a = $(this).data('value');
         $('#setdokumen').attr('href', "{{ url('/') }}/masterpegawai/hapusdokumen/"+a);
+      });
+
+      $('a.editdokumen').click(function(){
+        var a = $(this).data('value');
+        $.ajax({
+          url: "{{ url('/') }}/masterpegawai/getdokumen/"+a,
+          dataType: 'json',
+          success: function(data){
+            var namadokumen = data.nama_dokumen;
+            var iddokumen = data.id;
+            $('#editnamadokumen').attr('value', namadokumen);
+            $('#iddokumen').attr('value', iddokumen);
+          }
+        });
       });
 
       $('a.editkeluarga').click(function(){

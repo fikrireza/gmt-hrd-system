@@ -12,7 +12,7 @@ class UploadDocument extends Model  {
 	protected $table = 'dokumen_pegawai';
 
   protected $fillable = [
-      'upload_kk', 'upload_ktp', 'upload_ijazah', 'upload_foto', 'id_pegawai'
+      'nama_dokumen', 'file_dokumen', 'id_pegawai'
   ];
 	/**
 	 * Many to Many relation
