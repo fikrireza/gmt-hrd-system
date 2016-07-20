@@ -22,60 +22,42 @@ class UploadDocumentController extends Controller
    */
   public function index()
   {
-    // return view('pages.tambahbahasaasing');
+
   }
 
   public function create()
   {
-
     $getpegawai = MasterPegawai::where('status', 1)->get();
     $data['getpegawai'] = $getpegawai;
     $getdocument = UploadDocument::where('id_pegawai', 1)->get();
     $data['getdocument'] = $getdocument;
-    
+
     return view('pages/uploaddocument')->with('data', $data);
   }
 
   public function store(Request $request)
   {
-    $dataNew = new UploadDocument;
-    // $dataNew->id = $request->id;
-    $dataNew->upload_kk = $request->upload_kk;
-    $dataNew->upload_ktp = $request->upload_ktp;
-    $dataNew->upload_ijazah = $request->upload_ijazah;
-    $dataNew->upload_foto = $request->upload_foto;
-    $dataNew->id_pegawai = $request->nip;
+    $i = 0;
+    foreach ($request->nama_dokumen as $key) {
+      $file = $request->file_dokumen[$i];
+      $file_name = time(). '.' . $file->getClientOriginalExtension();
+      $file->move('documents', $file_name);
 
-    $imageKK = $request->upload_kk . '.' .
-    $request->file('upload_kk')->getClientOriginalExtension();
-    $request->file('upload_kk')->move(base_path() . '/public/images/kk/', $imageKK);
+      $set = new uploaddocument;
+      $set->id_pegawai = $request->id_pegawai;
+      $set->nama_dokumen = $request->nama_dokumen[$i];
+      $set->file_dokumen = $file_name;
+      $set->save();
 
-    $imageKTP = $request->upload_ktp . '.' .
-    $request->file('upload_ktp')->getClientOriginalExtension();
-    $request->file('upload_ktp')->move(base_path() . '/public/images/ktp/', $imageKTP);
+      $i++;
+    }
 
-    $imageIjazah = $request->upload_ijazah . '.' .
-    $request->file('upload_ijazah')->getClientOriginalExtension();
-    $request->file('upload_ijazah')->move(base_path() . '/public/images/ijazah/', $imageIjazah);
-
-    $imageFoto = $request->upload_foto . '.' .
-    $request->file('upload_foto')->getClientOriginalExtension();
-    $request->file('upload_foto')->move(base_path() . '/public/images/foto/', $imageFoto);
-
-    $dataNew->save();
-
-    return redirect()->route('uploaddocument.create')->with('message', 'Dokument Pegawai berhasil dimasukkan');
-
+    return redirect()->route('uploaddocument.create')->with('message', "Berhasil menyimpan dokumen pegawai.");
   }
 
   public function edit($id)
   {
-    $getbahasaasing = DB::table('bahasa_asing')->where('status', '1');
-    $data['getbahasaasing'] =$getbahasaasing;
-    $bindbahasaasing = MasterBahasaAsing::find($id);
-    $data['bindbahasaasing'] = $bindbahasaasing;
-
-    return view ('pages/tambahbahasaasing')->with('data', $data);
+      //
   }
 
   public function update($id)
@@ -91,6 +73,22 @@ class UploadDocumentController extends Controller
     return redirect()->route('masterbahasaasing.create')->with('message', 'Data bahasa asing berhasil diubah.');
   }
 
+  public function getDocforDataTables()
+  {
+    $dokumen = UploadDocument::select(['dokumen_pegawai.id as id_doc','nip','nama','nama_dokumen', 'file_dokumen', 'dokumen_pegawai.created_at as tanggal_upload'])
+      ->join('master_pegawai','dokumen_pegawai.id_pegawai','=', 'master_pegawai.id')->get();
+
+    return Datatables::of($dokumen)
+      ->editColumn('file_dokumen', function($dokumen){
+        return '<a href='.url('documents').'/'.$dokumen->file_dokumen.' download>'.$dokumen->file_dokumen.'</a>';
+      })
+      ->addColumn('action', function($dokumen){
+        return '<span data-toggle="tooltip" title="Hapus Data"><a href="#" class="btn btn-xs btn-danger hapusdoc"  data-value="'.$dokumen->id_doc.'" data-toggle="modal" data-target="#modalDelete"><i class="fa fa-remove" ></i></a></span> <a href="#" class="btn btn-xs btn-warning editdoc" data-toggle="tooltip" title="Edit Data"><i class="fa fa-edit"></i></a>';
+      })
+      ->removeColumn('id_doc')
+      ->make();
+  }
+
   public function show($id)
   {
       //
@@ -103,7 +101,7 @@ class UploadDocumentController extends Controller
 
   public function hapusDocument($id)
   {
-    dd("asdasdasd");
+      //
   }
 
 }

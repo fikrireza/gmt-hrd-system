@@ -1268,7 +1268,7 @@
                         <td>
                           <div>
                             <input type="file" name="unggahdokumen" class="form-control" id="editunggahdokumen">
-                            <span>* Biarkan kosong jika tidak ingin diganti.</span>
+                            <span style="color:#001f3f;">* Biarkan kosong jika tidak ingin diganti.</span>
                           </div>
                         </td>
                       </tr>
