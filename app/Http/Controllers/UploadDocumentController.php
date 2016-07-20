@@ -83,7 +83,7 @@ class UploadDocumentController extends Controller
         return '<a href='.url('documents').'/'.$dokumen->file_dokumen.' download>'.$dokumen->file_dokumen.'</a>';
       })
       ->addColumn('action', function($dokumen){
-        return '<span data-toggle="tooltip" title="Hapus Data"><a href="#" class="btn btn-xs btn-danger hapusdoc"  data-value="'.$dokumen->id_doc.'" data-toggle="modal" data-target="#modalDelete"><i class="fa fa-remove" ></i></a></span> <a href="#" class="btn btn-xs btn-warning editdoc" data-toggle="tooltip" title="Edit Data"><i class="fa fa-edit"></i></a>';
+        return '<span data-toggle="tooltip" title="Hapus Data"><a href="#" class="btn btn-xs btn-danger hapusdoc" data-value="'.$dokumen->id_doc.'" data-toggle="modal" data-target="#modalDelete"><i class="fa fa-remove" ></i></a></span> <a href="#" class="btn btn-xs btn-warning editdoc" data-toggle="tooltip" title="Edit Data"><i class="fa fa-edit"></i></a>';
       })
       ->removeColumn('id_doc')
       ->make();
@@ -99,9 +99,12 @@ class UploadDocumentController extends Controller
       //
   }
 
-  public function hapusDocument($id)
+  public function hapusDokumen($id)
   {
-      //
+      $dokumen = UploadDocument::find($id);
+      $dokumen->delete();
+
+      return redirect()->route('uploaddocument.create')->with('message','Berhasil menghapus dokumen pegawai.');
   }
 
 }

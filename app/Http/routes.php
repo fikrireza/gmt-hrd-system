@@ -86,6 +86,7 @@ Route::post('masterpegawai/savepenyakit', 'MasterPegawaiController@saveChangesPe
 
 Route::post('adddokumen', 'MasterPegawaiController@addDokumen');
 Route::get('masterpegawai/hapusdokumen/{id}', 'MasterPegawaiController@hapusDokumen');
+Route::get('uploaddokumen/hapusdokumen/{id}', 'UploadDocumentController@hapusDokumen');
 Route::get('masterpegawai/getdokumen/{id}', 'MasterPegawaiController@getdokumen');
 Route::post('masterpegawai/editdokumenpegawai', 'MasterPegawaiController@editdokumenpegawai');
 Route::get('upload/view-document', 'UploadDocumentController@getDocforDataTables')->name('datatables.doc');

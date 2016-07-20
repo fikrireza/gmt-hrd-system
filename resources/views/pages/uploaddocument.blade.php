@@ -243,6 +243,11 @@
             {data: '4', name: 'tanggal_upload'}
           ]
         });
+
+        $('#tabeldokumen').DataTable().on('click', '.hapusdoc[data-value]', function(){
+          var a = $(this).data('value');
+          $('#setdelete').attr('href', "{{ url('/') }}/uploaddokumen/hapusdokumen/"+a);
+        });
     });
   </script>
 
@@ -253,6 +258,11 @@
   </script>
 
   <script language="javascript">
+    function test(){
+      var a = $(this).attr('data-value');
+      alert(a);
+    }
+
     var numA=1;
     function adduploaddocument(tableID) {
 
