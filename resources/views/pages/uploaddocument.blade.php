@@ -48,59 +48,55 @@
     </div>
     <!--start Modal delete dokumen -->
 
-    <!--start Modal update dokumen -->
-    <div class="modal modal-default fade" id="modalUpdateDocument" role="dialog">
-      <div class="modal-dialog" style="width:70%">
+    <!--start Modal edit dokumen -->
+    <div class="modal modal-default fade" id="modalEdit" role="dialog">
+      <div class="modal-dialog" style="width:50%">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">Edit Data Dokumen Pegawai</h4>
           </div>
           <div class="modal-body">
-            <div class="box-body">
+            <form class="form-horizontal" action="index.html" method="post">
               <div class="form-group">
-                <label class="col-sm-3 control-label">NIP</label>
-                <div class="col-sm-6">
-                  <select name="nip" class="form-control select2" style="width: 100%;">
-                    <option selected="selected"></option>
+                <div class="col-sm-1">
+                  {{-- divider --}}
+                </div>
+                <label class="col-sm-2">Pilih NIP</label>
+                <div class="col-sm-8">
+                  <input type="hidden" name="id_doc" id="edit_id_doc">
+                  <select name="id_pegawai" class="form-control select2" style="width: 100%;" id="edit_nip">
                     @foreach($data['getpegawai'] as $key)
-                      <option value="{{ $key->id }}">{{ $key->nip }} - {{ $key->nama }}</option>
+                      <option value="{{ $key->id }}" id="peg{{$key->id}}">{{ $key->nip }} - {{ $key->nama }}</option>
                     @endforeach
                   </select>
                 </div>
               </div>
-            </div>
-            <div class="tab-content">
-              <div class="tab-pane active" id="tab_Dokumen">
-                <div class="box-body">
-                  <table class="table">
-                    <tbody>
-                      <tr>
-                        <th width="500px">Nama Dokumen</th>
-                        <th width="700px">Unggah Dokumen</th>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="{{ $errors->has('nama_dokumen') ? 'has-error' : '' }}">
-                            {!! Form::text('data_dokumen[0][nama_dokumen]', null ,['class'=>'form-control', 'placeholder'=>'Nama Dokumen']) !!}
-                          </div>
-                        </td>
-                        <td>
-                          <div class="{{ $errors->has('unggah_dokumen') ? 'has-error' : '' }}">
-                            {!! Form::file('data_dokumen[0][unggah_dokumen]', null ,['class'=>'form-control', 'placeholder'=>'Unggah Dokumen']) !!}
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
+              <div class="form-group">
+                <div class="col-sm-1">
+                  {{-- divider --}}
+                </div>
+                <label class="col-sm-2">Nama Dokumen</label>
+                <div class="col-sm-8">
+                  <input type="text" name="nama_dokumen" class="form-control" required id="edit_nama_dokumen">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-1">
+                  {{-- divider --}}
+                </div>
+                <label class="col-sm-2">File Dokumen</label>
+                <div class="col-sm-8">
+                  <input type="file" name="file_dokumen" class="form-control">
+                  <span style="color:#001f3f">* Biarkan kosong jika tidak ingin diubah.</span>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-            <a href="" class="btn btn btn-primary" id="set">Simpan Perubahan</a>
-          </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+              <a href="" class="btn btn btn-primary" id="set">Simpan Perubahan</a>
+            </div>
+          </form>
         </div>
       </div>
     </div>
@@ -247,6 +243,27 @@
         $('#tabeldokumen').DataTable().on('click', '.hapusdoc[data-value]', function(){
           var a = $(this).data('value');
           $('#setdelete').attr('href', "{{ url('/') }}/uploaddokumen/hapusdokumen/"+a);
+        });
+
+        $('#tabeldokumen').DataTable().on('click', '.editdoc[data-value]', function(){
+          var a = $(this).data('value');
+          $.ajax({
+            url: "{{ url('/') }}/upload/bind-data/"+a,
+            dataType: 'json',
+            success: function(data){
+              //get
+              var id_doc = data.id;
+              var edit_nama_dokumen = data.nama_dokumen;
+              var id_peg = data.id_pegawai;
+
+              // set
+              $("#edit_id_doc").attr('value', id_doc);
+              $('#edit_nama_dokumen').attr('value', edit_nama_dokumen);
+              $('option').attr('selected', false);
+              $('option#peg'+id_peg).attr('selected', true);
+              $(".select2").select2();
+            }
+          });
         });
     });
   </script>

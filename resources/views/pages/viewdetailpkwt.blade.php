@@ -30,7 +30,7 @@
       }, 2000);
     </script>
 
-    {{-- modal delete penyakit --}}
+    {{-- modal edit penyakit --}}
     <div class="modal modal-default fade" id="modaleditpkwt" role="dialog">
       <div class="modal-dialog" style="width:800px;">
         <!-- Modal content-->
