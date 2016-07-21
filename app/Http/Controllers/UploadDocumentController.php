@@ -101,16 +101,41 @@ class UploadDocumentController extends Controller
 
   public function hapusDokumen($id)
   {
-      $dokumen = UploadDocument::find($id);
-      $dokumen->delete();
+    $dokumen = UploadDocument::find($id);
+    $dokumen->delete();
 
-      return redirect()->route('uploaddocument.create')->with('message','Berhasil menghapus dokumen pegawai.');
+    return redirect()->route('uploaddocument.create')->with('message','Berhasil menghapus dokumen pegawai.');
   }
 
   public function bindData($id)
   {
-      $dokumen = UploadDocument::find($id);
+    $dokumen = UploadDocument::find($id);
 
-      return $dokumen;
+    return $dokumen;
+  }
+
+  public function editDokumen(Request $request)
+  {
+    $file = $request->file_dokumen;
+    $id = $request->id_doc;
+    if($file==null) {
+      $set = UploadDocument::find($id);
+      $set->id_pegawai = $request->id_pegawai;
+      $set->nama_dokumen = $request->nama_dokumen;
+      $set->save();
+
+      return redirect()->route('uploaddocument.create')->with('message','Berhasil mengubah dokumen pegawai.');
+    } else {
+      $file_name = time(). '.' . $file->getClientOriginalExtension();
+      $file->move('documents', $file_name);
+
+      $set = UploadDocument::find($id);
+      $set->id_pegawai = $request->id_pegawai;
+      $set->nama_dokumen = $request->nama_dokumen;
+      $set->file_dokumen = $file_name;
+      $set->save();
+
+      return redirect()->route('uploaddocument.create')->with('message','Berhasil mengubah dokumen pegawai.');
+    }
   }
 }

@@ -91,5 +91,6 @@ Route::get('masterpegawai/getdokumen/{id}', 'MasterPegawaiController@getdokumen'
 Route::post('masterpegawai/editdokumenpegawai', 'MasterPegawaiController@editdokumenpegawai');
 Route::get('upload/view-document', 'UploadDocumentController@getDocforDataTables')->name('datatables.doc');
 Route::get('upload/bind-data/{id}', 'UploadDocumentController@bindData');
+Route::post('upload/edit', 'UploadDocumentController@editDokumen')->name('upload.edit');
 
 Route::post('masterpegawai/savepegawai', 'MasterPegawaiController@saveChangesPegawai');

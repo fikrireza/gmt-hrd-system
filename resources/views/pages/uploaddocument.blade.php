@@ -51,13 +51,14 @@
     <!--start Modal edit dokumen -->
     <div class="modal modal-default fade" id="modalEdit" role="dialog">
       <div class="modal-dialog" style="width:50%">
+        <form class="form-horizontal" action="{{ route('upload.edit') }}" method="post" enctype="multipart/form-data">
+          {{ csrf_field() }}
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 class="modal-title">Edit Data Dokumen Pegawai</h4>
           </div>
           <div class="modal-body">
-            <form class="form-horizontal" action="index.html" method="post">
               <div class="form-group">
                 <div class="col-sm-1">
                   {{-- divider --}}
@@ -94,10 +95,10 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-              <a href="" class="btn btn btn-primary" id="set">Simpan Perubahan</a>
+              <button type="submit" class="btn btn btn-primary" >Simpan Perubahan</button>
             </div>
-          </form>
         </div>
+      </form>
       </div>
     </div>
     <!--start Modal update dokumen -->
