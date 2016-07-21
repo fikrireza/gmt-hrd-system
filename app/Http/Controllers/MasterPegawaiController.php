@@ -17,6 +17,7 @@ use App\Models\BahasaAsing;
 use App\Models\KeahlianKomputer;
 use App\Models\RiwayatPenyakit;
 use App\Models\UploadDocument;
+use App\PKWT;
 
 use App\MasterJabatan;
 use Datatables;
@@ -45,7 +46,6 @@ class MasterPegawaiController extends Controller
       $getjabatan = MasterJabatan::where('status', '=', '1')->lists('nama_jabatan','id');
 
       return view('pages/MasterPegawai/tambahdatapegawai')->with('getjabatan', $getjabatan);
-      // return view('pages/tambahdatapegawai');
     }
 
     /**
@@ -200,8 +200,14 @@ class MasterPegawaiController extends Controller
       $DataKesehatan  = KondisiKesehatan::where('id_pegawai', '=', $idofpegawai)->get();
       $DataPenyakit   = RiwayatPenyakit::where('id_pegawai', '=', $idofpegawai)->get();
       $DokumenPegawai   = UploadDocument::where('id_pegawai', '=', $idofpegawai)->get();
+      $DataPKWT   = PKWT::join('cabang_client', 'data_pkwt.id_cabang_client','=','cabang_client.id')
+                      ->join('master_client', 'cabang_client.id_client', '=', 'master_client.id')
+                      ->select('master_client.nama_client', 'cabang_client.nama_cabang', 'data_pkwt.tanggal_awal_pkwt as tahun_awal', 'data_pkwt.tanggal_akhir_pkwt as tahun_akhir', 'data_pkwt.status_karyawan_pkwt')
+                      ->where('data_pkwt.id_pegawai', $idofpegawai)
+                      ->orderby('data_pkwt.tanggal_awal_pkwt','asc')
+                      ->get();
 
-      return view('pages/MasterPegawai/lihatdatapegawai', compact('DataPegawai', 'DataKeluarga', 'DataPendidikan', 'DataPengalaman', 'DataKomputer', 'DataBahasa', 'DataKesehatan', 'DataPenyakit', 'DokumenPegawai'));
+      return view('pages/MasterPegawai/lihatdatapegawai', compact('DataPegawai', 'DataKeluarga', 'DataPendidikan', 'DataPengalaman', 'DataKomputer', 'DataBahasa', 'DataKesehatan', 'DataPenyakit', 'DokumenPegawai', 'DataPKWT'));
     }
 
     /**

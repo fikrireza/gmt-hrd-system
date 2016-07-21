@@ -1486,10 +1486,12 @@
     <div class="col-md-8">
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#tabKeluarga" data-toggle="tab">Primary</a></li>
-          <li><a href="#dPengalaman" data-toggle="tab">Secondary</a></li>
+          <li class="active"><a href="#tabKeluarga" data-toggle="tab">Data Utama</a></li>
+          <li><a href="#dPengalaman" data-toggle="tab">Data Tambahan</a></li>
           <li><a href="#dKesehatan" data-toggle="tab">Kesehatan</a></li>
-          <li><a href="#dPendukung" data-toggle="tab">Data Pendukung</a></li>
+          <li><a href="#dPendukung" data-toggle="tab">Pendukung</a></li>
+          <li><a href="#dRiwayatKerja" data-toggle="tab">Riwayat Kerja</a></li>
+          <li><a href="#dRiwayatKerja" data-toggle="tab">Riwayat Peringatan</a></li>
         </ul>
         <div class="tab-content">
           <div class="active tab-pane" id="tabKeluarga">
@@ -1700,7 +1702,6 @@
               </tbody>
             </table>
           </div><!-- /.End Pengalaman -->
-
           <div class="tab-pane" id="dKesehatan">
             <h3>Kondisi Kesehatan</h3>
             <table class="table table-bordered">
@@ -1766,7 +1767,6 @@
               </tbody>
             </table>
           </div><!-- /.End Kesehatan -->
-
           <div class="tab-pane" id="dPendukung">
             <h3>Dokumen Pegawai</h3>
             <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modaldokumenpegawai"><i class="fa fa-plus"></i> Tambah Dokumen Pegawai</button>
@@ -1794,6 +1794,41 @@
                       </span>
                     </td>
                   </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane" id="dRiwayatKerja">
+            <h3>Riwayat Area Kerja</h3>
+            <table class="table table-bordered">
+              <tbody>
+                <tr class="bg-navy">
+                  <th>#</th>
+                  <th>Nama Client</th>
+                  <th>Cabang Client</th>
+                  <th>Tahun Awal</th>
+                  <th>Tahun Akhir</th>
+                  <th>Status PKWT</th>
+                </tr>
+                <?php $i = 1; ?>
+                @foreach($DataPKWT as $key)
+                  <tr>
+                    <td>{{$i}}</td>
+                    <td>{{$key->nama_client}}</td>
+                    <td>{{$key->nama_cabang}}</td>
+                    <td>{{$key->tahun_awal}}</td>
+                    <td>{{$key->tahun_akhir}}</td>
+                    <td>
+                      @if($key->status_karyawan_pkwt=="1")
+                        Kontrak
+                      @elseif($key->status_karyawan_pkwt=="2")
+                        Freelance
+                      @elseif($key->status_karyawan_pkwt=="3")
+                        Tetap
+                      @endif
+                    </td>
+                  </tr>
+                  <?php $i++; ?>
                 @endforeach
               </tbody>
             </table>
