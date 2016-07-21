@@ -1311,8 +1311,7 @@
         <div class="box-body box-profile">
           @foreach($DataPegawai as $pegawai)
           <img class="profile-user-img img-responsive img-circle" src="{{ asset('dist/img/user2-160x160.jpg')}}" alt="User profile picture">
-          <h3 class="profile-username text-center">{{ $pegawai->nama}}</h3>
-          <p class="text-muted text-center">{{ $pegawai->status_kontrak}} | {{ $pegawai->id_jabatan}}</p>
+          <h3 class="profile-username text-center">{{$pegawai->nama}}</h3>
           <form action="{{url('masterpegawai/savepegawai')}}" method="post">
             {!! csrf_field() !!}
           <table class="table table-condensed">
@@ -1488,10 +1487,9 @@
         <ul class="nav nav-tabs">
           <li class="active"><a href="#tabKeluarga" data-toggle="tab">Data Utama</a></li>
           <li><a href="#dPengalaman" data-toggle="tab">Data Tambahan</a></li>
-          <li><a href="#dKesehatan" data-toggle="tab">Kesehatan</a></li>
-          <li><a href="#dPendukung" data-toggle="tab">Pendukung</a></li>
+          <li><a href="#dKesehatan" data-toggle="tab">Data Kesehatan</a></li>
+          <li><a href="#dPendukung" data-toggle="tab">Dokumen Pendukung</a></li>
           <li><a href="#dRiwayatKerja" data-toggle="tab">Riwayat Kerja</a></li>
-          <li><a href="#dRiwayatKerja" data-toggle="tab">Riwayat Peringatan</a></li>
         </ul>
         <div class="tab-content">
           <div class="active tab-pane" id="tabKeluarga">
@@ -1799,7 +1797,41 @@
             </table>
           </div>
           <div class="tab-pane" id="dRiwayatKerja">
-            <h3>Riwayat Area Kerja</h3>
+            <h3>Riwayat Area Bekerja</h3>
+            <table class="table table-bordered">
+              <tbody>
+                <tr class="bg-navy">
+                  <th>#</th>
+                  <th>Nama Client</th>
+                  <th>Cabang Client</th>
+                  <th>Tahun Awal</th>
+                  <th>Tahun Akhir</th>
+                  <th>Status PKWT</th>
+                </tr>
+                <?php $i = 1; ?>
+                @foreach($DataPKWT as $key)
+                  <tr>
+                    <td>{{$i}}</td>
+                    <td>{{$key->nama_client}}</td>
+                    <td>{{$key->nama_cabang}}</td>
+                    <td>{{$key->tahun_awal}}</td>
+                    <td>{{$key->tahun_akhir}}</td>
+                    <td>
+                      @if($key->status_karyawan_pkwt=="1")
+                        Kontrak
+                      @elseif($key->status_karyawan_pkwt=="2")
+                        Freelance
+                      @elseif($key->status_karyawan_pkwt=="3")
+                        Tetap
+                      @endif
+                    </td>
+                  </tr>
+                  <?php $i++; ?>
+                @endforeach
+              </tbody>
+            </table>
+
+            <h3>Riwayat Peringatan</h3>
             <table class="table table-bordered">
               <tbody>
                 <tr class="bg-navy">
