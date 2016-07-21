@@ -24,26 +24,13 @@
       <!-- small box -->
       <div class="small-box bg-aqua">
         <div class="inner">
-          <h3>1233</h3>
+          <h3>231</h3>
           <p>Jumlah Pegawai</p>
         </div>
         <div class="icon">
           <i class="ion ion-ios-people"></i>
         </div>
-        <a href="#" class="small-box-footer">Lihat Data <i class="fa fa-arrow-circle-right"></i></a>
-      </div>
-    </div><!-- ./col -->
-    <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
-      <div class="small-box bg-green">
-        <div class="inner">
-          <h3>12</h3>
-          <p>Jumlah Client</p>
-        </div>
-        <div class="icon">
-          <i class="ion ion-briefcase"></i>
-        </div>
-        <a href="#" class="small-box-footer">Lihat Data <i class="fa fa-arrow-circle-right"></i></a>
+        <a href="{{ route('masterpegawai.index') }}" class="small-box-footer">Lihat Data <i class="fa fa-arrow-circle-right"></i></a>
       </div>
     </div><!-- ./col -->
     <div class="col-lg-3 col-xs-6">
@@ -56,7 +43,10 @@
         <div class="icon">
           <i class="ion ion-alert-circled"></i>
         </div>
-        <a href="#" class="small-box-footer">Lihat Data <i class="fa fa-arrow-circle-right"></i></a>
+        <a class="small-box-footer">
+          <i>
+          10
+          Data PKWT Menuju Expired</i></a>
       </div>
     </div><!-- ./col -->
     <div class="col-lg-3 col-xs-6">
@@ -69,7 +59,24 @@
         <div class="icon">
           <i class="ion ion-android-clipboard"></i>
         </div>
-        <a href="#" class="small-box-footer">Lihat Data <i class="fa fa-arrow-circle-right"></i></a>
+        <a class="small-box-footer">
+          <i>
+            123
+            Data PKWT Expired</i>
+        </a>
+      </div>
+    </div><!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+      <!-- small box -->
+      <div class="small-box bg-green">
+        <div class="inner">
+          <h3>12</h3>
+          <p>Jumlah Client</p>
+        </div>
+        <div class="icon">
+          <i class="fa fa-building-o"></i>
+        </div>
+        <a href="{{ url('masterclient') }}" class="small-box-footer">Lihat Data <i class="fa fa-arrow-circle-right"></i></a>
       </div>
     </div><!-- ./col -->
   </div><!-- /.row -->

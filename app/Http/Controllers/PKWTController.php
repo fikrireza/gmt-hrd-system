@@ -17,7 +17,8 @@ class PKWTController extends Controller
 {
   public function index()
   {
-    return view('pages.viewpkwt');
+    
+    return view('pages.viewpkwt', compact('getcountpegawai'));
   }
 
   public function create()
