@@ -89,8 +89,13 @@ Route::get('masterpegawai/hapusdokumen/{id}', 'MasterPegawaiController@hapusDoku
 Route::get('uploaddokumen/hapusdokumen/{id}', 'UploadDocumentController@hapusDokumen');
 Route::get('masterpegawai/getdokumen/{id}', 'MasterPegawaiController@getdokumen');
 Route::post('masterpegawai/editdokumenpegawai', 'MasterPegawaiController@editdokumenpegawai');
+Route::post('masterpegawai/savepegawai', 'MasterPegawaiController@saveChangesPegawai');
+
 Route::get('upload/view-document', 'UploadDocumentController@getDocforDataTables')->name('datatables.doc');
 Route::get('upload/bind-data/{id}', 'UploadDocumentController@bindData');
 Route::post('upload/edit', 'UploadDocumentController@editDokumen')->name('upload.edit');
 
-Route::post('masterpegawai/savepegawai', 'MasterPegawaiController@saveChangesPegawai');
+Route::post('data-peringatan/create', 'DataPeringatanController@create')->name('dataperingatan.create');
+Route::get('masterpegawai/hapusperingatan/{id}', 'DataPeringatanController@hapusPeringatan');
+Route::post('masterpegawai/editperingatan', 'DataPeringatanController@editPeringatan')->name('dataperingatan.update');
+Route::get('masterpegawai/bind-peringatan/{id}', 'DataPeringatanController@bindPeringatan');

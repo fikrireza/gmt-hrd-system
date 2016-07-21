@@ -41,6 +41,26 @@
     </div>
   </div>
 
+  {{-- modal delete peringatan --}}
+  <div class="modal modal-default fade" id="hapusperingatan" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Hapus Data Peringatan Kerja</h4>
+        </div>
+        <div class="modal-body">
+          <p>Apakah anda yakin untuk menghapus data peringatan kerja ini?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+          <a href="#" class="btn btn-primary" id="setperingatan">Ya, saya yakin.</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   {{-- modal delete pendidikan --}}
   <div class="modal modal-default fade" id="hapuspendidikan" role="dialog">
     <div class="modal-dialog">
@@ -1007,6 +1027,138 @@
     </div>
   </div>
 
+  {{-- modal tambah data peringatan --}}
+  <div class="modal modal-default fade" id="modalperingatan" role="dialog">
+    <div class="modal-dialog" style="width:600px;">
+      <!-- Modal content-->
+      <form class="form-horizontal" action="{{route('dataperingatan.create')}}" method="post" enctype="multipart/form-data">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Tambah Data Peringatan Kerja</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <div class="col-sm-1"></div>
+              <label class="col-sm-2">Tanggal Peringatan</label>
+              <div class="col-sm-8">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                    foreach ($DataPegawai as $k) {
+                      echo $k->id;
+                    }
+                  ?>">
+                  <input class="form-control" type="hidden" name="nip" value="<?php
+                    foreach ($DataPegawai as $k) {
+                      echo $k->nip;
+                    }
+                  ?>">
+                  <input type="text" name="tanggal_peringatan" class="form-control" id="tanggal_peringatan">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-1"></div>
+              <label class="col-sm-2">Jenis Peringatan</label>
+              <div class="col-sm-8">
+                <input type="text" name="jenis_peringatan" class="form-control">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-1"></div>
+              <label class="col-sm-2">Keterangan Peringatan</label>
+              <div class="col-sm-8">
+                <textarea name="keterangan_peringatan" rows="4" cols="40" class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-1"></div>
+              <label class="col-sm-2">Upload Dokumen</label>
+              <div class="col-sm-8">
+                <input type="file" name="dokumen_peringatan" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {{-- modal tambah edit peringatan --}}
+  <div class="modal modal-default fade" id="editperingatan" role="dialog">
+    <div class="modal-dialog" style="width:600px;">
+      <!-- Modal content-->
+      <form class="form-horizontal" action="{{route('dataperingatan.update')}}" method="post" enctype="multipart/form-data">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Tambah Data Peringatan Kerja</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <div class="col-sm-1"></div>
+              <label class="col-sm-2">Tanggal Peringatan</label>
+              <div class="col-sm-8">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                    foreach ($DataPegawai as $k) {
+                      echo $k->id;
+                    }
+                  ?>">
+                  <input class="form-control" type="hidden" name="nip" value="<?php
+                    foreach ($DataPegawai as $k) {
+                      echo $k->nip;
+                    }
+                  ?>">
+                  <input type="hidden" name="id" class="form-control" id="edit_id_peringatan">
+                  <input type="text" name="tanggal_peringatan" class="form-control" id="edit_tanggal_peringatan">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-1"></div>
+              <label class="col-sm-2">Jenis Peringatan</label>
+              <div class="col-sm-8">
+                <input type="text" name="jenis_peringatan" class="form-control" id="edit_jenis_peringatan">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-1"></div>
+              <label class="col-sm-2">Keterangan Peringatan</label>
+              <div class="col-sm-8">
+                <textarea name="keterangan_peringatan" rows="4" cols="40" class="form-control" id="edit_keterangan_peringatan"></textarea>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-1"></div>
+              <label class="col-sm-2">Upload Dokumen</label>
+              <div class="col-sm-8">
+                <input type="file" name="dokumen_peringatan" class="form-control">
+                <span style="color:#001f3f;">* Biarkan kosong jika tidak ingin diganti.</span>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
   {{-- modal edit riwayat penyakit --}}
   <div class="modal modal-default fade" id="editpenyakit" role="dialog">
     <div class="modal-dialog" style="width:600px;">
@@ -1832,35 +1984,41 @@
             </table>
 
             <h3>Riwayat Peringatan</h3>
+            <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalperingatan"><i class="fa fa-plus"></i> Tambah Data Peringatan Kerja</button>
             <table class="table table-bordered">
               <tbody>
                 <tr class="bg-navy">
                   <th>#</th>
-                  <th>Nama Client</th>
-                  <th>Cabang Client</th>
-                  <th>Tahun Awal</th>
-                  <th>Tahun Akhir</th>
-                  <th>Status PKWT</th>
+                  <th>Tanggal</th>
+                  <th>Jenis Peringatan</th>
+                  <th>Keterangan</th>
+                  <th>Dokumen</th>
+                  <th>Aksi</th>
                 </tr>
-                <?php $i = 1; ?>
-                @foreach($DataPKWT as $key)
+                <?php $i=1; ?>
+                @foreach($DataPeringatan as $key)
                   <tr>
                     <td>{{$i}}</td>
-                    <td>{{$key->nama_client}}</td>
-                    <td>{{$key->nama_cabang}}</td>
-                    <td>{{$key->tahun_awal}}</td>
-                    <td>{{$key->tahun_akhir}}</td>
+                    <td>{{$key->tanggal_peringatan}}</td>
+                    <td>{{$key->jenis_peringatan}}</td>
+                    <td>{{$key->keterangan_peringatan}}</td>
                     <td>
-                      @if($key->status_karyawan_pkwt=="1")
-                        Kontrak
-                      @elseif($key->status_karyawan_pkwt=="2")
-                        Freelance
-                      @elseif($key->status_karyawan_pkwt=="3")
-                        Tetap
+                      @if($key->dokumen_peringatan!=null)
+                        <a href="{{url('/')}}/documents/{{$key->dokumen_peringatan}}" download>
+                          {{$key->dokumen_peringatan}}
+                        </a>
+                      @else
+                        -
                       @endif
                     </td>
+                    <td>
+                      <span data-toggle="tooltip" title="Hapus Data">
+                        <a href="" class="btn btn-xs btn-danger hapusperingatan" data-toggle="modal" data-target="#hapusperingatan" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
+                      </span>
+                      <span data-toggle="tooltip" title="Edit Data">
+                        <a href="" class="btn btn-xs btn-warning editperingatan" data-toggle="modal" data-target="#editperingatan" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
+                    </td>
                   </tr>
-                  <?php $i++; ?>
                 @endforeach
               </tbody>
             </table>
@@ -1892,12 +2050,20 @@
 
   <script type="text/javascript">
     $(function(){
+      $("#tanggal_peringatan").datepicker({
+        format: 'yyyy-mm-dd'
+      });
+
       $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
         checkboxClass: 'icheckbox_minimal-blue',
         radioClass: 'iradio_minimal-blue'
       });
 
       $('#tanggal_lahir').datepicker({
+        format: 'yyyy-mm-dd'
+      });
+
+      $('#edit_tanggal_peringatan').datepicker({
         format: 'yyyy-mm-dd'
       });
 
@@ -1932,6 +2098,11 @@
       $('a.hapuskeluarga').click(function(){
         var a = $(this).data('value');
         $('#setkeluarga').attr('href', "{{ url('/') }}/masterpegawai/hapuskeluarga/"+a);
+      });
+
+      $('a.hapusperingatan').click(function(){
+        var a = $(this).data('value');
+        $('#setperingatan').attr('href', "{{ url('/') }}/masterpegawai/hapusperingatan/"+a);
       });
 
       $('a.hapuspendidikan').click(function(){
@@ -1979,6 +2150,25 @@
             var iddokumen = data.id;
             $('#editnamadokumen').attr('value', namadokumen);
             $('#iddokumen').attr('value', iddokumen);
+          }
+        });
+      });
+
+      $('a.editperingatan').click(function(){
+        var a = $(this).data('value');
+        $.ajax({
+          url: "{{ url('/') }}/masterpegawai/bind-peringatan/"+a,
+          dataType: 'json',
+          success: function(data){
+            var id = data.id;
+            var tanggal_peringatan = data.tanggal_peringatan;
+            var jenis_peringatan = data.jenis_peringatan;
+            var keterangan_peringatan = data.keterangan_peringatan;
+
+            $('#edit_tanggal_peringatan').attr('value', tanggal_peringatan);
+            $('#edit_jenis_peringatan').attr('value', jenis_peringatan);
+            $('#edit_id_peringatan').attr('value', id);
+            $('textarea#edit_keterangan_peringatan').val(keterangan_peringatan);
           }
         });
       });
