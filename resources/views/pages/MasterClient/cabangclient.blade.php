@@ -186,7 +186,7 @@
                       <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $CabangClient->count() !!} dari {!! $CabangClient->total() !!} Cabang</div>
                     </div>
                     <div class="col-sm-7">
-                      <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
+                      <div class="dataTables_paginate paging_simple_numbers pull-right" id="example1_paginate">
                         {!! $CabangClient->render() !!}
                       </div>
                     </div>

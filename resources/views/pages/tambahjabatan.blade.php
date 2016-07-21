@@ -148,41 +148,70 @@
     </div><!--/.col -->
 
     <div class="col-md-7">
-      <div class="box box-info" style="min-height:500px">
+      <div class="box box-info">
         <div class="box-header">
           <h3 class="box-title">Seluruh Data Jabatan</h3>
         </div><!-- /.box-header -->
-        <div class="box-body table-responsive no-padding">
-          <table class="table table-hover">
-            <tr>
-              <th>No</th>
-              <th>Kode Jabatan</th>
-              <th>Nama Jabatan</th>
-              <th>Aksi</th>
-            </tr>
-            <?php $pageget = 1; ?>
-            @foreach($data['getjabatan'] as $key)
-              <tr>
-                <td>{{ $pageget }}</td>
-                <td>{{ $key->kode_jabatan }}</td>
-                <td>{{ $key->nama_jabatan }}</td>
-                <td>
-                  <a href="{{ route('masterjabatan.edit', $key->id) }}" class="btn btn-xs btn-warning" data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit"></i></a>
-                  <span data-toggle="tooltip" title="Hapus Data">
-                    <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
-                  </span>
-                </td>
-              </tr>
-              <?php $pageget++; ?>
-            @endforeach
-          </table>
-        </div><!-- /.box-body -->
-        {{-- <div class="box-footer clearfix pull-right">
-          {!! $data['getjabatan']->links() !!}
-        </div> --}}
-      </div><!-- /.box -->
-    </div>
-  </div>   <!-- /.row -->
+        <div class="box-body">
+          <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                  <thead>
+                    <tr role="row">
+                      <th>No</th>
+                      <th>Kode Jabatan</th>
+                      <th>Nama Jabatan</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                @if($data['getjabatan']->isEmpty())
+                  <tr>
+                    <td colspan="4" class="text-muted" style="text-align:center;"><i>Data jabatan tidak tersedia.</i></td>
+                  </tr>
+                @else
+                  <?php
+                    $pageget;
+                    if($data['getjabatan']->currentPage()==1)
+                      $pageget = 1;
+                    else
+                      $pageget = (($data['getjabatan']->currentPage() - 1) * $data['getjabatan']->perPage())+1;
+                  ?>
+                  @foreach($data['getjabatan'] as $key)
+                    <tr>
+                      <td>{{ $pageget }}</td>
+                      <td>{{ $key->kode_jabatan }}</td>
+                      <td>{{ $key->nama_jabatan }}</td>
+                      <td>
+                        <a href="{{ route('masterjabatan.edit', $key->id) }}" class="btn btn-xs btn-warning" data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit"></i></a>
+                        <span data-toggle="tooltip" title="Hapus Data">
+                          <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
+                        </span>
+                      </td>
+                    </tr>
+                    <?php $pageget++; ?>
+                  @endforeach
+                @endif
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-5">
+                <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $data['getjabatan']->count() !!}  Jabatan</div>
+              </div>
+              <div class="col-sm-7">
+                <div class="pull-right">
+                  {{ $data['getjabatan']->links() }}
+                </div>
+              </div>
+            </div>
+          </div>
+          </div><!-- /.box-body -->
+        </div>
+      </div><!--/.col -->
+      </div>   <!-- /.row -->
 
 
   <!-- jQuery 2.1.4 -->

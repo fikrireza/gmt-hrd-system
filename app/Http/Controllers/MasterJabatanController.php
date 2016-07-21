@@ -28,7 +28,7 @@ class MasterJabatanController extends Controller
      */
     public function create()
     {
-        $getjabatan = MasterJabatan::where('status', 1)->get();
+        $getjabatan = MasterJabatan::where('status', 1)->paginate(10);
 
         $getjabatan2 = MasterJabatan::get();
         $get = array();
@@ -84,7 +84,7 @@ class MasterJabatanController extends Controller
      */
     public function edit($id)
     {
-        $getjabatan = MasterJabatan::where('status', 1)->get();
+        $getjabatan = MasterJabatan::where('status', 1)->paginate(10);
         $data['getjabatan'] = $getjabatan;
         $bindjabatan = MasterJabatan::find($id);
         $data['bindjabatan'] = $bindjabatan;
