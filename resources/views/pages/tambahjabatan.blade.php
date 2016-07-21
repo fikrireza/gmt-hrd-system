@@ -199,7 +199,7 @@
             </div>
             <div class="row">
               <div class="col-sm-5">
-                <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $data['getjabatan']->count() !!}  Jabatan</div>
+                <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $data['getjabatan']->count() !!}  dari {!! $data['getjabatan']->total() !!} Jabatan</div>
               </div>
               <div class="col-sm-7">
                 <div class="pull-right">
