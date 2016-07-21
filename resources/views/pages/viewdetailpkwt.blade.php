@@ -170,7 +170,7 @@
             </table>
           </div>
           <div class="col-md-12">
-            <div class="box box-primary box-solid">
+            <div class="box box-success box-solid">
               <div class="box-header with-border">
                 <h3 class="box-title">Seluruh PKWT Untuk Pegawai Terkait</h3>
               </div><!-- /.box-header -->
@@ -229,7 +229,9 @@
                           ?>
                         </td>
                         <td>
-                          <a href="#" data-value="{{$key->id}}" class="btn btn-xs btn-warning edit_pkwt" data-toggle="modal" data-target="#modaleditpkwt"><i class="fa fa-edit"></i> Edit</a>
+                          <span data-toggle="tooltip" title="Edit Data">
+                            <a href="#" data-value="{{$key->id}}" class="btn btn-xs btn-warning edit_pkwt" data-toggle="modal" data-target="#modaleditpkwt"><i class="fa fa-edit"></i></a>
+                          </span>
                         </td>
                       </tr>
                     @endforeach

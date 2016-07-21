@@ -77,7 +77,7 @@ class PKWTController extends Controller
         }
       })
       ->addColumn('action', function($pkwt){
-        return '<a href="view-detail-pkwt/'.$pkwt->nip.'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i> Lihat</a>';
+        return '<a href="view-detail-pkwt/'.$pkwt->nip.'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i></a>';
       })
       ->editColumn('status_pkwt', function($pkwt){
         if($pkwt->status_pkwt==1)
