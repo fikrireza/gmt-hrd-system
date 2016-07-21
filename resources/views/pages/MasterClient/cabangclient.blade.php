@@ -51,7 +51,7 @@
                 @endif
                 </h3>
               <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button class="btn btn-box-tool" data-widget="collapse"></button>
               </div>
             </div><!-- /.box-header -->
             <div class="box-body" style="display: block;">
@@ -120,10 +120,11 @@
                     </div><!-- /.box-body -->
                     <div class="box-footer">
                       @if(isset($CabangEdit))
-                        <button type="button" class="btn btn-default pull-left">Kembali</button>
-                			  <button type="submit" class="btn btn-info pull-right">Ubah Data Cabang</button>
+                        {{-- <button type="button" class="btn btn-default pull-left">Kembali</button> --}}
+                			  <button type="submit" class="btn btn-info pull-right">Simpan Perubahan</button>
                 			@else
-                			  <button type="submit" class="btn btn-info pull-right">Simpan Data Cabang</button>
+                			  <button type="submit" class="btn btn-info pull-right" style="margin-left:5px;">Simpan</button>
+                        <button type="reset" class="btn btn-default pull-right">Reset Formulir</button>
                 			@endif
                     </div><!-- /.box-footer -->
                   </form>
@@ -171,8 +172,8 @@
                               <td class="">{!! $Cabang->nama_cabang !!}</td>
                               <td class="">{!! $Cabang->alamat_cabang !!}</td>
                               <td>
-                                <a href="{{ url('cabangclient', $Cabang->id).('/edit')}}" class="btn btn-xs btn-warning" ><i class="fa fa-edit" alt="Ubah"></i> Edit</a>
-                                <a href="{{ url('departemencabang', $Cabang->id )}}" class="btn btn-xs btn-success"><i class="fa fa-plus"></i> Tambah Departemen</a>
+                                <a href="{{ url('cabangclient', $Cabang->id).('/edit')}}" class="btn btn-xs btn-warning"  data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit" alt="Ubah"></i></a>
+                                <a href="{{ url('departemencabang', $Cabang->id )}}" class="btn btn-xs btn-success" data-toggle='tooltip' title='Tambah Departemen'><i class="fa fa-plus"></i></a>
                               </td>
                             </tr>
                           @endforeach

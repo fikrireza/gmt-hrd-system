@@ -194,7 +194,7 @@ class MasterPegawaiController extends Controller
       // dd($users);
       return Datatables::of($users)
         ->addColumn('action', function($user){
-          return '<a href="masterpegawai/'.$user->nip.'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i> Lihat</a>';
+          return '<a href="masterpegawai/'.$user->nip.'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i></a>';
         })
         ->editColumn('jenis_kelamin', function($users){
           if($users->jenis_kelamin=="L")

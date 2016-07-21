@@ -184,7 +184,7 @@
     </div>
 
     <div class="col-md-12">
-      <div class="box box-primary box-solid">
+      <div class="box box-success box-solid">
         <div class="box-header">
           <a class="btn btn-round bg-red" data-toggle="modal" data-target="#modalAddDocument"><i class="fa fa-plus"></i>&nbsp; Tambah Dokumen Pegawai</a>
         </div>

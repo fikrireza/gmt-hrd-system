@@ -95,7 +95,7 @@
           </table>
         </div>
         <div class="box-footer">
-          <a href="{{url('data-pkwt')}}" class="btn btn-success btn-flat pull-right"><i class="fa fa-file"></i> &nbsp;&nbsp;Kelola Data PKWT</a>
+          <a href="{{url('data-pkwt')}}" class="btn btn-success pull-right"><i class="fa fa-file"></i> &nbsp;&nbsp;Kelola Data PKWT</a>
         </div>
       </div>
     </section>

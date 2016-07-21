@@ -39,7 +39,7 @@
         </div>
         <div class="col-md-6">
           <!-- Horizontal Form -->
-          <div class="box box-warning">
+          <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Informasi Utama</h3>
             </div><!-- /.box-header -->
@@ -202,7 +202,7 @@
         </div><!--/.col -->
 
         <div class="col-md-6">
-          <div class="box box-warning">
+          <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Informasi Pendukung</h3>
             </div><!-- /.box-header -->

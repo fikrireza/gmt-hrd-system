@@ -78,9 +78,10 @@
   		</div><!-- /.box-body -->
   			<div class="box-footer">
   			@if(isset($MasterClient))
-  			  <button type="submit" class="btn btn-info pull-right">Ubah Data Client</button>
+  			  <button type="submit" class="btn btn-info pull-right" style="margin-left:5px;">Simpan Perubahan</button>
   			@else
-  			  <button type="submit" class="btn btn-info pull-right">Simpan Data Client</button>
+  			  <button type="submit" class="btn btn-info pull-right" style="margin-left:5px;">Simpan</button>
+          <button type="reset" class="btn btn-default pull-right">Reset Formulir</button>
   			@endif
   			</div><!-- /.box-footer -->
   		</form>

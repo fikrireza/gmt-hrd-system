@@ -72,8 +72,8 @@
             </div>
           </div><!-- /.box-body -->
           <div class="box-footer">
-            <button type="reset" class="btn btn-default">Cancel</button>
-            <button type="submit" class="btn btn-info pull-right">Sign in</button>
+            <button type="reset" class="btn btn-default">Reset Formulir</button>
+            <button type="submit" class="btn btn-info pull-right">Simpan</button>
           </div><!-- /.box-footer -->
         </form>
       </div><!-- /.box -->

@@ -18,7 +18,7 @@
 
   <div class="row">
     <div class="col-md-3">
-      <a href="{{url('masterclient/create')}}" class="btn btn-primary btn-block margin-bottom">Tambah Client</a>
+      <a href="{{url('masterclient/create')}}" class="btn btn-success btn-block margin-bottom"><i class="fa fa-building-o"></i> Tambah Client</a>
     </div>
   </div>
 

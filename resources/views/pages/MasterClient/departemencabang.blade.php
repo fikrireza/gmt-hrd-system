@@ -53,7 +53,7 @@
                   Tambah Departemen Cabang : {!! $CabangClient->nama_cabang !!}
                 @endif</h3>
               <div class="box-tools pull-right">
-                <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button class="btn btn-box-tool" data-widget="collapse"></button>
               </div>
             </div><!-- /.box-header -->
             <div class="box-body" style="display: block;">
@@ -103,9 +103,10 @@
                     </div><!-- /.box-body -->
                     <div class="box-footer">
                       @if(isset($DepartemenEdit))
-                        <button type="submit" class="btn btn-info pull-right">Ubah Departemen Cabang</button>
+                        <button type="submit" class="btn btn-info pull-right" style="margin-left:5px;">Simpan Perubahan</button>
                       @else
-                        <button type="submit" class="btn btn-info pull-right">Simpan Departemen</button>
+                        <button type="submit" class="btn btn-info pull-right" style="margin-left:5px;">Simpan</button>
+                        <button type="reset" class="btn btn-default pull-right">Reset Formulir</button>
                       @endif
 
                     </div><!-- /.box-footer -->
@@ -152,7 +153,7 @@
                       <td class="">{!! $Departemen->kode_departemen !!}</td>
                       <td class="">{!! $Departemen->nama_departemen !!}</td>
                       <td>
-                        <a href="{{ url('departemencabang', $Departemen->id).('/edit')}}" class="btn btn-xs btn-warning"><i class="fa fa-edit"></i> Edit</a>
+                        <a href="{{ url('departemencabang', $Departemen->id).('/edit')}}" class="btn btn-xs btn-warning" data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit"></i></a>
                       </td>
                     </tr>
                     @endforeach
