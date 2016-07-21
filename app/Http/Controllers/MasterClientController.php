@@ -26,7 +26,7 @@ class MasterClientController extends Controller
             ->leftjoin('cabang_client', 'cabang_client.id_client' , '=', 'master_client.id')
             ->groupBy('master_client.id')
             ->latest('master_client.updated_at')
-            ->get();
+            ->paginate(12);
             //print_r($CountAll);
         return view('pages/MasterClient/index', compact('CountAll'));
     }

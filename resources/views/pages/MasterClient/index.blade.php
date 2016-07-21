@@ -64,6 +64,11 @@
       </div><!-- /.widget-user -->
     </div>
     @endforeach
+     @if(!$CountAll->isEmpty())
+       <div style="text-align: center; vertical-align: middle;">
+         {{ $CountAll->links() }}
+       </div>
+     @endif
   </div><!-- /.row -->
 
 
