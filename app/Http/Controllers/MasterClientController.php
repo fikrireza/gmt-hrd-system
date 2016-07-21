@@ -38,7 +38,22 @@ class MasterClientController extends Controller
      */
     public function create()
     {
-        return view('pages/MasterClient/formClient');
+      $getclient = MasterClient::get();
+      $get = array();
+      $kode = 0;
+      foreach ($getclient as $key) {
+        $get[$kode] = $key->kode_jabatan;
+        $kode++;
+      }
+        if ($kode != 0) {
+           $kodegenerate = $kode + 1;
+           $kodegenerate = "CL".str_pad($kodegenerate, 3, "0", STR_PAD_LEFT);
+        } else {
+            $kodegenerate = "CL001";
+        }
+
+        $data['kodegenerate'] = $kodegenerate;
+        return view('pages/MasterClient/formClient')->with('data', $data);
     }
 
     /**

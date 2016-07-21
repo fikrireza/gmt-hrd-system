@@ -85,8 +85,11 @@
               <div class="col-sm-9">
                 <input
                   @if(isset($data['bindjabatan']))
-                    value="{{$data['bindjabatan']->kode_jabatan}}" readonly="true"
+                    value="{{$data['bindjabatan']->kode_jabatan}}"
+                  @else
+                    value=<?php echo $data['kodegenerate']?>
                   @endif
+                  readonly="true"
                   type="text" name="kode_jabatan" class="form-control" placeholder="Kode Jabatan" maxlength="6"
                   @if(!$errors->has('kode_jabatan'))
                    value="{{ old('kode_jabatan') }}"

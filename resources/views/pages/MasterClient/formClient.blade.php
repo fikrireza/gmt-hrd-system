@@ -44,10 +44,11 @@
   			  <div class="col-sm-8">
   				<input type="text" name="kode_client" class="form-control" placeholder="Kode Client" maxlength="5"
   				@if(isset($MasterClient))
-  				  readonly="" value="{{$MasterClient->kode_client}}"
+  				  value="{{$MasterClient->kode_client}}"
   				@else
-  				value="{{ old('kode_client') }}"
+  				value=<?php echo $data['kodegenerate']?>
   				@endif
+          readonly=""
   				>
           @if($errors->has('kode_client'))
   				<span class="help-block">

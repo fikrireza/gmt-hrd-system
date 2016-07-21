@@ -29,7 +29,23 @@ class MasterJabatanController extends Controller
     public function create()
     {
         $getjabatan = MasterJabatan::where('status', 1)->get();
+
+        $getjabatan2 = MasterJabatan::get();
+        $get = array();
+        $kode = 0;
+        foreach ($getjabatan2 as $key) {
+          $get[$kode] = $key->kode_jabatan;
+          $kode++;
+        }
+          if ($kode != 0) {
+             $kodegenerate = $kode + 1;
+             $kodegenerate = "JB".str_pad($kodegenerate, 3, "0", STR_PAD_LEFT);
+          } else {
+              $kodegenerate = "JB001";
+          }
+
         $data['getjabatan'] = $getjabatan;
+        $data['kodegenerate'] = $kodegenerate;
         return view('pages/tambahjabatan')->with('data', $data);
     }
 
