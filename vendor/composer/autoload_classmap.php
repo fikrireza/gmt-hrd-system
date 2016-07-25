@@ -9,6 +9,8 @@ return array(
     'Absolute_Positioner' => $vendorDir . '/dompdf/dompdf/include/absolute_positioner.cls.php',
     'Abstract_Renderer' => $vendorDir . '/dompdf/dompdf/include/abstract_renderer.cls.php',
     'AddColumnIdCabangClientToDataPkwt' => $baseDir . '/database/migrations/2016_07_18_144121_add_column_id_cabang_client_to_data_pkwt.php',
+    'AddFlagTerminateToDataPkwt' => $baseDir . '/database/migrations/2016_07_25_063151_add_flag_terminate_to_data_pkwt.php',
+    'AddIdKelompokJabatanToDataPkwt' => $baseDir . '/database/migrations/2016_07_25_063112_add_id_kelompok_jabatan_to_data_pkwt.php',
     'AddNpwpToMasterPegawai' => $baseDir . '/database/migrations/2016_04_25_024334_add_npwp_to_master_pegawai.php',
     'AddRelationBetweenPegawaiJabatan' => $baseDir . '/database/migrations/2016_04_24_142048_add_relation_between_pegawai_jabatan.php',
     'AddStatusToMasterjabatan' => $baseDir . '/database/migrations/2016_04_27_013848_add_status_to_masterjabatan.php',

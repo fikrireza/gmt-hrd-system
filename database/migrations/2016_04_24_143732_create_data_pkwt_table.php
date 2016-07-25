@@ -22,7 +22,7 @@ class CreateDataPkwtTable extends Migration
           $table->integer('status_pkwt')->default(1);
           $table->date('tanggal_awal_pkwt');
           $table->date('tanggal_akhir_pkwt');
-          //0 = tidak aktif, 1 = aktif
+          //1 = Kontrak, 2 = Freelance, 3 = Tetap
           $table->integer('status_karyawan_pkwt')->default(1);
           $table->integer('id_pegawai')->unsigned();
           $table->integer('id_client')->unsigned();
