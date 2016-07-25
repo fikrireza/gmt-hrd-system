@@ -184,10 +184,16 @@
                       <td>{{ $key->kode_jabatan }}</td>
                       <td>{{ $key->nama_jabatan }}</td>
                       <td>
+                        @if($key->id == '999')
+                          <span data-toggle="tooltip" title="Tidak Dapat Dirubah">
+                            <i class="fa fa-remove"></i>
+                          </span>
+                        @else
                         <a href="{{ route('masterjabatan.edit', $key->id) }}" class="btn btn-xs btn-warning" data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit"></i></a>
                         <span data-toggle="tooltip" title="Hapus Data">
                           <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
                         </span>
+                        @endif
                       </td>
                     </tr>
                     <?php $pageget++; ?>

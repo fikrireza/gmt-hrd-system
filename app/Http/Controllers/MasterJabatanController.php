@@ -28,7 +28,7 @@ class MasterJabatanController extends Controller
      */
     public function create()
     {
-        $getjabatan = MasterJabatan::where('status', 1)->paginate(10);
+        $getjabatan = MasterJabatan::where('status', 1)->orderBy('kode_jabatan', 'ASC')->paginate(10);
 
         $getjabatan2 = MasterJabatan::get();
         $get = array();
