@@ -17,7 +17,7 @@ class PKWTController extends Controller
 {
   public function index()
   {
-    
+
     return view('pages.viewpkwt', compact('getcountpegawai'));
   }
 
@@ -39,6 +39,7 @@ class PKWTController extends Controller
     $set->tanggal_akhir_pkwt = $request->tanggal_akhir_pkwt;
     $set->status_karyawan_pkwt = $request->status_karyawan;
     $set->id_pegawai = $request->id_pegawai;
+    $set->id_kelompok_jabatan = $request->id_kelompok_jabatan;
     $set->id_cabang_client = $request->id_client;
     $set->save();
 
@@ -49,7 +50,7 @@ class PKWTController extends Controller
   {
     // date_default_timezone_set('Asia/Jakarta');
 
-    $pkwt = PKWT::select(['nip','nama','tanggal_awal_pkwt', 'tanggal_akhir_pkwt', 'status_pkwt'])
+    $pkwt = PKWT::select(['nip','nama','tanggal_awal_pkwt', 'tanggal_akhir_pkwt', 'id_kelompok_jabatan',  'status_pkwt'])
       ->join('master_pegawai','data_pkwt.id_pegawai','=', 'master_pegawai.id')->get();
 
     return Datatables::of($pkwt)
@@ -138,9 +139,12 @@ class PKWTController extends Controller
   {
     $getnip = MasterPegawai::where('nip', $nip)->get();
     $id_pegawai = $getnip[0]->id;
-    $getpkwt = PKWT::where('id_pegawai', $id_pegawai)->get();
 
-    return view('pages.viewdetailpkwt', compact('getnip', 'getpkwt'));
+    $getpkwt = PKWT::select('data_pkwt.*','master_pegawai.nama')->join('master_pegawai', 'master_pegawai.id', '=', 'data_pkwt.id_kelompok_jabatan')->where('id_pegawai', $id_pegawai)->get();
+
+    $get_kelompok_jabatan = MasterPegawai::select('id','nip','nama')->get();
+
+    return view('pages.viewdetailpkwt', compact('getnip', 'getpkwt', 'get_kelompok_jabatan'));
   }
 
   public function bind($id)
@@ -157,6 +161,7 @@ class PKWTController extends Controller
     $set->tanggal_awal_pkwt = $request->tanggal_awal_pkwt;
     $set->tanggal_akhir_pkwt = $request->tanggal_akhir_pkwt;
     $set->status_karyawan_pkwt = $request->status_karyawan;
+    $set->id_kelompok_jabatan = $request->id_kelompok_jabatan;
     $set->status_pkwt = $request->status_pkwt;
     $set->save();
 

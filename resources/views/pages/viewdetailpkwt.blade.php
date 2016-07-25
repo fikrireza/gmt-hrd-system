@@ -46,6 +46,20 @@
                 <div class="col-sm-1">
                   {{-- divider --}}
                 </div>
+                <label class="col-sm-2">Kelompok Jabatan</label>
+                <div class="col-sm-4">
+                  <select name="id_kelompok_jabatan" class="form-control select2" style="width: 100%;">
+                    <option selected="selected"></option>
+                    @foreach($get_kelompok_jabatan as $key)
+                      <option value="{{ $key->id }}">{{ $key->nip }} - {{ $key->nama }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-1">
+                  {{-- divider --}}
+                </div>
                 <label class="col-sm-2">Tanggal Masuk GMT</label>
                 <div class="col-sm-4">
                   <div class="input-group">
@@ -182,6 +196,7 @@
                       <th>Tanggal Bekerja di Client</th>
                       <th>Tanggal Awal PKWT</th>
                       <th>Tanggal Akhir PKWT</th>
+                      <th>Kelompok Jabatan</th>
                       <th>Status PKWT</th>
                       <th>Keterangan</th>
                       <th>Aksi</th>
@@ -193,6 +208,7 @@
                         <td>{{$key->tanggal_masuk_client}}</td>
                         <td>{{$key->tanggal_awal_pkwt}}</td>
                         <td>{{$key->tanggal_akhir_pkwt}}</td>
+                        <td>{{$key->nama}}</td>
                         <td>
                           @if($key->status_karyawan_pkwt==1)
                             Kontrak

@@ -31,6 +31,7 @@
                 <th>Nama</th>
                 <th>Tanggal Awal PKWT</th>
                 <th>Tanggal Akhir PKWT</th>
+                <th>Kelompok Jabatan</th>
                 <th>Status PKWT</th>
                 <th>Keterangan</th>
                 <th>Aksi</th>
@@ -72,9 +73,10 @@
               {data: '1', name: 'nama'},
               {data: '2', name: 'tanggal_awal_pkwt'},
               {data: '3', name: 'tanggal_akhir_pkwt'},
-              {data: '4', name: 'status_pkwt'},
-              {data: '5', name: 'keterangan'},
-              {data: '6', name: 'action', orderable: false, searchable: false}
+              {data: '4', name: 'id_kelompok_jabatan'},
+              {data: '5', name: 'status_pkwt'},
+              {data: '6', name: 'keterangan'},
+              {data: '7', name: 'action', orderable: false, searchable: false}
             ]
         });
 

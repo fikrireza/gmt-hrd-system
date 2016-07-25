@@ -70,6 +70,17 @@
               </div>
             </div>
             <div class="form-group">
+              <label class="col-sm-2 control-label">Kelompok Jabatan</label>
+              <div class="col-sm-4">
+                <select name="id_kelompok_jabatan" class="form-control select2" style="width: 100%;">
+                  <option selected="selected"></option>
+                  @foreach($getnip as $key)
+                    <option value="{{ $key->id }}">{{ $key->nip }} - {{ $key->nama }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
               <label class="col-sm-2 control-label">Tanggal Awal PKWT</label>
               <div class="col-sm-3">
                 <div class="input-group">
