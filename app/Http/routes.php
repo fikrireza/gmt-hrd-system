@@ -38,6 +38,11 @@ Route::post('savepkwt', 'PKWTController@saveChangesPKWT');
 Route::resource('masterjabatan', 'MasterJabatanController');
 Route::get('masterjabatan/hapusjabatan/{id}', ['as'=>'masterjabatan.hapusjabatan', 'uses'=>'MasterJabatanController@hapusJabatan']);
 
+////// Buat Laporan //////
+Route::get('laporan-pegawai', ['as' => 'laporanpegawai', 'uses' => 'LaporanPegawaiController@index']);
+Route::post('laporan-proses', ['as' => 'proseslaporan', 'uses' => 'LaporanPegawaiController@proses']);
+Route::get('laporan-proses/{id}/{type}', 'LaporanPegawaiController@downloadExcel');
+
 // Route::resource('masterbahasaasing', 'MasterBahasaAsingController');
 // Route::get('masterbahasaasing/delete/{id}', ['as'=>'masterbahasaasing.delete', 'uses'=>'MasterBahasaAsingController@delete']);
 

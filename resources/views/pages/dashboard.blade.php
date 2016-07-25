@@ -24,7 +24,7 @@
       <!-- small box -->
       <div class="small-box bg-aqua">
         <div class="inner">
-          <h3>231</h3>
+          <h3>{{ $jumlah_pegawai }}</h3>
           <p>Jumlah Pegawai</p>
         </div>
         <div class="icon">

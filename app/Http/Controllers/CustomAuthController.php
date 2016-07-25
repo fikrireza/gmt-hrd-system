@@ -15,7 +15,10 @@ class CustomAuthController extends Controller
   {
     $id = Auth::user()->pegawai_id;
     $getpegawai = MasterPegawai::where('id', $id)->first();
-    return view('pages.dashboard')->with('getpegawai', $getpegawai);
+
+    $jumlah_pegawai = MasterPegawai::count();
+
+    return view('pages.dashboard', compact('getpegawai', 'jumlah_pegawai'));
   }
 
   public function loginprocess(Request $request)
