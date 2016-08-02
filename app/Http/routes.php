@@ -104,3 +104,7 @@ Route::post('data-peringatan/create', 'DataPeringatanController@create')->name('
 Route::get('masterpegawai/hapusperingatan/{id}', 'DataPeringatanController@hapusPeringatan');
 Route::post('masterpegawai/editperingatan', 'DataPeringatanController@editPeringatan')->name('dataperingatan.update');
 Route::get('masterpegawai/bind-peringatan/{id}', 'DataPeringatanController@bindPeringatan');
+
+Route::post('historipegawai/create', ['as' => 'historipegawai.create', 'uses' => 'MasterPegawaiController@addhistoripegawai']);
+Route::get('historipegawai/bind-data/{id}', 'MasterPegawaiController@bindhistoriperingatan');
+Route::post('historipegawai/update', ['as' => 'historipegawai.update', 'uses' => 'MasterPegawaiController@updatehistoripegawai']);

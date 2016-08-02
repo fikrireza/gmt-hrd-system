@@ -19,6 +19,7 @@ use App\Models\RiwayatPenyakit;
 use App\Models\UploadDocument;
 use App\PKWT;
 use App\DataPeringatan;
+use App\Models\HistoriPegawai;
 
 use App\MasterJabatan;
 use Datatables;
@@ -183,8 +184,9 @@ class MasterPegawaiController extends Controller
                           ->orderby('data_pkwt.tanggal_awal_pkwt','asc')
                           ->get();
       $DataPeringatan = DataPeringatan::where('id_pegawai', '=', $idofpegawai)->get();
+      $DataHistoriPegawai = HistoriPegawai::where('id_pegawai', $idofpegawai)->get();
 
-      return view('pages/MasterPegawai/lihatdatapegawai', compact('DataPegawai', 'DataKeluarga', 'DataPendidikan', 'DataPengalaman', 'DataKomputer', 'DataBahasa', 'DataKesehatan', 'DataPenyakit', 'DokumenPegawai', 'DataPKWT', 'DataPeringatan'));
+      return view('pages/MasterPegawai/lihatdatapegawai', compact('DataPegawai', 'DataKeluarga', 'DataPendidikan', 'DataPengalaman', 'DataKomputer', 'DataBahasa', 'DataKesehatan', 'DataPenyakit', 'DokumenPegawai', 'DataPKWT', 'DataPeringatan', 'DataHistoriPegawai'));
     }
 
     public function getDataForDataTable()
@@ -554,6 +556,34 @@ class MasterPegawaiController extends Controller
 
         return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah dokumen pegawai.');
       }
+    }
+
+    public function addhistoripegawai(Request $request)
+    {
+      $set = new HistoriPegawai;
+      $set->keterangan  = $request->keterangan;
+      $set->id_pegawai  = $request->id_pegawai;
+      $set->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil Menambah Histori Pekerjaan Pegawai.');
+    }
+
+    public function bindhistoriperingatan($id)
+    {
+      $get  = HistoriPegawai::find($id);
+
+      return $get;
+    }
+
+    public function updatehistoripegawai(Request $request)
+    {
+      $set  = HistoriPegawai::find($request->id);
+      $set->keterangan  = $request->keterangan;
+      $set->id_pegawai  = $request->id_pegawai;
+      $set->save();
+
+      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil Merubah Histori Pekerjaan Pegawai.');
 
     }
+
 }

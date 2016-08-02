@@ -1439,6 +1439,99 @@
     </div>
   </div>
 
+  {{-- Modal Tambah Histori Pekerjaan --}}
+  <div class="modal modal-default fade" id="modalhistoripegawai" role="dialog">
+    <div class="modal-dialog" style="width:600px;">
+      <!-- Modal content-->
+      <form class="form-horizontal" action="{{route('historipegawai.create')}}" method="post">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Tambah Histori Pekerjaan</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <div class="col-sm-1"></div>
+              <div class="col-sm-8">
+                <div class="input-group">
+                  <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                    foreach ($DataPegawai as $k) {
+                      echo $k->id;
+                    }
+                  ?>">
+                  <input class="form-control" type="hidden" name="nip" value="<?php
+                    foreach ($DataPegawai as $k) {
+                      echo $k->nip;
+                    }
+                  ?>">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-1"></div>
+              <label class="col-sm-2">Keterangan</label>
+              <div class="col-sm-8">
+                <textarea name="keterangan" rows="4" cols="40" class="form-control"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {{-- Modal Edit Histori Pekerjaan --}}
+  <div class="modal modal-default fade" id="edithistoripegawai" role="dialog">
+    <div class="modal-dialog" style="width:600px;">
+      <!-- Modal content-->
+      <form class="form-horizontal" action="{{route('historipegawai.update')}}" method="post">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Ubah Histori Pekerjaan</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <div class="col-sm-1"></div>
+              <div class="col-sm-8">
+                <div class="input-group">
+                  <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                    foreach ($DataPegawai as $k) {
+                      echo $k->id;
+                    }
+                  ?>">
+                  <input class="form-control" type="hidden" name="nip" value="<?php
+                    foreach ($DataPegawai as $k) {
+                      echo $k->nip;
+                    }
+                  ?>">
+                  <input type="hidden" name="id" id="idhistoripekerjaan">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-sm-1"></div>
+              <label class="col-sm-2">Keterangan Peringatan</label>
+              <div class="col-sm-8">
+                <textarea name="keterangan" rows="4" cols="40" class="form-control" id="edit_keterangan"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div class="row">
     <script>
       window.setTimeout(function() {
@@ -2022,6 +2115,29 @@
                 @endforeach
               </tbody>
             </table>
+
+            <h3>Riwayat Pekerjaan</h3>
+            <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalhistoripegawai"><i class="fa fa-plus"></i> Tambah Riwayat Pekerjaan</button>
+            <table class="table table-bordered">
+              <tbody>
+                <tr class="bg-navy">
+                  <th>#</th>
+                  <th>Keterangan</th>
+                  <th>Aksi</th>
+                </tr>
+                <?php $i=1; ?>
+                @foreach($DataHistoriPegawai as $key)
+                  <tr>
+                    <td>{{$i++}}</td>
+                    <td>{{$key->keterangan}}</td>
+                    <td>
+                      <span data-toggle="tooltip" title="Edit Data">
+                        <a href="" class="btn btn-xs btn-warning edithistoripegawai" data-toggle="modal" data-target="#edithistoripegawai" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
+                    </td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
           </div>
 
         </div><!-- /.tab-content -->
@@ -2150,6 +2266,21 @@
             var iddokumen = data.id;
             $('#editnamadokumen').attr('value', namadokumen);
             $('#iddokumen').attr('value', iddokumen);
+          }
+        });
+      });
+
+      $('a.edithistoripegawai').click(function(){
+        var a = $(this).data('value');
+        $.ajax({
+          url: "{{ url('/') }}/historipegawai/bind-data/"+a,
+          dataType: 'json',
+          success: function(data){
+            var id = data.id;
+            var keterangan = data.keterangan;
+
+            $('#idhistoripekerjaan').attr('value', id);
+            $('textarea#edit_keterangan').val(keterangan);
           }
         });
       });
