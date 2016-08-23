@@ -1556,7 +1556,7 @@
         <div class="box-body box-profile">
           @foreach($DataPegawai as $pegawai)
           <img class="profile-user-img img-responsive img-circle" src="{{ asset('dist/img/user2-160x160.jpg')}}" alt="User profile picture">
-          <h3 class="profile-username text-center">{{$pegawai->nama}}</h3>
+          <h3 class="profile-username text-center">{{$pegawai->nama}} - <small>{{$pegawai->nama_jabatan}}</small></h3>
           <form action="{{url('masterpegawai/savepegawai')}}" method="post">
             {!! csrf_field() !!}
           <table class="table table-condensed">
@@ -1715,6 +1715,11 @@
                   </select>
                   <input type="hidden" name="id_pegawai" class="form-control" value="{{$pegawai->id}}">
                 </td>
+              </tr>
+              <tr>
+                <td>Jabatan</td>
+                <td>:</td>
+                <td id="tdlabeljabatan"><b data-value="{{$pegawai->nama_jabatan}}" id="valjabatan">{{ $pegawai->nama_jabatan}}</b></td>
               </tr>
             </tbody>
           </table>

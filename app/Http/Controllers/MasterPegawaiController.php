@@ -162,8 +162,11 @@ class MasterPegawaiController extends Controller
 
     public function show($id)
     {
-      $DataPegawai    = MasterPegawai::where('nip', '=', $id)->get();
-
+      $DataPegawai    = MasterPegawai::join('master_jabatan', 'master_pegawai.id_jabatan', '=', 'master_jabatan.id')
+                        ->select('master_pegawai.*', 'master_jabatan.nama_jabatan')
+                        ->where('nip', '=', $id)
+                        ->get();
+      
       $idofpegawai;
       foreach ($DataPegawai as $k) {
         $idofpegawai = $k->id;
