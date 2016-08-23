@@ -50,7 +50,7 @@
                 <div class="col-sm-4">
                   <select name="id_kelompok_jabatan" class="form-control select2" style="width: 100%;">
                     <option selected="selected"></option>
-                    @foreach($get_kelompok_jabatan as $key)
+                    @foreach($get_kel_jabatan as $key)
                       <option value="{{ $key->id }}">{{ $key->nip }} - {{ $key->nama }}</option>
                     @endforeach
                   </select>

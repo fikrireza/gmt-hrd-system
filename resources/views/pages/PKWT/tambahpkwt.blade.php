@@ -63,8 +63,14 @@
               <div class="col-sm-4">
                 <select name="id_client" class="form-control select2" style="width: 100%;">
                   <option selected="selected"></option>
-                  @foreach($getclient as $key)
-                    <option value="{{ $key->id }}">{{ $key->kode_cabang }} - {{ $key->nama_cabang }}</option>
+                  @foreach($getclient as $client)
+                    <optgroup label="{{ $client->nama_client}}">
+                      @foreach($getcabang as $key)
+                        @if($client->id == $key->id_client)
+                          <option value="{{ $key->id }}">{{ $key->kode_cabang }} - {{ $key->nama_cabang }}</option>
+                        @endif
+                      @endforeach
+                    </optgroup>
                   @endforeach
                 </select>
               </div>
@@ -74,7 +80,7 @@
               <div class="col-sm-4">
                 <select name="id_kelompok_jabatan" class="form-control select2" style="width: 100%;">
                   <option selected="selected"></option>
-                  @foreach($getnip as $key)
+                  @foreach($get_kel_jabatan as $key)
                     <option value="{{ $key->id }}">{{ $key->nip }} - {{ $key->nama }}</option>
                   @endforeach
                 </select>
