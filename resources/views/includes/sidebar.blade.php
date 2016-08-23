@@ -26,54 +26,10 @@
   <!-- sidebar menu: : style can be found in sidebar.less -->
   <ul class="sidebar-menu">
     <li class="header">MAIN NAVIGATION</li>
-    <li class="treeview">
-      <a href="#">
-        <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
+    <li>
+      <a href="{{ url('/dashboard') }}">
+        <i class="fa fa-dashboard"></i> <span>Dashboard</span>
       </a>
-      <ul class="treeview-menu">
-        <li><a href="{{ url('/dashboard') }}"><i class="fa fa-circle-o"></i> Dashboard</a></li>
-      </ul>
-    </li>
-    <li class="treeview">
-      <a href="#">
-        <i class="fa fa-users"></i>
-        <span>Master Pegawai</span>
-        <i class="fa fa-angle-left pull-right"></i>
-      </a>
-      <ul class="treeview-menu">
-        <li><a href="{{ route('masterpegawai.index') }}"><i class="fa fa-circle-o"></i> Lihat Data Pegawai</a></li>
-        {{-- <li><a href="{{ route('masterpegawai.create') }}"><i class="fa fa-circle-o"></i> Tambah Data Pegawai</a></li> --}}
-      </ul>
-    </li>
-    <li class="treeview">
-      <a href="#">
-        <i class="fa fa-file-text"></i>
-        <span>Dokumen Pegawai</span>
-        <i class="fa fa-angle-left pull-right"></i>
-      </a>
-      <ul class="treeview-menu">
-        <li><a href="{{ route('uploaddocument.create') }}"><i class="fa fa-circle-o"></i> Kelola Dokumen Pegawai</a></li>
-      </ul>
-    </li>
-    <li class="treeview">
-      <a href="#">
-        <i class="fa fa-file-text"></i>
-        <span>Data PKWT</span>
-        <i class="fa fa-angle-left pull-right"></i>
-      </a>
-      <ul class="treeview-menu">
-        <li><a href="{{url('data-pkwt')}}"><i class="fa fa-circle-o"></i> Kelola Data PKWT</a></li>
-      </ul>
-    </li>
-    <li class="treeview">
-      <a href="#">
-        <i class="fa fa-briefcase"></i>
-        <span>Master Jabatan</span>
-        <i class="fa fa-angle-left pull-right"></i>
-      </a>
-      <ul class="treeview-menu">
-        <li><a href="{{ route('masterjabatan.create') }}"><i class="fa fa-circle-o"></i> Kelola Data Jabatan</a></li>
-      </ul>
     </li>
     <li class="treeview">
       <a href="#">
@@ -87,6 +43,33 @@
     </li>
     <li class="treeview">
       <a href="#">
+        <i class="fa fa-users"></i>
+        <span>Master Pegawai</span>
+        <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <li><a href="{{ route('masterpegawai.index') }}"><i class="fa fa-circle-o"></i> Data Pegawai</a></li>
+        <li><a href="{{ route('uploaddocument.create') }}"><i class="fa fa-circle-o"></i> Kelola Dokumen Pegawai</a></li>
+      </ul>
+    </li>
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-briefcase"></i>
+        <span>Master Jabatan</span>
+        <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <li><a href="{{ route('masterjabatan.create') }}"><i class="fa fa-circle-o"></i>Data Jabatan</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="{{url('data-pkwt')}}">
+        <i class="fa fa-file-text"></i>
+        <span>PKWT</span>
+      </a>
+    </li>
+    <li class="treeview">
+      <a href="#">
         <i class="fa fa-laptop"></i>
         <span>Management Akun</span>
         <i class="fa fa-angle-left pull-right"></i>
@@ -97,8 +80,8 @@
     </li>
     <li class="treeview">
       <a href="#">
-        <i class="fa fa-laptop"></i>
-        <span>Buat Laporan</span>
+        <i class="fa fa-newspaper-o"></i>
+        <span>Laporan</span>
         <i class="fa fa-angle-left pull-right"></i>
       </a>
       <ul class="treeview-menu">
