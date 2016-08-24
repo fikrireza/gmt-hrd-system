@@ -70,6 +70,7 @@
                 <th>NIP</th>
                 <th>Nama</th>
                 <th>Departemen</th>
+                <th>Kelompok Jabatan</th>
                 <th>Jabatan</th>
                 <th>Jenis Kelamin</th>
                 <th>Tanggal Masuk GMT</th>
@@ -82,6 +83,7 @@
                   <td>{{ $key->nip }}</td>
                   <td>{{ $key->nama }}</td>
                   <td>{{ $key->nama_client }}</td>
+                  <td>{{ $key->spv }}</td>
                   <td>{{ $key->nama_jabatan }}</td>
                   <td>{{ $key->jenis_kelamin }}</td>
                   <td>{{ $key->tanggal_masuk_gmt }}</td>
