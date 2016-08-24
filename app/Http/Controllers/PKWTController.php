@@ -9,6 +9,7 @@ use App\PKWT;
 use App\MasterPegawai;
 use App\Models\MasterClient;
 use App\Models\CabangClient;
+use App\Models\KelompokJabatan;
 use Datatables;
 use Carbon\Carbon;
 use DB;
@@ -18,15 +19,18 @@ class PKWTController extends Controller
   public function index()
   {
 
-    return view('pages.viewpkwt', compact('getcountpegawai'));
+    return view('pages.PKWT.viewpkwt', compact('getcountpegawai'));
   }
 
   public function create()
   {
     $getnip = MasterPegawai::select('id','nip','nama')->get();
-    $getclient = CabangClient::select('id','kode_cabang','nama_cabang')->get();
+    $get_kel_jabatan = MasterPegawai::select('id','nip','nama')->where('id_jabatan', '=', '999')->get();
 
-    return view('pages.tambahpkwt', compact('getnip', 'getclient'));
+    $getclient  = MasterClient::select('id', 'nama_client')->get();
+    $getcabang = CabangClient::select('id','kode_cabang','nama_cabang', 'id_client')->get();
+
+    return view('pages.PKWT.tambahpkwt', compact('getnip', 'get_kel_jabatan', 'getclient', 'getcabang'));
   }
 
   public function store(Request $request)
@@ -37,10 +41,10 @@ class PKWTController extends Controller
     $set->status_pkwt = $request->status_pkwt;
     $set->tanggal_awal_pkwt = $request->tanggal_awal_pkwt;
     $set->tanggal_akhir_pkwt = $request->tanggal_akhir_pkwt;
-    $set->status_karyawan_pkwt = $request->status_karyawan;
+    $set->status_karyawan_pkwt = $request->status_karyawan_pkwt;
     $set->id_pegawai = $request->id_pegawai;
     $set->id_kelompok_jabatan = $request->id_kelompok_jabatan;
-    $set->id_cabang_client = $request->id_client;
+    $set->id_cabang_client = $request->id_cabang_client;
     $set->save();
 
     return redirect()->route('kelola.pkwt');
@@ -50,7 +54,7 @@ class PKWTController extends Controller
   {
     // date_default_timezone_set('Asia/Jakarta');
 
-    $pkwt = PKWT::select(['nip','nama','tanggal_awal_pkwt', 'tanggal_akhir_pkwt', 'id_kelompok_jabatan',  'status_pkwt'])
+    $pkwt = PKWT::select(['nip','nama','tanggal_awal_pkwt', 'tanggal_akhir_pkwt', 'id_kelompok_jabatan',  'status_karyawan_pkwt'])
       ->join('master_pegawai','data_pkwt.id_pegawai','=', 'master_pegawai.id')->get();
 
     return Datatables::of($pkwt)
@@ -81,12 +85,12 @@ class PKWTController extends Controller
       ->addColumn('action', function($pkwt){
         return '<a href="view-detail-pkwt/'.$pkwt->nip.'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i></a>';
       })
-      ->editColumn('status_pkwt', function($pkwt){
-        if($pkwt->status_pkwt==1)
+      ->editColumn('status_karyawan_pkwt', function($pkwt){
+        if($pkwt->status_karyawan_pkwt==1)
           return "Kontrak";
-        else if($pkwt->status_pkwt==2)
+        else if($pkwt->status_karyawan_pkwt==2)
           return "Freelance";
-        else if($pkwt->status_pkwt==3)
+        else if($pkwt->status_karyawan_pkwt==3)
           return "Tetap";
       })
       ->make();
@@ -140,11 +144,14 @@ class PKWTController extends Controller
     $getnip = MasterPegawai::where('nip', $nip)->get();
     $id_pegawai = $getnip[0]->id;
 
-    $getpkwt = PKWT::select('data_pkwt.*','master_pegawai.nama')->join('master_pegawai', 'master_pegawai.id', '=', 'data_pkwt.id_kelompok_jabatan')->where('id_pegawai', $id_pegawai)->get();
+    $getpkwt = PKWT::join('master_pegawai as spv', 'spv.id', '=', 'data_pkwt.id_kelompok_jabatan')
+                    ->join('master_pegawai', 'master_pegawai.id', '=', 'data_pkwt.id_pegawai')
+                    ->select('data_pkwt.*', 'master_pegawai.nama', 'spv.nama')
+                    ->where('data_pkwt.id_pegawai', $id_pegawai)->get();
+                    // dd($getpkwt);
+    $get_kel_jabatan = MasterPegawai::select('id','nip','nama')->where('id_jabatan', '=', '999')->get();
 
-    $get_kelompok_jabatan = MasterPegawai::select('id','nip','nama')->get();
-
-    return view('pages.viewdetailpkwt', compact('getnip', 'getpkwt', 'get_kelompok_jabatan'));
+    return view('pages.PKWT.viewdetailpkwt', compact('getnip', 'getpkwt', 'get_kel_jabatan'));
   }
 
   public function bind($id)
@@ -155,15 +162,18 @@ class PKWTController extends Controller
 
   public function saveChangesPKWT(Request $request)
   {
+    dd($request->id_kel_jabatan);
     $set = PKWT::find($request->id_pkwt);
     $set->tanggal_masuk_gmt = $request->tanggal_masuk_gmt;
     $set->tanggal_masuk_client = $request->tanggal_masuk_client;
     $set->tanggal_awal_pkwt = $request->tanggal_awal_pkwt;
     $set->tanggal_akhir_pkwt = $request->tanggal_akhir_pkwt;
     $set->status_karyawan_pkwt = $request->status_karyawan;
-    $set->id_kelompok_jabatan = $request->id_kelompok_jabatan;
     $set->status_pkwt = $request->status_pkwt;
-    $set->save();
+    // $set->save();
+    $push = KelompokJabatan::find($request->id_kel_jabatan);
+    $push->id_supervisor = $request->id_kelompok_jabatan;
+    $push->save();
 
     return redirect()->route('detail.pkwt', $request->nip)->with('message', 'Berhasil mengubah data PKWT.');
   }

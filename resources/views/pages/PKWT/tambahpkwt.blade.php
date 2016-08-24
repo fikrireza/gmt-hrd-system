@@ -61,7 +61,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">Client</label>
               <div class="col-sm-4">
-                <select name="id_client" class="form-control select2" style="width: 100%;">
+                <select name="id_cabang_client" class="form-control select2" style="width: 100%;">
                   <option selected="selected"></option>
                   @foreach($getclient as $client)
                     <optgroup label="{{ $client->nama_client}}">
@@ -133,7 +133,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">Status Karyawan</label>
               <div class="col-sm-3">
-                <select class="form-control" name="status_karyawan">
+                <select class="form-control" name="status_karyawan_pkwt">
                   <option>-- Pilih --</option>
                   <option value="1">Kontrak</option>
                   <option value="2">Freelance</option>

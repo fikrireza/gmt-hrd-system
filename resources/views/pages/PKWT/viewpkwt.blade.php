@@ -74,7 +74,7 @@
               {data: '2', name: 'tanggal_awal_pkwt'},
               {data: '3', name: 'tanggal_akhir_pkwt'},
               {data: '4', name: 'id_kelompok_jabatan'},
-              {data: '5', name: 'status_pkwt'},
+              {data: '5', name: 'status_karyawan_pkwt'},
               {data: '6', name: 'keterangan'},
               {data: '7', name: 'action', orderable: false, searchable: false}
             ]

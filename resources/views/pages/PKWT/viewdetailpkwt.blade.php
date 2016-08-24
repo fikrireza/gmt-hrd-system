@@ -120,7 +120,7 @@
                 </div>
                 <label class="col-sm-2">Status Karyawan</label>
                 <div class="col-sm-4">
-                  <select class="form-control" name="status_karyawan">
+                  <select class="form-control" name="status_karyawan_pkwt">
                     <option>-- Pilih --</option>
                     <option value="1" id="status_karyawan_kontrak">Kontrak</option>
                     <option value="2" id="status_karyawan_freelance">Freelance</option>
