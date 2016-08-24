@@ -82,7 +82,7 @@
                 <tr>
                   <td>{{ $key->nip }}</td>
                   <td>{{ $key->nama }}</td>
-                  <td>{{ $key->nama_client }}</td>
+                  <td>{{ $key->nama_client }} - {{$key->nama_cabang}}</td>
                   <td>{{ $key->spv }}</td>
                   <td>{{ $key->nama_jabatan }}</td>
                   <td>{{ $key->jenis_kelamin }}</td>

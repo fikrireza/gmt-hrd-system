@@ -40,22 +40,20 @@ class LaporanPegawaiController extends Controller
                     ->join('cabang_client', 'cabang_client.id', '=', 'data_pkwt.id_cabang_client')
                     ->join('master_client', 'master_client.id', '=', 'cabang_client.id_client')
                     ->join('master_jabatan', 'master_jabatan.id', '=', 'master_pegawai.id_jabatan')
-                    ->select('data_pkwt.tanggal_masuk_gmt', 'data_pkwt.tanggal_masuk_client', 'master_pegawai.nip', 'master_pegawai.no_rekening', 'master_pegawai.nama', 'master_client.nama_client','master_jabatan.nama_jabatan', 'master_pegawai.no_ktp', 'master_pegawai.tanggal_lahir', 'master_pegawai.no_kk', 'master_pegawai.alamat', 'master_pegawai.no_telp', 'master_pegawai.jenis_kelamin', 'spv.nama as spv')
-                    ->where('data_pkwt.id_cabang_client', $idClient)
+                    ->select('data_pkwt.tanggal_masuk_gmt', 'data_pkwt.tanggal_masuk_client', 'master_pegawai.nip', 'master_pegawai.no_rekening', 'master_pegawai.nama', 'master_client.nama_client', 'cabang_client.nama_cabang','master_jabatan.nama_jabatan', 'master_pegawai.no_ktp', 'master_pegawai.tanggal_lahir', 'master_pegawai.no_kk', 'master_pegawai.alamat', 'master_pegawai.no_telp', 'master_pegawai.jenis_kelamin', 'spv.nama as spv')
+                    ->where('master_client.id', $idClient)
                     ->where('data_pkwt.status_pkwt', '=', 1)
                     ->where('data_pkwt.tanggal_akhir_pkwt', '>', $sysDate)
-                    ->orderBy('data_pkwt.tanggal_masuk_gmt', 'DESC')
                     ->orderBy('spv.nama')
+                    ->orderBy('data_pkwt.tanggal_masuk_gmt', 'ASC')
                     ->paginate(10);
-
+    // dd($proses);
     return view('pages.Laporan.laporanpegawai', compact('getClient', 'idClient', 'proses'));
   }
 
   public function downloadExcel($id, $type)
   {
     $idClient = $id;
-
-    $getClient  = MasterClient::get();
 
     $sysDate = date('Y-m-d');
 
@@ -64,12 +62,12 @@ class LaporanPegawaiController extends Controller
                     ->join('cabang_client', 'cabang_client.id', '=', 'data_pkwt.id_cabang_client')
                     ->join('master_client', 'master_client.id', '=', 'cabang_client.id_client')
                     ->join('master_jabatan', 'master_jabatan.id', '=', 'master_pegawai.id_jabatan')
-                    ->select('master_pegawai.nip', 'master_pegawai.no_rekening', 'master_pegawai.nama', 'master_client.nama_client', 'spv.nama as spv', 'master_jabatan.nama_jabatan', 'master_pegawai.no_ktp', 'master_pegawai.tanggal_lahir', 'master_pegawai.no_kk', 'master_pegawai.alamat', 'master_pegawai.no_telp', 'master_pegawai.jenis_kelamin', 'data_pkwt.tanggal_masuk_gmt', 'data_pkwt.tanggal_masuk_client')
-                    ->where('data_pkwt.id_cabang_client', $idClient)
+                    ->select('master_pegawai.nip', 'master_pegawai.no_rekening', 'master_pegawai.nama', 'cabang_client.nama_cabang', 'spv.nama as spv', 'master_jabatan.nama_jabatan', 'master_pegawai.no_ktp', 'master_pegawai.tanggal_lahir', 'master_pegawai.no_kk', 'master_pegawai.alamat', 'master_pegawai.no_telp', 'master_pegawai.jenis_kelamin', 'data_pkwt.tanggal_masuk_gmt', 'data_pkwt.tanggal_masuk_client')
+                    ->where('master_client.id', $idClient)
                     ->where('data_pkwt.status_pkwt', '=', 1)
                     ->where('data_pkwt.tanggal_akhir_pkwt', '>', $sysDate)
-                    ->orderBy('data_pkwt.tanggal_masuk_gmt', 'DESC')
                     ->orderBy('spv.nama')
+                    ->orderBy('data_pkwt.tanggal_masuk_gmt', 'ASC')
                     ->get()
                     ->toArray();
     // dd($proses);
