@@ -11,7 +11,7 @@
     <span class="sr-only">Toggle navigation</span>
   </a>
   <div class="navbar-custom-menu">
-    <ul class="nav navbar-nav">    
+    <ul class="nav navbar-nav">
       <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <img src="{{ asset('/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
@@ -31,18 +31,6 @@
               @endif
               <small>Member since Nov. 2012</small>
             </p>
-          </li>
-          <!-- Menu Body -->
-          <li class="user-body">
-            <div class="col-xs-4 text-center">
-              <a href="#">Followers</a>
-            </div>
-            <div class="col-xs-4 text-center">
-              <a href="#">Sales</a>
-            </div>
-            <div class="col-xs-4 text-center">
-              <a href="#">Friends</a>
-            </div>
           </li>
           <!-- Menu Footer-->
           <li class="user-footer">
