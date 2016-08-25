@@ -144,11 +144,17 @@ class PKWTController extends Controller
     $getnip = MasterPegawai::where('nip', $nip)->get();
     $id_pegawai = $getnip[0]->id;
 
-    $getpkwt = PKWT::join('master_pegawai as spv', 'spv.id', '=', 'data_pkwt.id_kelompok_jabatan')
-                    ->join('master_pegawai', 'master_pegawai.id', '=', 'data_pkwt.id_pegawai')
-                    ->select('data_pkwt.*', 'master_pegawai.nama', 'spv.nama')
+    // fik, yang SPV jadi?
+    // $getpkwt = PKWT::join('master_pegawai as spv', 'spv.id', '=', 'data_pkwt.id_kelompok_jabatan')
+    //                 ->join('master_pegawai', 'master_pegawai.id', '=', 'data_pkwt.id_pegawai')
+    //                 ->select('data_pkwt.*', 'master_pegawai.nama', 'spv.nama')
+    //                 ->where('data_pkwt.id_pegawai', $id_pegawai)->get();
+
+    $getpkwt = PKWT::join('master_pegawai', 'master_pegawai.id', '=', 'data_pkwt.id_pegawai')
+                    ->select('data_pkwt.*', 'master_pegawai.nama')
                     ->where('data_pkwt.id_pegawai', $id_pegawai)->get();
                     // dd($getpkwt);
+
     $get_kel_jabatan = MasterPegawai::select('id','nip','nama')->where('id_jabatan', '=', '999')->get();
 
     return view('pages.PKWT.viewdetailpkwt', compact('getnip', 'getpkwt', 'get_kel_jabatan'));
