@@ -16,7 +16,8 @@
     <small>Lihat Detail PKWT</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{ url('/dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{ url('data-pkwt') }}"><i class="fa fa-document"></i> PKWT</a></li>
     <li class="active">Kelola Data PKWT</li>
   </ol>
 @stop
@@ -223,25 +224,25 @@
           <div class="col-md-12">
             <div class="box box-success box-solid">
               <div class="box-header with-border">
-                <h3 class="box-title">Seluruh PKWT Untuk Pegawai Terkait</h3>
+                <h3 class="box-title">Histori PKWT</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
                 <table class="table table-hover">
                   <tbody>
                     <tr>
-                      <th>Tanggal Masuk GMT</th>
+                      <th>Departemen/Kota</th>
                       <th>Tanggal Bekerja di Client</th>
                       <th>Tanggal Awal PKWT</th>
                       <th>Tanggal Akhir PKWT</th>
                       <th>Kelompok Jabatan</th>
-                      <th>Status PKWT</th>
+                      <th>Status Karyawan</th>
                       <th>Keterangan</th>
                       <th>Aksi</th>
                     </tr>
 
                     @foreach($getpkwt as $key)
                       <tr>
-                        <td>{{$key->tanggal_masuk_gmt}}</td>
+                        <td>{{$key->nama_client}} - {{$key->nama_cabang}}</td>
                         <td>{{$key->tanggal_masuk_client}}</td>
                         <td>{{$key->tanggal_awal_pkwt}}</td>
                         <td>{{$key->tanggal_akhir_pkwt}}</td>
@@ -258,34 +259,38 @@
                         <td>
                           <?php
                             // date_default_timezone_set('Asia/Jakarta');
-                            $date1=date_create($key->tanggal_akhir_pkwt);
-                            $date2=date_create(gmdate("Y-m-d", time()+60*60*7));
-                            $diff=date_diff($date2,$date1);
-                            $sym = substr($diff->format("%R%a"), 0, 1);
-                            $days = substr($diff->format("%R%a"), 1);
-                            if($days==0)
-                            {
-                              echo "<span class='label bg-yellow'>Expired Hari Ini</span>";
-                            }
-                            elseif($sym=="+" && $days <= 30)
-                            {
-                              echo "<span class='label bg-yellow'>Expired Dalam ".$days." Hari</span>";
-                            }
-                            elseif($sym=="+" && $days > 30)
-                            {
-                              echo "<span class='label bg-green'>PKWT Aktif</span>";
-                            }
-                            elseif($sym=="-")
-                            {
-                              echo "<span class='label bg-red'>Telah Expired</span>";
+                            if ($key->flag_terminate == '0') {
+                              echo "<span class='label bg-red'>Terminate</span>";
+                            } else {
+                              $date1=date_create($key->tanggal_akhir_pkwt);
+                              $date2=date_create(gmdate("Y-m-d", time()+60*60*7));
+                              $diff=date_diff($date2,$date1);
+                              $sym = substr($diff->format("%R%a"), 0, 1);
+                              $days = substr($diff->format("%R%a"), 1);
+                              if($days==0)
+                              {
+                                echo "<span class='label bg-yellow'>Expired Hari Ini</span>";
+                              }
+                              elseif($sym=="+" && $days <= 30)
+                              {
+                                echo "<span class='label bg-yellow'>Expired Dalam ".$days." Hari</span>";
+                              }
+                              elseif($sym=="+" && $days > 30)
+                              {
+                                echo "<span class='label bg-green'>PKWT Aktif</span>";
+                              }
+                              elseif($sym=="-")
+                              {
+                                echo "<span class='label bg-red'>Telah Expired</span>";
+                              }
                             }
                           ?>
                         </td>
                         <td>
-                          <span data-toggle="tooltip" title="Edit Data">
-                            <a href="#" data-value="{{$key->id}}" class="btn btn-xs btn-warning edit_pkwt" data-toggle="modal" data-target="#modaleditpkwt"><i class="fa fa-edit"></i></a>
-                          </span>
-                          @if($key->status_pkwt == '1' || $key->terminate == '0')
+                          @if($key->status_pkwt == '1')
+                            <span data-toggle="tooltip" title="Edit Data">
+                              <a href="#" data-value="{{$key->id}}" class="btn btn-xs btn-warning edit_pkwt" data-toggle="modal" data-target="#modaleditpkwt"><i class="fa fa-edit"></i></a>
+                            </span>
                             <span data-toggle="tooltip" title="Terminate">
                               <a href="#" data-value="{{$key->id}}" class="btn btn-xs btn-danger terminate_pkwt" data-toggle="modal" data-target="#modalterminatepkwt"><i class="fa fa-power-off"></i></a>
                             </span>

@@ -55,7 +55,8 @@ class PKWTController extends Controller
     $pkwt = PKWT::select(['pegawai.nip as nip','pegawai.nama as nama','tanggal_awal_pkwt', 'tanggal_akhir_pkwt', 'spv.nama as id_kelompok_jabatan', 'status_karyawan_pkwt'])
               ->join('master_pegawai as pegawai','data_pkwt.id_pegawai','=', 'pegawai.id')
               ->join('master_pegawai as spv', 'data_pkwt.id_kelompok_jabatan', '=', 'spv.id')
-              ->where('status_pkwt', 1)->get();
+              ->where('status_pkwt', 1)
+              ->get();
 
     return Datatables::of($pkwt)
       ->addColumn('keterangan', function($pkwt){
@@ -98,16 +99,13 @@ class PKWTController extends Controller
 
   public function getPKWTforDashboard()
   {
-    // date_default_timezone_set('Asia/Jakarta');
-
-    $pkwt = PKWT::select(['nip','nama','tanggal_awal_pkwt', 'tanggal_akhir_pkwt', 'status_pkwt'])
+    $pkwt = PKWT::select(['nip','nama','tanggal_awal_pkwt', 'tanggal_akhir_pkwt', 'status_karyawan_pkwt'])
       ->join('master_pegawai','data_pkwt.id_pegawai','=', 'master_pegawai.id')->get();
 
     return Datatables::of($pkwt)
       ->addColumn('keterangan', function($pkwt){
         $tgl = explode('-', $pkwt->tanggal_akhir_pkwt);
         $tglakhir = Carbon::createFromDate($tgl[0], $tgl[1], $tgl[2]);
-        // $result = Carbon::createFromDate($tgl[0], $tgl[1], $tgl[2]);
         $now = gmdate("Y-m-d", time()+60*60*7);
         $tglskrg = explode('-', $now);
         $result = Carbon::createFromDate($tglskrg[0],$tglskrg[1],$tglskrg[2])->diffInDays($tglakhir, false);
@@ -128,12 +126,12 @@ class PKWTController extends Controller
           return "<span class='label bg-yellow'>Expired Dalam ".$result." Hari</span>";
         }
       })
-      ->editColumn('status_pkwt', function($pkwt){
-        if($pkwt->status_pkwt==1)
+      ->editColumn('status_karyawan_pkwt', function($pkwt){
+        if($pkwt->status_karyawan_pkwt==1)
           return "Kontrak";
-        else if($pkwt->status_pkwt==2)
+        else if($pkwt->status_karyawan_pkwt==2)
           return "Freelance";
-        else if($pkwt->status_pkwt==3)
+        else if($pkwt->status_karyawan_pkwt==3)
           return "Tetap";
       })
       ->make();
@@ -146,7 +144,10 @@ class PKWTController extends Controller
 
     $getpkwt = PKWT::join('master_pegawai as spv', 'spv.id', '=', 'data_pkwt.id_kelompok_jabatan')
                     ->join('master_pegawai', 'master_pegawai.id', '=', 'data_pkwt.id_pegawai')
-                    ->select('data_pkwt.*', 'master_pegawai.nama', 'spv.nama')
+                    ->join('cabang_client', 'cabang_client.id', '=', 'data_pkwt.id_cabang_client')
+                    ->join('master_client', 'master_client.id', '=', 'cabang_client.id_client')
+                    ->join('master_jabatan', 'master_jabatan.id', '=', 'master_pegawai.id_jabatan')
+                    ->select('data_pkwt.*', 'master_pegawai.nama', 'spv.nama', 'master_client.nama_client', 'cabang_client.nama_cabang')
                     ->where('data_pkwt.id_pegawai', $id_pegawai)
                     ->orderBy('tanggal_akhir_pkwt', 'DESC')
                     ->get();

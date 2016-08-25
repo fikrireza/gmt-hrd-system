@@ -11,8 +11,8 @@
     Data PKWT
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li class="active">Dashboard</li>
+    <li><a href="{{ url('/dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li class="active">PKWT</li>
   </ol>
 @stop
 
@@ -32,7 +32,7 @@
                 <th>Tanggal Awal PKWT</th>
                 <th>Tanggal Akhir PKWT</th>
                 <th>Kelompok Jabatan</th>
-                <th>Status PKWT</th>
+                <th>Status Karyawan</th>
                 <th>Keterangan</th>
                 <th>Aksi</th>
               </tr>
