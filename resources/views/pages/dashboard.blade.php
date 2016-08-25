@@ -37,7 +37,7 @@
       <!-- small box -->
       <div class="small-box bg-yellow">
         <div class="inner">
-          <h3>10</h3>
+          <h3>{{$jumlah_pkwt_menuju_expired}}</h3>
           <p>PKWT Menuju Expired</p>
         </div>
         <div class="icon">
@@ -45,7 +45,7 @@
         </div>
         <a class="small-box-footer">
           <i>
-          10
+          {{$jumlah_pkwt_menuju_expired}}
           Data PKWT Menuju Expired</i></a>
       </div>
     </div><!-- ./col -->
@@ -53,7 +53,7 @@
       <!-- small box -->
       <div class="small-box bg-red">
         <div class="inner">
-          <h3>123</h3>
+          <h3>{{$jumlah_pkwt_expired}}</h3>
           <p>PKWT Expired</p>
         </div>
         <div class="icon">
@@ -61,7 +61,7 @@
         </div>
         <a class="small-box-footer">
           <i>
-            123
+            {{$jumlah_pkwt_expired}}
             Data PKWT Expired</i>
         </a>
       </div>
@@ -70,7 +70,7 @@
       <!-- small box -->
       <div class="small-box bg-green">
         <div class="inner">
-          <h3>12</h3>
+          <h3>{{ $jumlah_client }}</h3>
           <p>Jumlah Client</p>
         </div>
         <div class="icon">

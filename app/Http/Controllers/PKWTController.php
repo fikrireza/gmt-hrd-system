@@ -18,7 +18,6 @@ class PKWTController extends Controller
 {
   public function index()
   {
-
     return view('pages.PKWT.viewpkwt', compact('getcountpegawai'));
   }
 
@@ -52,8 +51,6 @@ class PKWTController extends Controller
 
   public function getPKWTforDataTables()
   {
-    // date_default_timezone_set('Asia/Jakarta');
-
     $pkwt = PKWT::select(['pegawai.nip as nip','pegawai.nama as nama','tanggal_awal_pkwt', 'tanggal_akhir_pkwt', 'spv.nama as id_kelompok_jabatan', 'status_karyawan_pkwt'])
               ->join('master_pegawai as pegawai','data_pkwt.id_pegawai','=', 'pegawai.id')
               ->join('master_pegawai as spv', 'data_pkwt.id_kelompok_jabatan', '=', 'spv.id')
