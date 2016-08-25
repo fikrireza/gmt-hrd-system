@@ -24,6 +24,7 @@ use App\Models\HistoriPegawai;
 use App\MasterJabatan;
 use Datatables;
 use Image;
+use Validator;
 
 class MasterPegawaiController extends Controller
 {
@@ -485,6 +486,55 @@ class MasterPegawaiController extends Controller
 
     public function saveChangesPegawai(Request $request)
     {
+      $messages = [
+          'nip.required' => 'NIP harus diisi',
+          'niplama.required' => 'NIP Lama harus diisi',
+          'ktp.required' => 'KTP harus diisi',
+          'kk.required' => 'KK harus diisi',
+          'npwp.required' => 'NPWP harus diisi',
+          'tgllahir.required' => 'Tanggal lahir harus diisi',
+          'jenis_kelamin.required' => 'Jenis kelamin harus diisi',
+          'email.required' => 'Email harus diisi',
+          'email.email' => 'Format email tidak valid',
+          'alamat.required' => 'Alamat harus diisi',
+          'agama.required' => 'Agama harus dipilih',
+          'agama.not_in' => 'Agama harus dipilih',
+          'telp.required' => 'Telp harus diisi',
+          'telp.numeric' => 'Telp harus diisi dengan angka',
+          'warga.required' => 'Kewarganegaraan harus diisi',
+          'warga.not_in' => 'Kewarganegaraan harus diisi',
+          'bpjssehat.required' => 'BPJS Kesehatan harus diisi',
+          'bpjskerja.required' => 'BPJS Ketenagakerjaan harus diisi',
+          'rekening.required' => 'Rekening harus diisi',
+          'jabatan.required' => 'Jabatan harus diisi',
+          'jabatan.not_in' => 'Jabatan harus diisi'
+      ];
+
+      $validator = Validator::make($request->all(), [
+        'nip' => 'required',
+        'niplama' => 'required',
+        'ktp' => 'required',
+        'kk' => 'required',
+        'npwp' => 'required',
+        'tgllahir' => 'required',
+        'jenis_kelamin' => 'required',
+        'email' => 'required|email',
+        'alamat' => 'required',
+        'agama' => 'required|not_in:-- Pilih --',
+        'telp' => 'required|numeric',
+        'warga' => 'required|not_in:-- Pilih --',
+        'bpjssehat' => 'required',
+        'bpjskerja' => 'required',
+        'rekening' => 'required',
+        'jabatan' => 'required|not_in:-- Pilih --'
+      ], $messages);
+
+      if ($validator->fails()) {
+        return redirect()->route('masterpegawai.show', $request->nip)
+          ->withErrors($validator)
+          ->withInput();
+      }
+
       $pegawai = MasterPegawai::find($request->id_pegawai);
       $pegawai->nip = $request->nip;
       $pegawai->nip_lama = $request->niplama;

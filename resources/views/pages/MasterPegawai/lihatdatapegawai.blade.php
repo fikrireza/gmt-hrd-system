@@ -1565,24 +1565,64 @@
                 <td>NIP</td>
                 <td>:</td>
                 <td id="tdlabelnip"><b>{{ $pegawai->nip}}</b></td>
-                <td id="tdtextnip"><input type="text" class="form-control" name="nip" value="{{$pegawai->nip}}"></td>
+                <td id="tdtextnip" class="{{ $errors->has('nip') ? 'has-error' : '' }}">
+                  <input type="text" class="form-control" name="nip"
+                    @if($errors->has('nip'))
+                      value="{{old('nip')}}"
+                    @else
+                      value="{{$pegawai->nip}}"
+                    @endif
+                  >
+                  @if($errors->has('nip'))
+                   <span class="help-block">
+                     <strong>{{ $errors->first('nip')}}
+                     </strong>
+                   </span>
+                  @endif
+                </td>
               </tr>
               <tr>
                 <td>NIP Lama</td>
                 <td>:</td>
                 <td id="tdlabelniplama"><b>{{ $pegawai->nip_lama}}</b></td>
-                <td id="tdtextniplama"><input type="text" class="form-control" name="niplama" value="{{$pegawai->nip}}"></td>
+                <td id="tdtextniplama" class="{{ $errors->has('niplama') ? 'has-error' : '' }}">
+                  <input type="text" class="form-control" name="niplama"
+                    @if($errors->has('niplama'))
+                      value="{{old('niplama')}}"
+                    @else
+                      value="{{$pegawai->nip_lama}}"
+                    @endif
+                  >
+                  @if($errors->has('niplama'))
+                   <span class="help-block">
+                     <strong>{{ $errors->first('niplama')}}
+                     </strong>
+                   </span>
+                  @endif
+                </td>
               </tr>
               <tr>
                 <td>Tanggal Lahir</td>
                 <td>:</td>
                 <td id="tdlabeltgllahir"><b>{{ $pegawai->tanggal_lahir}}</b></td>
-                <td id="tdtexttgllahir">
+                <td id="tdtexttgllahir" class="{{ $errors->has('tgllahir') ? 'has-error' : '' }}">
                   <div class="input-group">
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
                     </div>
-                    <input type="text" class="form-control" name="tgllahir" id="tanggal_lahir" value="{{$pegawai->tanggal_lahir}}">
+                    <input type="text" class="form-control" name="tgllahir" id="tanggal_lahir"
+                      @if($errors->has('tgllahir'))
+                        value="{{old('tgllahir')}}"
+                      @else
+                        value="{{$pegawai->tanggal_lahir}}"
+                      @endif
+                    >
+                    @if($errors->has('tgllahir'))
+                     <span class="help-block">
+                       <strong>{{ $errors->first('tgllahir')}}
+                       </strong>
+                     </span>
+                    @endif
                   </div><!-- /.input group -->
                 </td>
               </tr>
@@ -1616,103 +1656,225 @@
                    </label>
                    <label>Wanita</label>
                  @endif
+                 @if($errors->has('jenis_kelamin'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('jenis_kelamin')}}
+                    </strong>
+                  </span>
+                 @endif
                </td>
               </tr>
               <tr>
                 <td>E-mail</td>
                 <td>:</td>
                 <td id="tdlabelemail"><b>{{ $pegawai->email}}</b></td>
-                <td id="tdtextemail"><input type="email" class="form-control" name="email" value="{{$pegawai->email}}"></td>
+                <td id="tdtextemail" class="{{ $errors->has('email') ? 'has-error' : '' }}">
+                  <input type="email" class="form-control" name="email"
+                    @if($errors->has('email'))
+                      value="{{old('email')}}"
+                    @else
+                      value="{{$pegawai->email}}"
+                    @endif
+                  >
+                  @if($errors->has('email'))
+                   <span class="help-block">
+                     <strong>{{ $errors->first('email')}}
+                     </strong>
+                   </span>
+                  @endif
+                </td>
               </tr>
               <tr>
                 <td>Agama</td>
                 <td>:</td>
                 <td id="tdlabelagama"><b data-value="{{$pegawai->agama}}" id="valagama">{{ $pegawai->agama }}</b></td>
-                <td id="tdtextagama">
+                <td id="tdtextagama" class="{{ $errors->has('agama') ? 'has-error' : '' }}">
                   <select class="form-control" name="agama">
                     <option>-- Pilih --</option>
-                    <option value="Islam" id="valislam">Islam</option>
-                    <option value="Kristen" id="valkristen">Kristen</option>
-                    <option value="Hindu" id="valhindu">Hindu</option>
-                    <option value="Budha" id="valbudha">Budha</option>
-                    <option value="Lainnya" id="vallain">Lainnya</option>
+                    <option value="Islam" id="valislam" {{(old('agama')=="Islam") ? 'selected' : ''}}>Islam</option>
+                    <option value="Kristen" id="valkristen" {{(old('agama')=="Kristen") ? 'selected' : ''}}>Kristen</option>
+                    <option value="Hindu" id="valhindu" {{(old('agama')=="Hindu") ? 'selected' : ''}}>Hindu</option>
+                    <option value="Budha" id="valbudha" {{(old('agama')=="Budha") ? 'selected' : ''}}>Budha</option>
+                    <option value="Lainnya" id="vallain" {{(old('agama')=="Lainnya") ? 'selected' : ''}}>Lainnya</option>
                   </select>
+                  @if($errors->has('agama'))
+                   <span class="help-block">
+                     <strong>{{ $errors->first('agama')}}
+                     </strong>
+                   </span>
+                  @endif
                 </td>
               </tr>
               <tr>
                 <td>Alamat</td>
                 <td>:</td>
                 <td id="tdlabelalamat"><b>{{ $pegawai->alamat}}</b></td>
-                <td id="tdtextalamat">
-                  <textarea name="alamat" class="form-control" rows="3">{{$pegawai->alamat}}</textarea>
+                <td id="tdtextalamat" class="{{ $errors->has('alamat') ? 'has-error' : '' }}">
+                  <textarea name="alamat" class="form-control" rows="3">{{$errors->has('alamat') ? old('alamat') : $pegawai->alamat}}</textarea>
+                  @if($errors->has('alamat'))
+                   <span class="help-block">
+                     <strong>{{ $errors->first('alamat')}}
+                     </strong>
+                   </span>
+                  @endif
                 </td>
               </tr>
               <tr>
                 <td>No Telp</td>
                 <td>:</td>
                 <td id="tdlabeltelp"><b>{{ $pegawai->no_telp}}</b></td>
-                <td id="tdtexttelp">
-                  <input type="text" name="telp" class="form-control" value="{{$pegawai->no_telp}}">
+                <td id="tdtexttelp" class="{{ $errors->has('telp') ? 'has-error' : '' }}">
+                  <input type="text" name="telp" class="form-control"
+                  @if($errors->has('telp'))
+                    value="{{old('telp')}}"
+                  @else
+                    value="{{$pegawai->no_telp}}"
+                  @endif
+                  >
+                  @if($errors->has('telp'))
+                   <span class="help-block">
+                     <strong>{{ $errors->first('telp')}}
+                     </strong>
+                   </span>
+                  @endif
                 </td>
               </tr>
               <tr>
                 <td>No KTP</td>
                 <td>:</td>
                 <td id="tdlabelktp"><b>{{ $pegawai->no_ktp}}</b></td>
-                <td id="tdtextktp">
-                  <input type="text" name="ktp" class="form-control" value="{{$pegawai->no_ktp}}">
+                <td id="tdtextktp" class="{{ $errors->has('ktp') ? 'has-error' : '' }}">
+                  <input type="text" name="ktp" class="form-control"
+                    @if($errors->has('ktp'))
+                      value="{{old('ktp')}}"
+                    @else
+                      value="{{$pegawai->no_ktp}}"
+                    @endif
+                  >
+                  @if($errors->has('ktp'))
+                   <span class="help-block">
+                     <strong>{{ $errors->first('ktp')}}
+                     </strong>
+                   </span>
+                  @endif
                 </td>
               </tr>
               <tr>
                 <td>No KK</td>
                 <td>:</td>
                 <td id="tdlabelkk"><b>{{ $pegawai->no_kk}}</b></td>
-                <td id="tdtextkk">
-                  <input type="text" name="kk" class="form-control" value="{{$pegawai->no_kk}}">
+                <td id="tdtextkk" class="{{ $errors->has('kk') ? 'has-error' : '' }}">
+                  <input type="text" name="kk" class="form-control"
+                    @if($errors->has('kk'))
+                      value="{{old('kk')}}"
+                    @else
+                      value="{{$pegawai->no_kk}}"
+                    @endif
+                  >
+                  @if($errors->has('kk'))
+                   <span class="help-block">
+                     <strong>{{ $errors->first('kk')}}
+                     </strong>
+                   </span>
+                  @endif
                 </td>
               </tr>
               <tr>
                 <td>No NPWP</td>
                 <td>:</td>
                 <td id="tdlabelnpwp"><b>{{ $pegawai->no_npwp}}</b></td>
-                <td id="tdtextnpwp">
-                  <input type="text" name="npwp" class="form-control" value="{{$pegawai->no_npwp}}">
+                <td id="tdtextnpwp" class="{{ $errors->has('npwp') ? 'has-error' : '' }}">
+                  <input type="text" name="npwp" class="form-control"
+                    @if($errors->has('npwp'))
+                      value="{{old('npwp')}}"
+                    @else
+                      value="{{$pegawai->no_npwp}}"
+                    @endif
+                  >
+                  @if($errors->has('npwp'))
+                   <span class="help-block">
+                     <strong>{{ $errors->first('npwp')}}
+                     </strong>
+                   </span>
+                  @endif
                 </td>
               </tr>
               <tr>
                 <td>BPJS Ketenagakerjaan</td>
                 <td>:</td>
                 <td id="tdlabelbpjskerja"><b>{{ $pegawai->bpjs_ketenagakerjaan}}</b></td>
-                <td id="tdtextbpjskerja">
-                  <input type="text" name="bpjskerja" class="form-control" value="{{$pegawai->bpjs_ketenagakerjaan}}">
+                <td id="tdtextbpjskerja" class="{{ $errors->has('bpjskerja') ? 'has-error' : '' }}">
+                  <input type="text" name="bpjskerja" class="form-control"
+                    @if($errors->has('bpjskerja'))
+                      value="{{old('bpjskerja')}}"
+                    @else
+                      value="{{$pegawai->bpjs_ketenagakerjaan}}"
+                    @endif
+                  >
+                  @if($errors->has('bpjskerja'))
+                   <span class="help-block">
+                     <strong>{{ $errors->first('bpjskerja')}}
+                     </strong>
+                   </span>
+                  @endif
                 </td>
               </tr>
               <tr>
                 <td>BPJS Kesehatan</td>
                 <td>:</td>
                 <td id="tdlabelbpjssehat"><b>{{ $pegawai->bpjs_kesehatan}}</b></td>
-                <td id="tdtextbpjssehat">
-                  <input type="text" name="bpjssehat" class="form-control" value="{{$pegawai->bpjs_kesehatan}}">
+                <td id="tdtextbpjssehat" class="{{ $errors->has('bpjssehat') ? 'has-error' : '' }}">
+                  <input type="text" name="bpjssehat" class="form-control"
+                    @if($errors->has('bpjssehat'))
+                      value="{{old('bpjssehat')}}"
+                    @else
+                      value="{{$pegawai->bpjs_kesehatan}}"
+                    @endif
+                  >
+                  @if($errors->has('bpjssehat'))
+                   <span class="help-block">
+                     <strong>{{ $errors->first('bpjssehat')}}
+                     </strong>
+                   </span>
+                  @endif
                 </td>
               </tr>
               <tr>
                 <td>No Rekening</td>
                 <td>:</td>
                 <td id="tdlabelrekening"><b>{{ $pegawai->no_rekening}}</b></td>
-                <td id="tdtextrekening">
-                  <input type="text" name="rekening" class="form-control" value="{{$pegawai->no_rekening}}">
+                <td id="tdtextrekening" class="{{ $errors->has('rekening') ? 'has-error' : '' }}">
+                  <input type="text" name="rekening" class="form-control"
+                    @if($errors->has('rekening'))
+                      value="{{old('rekening')}}"
+                    @else
+                      value="{{$pegawai->no_rekening}}"
+                    @endif
+                  >
+                  @if($errors->has('rekening'))
+                   <span class="help-block">
+                     <strong>{{ $errors->first('rekening')}}
+                     </strong>
+                   </span>
+                  @endif
                 </td>
               </tr>
               <tr>
                 <td>Kewarganegaraan</td>
                 <td>:</td>
                 <td id="tdlabelwarga"><b data-value="{{$pegawai->kewarganegaraan}}" id="valwarga">{{ $pegawai->kewarganegaraan}}</b></td>
-                <td id="tdtextwarga">
+                <td id="tdtextwarga" class="{{ $errors->has('warga') ? 'has-error' : '' }}">
                   <select class="form-control" name="warga">
                     <option>-- Pilih --</option>
-                    <option value="WNI" id="valwni">WNI</option>
-                    <option value="WNA" id="valwna">WNA</option>
+                    <option value="WNI" id="valwni" {{(old('warga')=="WNI") ? 'selected' : ''}}>WNI</option>
+                    <option value="WNA" id="valwna" {{(old('warga')=="WNA") ? 'selected' : ''}}>WNA</option>
                   </select>
+                  @if($errors->has('warga'))
+                   <span class="help-block">
+                     <strong>{{ $errors->first('warga')}}
+                     </strong>
+                   </span>
+                  @endif
                   <input type="hidden" name="id_pegawai" class="form-control" value="{{$pegawai->id}}">
                 </td>
               </tr>
@@ -1720,17 +1882,33 @@
                 <td>Jabatan</td>
                 <td>:</td>
                 <td id="tdlabeljabatan"><b data-value="{{$pegawai->nama_jabatan}}" id="valjabatan">{{ $pegawai->nama_jabatan}}</b></td>
-                <td id="tdtextjabatan">
+                <td id="tdtextjabatan" class="{{ $errors->has('jabatan') ? 'has-error' : '' }}">
                   <select class="form-control" name="jabatan">
-                    <option>-- Pilih --</option>
-                    @foreach($DataJabatan as $key)
-                      @if($pegawai->nama_jabatan==$key->nama_jabatan)
-                        <option value="{{$key->id}}" selected>{{$key->nama_jabatan}}</option>
-                      @else
-                        <option value="{{$key->id}}">{{$key->nama_jabatan}}</option>
-                      @endif
-                    @endforeach
+                    <option value="-- Pilih --">-- Pilih --</option>
+                    @if(count($errors)>0)
+                      @foreach($DataJabatan as $key)
+                        @if(old('jabatan')==$key->id)
+                          <option value="{{$key->id}}" selected>{{$key->nama_jabatan}}</option>
+                        @else
+                          <option value="{{$key->id}}">{{$key->nama_jabatan}}</option>
+                        @endif
+                      @endforeach
+                    @else
+                      @foreach($DataJabatan as $key)
+                        @if($pegawai->nama_jabatan==$key->nama_jabatan)
+                          <option value="{{$key->id}}" selected>{{$key->nama_jabatan}}</option>
+                        @else
+                          <option value="{{$key->id}}">{{$key->nama_jabatan}}</option>
+                        @endif
+                      @endforeach
+                    @endif
                   </select>
+                  @if($errors->has('jabatan'))
+                   <span class="help-block">
+                     <strong>{{ $errors->first('jabatan')}}
+                     </strong>
+                   </span>
+                  @endif
                 </td>
               </tr>
             </tbody>
@@ -2576,23 +2754,60 @@
       });
 
 
-      $('#tdtextnip').hide();
-      $('#tdtextniplama').hide();
-      $('#tdtexttgllahir').hide();
-      $('#tdtextjk').hide();
-      $('#tdtextemail').hide();
-      $('#tdtextagama').hide();
-      $('#tdtextalamat').hide();
-      $('#tdtexttelp').hide();
-      $('#tdtextktp').hide();
-      $('#tdtextkk').hide();
-      $('#tdtextnpwp').hide();
-      $('#tdtextbpjskerja').hide();
-      $('#tdtextbpjssehat').hide();
-      $('#tdtextrekening').hide();
-      $('#tdtextwarga').hide();
-      $('#tdtextjabatan').hide();
-      $('#btnsavepegawai').hide();
+      @if(count($errors)!=0)
+        $('#tdlabelnip').hide();
+        $('#tdlabelniplama').hide();
+        $('#tdlabeltgllahir').hide();
+        $('#tdlabeljk').hide();
+        $('#tdlabelemail').hide();
+        $('#tdlabelagama').hide();
+        $('#tdlabelalamat').hide();
+        $('#tdlabeltelp').hide();
+        $('#tdlabelktp').hide();
+        $('#tdlabelkk').hide();
+        $('#tdlabelnpwp').hide();
+        $('#tdlabelbpjskerja').hide();
+        $('#tdlabelbpjssehat').hide();
+        $('#tdlabelrekening').hide();
+        $('#tdlabelwarga').hide();
+        $('#tdlabeljabatan').hide();
+        $('a#editpegawai').hide();
+
+        $('#tdtextnip').show();
+        $('#tdtextniplama').show();
+        $('#tdtexttgllahir').show();
+        $('#tdtextjk').show();
+        $('#tdtextemail').show();
+        $('#tdtextagama').show();
+        $('#tdtextalamat').show();
+        $('#tdtexttelp').show();
+        $('#tdtextktp').show();
+        $('#tdtextkk').show();
+        $('#tdtextnpwp').show();
+        $('#tdtextbpjskerja').show();
+        $('#tdtextbpjssehat').show();
+        $('#tdtextrekening').show();
+        $('#tdtextwarga').show();
+        $('#tdtextjabatan').show();
+      @else
+        $('#tdtextnip').hide();
+        $('#tdtextniplama').hide();
+        $('#tdtexttgllahir').hide();
+        $('#tdtextjk').hide();
+        $('#tdtextemail').hide();
+        $('#tdtextagama').hide();
+        $('#tdtextalamat').hide();
+        $('#tdtexttelp').hide();
+        $('#tdtextktp').hide();
+        $('#tdtextkk').hide();
+        $('#tdtextnpwp').hide();
+        $('#tdtextbpjskerja').hide();
+        $('#tdtextbpjssehat').hide();
+        $('#tdtextrekening').hide();
+        $('#tdtextwarga').hide();
+        $('#tdtextjabatan').hide();
+        $('#btnsavepegawai').hide();
+      @endif
 
       $('a#editpegawai').click(function(){
         $('#tdlabelnip').hide();
