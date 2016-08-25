@@ -58,7 +58,7 @@ class PKWTController extends Controller
               ->join('master_pegawai as pegawai','data_pkwt.id_pegawai','=', 'pegawai.id')
               ->join('master_pegawai as spv', 'data_pkwt.id_kelompok_jabatan', '=', 'spv.id')
               ->where('status_pkwt', 1)->get();
-    
+
     return Datatables::of($pkwt)
       ->addColumn('keterangan', function($pkwt){
         $tgl = explode('-', $pkwt->tanggal_akhir_pkwt);
@@ -152,7 +152,7 @@ class PKWTController extends Controller
                     ->where('data_pkwt.id_pegawai', $id_pegawai)
                     ->orderBy('tanggal_akhir_pkwt', 'DESC')
                     ->get();
-                    // dd($getpkwt);
+
     $get_kel_jabatan = MasterPegawai::select('id','nip','nama')->where('id_jabatan', '=', '999')->get();
 
     return view('pages.PKWT.viewdetailpkwt', compact('getnip', 'getpkwt', 'get_kel_jabatan'));

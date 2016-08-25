@@ -166,7 +166,9 @@ class MasterPegawaiController extends Controller
                         ->select('master_pegawai.*', 'master_jabatan.nama_jabatan')
                         ->where('nip', '=', $id)
                         ->get();
-      
+
+      $DataJabatan    = MasterJabatan::all();
+
       $idofpegawai;
       foreach ($DataPegawai as $k) {
         $idofpegawai = $k->id;
@@ -189,7 +191,7 @@ class MasterPegawaiController extends Controller
       $DataPeringatan = DataPeringatan::where('id_pegawai', '=', $idofpegawai)->get();
       $DataHistoriPegawai = HistoriPegawai::where('id_pegawai', $idofpegawai)->get();
 
-      return view('pages/MasterPegawai/lihatdatapegawai', compact('DataPegawai', 'DataKeluarga', 'DataPendidikan', 'DataPengalaman', 'DataKomputer', 'DataBahasa', 'DataKesehatan', 'DataPenyakit', 'DokumenPegawai', 'DataPKWT', 'DataPeringatan', 'DataHistoriPegawai'));
+      return view('pages/MasterPegawai/lihatdatapegawai', compact('DataJabatan', 'DataPegawai', 'DataKeluarga', 'DataPendidikan', 'DataPengalaman', 'DataKomputer', 'DataBahasa', 'DataKesehatan', 'DataPenyakit', 'DokumenPegawai', 'DataPKWT', 'DataPeringatan', 'DataHistoriPegawai'));
     }
 
     public function getDataForDataTable()
@@ -489,18 +491,17 @@ class MasterPegawaiController extends Controller
       $pegawai->no_ktp = $request->ktp;
       $pegawai->no_kk = $request->kk;
       $pegawai->no_npwp = $request->npwp;
-      // $pegawai->nama = $request->nama;
       $pegawai->tanggal_lahir = $request->tgllahir;
       $pegawai->jenis_kelamin = $request->jenis_kelamin;
       $pegawai->email = $request->email;
       $pegawai->alamat = $request->alamat;
       $pegawai->agama = $request->agama;
       $pegawai->no_telp = $request->telp;
-      // $pegawai->status_pajak = $request->niplama;
       $pegawai->kewarganegaraan = $request->warga;
       $pegawai->bpjs_kesehatan = $request->bpjssehat;
       $pegawai->bpjs_ketenagakerjaan = $request->bpjskerja;
       $pegawai->no_rekening = $request->rekening;
+      $pegawai->id_jabatan = $request->jabatan;
       $pegawai->save();
 
       return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data pegawai.');
