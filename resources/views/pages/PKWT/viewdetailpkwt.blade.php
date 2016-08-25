@@ -248,6 +248,11 @@
                           <span data-toggle="tooltip" title="Edit Data">
                             <a href="#" data-value="{{$key->id}}" class="btn btn-xs btn-warning edit_pkwt" data-toggle="modal" data-target="#modaleditpkwt"><i class="fa fa-edit"></i></a>
                           </span>
+                          @if($key->status_pkwt == '1')
+                            <span data-toggle="tooltip" title="Terminate">
+                              <a href="#" data-value="{{$key->id}}" class="btn btn-xs btn-danger terminate_pkwt" data-toggle="modal" data-target="#modalterminatepkwt"><i class="fa fa-power-off"></i></a>
+                            </span>
+                          @endif
                         </td>
                       </tr>
                     @endforeach
