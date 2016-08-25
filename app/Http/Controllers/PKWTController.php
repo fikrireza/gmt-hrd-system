@@ -9,7 +9,7 @@ use App\PKWT;
 use App\MasterPegawai;
 use App\Models\MasterClient;
 use App\Models\CabangClient;
-use App\Models\KelompokJabatan;
+use App\Models\HistoriPegawai;
 use Datatables;
 use Carbon\Carbon;
 use DB;
@@ -44,6 +44,7 @@ class PKWTController extends Controller
     $set->id_pegawai = $request->id_pegawai;
     $set->id_kelompok_jabatan = $request->id_kelompok_jabatan;
     $set->id_cabang_client = $request->id_cabang_client;
+    $set->flag_terminate = '1';
     $set->save();
 
     return redirect()->route('kelola.pkwt');
@@ -171,11 +172,29 @@ class PKWTController extends Controller
     $set->tanggal_akhir_pkwt = $request->tanggal_akhir_pkwt;
     $set->status_karyawan_pkwt = $request->status_karyawan;
     $set->status_pkwt = $request->status_pkwt;
-    // $set->save();
-    $push = KelompokJabatan::find($request->id_kel_jabatan);
-    $push->id_supervisor = $request->id_kelompok_jabatan;
-    $push->save();
+    $set->id_supervisor = $request->id_kelompok_jabatan;
+    $set->save();
 
     return redirect()->route('detail.pkwt', $request->nip)->with('message', 'Berhasil mengubah data PKWT.');
+  }
+
+  public function terminatePKWT(Request $request)
+  {
+    $setPKWT = PKWT::find($request->id_pkwt);
+    $setPKWT->flag_terminate = '0';
+    $setPKWT->status_pkwt = '0';
+    $setPKWT->save();
+
+    $bindPegawai = PKWT::join('master_pegawai', 'master_pegawai.id', '=', 'data_pkwt.id_pegawai')
+                  ->select('master_pegawai.id', 'master_pegawai.nip')
+                  ->where('data_pkwt.id', $request->id_pkwt)
+                  ->first();
+
+    $setHistori = new HistoriPegawai;
+    $setHistori->keterangan = $request->keterangan;
+    $setHistori->id_pegawai = $bindPegawai->id;
+    $setHistori->save();
+
+    return redirect()->route('detail.pkwt', $bindPegawai->nip)->with('terminate', 'PKWT Berhasil di-Terminate.');
   }
 }

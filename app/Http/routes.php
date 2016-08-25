@@ -34,6 +34,7 @@ Route::post('add-pkwt/proses', 'PKWTController@store');
 Route::get('view-detail-pkwt/{id}', ['as'=>'detail.pkwt', 'uses'=>'PKWTController@detail']);
 Route::get('edit-pkwt/getpkwt/{id}', 'PKWTController@bind');
 Route::post('savepkwt', 'PKWTController@saveChangesPKWT');
+Route::post('terminatepkwt', 'PKWTController@terminatePKWT');
 
 Route::resource('masterjabatan', 'MasterJabatanController');
 Route::get('masterjabatan/hapusjabatan/{id}', ['as'=>'masterjabatan.hapusjabatan', 'uses'=>'MasterJabatanController@hapusJabatan']);

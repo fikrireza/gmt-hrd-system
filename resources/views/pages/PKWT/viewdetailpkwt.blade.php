@@ -30,6 +30,37 @@
       }, 2000);
     </script>
 
+    {{-- Modak for Terminate--}}
+    <div class="modal modal-default fade" id="modalterminatepkwt" role="dialog">
+      <div class="modal-dialog" style="width:600px;">
+        <!-- Modal content-->
+        <form class="form-horizontal" action="{{url('terminatepkwt')}}" method="post">
+          {!! csrf_field() !!}
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Terminate PKWT</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <div class="col-sm-1"></div>
+                <label class="col-sm-3">Alasan Terminate</label>
+                <div class="col-sm-6">
+                  <textarea name="keterangan" class="form-control" cols="35" rows="10">PKWT ini telah di-Terminate dengan alasan : </textarea>
+                  <input type="hidden" name="id_pkwt" class="form-control" id="id_pkwt" required>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+              <button type="submit" class="btn btn-danger">Terminate</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
     {{-- modal edit penyakit --}}
     <div class="modal modal-default fade" id="modaleditpkwt" role="dialog">
       <div class="modal-dialog" style="width:800px;">
@@ -160,6 +191,12 @@
           <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
           <p>{{ Session::get('message') }}</p>
         </div>
+      @elseif(Session::has('terminate'))
+        <div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+          <p>{{ Session::get('terminate') }}</p>
+        </div>
       @endif
     </div>
     <div class="col-md-12">
@@ -248,7 +285,7 @@
                           <span data-toggle="tooltip" title="Edit Data">
                             <a href="#" data-value="{{$key->id}}" class="btn btn-xs btn-warning edit_pkwt" data-toggle="modal" data-target="#modaleditpkwt"><i class="fa fa-edit"></i></a>
                           </span>
-                          @if($key->status_pkwt == '1')
+                          @if($key->status_pkwt == '1' || $key->terminate == '0')
                             <span data-toggle="tooltip" title="Terminate">
                               <a href="#" data-value="{{$key->id}}" class="btn btn-xs btn-danger terminate_pkwt" data-toggle="modal" data-target="#modalterminatepkwt"><i class="fa fa-power-off"></i></a>
                             </span>
@@ -286,6 +323,21 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $(".select2").select2();
+    });
+  </script>
+
+  <script type="text/javascript">
+    $('.terminate_pkwt').click(function(){
+      var a = $(this).data('value');
+      $.ajax({
+        url: "{{ url('/')}}/edit-pkwt/getpkwt/"+a,
+        dataType: 'json',
+        success: function(data){
+          var id_pkwt = data.id;
+          //set
+          $('#id_pkwt').attr('value', id_pkwt);
+        }
+      });
     });
   </script>
 
