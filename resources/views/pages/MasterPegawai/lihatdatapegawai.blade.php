@@ -1946,28 +1946,34 @@
                   <th>Alamat</th>
                   <th>Aksi</th>
                 </tr>
-                @foreach($DataKeluarga as $keluarga)
-                <tr>
-                  <td>{{ $keluarga->nama_keluarga }}</td>
-                  <td>{{ $keluarga->hubungan_keluarga }}</td>
-                  <td>{{ $keluarga->tanggal_lahir_keluarga }}</td>
-                  <td>{{ $keluarga->pekerjaan_keluarga }}</td>
-                  <td>@if($keluarga->jenis_kelamin_keluarga == 'L')
-                    Pria
-                  @else
-                    Wanita
-                  @endif</td>
-                  <td>{{ $keluarga->alamat_keluarga }}</td>
-                  <td>
-                    <span data-toggle="tooltip" title="Hapus Data">
-                      <a href="" class="btn btn-xs btn-danger hapuskeluarga" data-toggle="modal" data-target="#hapuskeluarga" data-value="{{$keluarga->id}}"><i class="fa fa-remove"></i></a>
-                    </span>
-                    <span data-toggle="tooltip" title="Edit Data">
-                      <a href="" class="btn btn-xs btn-warning editkeluarga" data-toggle="modal" data-target="#editkeluarga" data-value="{{$keluarga->id}}"><i class="fa fa-edit"></i></a>
-                    </span>
-                  </td>
-                </tr>
-                @endforeach
+                @if(count($DataKeluarga)!=0)
+                  @foreach($DataKeluarga as $keluarga)
+                    <tr>
+                      <td>{{ $keluarga->nama_keluarga }}</td>
+                      <td>{{ $keluarga->hubungan_keluarga }}</td>
+                      <td>{{ $keluarga->tanggal_lahir_keluarga }}</td>
+                      <td>{{ $keluarga->pekerjaan_keluarga }}</td>
+                      <td>@if($keluarga->jenis_kelamin_keluarga == 'L')
+                        Pria
+                      @else
+                        Wanita
+                      @endif</td>
+                      <td>{{ $keluarga->alamat_keluarga }}</td>
+                      <td>
+                        <span data-toggle="tooltip" title="Hapus Data">
+                          <a href="" class="btn btn-xs btn-danger hapuskeluarga" data-toggle="modal" data-target="#hapuskeluarga" data-value="{{$keluarga->id}}"><i class="fa fa-remove"></i></a>
+                        </span>
+                        <span data-toggle="tooltip" title="Edit Data">
+                          <a href="" class="btn btn-xs btn-warning editkeluarga" data-toggle="modal" data-target="#editkeluarga" data-value="{{$keluarga->id}}"><i class="fa fa-edit"></i></a>
+                        </span>
+                      </td>
+                    </tr>
+                  @endforeach
+                @else
+                  <tr>
+                    <td colspan="7" align="center" class="text-muted"><i>Data tidak tersedia.</i></td>
+                  </tr>
+                @endif
               </tbody>
             </table>
 
@@ -1983,23 +1989,29 @@
                   <th>Gelar</th>
                   <th>Aksi</th>
                 </tr>
-                @foreach($DataPendidikan as $pendidikan)
-                <tr>
-                  <td>{{ $pendidikan->jenjang_pendidikan }}</td>
-                  <td>{{ $pendidikan->institusi_pendidikan }}</td>
-                  <td>{{ $pendidikan->tahun_masuk_pendidikan }}</td>
-                  <td>{{ $pendidikan->tahun_lulus_pendidikan }}</td>
-                  <td>{{ $pendidikan->gelar_akademik }}</td>
-                  <td>
-                    <span data-toggle="tooltip" title="Hapus Data">
-                      <a href="" class="btn btn-xs btn-danger hapuspendidikan" data-toggle="modal" data-target="#hapuspendidikan" data-value="{{$pendidikan->id}}"><i class="fa fa-remove"></i></a>
-                    </span>
-                    <span data-toggle="tooltip" title="Edit Data">
-                      <a href="" class="btn btn-xs btn-warning editpendidikan" data-toggle="modal" data-target="#editpendidikan" data-value="{{$pendidikan->id}}"><i class="fa fa-edit"></i></a>
-                    </span>
-                  </td>
-                </tr>
-                @endforeach
+                @if(count($DataPendidikan)!=0)
+                  @foreach($DataPendidikan as $pendidikan)
+                    <tr>
+                      <td>{{ $pendidikan->jenjang_pendidikan }}</td>
+                      <td>{{ $pendidikan->institusi_pendidikan }}</td>
+                      <td>{{ $pendidikan->tahun_masuk_pendidikan }}</td>
+                      <td>{{ $pendidikan->tahun_lulus_pendidikan }}</td>
+                      <td>{{ $pendidikan->gelar_akademik }}</td>
+                      <td>
+                        <span data-toggle="tooltip" title="Hapus Data">
+                          <a href="" class="btn btn-xs btn-danger hapuspendidikan" data-toggle="modal" data-target="#hapuspendidikan" data-value="{{$pendidikan->id}}"><i class="fa fa-remove"></i></a>
+                        </span>
+                        <span data-toggle="tooltip" title="Edit Data">
+                          <a href="" class="btn btn-xs btn-warning editpendidikan" data-toggle="modal" data-target="#editpendidikan" data-value="{{$pendidikan->id}}"><i class="fa fa-edit"></i></a>
+                        </span>
+                      </td>
+                    </tr>
+                  @endforeach
+                @else
+                  <tr>
+                    <td colspan="6" align="center" class="text-muted"><i>Data tidak tersedia.</i></td>
+                  </tr>
+                @endif
               </tbody>
             </table>
 
@@ -2013,19 +2025,25 @@
                   <th>Telepon</th>
                   <th>Aksi</th>
                 </tr>
-                @foreach($DataPegawai as $darurat)
-                <tr>
-                  <td>{{ $darurat->nama_darurat }}</td>
-                  <td>{{ $darurat->hubungan_darurat }}</td>
-                  <td>{{ $darurat->alamat_darurat }}</td>
-                  <td>{{ $darurat->telepon_darurat }}</td>
-                  <td>
-                    <span data-toggle="tooltip" title="Edit Data">
-                      <a href="" class="btn btn-xs btn-warning editdarurat" data-toggle="modal" data-target="#editdarurat" data-value="{{$darurat->id}}"><i class="fa fa-edit"></i></a>
-                    </span>
-                  </td>
-                </tr>
-                @endforeach
+                @if(count($DataPegawai)!=0)
+                  @foreach($DataPegawai as $darurat)
+                    <tr>
+                      <td>{{ $darurat->nama_darurat }}</td>
+                      <td>{{ $darurat->hubungan_darurat }}</td>
+                      <td>{{ $darurat->alamat_darurat }}</td>
+                      <td>{{ $darurat->telepon_darurat }}</td>
+                      <td>
+                        <span data-toggle="tooltip" title="Edit Data">
+                          <a href="" class="btn btn-xs btn-warning editdarurat" data-toggle="modal" data-target="#editdarurat" data-value="{{$darurat->id}}"><i class="fa fa-edit"></i></a>
+                        </span>
+                      </td>
+                    </tr>
+                  @endforeach
+                @else
+                  <tr>
+                    <td colspan="5" align="center" class="text-muted"><i>Data tidak tersedia.</i></td>
+                  </tr>
+                @endif
               </tbody>
             </table>
           </div><!-- /.End Keluarga -->
@@ -2041,22 +2059,28 @@
                   <th>Tahun Akhir Kerja</th>
                   <th>Aksi</th>
                 </tr>
-                @foreach($DataPengalaman as $pengalaman)
-                <tr>
-                  <td>{{ $pengalaman->nama_perusahaan }}</td>
-                  <td>{{ $pengalaman->posisi_perusahaan }}</td>
-                  <td>{{ $pengalaman->tahun_awal_kerja }}</td>
-                  <td>{{ $pengalaman->tahun_akhir_kerja }}</td>
-                  <td>
-                    <span data-toggle="tooltip" title="Hapus Data">
-                      <a href="" class="btn btn-xs btn-danger hapuspengalaman" data-toggle="modal" data-target="#hapuspengalaman" data-value="{{$pengalaman->id}}"><i class="fa fa-remove"></i></a>
-                    </span>
-                    <span data-toggle="tooltip" title="Edit Data">
-                      <a href="" class="btn btn-xs btn-warning editpengalaman" data-toggle="modal" data-target="#editpengalaman" data-value="{{$pengalaman->id}}"><i class="fa fa-edit"></i></a>
-                    </span>
-                  </td>
-                </tr>
-                @endforeach
+                @if(count($DataPengalaman)!=0)
+                  @foreach($DataPengalaman as $pengalaman)
+                    <tr>
+                      <td>{{ $pengalaman->nama_perusahaan }}</td>
+                      <td>{{ $pengalaman->posisi_perusahaan }}</td>
+                      <td>{{ $pengalaman->tahun_awal_kerja }}</td>
+                      <td>{{ $pengalaman->tahun_akhir_kerja }}</td>
+                      <td>
+                        <span data-toggle="tooltip" title="Hapus Data">
+                          <a href="" class="btn btn-xs btn-danger hapuspengalaman" data-toggle="modal" data-target="#hapuspengalaman" data-value="{{$pengalaman->id}}"><i class="fa fa-remove"></i></a>
+                        </span>
+                        <span data-toggle="tooltip" title="Edit Data">
+                          <a href="" class="btn btn-xs btn-warning editpengalaman" data-toggle="modal" data-target="#editpengalaman" data-value="{{$pengalaman->id}}"><i class="fa fa-edit"></i></a>
+                        </span>
+                      </td>
+                    </tr>
+                  @endforeach
+                @else
+                  <tr>
+                    <td colspan="5" align="center" class="text-muted"><i>Data tidak tersedia.</i></td>
+                  </tr>
+                @endif
               </tbody>
             </table>
 
@@ -2069,26 +2093,32 @@
                   <th>Nilai</th>
                   <th>Aksi</th>
                 </tr>
-                @foreach($DataKomputer as $komputer)
-                <tr>
-                  <td>{{ $komputer->nama_program }}</td>
-                  <td>@if($komputer->nilai_komputer == '1')
-                    Baik
-                  @elseif($komputer->nilai_komputer == '2')
-                    Cukup
-                  @else
-                    Kurang
-                  @endif</td>
-                  <td>
-                    <span data-toggle="tooltip" title="Hapus Data">
-                      <a href="" class="btn btn-xs btn-danger hapuskomputer" data-toggle="modal" data-target="#hapuskomputer" data-value="{{$komputer->id}}"><i class="fa fa-remove"></i></a>
-                    </span>
-                    <span data-toggle="tooltip" title="Edit Data">
-                      <a href="" class="btn btn-xs btn-warning editkomputer" data-toggle="modal" data-target="#editkomputer" data-value="{{$komputer->id}}"><i class="fa fa-edit"></i></a>
-                    </span>
-                  </td>
-                </tr>
-                @endforeach
+                @if(count($DataKomputer)!=0)
+                  @foreach($DataKomputer as $komputer)
+                    <tr>
+                      <td>{{ $komputer->nama_program }}</td>
+                      <td>@if($komputer->nilai_komputer == '1')
+                        Baik
+                      @elseif($komputer->nilai_komputer == '2')
+                        Cukup
+                      @else
+                        Kurang
+                      @endif</td>
+                      <td>
+                        <span data-toggle="tooltip" title="Hapus Data">
+                          <a href="" class="btn btn-xs btn-danger hapuskomputer" data-toggle="modal" data-target="#hapuskomputer" data-value="{{$komputer->id}}"><i class="fa fa-remove"></i></a>
+                        </span>
+                        <span data-toggle="tooltip" title="Edit Data">
+                          <a href="" class="btn btn-xs btn-warning editkomputer" data-toggle="modal" data-target="#editkomputer" data-value="{{$komputer->id}}"><i class="fa fa-edit"></i></a>
+                        </span>
+                      </td>
+                    </tr>
+                  @endforeach
+                @else
+                  <tr>
+                    <td colspan="3" align="center" class="text-muted"><i>Data tidak tersedia.</i></td>
+                  </tr>
+                @endif
               </tbody>
             </table>
 
@@ -2103,40 +2133,46 @@
                   <th>Mengerti</th>
                   <th>Aksi</th>
                 </tr>
-                @foreach($DataBahasa as $bahasa)
-                <tr>
-                  <td>{{ $bahasa->bahasa }}</td>
-                  <td>@if($bahasa->berbicara == '1')
-                    Baik
-                  @elseif($bahasa->berbicara == '2')
-                    Cukup
-                  @else
-                    Kurang
-                  @endif</td>
-                  <td>@if($bahasa->menulis == '1')
-                    Baik
-                  @elseif($bahasa->menulis == '2')
-                    Cukup
-                  @else
-                    Kurang
-                  @endif</td>
-                  <td>@if($bahasa->mengerti == '1')
-                    Baik
-                  @elseif($bahasa->mengerti == '2')
-                    Cukup
-                  @else
-                    Kurang
-                  @endif</td>
-                  <td>
-                    <span data-toggle="tooltip" title="Hapus Data">
-                      <a type="button" class="btn btn-xs btn-danger hapusbahasa" data-toggle="modal" data-target="#hapusbahasa" data-value="{{$bahasa->id}}"><i class="fa fa-remove"></i></a>
-                    </span>
-                    <span data-toggle="tooltip" title="Edit Data">
-                      <a href="" class="btn btn-xs btn-warning editbahasa" data-toggle="modal" data-target="#editbahasa" data-value="{{$bahasa->id}}"><i class="fa fa-edit"></i></a>
-                    </span>
-                  </td>
-                </tr>
-                @endforeach
+                @if(count($DataBahasa)!=0)
+                  @foreach($DataBahasa as $bahasa)
+                    <tr>
+                      <td>{{ $bahasa->bahasa }}</td>
+                      <td>@if($bahasa->berbicara == '1')
+                        Baik
+                      @elseif($bahasa->berbicara == '2')
+                        Cukup
+                      @else
+                        Kurang
+                      @endif</td>
+                      <td>@if($bahasa->menulis == '1')
+                        Baik
+                      @elseif($bahasa->menulis == '2')
+                        Cukup
+                      @else
+                        Kurang
+                      @endif</td>
+                      <td>@if($bahasa->mengerti == '1')
+                        Baik
+                      @elseif($bahasa->mengerti == '2')
+                        Cukup
+                      @else
+                        Kurang
+                      @endif</td>
+                      <td>
+                        <span data-toggle="tooltip" title="Hapus Data">
+                          <a type="button" class="btn btn-xs btn-danger hapusbahasa" data-toggle="modal" data-target="#hapusbahasa" data-value="{{$bahasa->id}}"><i class="fa fa-remove"></i></a>
+                        </span>
+                        <span data-toggle="tooltip" title="Edit Data">
+                          <a href="" class="btn btn-xs btn-warning editbahasa" data-toggle="modal" data-target="#editbahasa" data-value="{{$bahasa->id}}"><i class="fa fa-edit"></i></a>
+                        </span>
+                      </td>
+                    </tr>
+                  @endforeach
+                @else
+                  <tr>
+                    <td colspan="5" align="center" class="text-muted"><i>Data tidak tersedia.</i></td>
+                  </tr>
+                @endif
               </tbody>
             </table>
           </div><!-- /.End Pengalaman -->
@@ -2153,29 +2189,35 @@
                   <th>Merokok</th>
                   <th>Aksi</th>
                 </tr>
-                @foreach($DataKesehatan as $kesehatan)
-                <tr>
-                  <td>{{ $kesehatan->tinggi_badan }} CM</td>
-                  <td>{{ $kesehatan->berat_badan }} KG</td>
-                  <td>{{ $kesehatan->warna_rambut }}</td>
-                  <td>{{ $kesehatan->warna_mata }}</td>
-                  <td>@if($kesehatan->berkacamata == '0')
-                    Tidak
-                  @else
-                    Ya
-                  @endif</td>
-                  <td>@if($kesehatan->merokok == '0')
-                    Tidak
-                  @else
-                    Ya
-                  @endif</td>
-                  <td>
-                    <span data-toggle="tooltip" title="Edit Data">
-                      <a href="" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalkesehatan" data-value="{{$kesehatan->id}}"><i class="fa fa-edit"></i></a>
-                    </span>
-                  </td>
-                </tr>
-                @endforeach
+                @if(count($DataKesehatan)!=0)
+                  @foreach($DataKesehatan as $kesehatan)
+                    <tr>
+                      <td>{{ $kesehatan->tinggi_badan }} CM</td>
+                      <td>{{ $kesehatan->berat_badan }} KG</td>
+                      <td>{{ $kesehatan->warna_rambut }}</td>
+                      <td>{{ $kesehatan->warna_mata }}</td>
+                      <td>@if($kesehatan->berkacamata == '0')
+                        Tidak
+                      @else
+                        Ya
+                      @endif</td>
+                      <td>@if($kesehatan->merokok == '0')
+                        Tidak
+                      @else
+                        Ya
+                      @endif</td>
+                      <td>
+                        <span data-toggle="tooltip" title="Edit Data">
+                          <a href="" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalkesehatan" data-value="{{$kesehatan->id}}"><i class="fa fa-edit"></i></a>
+                        </span>
+                      </td>
+                    </tr>
+                  @endforeach
+                @else
+                  <tr>
+                    <td colspan="7" align="center" class="text-muted"><i>Data tidak tersedia.</i></td>
+                  </tr>
+                @endif
               </tbody>
             </table>
 
@@ -2188,20 +2230,26 @@
                   <th>Keterangan</th>
                   <th>Aksi</th>
                 </tr>
-                @foreach($DataPenyakit as $penyakit)
-                <tr>
-                  <td>{{ $penyakit->nama_penyakit }}</td>
-                  <td>{{ $penyakit->keterangan_penyakit }}</td>
-                  <td>
-                    <span data-toggle="tooltip" title="Hapus Data">
-                      <a href="" class="btn btn-xs btn-danger hapuspenyakit" data-toggle="modal" data-target="#hapuspenyakit" data-value="{{$penyakit->id}}"><i class="fa fa-remove"></i></a>
-                    </span>
-                    <span data-toggle="tooltip" title="Edit Data">
-                      <a href="" class="btn btn-xs btn-warning editpenyakit" data-toggle="modal" data-target="#editpenyakit" data-value="{{$penyakit->id}}"><i class="fa fa-edit"></i></a>
-                    </span>
-                  </td>
-                </tr>
-                @endforeach
+                @if(count($DataPenyakit)!=0)
+                  @foreach($DataPenyakit as $penyakit)
+                    <tr>
+                      <td>{{ $penyakit->nama_penyakit }}</td>
+                      <td>{{ $penyakit->keterangan_penyakit }}</td>
+                      <td>
+                        <span data-toggle="tooltip" title="Hapus Data">
+                          <a href="" class="btn btn-xs btn-danger hapuspenyakit" data-toggle="modal" data-target="#hapuspenyakit" data-value="{{$penyakit->id}}"><i class="fa fa-remove"></i></a>
+                        </span>
+                        <span data-toggle="tooltip" title="Edit Data">
+                          <a href="" class="btn btn-xs btn-warning editpenyakit" data-toggle="modal" data-target="#editpenyakit" data-value="{{$penyakit->id}}"><i class="fa fa-edit"></i></a>
+                        </span>
+                      </td>
+                    </tr>
+                  @endforeach
+                @else
+                  <tr>
+                    <td colspan="3" align="center" class="text-muted"><i>Data tidak tersedia.</i></td>
+                  </tr>
+                @endif
               </tbody>
             </table>
           </div><!-- /.End Kesehatan -->
@@ -2215,24 +2263,30 @@
                   <th>Dokumen</th>
                   <th>Aksi</th>
                 </tr>
-                @foreach($DokumenPegawai as $key)
+                @if(count($DokumenPegawai)!=0)
+                  @foreach($DokumenPegawai as $key)
+                    <tr>
+                      <td>{{$key->nama_dokumen}}</td>
+                      <td>
+                        <a href="{{url('documents')}}/{{$key->file_dokumen}}" download>
+                          {{$key->file_dokumen}}
+                        </a>
+                      </td>
+                      <td>
+                        <span data-toggle="tooltip" title="Hapus Data">
+                          <a href="" class="btn btn-xs btn-danger hapusdokumen" data-toggle="modal" data-target="#hapusdokumen" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
+                        </span>
+                        <span data-toggle="tooltip" title="Edit Data">
+                          <a href="" class="btn btn-xs btn-warning editdokumen" data-toggle="modal" data-target="#editdokumenpegawai" data-value="{{$key->id_pegawai}}"><i class="fa fa-edit"></i></a>
+                        </span>
+                      </td>
+                    </tr>
+                  @endforeach
+                @else
                   <tr>
-                    <td>{{$key->nama_dokumen}}</td>
-                    <td>
-                      <a href="{{url('documents')}}/{{$key->file_dokumen}}" download>
-                        {{$key->file_dokumen}}
-                      </a>
-                    </td>
-                    <td>
-                      <span data-toggle="tooltip" title="Hapus Data">
-                        <a href="" class="btn btn-xs btn-danger hapusdokumen" data-toggle="modal" data-target="#hapusdokumen" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
-                      </span>
-                      <span data-toggle="tooltip" title="Edit Data">
-                        <a href="" class="btn btn-xs btn-warning editdokumen" data-toggle="modal" data-target="#editdokumenpegawai" data-value="{{$key->id_pegawai}}"><i class="fa fa-edit"></i></a>
-                      </span>
-                    </td>
+                    <td colspan="3" align="center" class="text-muted"><i>Data tidak tersedia.</i></td>
                   </tr>
-                @endforeach
+                @endif
               </tbody>
             </table>
           </div>
@@ -2248,26 +2302,32 @@
                   <th>Tahun Akhir</th>
                   <th>Status PKWT</th>
                 </tr>
-                <?php $i = 1; ?>
-                @foreach($DataPKWT as $key)
+                @if(count($DataPKWT)!=0)
+                  <?php $i = 1; ?>
+                  @foreach($DataPKWT as $key)
+                    <tr>
+                      <td>{{$i}}</td>
+                      <td>{{$key->nama_client}}</td>
+                      <td>{{$key->nama_cabang}}</td>
+                      <td>{{$key->tahun_awal}}</td>
+                      <td>{{$key->tahun_akhir}}</td>
+                      <td>
+                        @if($key->status_karyawan_pkwt=="1")
+                          Kontrak
+                        @elseif($key->status_karyawan_pkwt=="2")
+                          Freelance
+                        @elseif($key->status_karyawan_pkwt=="3")
+                          Tetap
+                        @endif
+                      </td>
+                    </tr>
+                    <?php $i++; ?>
+                  @endforeach
+                @else
                   <tr>
-                    <td>{{$i}}</td>
-                    <td>{{$key->nama_client}}</td>
-                    <td>{{$key->nama_cabang}}</td>
-                    <td>{{$key->tahun_awal}}</td>
-                    <td>{{$key->tahun_akhir}}</td>
-                    <td>
-                      @if($key->status_karyawan_pkwt=="1")
-                        Kontrak
-                      @elseif($key->status_karyawan_pkwt=="2")
-                        Freelance
-                      @elseif($key->status_karyawan_pkwt=="3")
-                        Tetap
-                      @endif
-                    </td>
+                    <td colspan="6" align="center" class="text-muted"><i>Data tidak tersedia.</i></td>
                   </tr>
-                  <?php $i++; ?>
-                @endforeach
+                @endif
               </tbody>
             </table>
 
@@ -2283,31 +2343,37 @@
                   <th>Dokumen</th>
                   <th>Aksi</th>
                 </tr>
-                <?php $i=1; ?>
-                @foreach($DataPeringatan as $key)
+                @if(count($DataPeringatan)!=0)
+                  <?php $i=1; ?>
+                  @foreach($DataPeringatan as $key)
+                    <tr>
+                      <td>{{$i}}</td>
+                      <td>{{$key->tanggal_peringatan}}</td>
+                      <td>{{$key->jenis_peringatan}}</td>
+                      <td>{{$key->keterangan_peringatan}}</td>
+                      <td>
+                        @if($key->dokumen_peringatan!=null)
+                          <a href="{{url('/')}}/documents/{{$key->dokumen_peringatan}}" download>
+                            {{$key->dokumen_peringatan}}
+                          </a>
+                        @else
+                          -
+                        @endif
+                      </td>
+                      <td>
+                        <span data-toggle="tooltip" title="Hapus Data">
+                          <a href="" class="btn btn-xs btn-danger hapusperingatan" data-toggle="modal" data-target="#hapusperingatan" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
+                        </span>
+                        <span data-toggle="tooltip" title="Edit Data">
+                          <a href="" class="btn btn-xs btn-warning editperingatan" data-toggle="modal" data-target="#editperingatan" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
+                        </td>
+                      </tr>
+                    @endforeach
+                @else
                   <tr>
-                    <td>{{$i}}</td>
-                    <td>{{$key->tanggal_peringatan}}</td>
-                    <td>{{$key->jenis_peringatan}}</td>
-                    <td>{{$key->keterangan_peringatan}}</td>
-                    <td>
-                      @if($key->dokumen_peringatan!=null)
-                        <a href="{{url('/')}}/documents/{{$key->dokumen_peringatan}}" download>
-                          {{$key->dokumen_peringatan}}
-                        </a>
-                      @else
-                        -
-                      @endif
-                    </td>
-                    <td>
-                      <span data-toggle="tooltip" title="Hapus Data">
-                        <a href="" class="btn btn-xs btn-danger hapusperingatan" data-toggle="modal" data-target="#hapusperingatan" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
-                      </span>
-                      <span data-toggle="tooltip" title="Edit Data">
-                        <a href="" class="btn btn-xs btn-warning editperingatan" data-toggle="modal" data-target="#editperingatan" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
-                    </td>
+                    <td colspan="6" align="center" class="text-muted"><i>Data tidak tersedia.</i></td>
                   </tr>
-                @endforeach
+                @endif
               </tbody>
             </table>
 
@@ -2320,17 +2386,23 @@
                   <th>Keterangan</th>
                   <th>Aksi</th>
                 </tr>
-                <?php $i=1; ?>
-                @foreach($DataHistoriPegawai as $key)
+                @if(count($DataHistoriPegawai)!=0)
+                  <?php $i=1; ?>
+                  @foreach($DataHistoriPegawai as $key)
+                    <tr>
+                      <td>{{$i++}}</td>
+                      <td>{{$key->keterangan}}</td>
+                      <td>
+                        <span data-toggle="tooltip" title="Edit Data">
+                          <a href="" class="btn btn-xs btn-warning edithistoripegawai" data-toggle="modal" data-target="#edithistoripegawai" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
+                        </td>
+                      </tr>
+                    @endforeach
+                @else
                   <tr>
-                    <td>{{$i++}}</td>
-                    <td>{{$key->keterangan}}</td>
-                    <td>
-                      <span data-toggle="tooltip" title="Edit Data">
-                        <a href="" class="btn btn-xs btn-warning edithistoripegawai" data-toggle="modal" data-target="#edithistoripegawai" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
-                    </td>
+                    <td colspan="3" align="center" class="text-muted"><i>Data tidak tersedia.</i></td>
                   </tr>
-                @endforeach
+                @endif
               </tbody>
             </table>
           </div>
