@@ -1556,7 +1556,7 @@
         <div class="box-body box-profile">
           @foreach($DataPegawai as $pegawai)
           <img class="profile-user-img img-responsive img-circle" src="{{ asset('dist/img/user2-160x160.jpg')}}" alt="User profile picture">
-          <h3 class="profile-username text-center">{{$pegawai->nama}} - <small>{{$pegawai->nama_jabatan}}</small></h3>
+          <h3 class="profile-username text-center">{{$pegawai->nama}}</h3>
           <form action="{{url('masterpegawai/savepegawai')}}" method="post">
             {!! csrf_field() !!}
           <table class="table table-condensed">
@@ -1720,6 +1720,18 @@
                 <td>Jabatan</td>
                 <td>:</td>
                 <td id="tdlabeljabatan"><b data-value="{{$pegawai->nama_jabatan}}" id="valjabatan">{{ $pegawai->nama_jabatan}}</b></td>
+                <td id="tdtextjabatan">
+                  <select class="form-control" name="jabatan">
+                    <option>-- Pilih --</option>
+                    @foreach($DataJabatan as $key)
+                      @if($pegawai->nama_jabatan==$key->nama_jabatan)
+                        <option value="{{$key->id}}" selected>{{$key->nama_jabatan}}</option>
+                      @else
+                        <option value="{{$key->id}}">{{$key->nama_jabatan}}</option>
+                      @endif
+                    @endforeach
+                  </select>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -2579,6 +2591,7 @@
       $('#tdtextbpjssehat').hide();
       $('#tdtextrekening').hide();
       $('#tdtextwarga').hide();
+      $('#tdtextjabatan').hide();
       $('#btnsavepegawai').hide();
 
       $('a#editpegawai').click(function(){
@@ -2597,6 +2610,8 @@
         $('#tdlabelbpjssehat').hide();
         $('#tdlabelrekening').hide();
         $('#tdlabelwarga').hide();
+        $('#tdlabeljabatan').hide();
+
 
         $('#tdtextnip').show();
         $('#tdtextniplama').show();
@@ -2613,6 +2628,8 @@
         $('#tdtextbpjssehat').show();
         $('#tdtextrekening').show();
         $('#tdtextwarga').show();
+        $('#tdtextjabatan').show();
+
 
         var a = $('b#valagama').data('value');
         if(a=="Islam") {
