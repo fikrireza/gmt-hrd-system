@@ -54,9 +54,11 @@ class PKWTController extends Controller
   {
     // date_default_timezone_set('Asia/Jakarta');
 
-    $pkwt = PKWT::select(['nip','nama','tanggal_awal_pkwt', 'tanggal_akhir_pkwt', 'id_kelompok_jabatan',  'status_karyawan_pkwt'])
-      ->join('master_pegawai','data_pkwt.id_pegawai','=', 'master_pegawai.id')->get();
-
+    $pkwt = PKWT::select(['pegawai.nip as nip','pegawai.nama as nama','tanggal_awal_pkwt', 'tanggal_akhir_pkwt', 'spv.nama as id_kelompok_jabatan', 'status_karyawan_pkwt'])
+              ->join('master_pegawai as pegawai','data_pkwt.id_pegawai','=', 'pegawai.id')
+              ->join('master_pegawai as spv', 'data_pkwt.id_kelompok_jabatan', '=', 'spv.id')
+              ->where('status_pkwt', 1)->get();
+    
     return Datatables::of($pkwt)
       ->addColumn('keterangan', function($pkwt){
         $tgl = explode('-', $pkwt->tanggal_akhir_pkwt);
@@ -147,7 +149,9 @@ class PKWTController extends Controller
     $getpkwt = PKWT::join('master_pegawai as spv', 'spv.id', '=', 'data_pkwt.id_kelompok_jabatan')
                     ->join('master_pegawai', 'master_pegawai.id', '=', 'data_pkwt.id_pegawai')
                     ->select('data_pkwt.*', 'master_pegawai.nama', 'spv.nama')
-                    ->where('data_pkwt.id_pegawai', $id_pegawai)->get();
+                    ->where('data_pkwt.id_pegawai', $id_pegawai)
+                    ->orderBy('tanggal_akhir_pkwt', 'DESC')
+                    ->get();
                     // dd($getpkwt);
     $get_kel_jabatan = MasterPegawai::select('id','nip','nama')->where('id_jabatan', '=', '999')->get();
 
