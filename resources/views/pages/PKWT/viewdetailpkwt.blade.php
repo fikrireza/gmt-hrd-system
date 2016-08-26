@@ -16,7 +16,8 @@
     <small>Lihat Detail PKWT</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{ url('/dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{ url('data-pkwt') }}"><i class="fa fa-document"></i> PKWT</a></li>
     <li class="active">Kelola Data PKWT</li>
   </ol>
 @stop
@@ -29,6 +30,37 @@
         });
       }, 2000);
     </script>
+
+    {{-- Modak for Terminate--}}
+    <div class="modal modal-default fade" id="modalterminatepkwt" role="dialog">
+      <div class="modal-dialog" style="width:600px;">
+        <!-- Modal content-->
+        <form class="form-horizontal" action="{{url('terminatepkwt')}}" method="post">
+          {!! csrf_field() !!}
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Terminate PKWT</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <div class="col-sm-1"></div>
+                <label class="col-sm-3">Alasan Terminate</label>
+                <div class="col-sm-6">
+                  <textarea name="keterangan" class="form-control" cols="35" rows="10">PKWT ini telah di-Terminate dengan alasan : </textarea>
+                  <input type="hidden" name="id_pkwt" class="form-control" id="id_pkwt" required>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+              <button type="submit" class="btn btn-danger">Terminate</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
 
     {{-- modal edit penyakit --}}
     <div class="modal modal-default fade" id="modaleditpkwt" role="dialog">
@@ -160,6 +192,12 @@
           <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
           <p>{{ Session::get('message') }}</p>
         </div>
+      @elseif(Session::has('terminate'))
+        <div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+          <p>{{ Session::get('terminate') }}</p>
+        </div>
       @endif
     </div>
     <div class="col-md-12">
@@ -186,25 +224,25 @@
           <div class="col-md-12">
             <div class="box box-success box-solid">
               <div class="box-header with-border">
-                <h3 class="box-title">Seluruh PKWT Untuk Pegawai Terkait</h3>
+                <h3 class="box-title">Histori PKWT</h3>
               </div><!-- /.box-header -->
               <div class="box-body">
                 <table class="table table-hover">
                   <tbody>
                     <tr>
-                      <th>Tanggal Masuk GMT</th>
+                      <th>Departemen/Kota</th>
                       <th>Tanggal Bekerja di Client</th>
                       <th>Tanggal Awal PKWT</th>
                       <th>Tanggal Akhir PKWT</th>
                       <th>Kelompok Jabatan</th>
-                      <th>Status PKWT</th>
+                      <th>Status Karyawan</th>
                       <th>Keterangan</th>
                       <th>Aksi</th>
                     </tr>
 
                     @foreach($getpkwt as $key)
                       <tr>
-                        <td>{{$key->tanggal_masuk_gmt}}</td>
+                        <td>{{$key->nama_client}} - {{$key->nama_cabang}}</td>
                         <td>{{$key->tanggal_masuk_client}}</td>
                         <td>{{$key->tanggal_awal_pkwt}}</td>
                         <td>{{$key->tanggal_akhir_pkwt}}</td>
@@ -221,34 +259,38 @@
                         <td>
                           <?php
                             // date_default_timezone_set('Asia/Jakarta');
-                            $date1=date_create($key->tanggal_akhir_pkwt);
-                            $date2=date_create(gmdate("Y-m-d", time()+60*60*7));
-                            $diff=date_diff($date2,$date1);
-                            $sym = substr($diff->format("%R%a"), 0, 1);
-                            $days = substr($diff->format("%R%a"), 1);
-                            if($days==0)
-                            {
-                              echo "<span class='label bg-yellow'>Expired Hari Ini</span>";
-                            }
-                            elseif($sym=="+" && $days <= 30)
-                            {
-                              echo "<span class='label bg-yellow'>Expired Dalam ".$days." Hari</span>";
-                            }
-                            elseif($sym=="+" && $days > 30)
-                            {
-                              echo "<span class='label bg-green'>PKWT Aktif</span>";
-                            }
-                            elseif($sym=="-")
-                            {
-                              echo "<span class='label bg-red'>Telah Expired</span>";
+                            if ($key->flag_terminate == '0') {
+                              echo "<span class='label bg-red'>Terminate</span>";
+                            } else {
+                              $date1=date_create($key->tanggal_akhir_pkwt);
+                              $date2=date_create(gmdate("Y-m-d", time()+60*60*7));
+                              $diff=date_diff($date2,$date1);
+                              $sym = substr($diff->format("%R%a"), 0, 1);
+                              $days = substr($diff->format("%R%a"), 1);
+                              if($days==0)
+                              {
+                                echo "<span class='label bg-yellow'>Expired Hari Ini</span>";
+                              }
+                              elseif($sym=="+" && $days <= 30)
+                              {
+                                echo "<span class='label bg-yellow'>Expired Dalam ".$days." Hari</span>";
+                              }
+                              elseif($sym=="+" && $days > 30)
+                              {
+                                echo "<span class='label bg-green'>PKWT Aktif</span>";
+                              }
+                              elseif($sym=="-")
+                              {
+                                echo "<span class='label bg-red'>Telah Expired</span>";
+                              }
                             }
                           ?>
                         </td>
                         <td>
-                          <span data-toggle="tooltip" title="Edit Data">
-                            <a href="#" data-value="{{$key->id}}" class="btn btn-xs btn-warning edit_pkwt" data-toggle="modal" data-target="#modaleditpkwt"><i class="fa fa-edit"></i></a>
-                          </span>
                           @if($key->status_pkwt == '1')
+                            <span data-toggle="tooltip" title="Edit Data">
+                              <a href="#" data-value="{{$key->id}}" class="btn btn-xs btn-warning edit_pkwt" data-toggle="modal" data-target="#modaleditpkwt"><i class="fa fa-edit"></i></a>
+                            </span>
                             <span data-toggle="tooltip" title="Terminate">
                               <a href="#" data-value="{{$key->id}}" class="btn btn-xs btn-danger terminate_pkwt" data-toggle="modal" data-target="#modalterminatepkwt"><i class="fa fa-power-off"></i></a>
                             </span>
@@ -286,6 +328,21 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $(".select2").select2();
+    });
+  </script>
+
+  <script type="text/javascript">
+    $('.terminate_pkwt').click(function(){
+      var a = $(this).data('value');
+      $.ajax({
+        url: "{{ url('/')}}/edit-pkwt/getpkwt/"+a,
+        dataType: 'json',
+        success: function(data){
+          var id_pkwt = data.id;
+          //set
+          $('#id_pkwt').attr('value', id_pkwt);
+        }
+      });
     });
   </script>
 

@@ -95,7 +95,7 @@
                 <th>Nama</th>
                 <th>Tanggal Awal PKWT</th>
                 <th>Tanggal Akhir PKWT</th>
-                <th>Status PKWT</th>
+                <th>Status Karyawan</th>
                 <th>Keterangan</th>
               </tr>
             </thead>
@@ -137,7 +137,7 @@
               {data: '1', name: 'nama'},
               {data: '2', name: 'tanggal_awal_pkwt'},
               {data: '3', name: 'tanggal_akhir_pkwt'},
-              {data: '4', name: 'status_pkwt'},
+              {data: '4', name: 'status_karyawan_pkwt'},
               {data: '5', name: 'keterangan'}
             ]
         });
