@@ -26,6 +26,7 @@ Route::get('logoutprocess', 'CustomAuthController@logoutprocess');
 Route::resource('masterpegawai', 'MasterPegawaiController');
 Route::get('datatables', ['as'=>'datatables.data', 'uses'=>'MasterPegawaiController@getDataForDataTable']);
 
+////// PKWT //////
 Route::get('data-pkwt', 'PKWTController@index')->name('kelola.pkwt');
 Route::get('datatablespkwt', ['as'=>'datatables.pkwt', 'uses'=>'PKWTController@getPKWTforDataTables']);
 Route::get('datatablespkwtdash', ['as'=>'datatables.dash', 'uses'=>'PKWTController@getPKWTforDashboard']);
@@ -35,6 +36,11 @@ Route::get('view-detail-pkwt/{id}', ['as'=>'detail.pkwt', 'uses'=>'PKWTControlle
 Route::get('edit-pkwt/getpkwt/{id}', 'PKWTController@bind');
 Route::post('savepkwt', 'PKWTController@saveChangesPKWT');
 Route::post('terminatepkwt', 'PKWTController@terminatePKWT');
+
+////// SPV Manajemen //////
+Route::get('spv-manajemen', ['as' => 'spv-manajemen', 'uses' => 'PKWTController@viewSPV']);
+Route::post('getClientSPV', ['as' => 'getClientSPV', 'uses' => 'PKWTController@proses']);
+Route::post('changeSPV', ['as' => 'changeSPV', 'uses' => 'PKWTController@changeSPV']);
 
 Route::resource('masterjabatan', 'MasterJabatanController');
 Route::get('masterjabatan/hapusjabatan/{id}', ['as'=>'masterjabatan.hapusjabatan', 'uses'=>'MasterJabatanController@hapusJabatan']);

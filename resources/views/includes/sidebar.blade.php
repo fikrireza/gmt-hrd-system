@@ -62,11 +62,16 @@
         <li><a href="{{ route('masterjabatan.create') }}"><i class="fa fa-circle-o"></i>Data Jabatan</a></li>
       </ul>
     </li>
-    <li>
-      <a href="{{url('data-pkwt')}}">
+    <li class="treeview">
+      <a href="#">
         <i class="fa fa-file-text"></i>
         <span>PKWT</span>
+        <i class="fa fa-angle-left pull-right"></i>
       </a>
+      <ul class="treeview-menu">
+        <li><a href="{{url('data-pkwt')}}"><i class="fa fa-circle-o"></i>Data PKWT</a></li>
+        <li><a href="{{url('spv-manajemen')}}"><i class="fa fa-circle-o"></i>SPV Manajemen</a></li>
+      </ul>
     </li>
     <li class="treeview">
       <a href="#">

@@ -198,4 +198,53 @@ class PKWTController extends Controller
 
     return redirect()->route('detail.pkwt', $bindPegawai->nip)->with('terminate', 'PKWT Berhasil di-Terminate.');
   }
+
+  public function viewSPV()
+  {
+    $getClient  = MasterClient::get();
+
+    return view('pages.PKWT.viewSPV', compact('getClient'));
+  }
+
+  public function proses(Request $request)
+  {
+    $id_client = $request->id_client;
+
+    $getClient  = MasterClient::get();
+
+    $getExistClient = MasterClient::where('id', $id_client)->get();
+
+    $getSpv  = MasterClient::join('cabang_client as A', 'A.id_client', '=', 'master_client.id')
+                        ->join('data_pkwt as D', 'A.id', '=', 'D.id_cabang_client')
+                        ->join('master_pegawai as C', 'C.id', '=', 'D.id_pegawai')
+                        ->join('master_pegawai as SPV', 'SPV.id', '=', 'D.id_kelompok_jabatan')
+                        ->join('master_jabatan as E', 'SPV.id_jabatan', '=', 'E.id')
+                        ->select('master_client.nama_client', 'A.nama_cabang', 'C.nama as nama_karyawan', 'D.tanggal_awal_pkwt', 'D.tanggal_akhir_pkwt', 'E.nama_jabatan', 'SPV.nama as spv')
+                        ->where('E.id', '999')
+                        ->where('master_client.id',  $id_client)
+                        ->where('D.status_pkwt', '1')
+                        ->where('D.flag_terminate', '1')
+                        ->get();
+
+    $spvExist = MasterPegawai::join('data_pkwt', 'data_pkwt.id_kelompok_jabatan', '=', 'master_pegawai.id')
+                              ->select('master_pegawai.id','master_pegawai.nip','master_pegawai.nama')
+                              ->where('id_jabatan', '=', '999')
+                              ->groupBy('master_pegawai.id')
+                              ->get();
+
+    $get_kel_jabatan = MasterPegawai::select('id','nip','nama')->where('id_jabatan', '=', '999')->get();
+
+    return view('pages.PKWT.viewSPV', compact('getSpv', 'getClient', 'getExistClient', 'spvExist', 'get_kel_jabatan'));
+  }
+
+  public function changeSPV(Request $request)
+  {
+    // dd($request);
+    $change = PKWT::where('id_kelompok_jabatan', $request->spv_lama)
+                  ->update(['id_kelompok_jabatan' => $request->new_spv]);
+
+    $getClient  = MasterClient::get();
+
+    return redirect()->route('spv-manajemen')->with('message', 'SPV Berhasil Digantikan.');
+  }
 }
