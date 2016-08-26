@@ -65,8 +65,7 @@
     <li class="treeview">
       <a href="#">
         <i class="fa fa-file-text"></i>
-        <span>PKWT</span>
-        <i class="fa fa-angle-left pull-right"></i>
+        <span>Manajemen PKWT</span>
       </a>
       <ul class="treeview-menu">
         <li><a href="{{url('data-pkwt')}}"><i class="fa fa-circle-o"></i>Data PKWT</a></li>
@@ -76,7 +75,7 @@
     <li class="treeview">
       <a href="#">
         <i class="fa fa-laptop"></i>
-        <span>Management Akun</span>
+        <span>Manajemen Akun</span>
         <i class="fa fa-angle-left pull-right"></i>
       </a>
       <ul class="treeview-menu">

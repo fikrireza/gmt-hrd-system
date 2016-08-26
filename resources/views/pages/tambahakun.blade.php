@@ -18,9 +18,48 @@
 @stop
 
 @section('content')
+
+    <script>
+      window.setTimeout(function() {
+        $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+      }, 2000);
+    </script>
+
+  <div class="modal modal-default fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Hapus Data Akun</h4>
+        </div>
+        <div class="modal-body">
+          <p>Apakah anda yakin untuk menghapus data akun ini?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+          <a href="" class="btn btn-primary" id="set">Ya, saya yakin.</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <div class="row">
-    <!--column -->
     <div class="col-md-12">
+      @if(Session::has('message'))
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+          <p>{{ Session::get('message') }}</p>
+        </div>
+      @endif
+    </div>
+    <!--column -->
+    <div class="col-md-5">
       <!-- Horizontal Form -->
       <div class="box box-info">
         <div class="box-header with-border">
@@ -32,7 +71,7 @@
           <div class="box-body">
             <div class="form-group">
               <label class="col-sm-2 control-label">NIP</label>
-              <div class="col-sm-4">
+              <div class="col-sm-8">
                 <select name="nip" class="form-control select2" style="width: 100%;">
                   <option selected="selected"></option>
                   @foreach($getnip as $key)
@@ -43,25 +82,25 @@
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Username</label>
-              <div class="col-sm-4">
+              <div class="col-sm-8">
                 <input type="text" name="username" class="form-control" placeholder="Username">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Password</label>
-              <div class="col-sm-4">
+              <div class="col-sm-8">
                 <input type="password" name="password" class="form-control" placeholder="Password">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Konfirmasi Password</label>
-              <div class="col-sm-4">
+              <div class="col-sm-8">
                 <input type="password" name="kpassword" class="form-control" placeholder="Konfirmasi Password">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Level Akses</label>
-              <div class="col-sm-4">
+              <div class="col-sm-8">
                 <select class="form-control" name="level">
                   <option></option>
                   <option value="1">Akses HR</option>
@@ -78,6 +117,66 @@
         </form>
       </div><!-- /.box -->
     </div><!--/.col -->
+
+    <div class="col-md-7">
+      <!-- Horizontal Form -->
+      <div class="box box-info">
+        <div class="box-header with-border">
+          <h3 class="box-title">Daftar Akun</h3>
+        </div><!-- /.box-header -->
+
+        <div class="box-body">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Level Akses</th>
+                <th>Tanggal Pembuatan Akun</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php $i=1; ?>
+              @if(count($getuser)!=0)
+                @foreach($getuser as $key)
+                  <tr>
+                    <td>{{$i}}</td>
+                    <td>{{$key->username}}</td>
+                    <td>
+                      @if($key->level=="1")
+                        Akses HR
+                      @elseif($key->level=="2")
+                        Akses Payroll
+                      @elseif($key->level=="3")
+                        Akses Dirops
+                      @endif
+                    </td>
+                    <td>{{$key->created_at}}</td>
+                    <td>
+                      @if(Auth::user()->pegawai_id==$key->pegawai_id)
+                        <span data-toggle="tooltip" title="Anda sedang login menggunakan akun ini">
+                          <a class="btn btn-xs btn-danger" disabled><i class="fa fa-remove"></i></a>
+                        </span>
+                      @else
+                        <span data-toggle="tooltip" title="Hapus Data">
+                          <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
+                        </span>
+                      @endif
+                    </td>
+                  </tr>
+                  <?php $i++; ?>
+                @endforeach
+              @else
+
+              @endif
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
   </div>   <!-- /.row -->
 
 
@@ -96,6 +195,15 @@
   <script type="text/javascript">
     $(document).ready(function(){
       $(".select2").select2();
+    });
+  </script>
+
+  <script type="text/javascript">
+    $(function(){
+      $('a.hapus').click(function(){
+        var a = $(this).data('value');
+        $('#set').attr('href', "{{ url('/') }}/useraccount/delete/"+a);
+      });
     });
   </script>
 @stop

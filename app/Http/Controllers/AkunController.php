@@ -37,8 +37,11 @@ class AkunController extends Controller
       }
 
       $getnip = MasterPegawai::whereNotIn('id', $data)->get();
+      $getuser = User::all();
 
-      return view('pages/tambahakun')->with('getnip', $getnip);
+      return view('pages/tambahakun')
+        ->with('getuser', $getuser)
+        ->with('getnip', $getnip);
     }
 
     /**
@@ -101,6 +104,14 @@ class AkunController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+    }
+
+    public function delete($id)
+    {
+      $get = User::find($id);
+      $get->delete();
+
+      return redirect()->route('useraccount.create')->with('message', 'Berhasil menghapus akun.');
     }
 }
