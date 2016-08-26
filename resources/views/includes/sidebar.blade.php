@@ -65,13 +65,13 @@
     <li>
       <a href="{{url('data-pkwt')}}">
         <i class="fa fa-file-text"></i>
-        <span>PKWT</span>
+        <span>Manajemen PKWT</span>
       </a>
     </li>
     <li class="treeview">
       <a href="#">
         <i class="fa fa-laptop"></i>
-        <span>Management Akun</span>
+        <span>Manajemen Akun</span>
         <i class="fa fa-angle-left pull-right"></i>
       </a>
       <ul class="treeview-menu">

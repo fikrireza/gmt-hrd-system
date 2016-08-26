@@ -52,6 +52,7 @@ Route::resource('cabangclient','CabangClientController');
 Route::resource('departemencabang','DepartemenCabangController');
 
 Route::resource('useraccount', 'AkunController');
+Route::get('useraccount/delete/{id}', 'AkunController@delete');
 Route::resource('uploaddocument', 'UploadDocumentController');
 
 Route::post('addkeluarga', 'MasterPegawaiController@addKeluarga');
