@@ -184,7 +184,7 @@
                       <td>{{ $key->kode_jabatan }}</td>
                       <td>{{ $key->nama_jabatan }}</td>
                       <td>
-                        @if($key->id == '999')
+                        @if($key->id >= '990')
                           <span data-toggle="tooltip" title="Tidak Dapat Dirubah">
                             <i class="fa fa-remove"></i>
                           </span>
