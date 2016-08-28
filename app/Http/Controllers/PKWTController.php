@@ -23,7 +23,7 @@ class PKWTController extends Controller
 
   public function create()
   {
-    $getnip = MasterPegawai::select('id','nip','nama')->get();
+    $getnip = MasterPegawai::select('id','nip','nama')->where('id_jabatan', '<', '990')->get();
     $get_kel_jabatan = MasterPegawai::select('id','nip','nama')->where('id_jabatan', '=', '999')->get();
 
     $getclient  = MasterClient::select('id', 'nama_client')->get();
@@ -240,10 +240,18 @@ class PKWTController extends Controller
   public function changeSPV(Request $request)
   {
     // dd($request);
-    $change = PKWT::where('id_kelompok_jabatan', $request->spv_lama)
-                  ->update(['id_kelompok_jabatan' => $request->new_spv]);
+    $change = DB::table('data_pkwt')
+                  ->join('cabang_client', 'cabang_client.id', '=', 'data_pkwt.id_cabang_client')
+                  ->join('master_client', 'cabang_client.id_client', '=', 'master_client.id')
+                  ->where('data_pkwt.id_kelompok_jabatan', $request->spv_lama)
+                  ->where('master_client.id', $request->id_client)
+                  ->where('data_pkwt.status_pkwt', '1')
+                  ->where('data_pkwt.flag_terminate', '1')
+                  ->update(['data_pkwt.id_kelompok_jabatan' => $request->new_spv]);
 
     $getClient  = MasterClient::get();
+
+    $getExistClient = MasterClient::where('id', $request->id_client)->get();
 
     return redirect()->route('spv-manajemen')->with('message', 'SPV Berhasil Digantikan.');
   }

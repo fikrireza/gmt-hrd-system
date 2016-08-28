@@ -66,6 +66,7 @@
       <a href="#">
         <i class="fa fa-file-text"></i>
         <span>Manajemen PKWT</span>
+        <i class="fa fa-angle-left pull-right"></i>
       </a>
       <ul class="treeview-menu">
         <li><a href="{{url('data-pkwt')}}"><i class="fa fa-circle-o"></i>Data PKWT</a></li>

@@ -38,12 +38,6 @@
           <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
           <p>{{ Session::get('message') }}</p>
         </div>
-      {{-- @elseif(Session::has('terminate'))
-        <div class="alert alert-danger">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-          <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
-          <p>{{ Session::get('terminate') }}</p>
-        </div> --}}
       @endif
     </div>
     <div class="col-md-12">
@@ -76,7 +70,7 @@
       @if(isset($getSpv))
       <div class="box box-primary">
         <div class="box-header with-border">
-          <h3 class="box-title">SPV Terikat PKWT</h3>
+          <h3 class="box-title">SPV Terikat PKWT - {{ $getExistClient[0]->nama_client }}</h3>
         </div>
         <div class="box-body">
           <div class="col-md-12" style="margin-bottom:20px;">
@@ -91,6 +85,7 @@
                       <option value="{{ $key->id }}">{{ $key->nip }} - {{ $key->nama }}</option>
                     @endforeach
                   </select>
+                  <input type="hidden" name="id_client" value="{{ $getExistClient[0]->id }}">
                 </div>
               </div>
               <div class="form-group">
