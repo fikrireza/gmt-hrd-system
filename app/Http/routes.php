@@ -116,3 +116,7 @@ Route::get('masterpegawai/bind-peringatan/{id}', 'DataPeringatanController@bindP
 Route::post('historipegawai/create', ['as' => 'historipegawai.create', 'uses' => 'MasterPegawaiController@addhistoripegawai']);
 Route::get('historipegawai/bind-data/{id}', 'MasterPegawaiController@bindhistoriperingatan');
 Route::post('historipegawai/update', ['as' => 'historipegawai.update', 'uses' => 'MasterPegawaiController@updatehistoripegawai']);
+
+Route::get('import', 'ImportDataController@index');
+Route::post('import-proses', 'ImportDataController@proses');
+Route::get('import-template/{type}', 'ImportDataController@downloadExcel');
