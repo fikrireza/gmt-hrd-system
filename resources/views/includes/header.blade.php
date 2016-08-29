@@ -14,7 +14,11 @@
     <ul class="nav navbar-nav">
       <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <img src="{{ asset('/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
+          @if(Auth::user()->url_foto!="")
+            <img src="{{ url('images') }}/{{Auth::user()->url_foto}}" class="user-image" alt="User Image">
+          @else
+            <img src="{{url('images')}}/user-not-found.png}" class="user-image" alt="User Image">
+          @endif
             <span class="hidden-xs">
               @if(Auth::user())
                 {{ Auth::user()->master_pegawai->nama }}

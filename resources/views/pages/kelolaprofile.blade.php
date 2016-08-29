@@ -48,12 +48,16 @@
         </div>
       @endif
     </div>
-    
+
     <div class="col-md-3">
       <!-- Profile Image -->
       <div class="box box-primary">
         <div class="box-body box-profile">
-          <img class="profile-user-img img-responsive img-circle" src="{{url('images')}}/user-not-found.png" alt="User profile picture">
+          @if(Auth::user()->url_foto!="")
+            <img class="profile-user-img img-responsive img-circle" src="{{url('images')}}/{{Auth::user()->url_foto}}" alt="User profile picture">
+          @else
+            <img class="profile-user-img img-responsive img-circle" src="{{url('images')}}/user-not-found.png" alt="User profile picture">
+          @endif
 
           <h3 class="profile-username text-center">{{Auth::user()->master_pegawai->nama}}</h3>
 
