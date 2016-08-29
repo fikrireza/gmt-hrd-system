@@ -7,7 +7,7 @@
     <div class="pull-left info">
       <p>
         @if(Auth::user())
-          {{ Auth::user()->username }}
+          {{ Auth::user()->master_pegawai->nama }}
         @endif
       </p>
       <a href="#"><i class="fa fa-circle text-success"></i> Online</a>

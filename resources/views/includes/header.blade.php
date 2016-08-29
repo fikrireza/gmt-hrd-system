@@ -17,7 +17,7 @@
           <img src="{{ asset('/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
             <span class="hidden-xs">
               @if(Auth::user())
-                {{ Auth::user()->username }}
+                {{ Auth::user()->master_pegawai->nama }}
               @endif
             </span>
         </a>
@@ -27,7 +27,7 @@
             <img src="{{ asset('/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
             <p>
               @if(Auth::user())
-                {{ Auth::user()->username }}
+                {{ Auth::user()->master_pegawai->nama}}
               @endif
               <small>Member since Nov. 2012</small>
             </p>
@@ -35,7 +35,7 @@
           <!-- Menu Footer-->
           <li class="user-footer">
             <div class="pull-left">
-              <a href="#" class="btn btn-default btn-flat">Profile</a>
+              <a href="{{ url('useraccount/kelola-profile') }}/{{Auth::user()->id}}" class="btn btn-default btn-flat">Profile</a>
             </div>
             <div class="pull-right">
               <a href="{{ url('logoutprocess') }}" class="btn btn-default btn-flat">Sign out</a>
