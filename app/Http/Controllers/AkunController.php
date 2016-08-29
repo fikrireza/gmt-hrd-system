@@ -9,6 +9,7 @@ use App\MasterPegawai;
 use App\User;
 Use Hash;
 use DB;
+use Image;
 
 class AkunController extends Controller
 {
@@ -113,5 +114,34 @@ class AkunController extends Controller
       $get->delete();
 
       return redirect()->route('useraccount.create')->with('message', 'Berhasil menghapus akun.');
+    }
+
+    public function kelolaprofile($id)
+    {
+      $get = User::find($id);
+      return view('pages/kelolaprofile')->with('getuser', $get);
+    }
+
+    public function updateprofile(Request $request)
+    {
+      $file = $request->file('url_foto');
+      if ($file!="") {
+        $photo_name = time(). '.' . $file->getClientOriginalExtension();
+        Image::make($file)->fit(160,160)->save('images/'. $photo_name);
+
+        $set = MasterPegawai::find($request->id);
+        $set->nama = $request->name;
+        $set->save();
+
+        $setfoto = User::where('pegawai_id', $request->id)->first();
+        $setfoto->url_foto = $photo_name;
+        $setfoto->save();
+      } else {
+        $set = MasterPegawai::find($request->id);
+        $set->nama = $request->name;
+        $set->save();
+      }
+
+      return redirect()->route('kelola.profile', $request->id)->with('message', 'Berhasil mengubah profile.');
     }
 }

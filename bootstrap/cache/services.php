@@ -28,7 +28,8 @@
     24 => 'App\\Providers\\RouteServiceProvider',
     25 => 'Collective\\Html\\HtmlServiceProvider',
     26 => 'Yajra\\Datatables\\DatatablesServiceProvider',
-    27 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    27 => 'Intervention\\Image\\ImageServiceProvider',
+    28 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
   ),
   'eager' => 
   array (
@@ -46,7 +47,8 @@
     11 => 'App\\Providers\\EventServiceProvider',
     12 => 'App\\Providers\\RouteServiceProvider',
     13 => 'Yajra\\Datatables\\DatatablesServiceProvider',
-    14 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    14 => 'Intervention\\Image\\ImageServiceProvider',
+    15 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
   ),
   'deferred' => 
   array (

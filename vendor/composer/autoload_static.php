@@ -15,6 +15,7 @@ class ComposerStaticInit5a1a5ac1a2730b8eae6b01f21aeb0710
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
+        'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
     );
@@ -64,6 +65,7 @@ class ComposerStaticInit5a1a5ac1a2730b8eae6b01f21aeb0710
         'P' => 
         array (
             'Psy\\' => 4,
+            'Psr\\Http\\Message\\' => 17,
             'PhpParser\\' => 10,
         ),
         'M' => 
@@ -77,7 +79,12 @@ class ComposerStaticInit5a1a5ac1a2730b8eae6b01f21aeb0710
         ),
         'I' => 
         array (
+            'Intervention\\Image\\' => 19,
             'Illuminate\\' => 11,
+        ),
+        'G' => 
+        array (
+            'GuzzleHttp\\Psr7\\' => 16,
         ),
         'F' => 
         array (
@@ -201,6 +208,10 @@ class ComposerStaticInit5a1a5ac1a2730b8eae6b01f21aeb0710
         array (
             0 => __DIR__ . '/..' . '/psy/psysh/src/Psy',
         ),
+        'Psr\\Http\\Message\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+        ),
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
@@ -217,9 +228,17 @@ class ComposerStaticInit5a1a5ac1a2730b8eae6b01f21aeb0710
         array (
             0 => __DIR__ . '/..' . '/league/flysystem/src',
         ),
+        'Intervention\\Image\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/intervention/image/src/Intervention/Image',
+        ),
         'Illuminate\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
+        ),
+        'GuzzleHttp\\Psr7\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
         'Faker\\' => 
         array (
@@ -338,6 +357,7 @@ class ComposerStaticInit5a1a5ac1a2730b8eae6b01f21aeb0710
         'AddNpwpToMasterPegawai' => __DIR__ . '/../..' . '/database/migrations/2016_04_25_024334_add_npwp_to_master_pegawai.php',
         'AddRelationBetweenPegawaiJabatan' => __DIR__ . '/../..' . '/database/migrations/2016_04_24_142048_add_relation_between_pegawai_jabatan.php',
         'AddStatusToMasterjabatan' => __DIR__ . '/../..' . '/database/migrations/2016_04_27_013848_add_status_to_masterjabatan.php',
+        'AddUrlFotoColumnToUser' => __DIR__ . '/../..' . '/database/migrations/2016_08_29_141325_add_url_foto_column_to_user.php',
         'Adobe_Font_Metrics' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Adobe_Font_Metrics.php',
         'AlterMasterPegawai' => __DIR__ . '/../..' . '/database/migrations/2016_04_24_135838_alter_master_pegawai.php',
         'AlterNewColumnToDokumenPegawai' => __DIR__ . '/../..' . '/database/migrations/2016_07_18_232312_alter_new_column_to_dokumen_pegawai.php',
@@ -361,7 +381,6 @@ class ComposerStaticInit5a1a5ac1a2730b8eae6b01f21aeb0710
         'CreateHistoriPegawaiTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_02_002517_create_histori_pegawai_table.php',
         'CreateJabatanTable' => __DIR__ . '/../..' . '/database/migrations/2016_04_24_135609_create_jabatan_table.php',
         'CreateKeahlianKomputerTable' => __DIR__ . '/../..' . '/database/migrations/2016_04_24_144504_create_keahlian_komputer_table.php',
-        'CreateKelompokJabatan' => __DIR__ . '/../..' . '/database/migrations/2016_08_23_160655_create_kelompok_jabatan.php',
         'CreateMasterClientTable' => __DIR__ . '/../..' . '/database/migrations/2016_04_24_142326_create_master_client_table.php',
         'CreateMasterPegawaiTable' => __DIR__ . '/../..' . '/database/migrations/2016_04_18_021250_create_master_pegawai_table.php',
         'CreatePendidikanTable' => __DIR__ . '/../..' . '/database/migrations/2016_04_24_145449_create_pendidikan_table.php',
@@ -374,7 +393,6 @@ class ComposerStaticInit5a1a5ac1a2730b8eae6b01f21aeb0710
         'DOMPDF_Exception' => __DIR__ . '/..' . '/dompdf/dompdf/include/dompdf_exception.cls.php',
         'DOMPDF_Image_Exception' => __DIR__ . '/..' . '/dompdf/dompdf/include/dompdf_image_exception.cls.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
-        'DropForeignIdClient' => __DIR__ . '/../..' . '/database/migrations/2016_07_18_143840_drop_foreign_id_client.php',
         'DropUnusedColumnInDokumenPengaduan' => __DIR__ . '/../..' . '/database/migrations/2016_07_18_231959_drop_unused_column_in_dokumen_pengaduan.php',
         'Encoding_Map' => __DIR__ . '/..' . '/phenx/php-font-lib/classes/Encoding_Map.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',

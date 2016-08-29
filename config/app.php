@@ -159,7 +159,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
-
+        Intervention\Image\ImageServiceProvider::class,
         // Report export to documents
         Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
@@ -211,6 +211,7 @@ return [
         'Html'      => Collective\Html\HtmlFacade::class,
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];
