@@ -10,6 +10,18 @@ use App\MasterPegawai;
 
 class DataPeringatanController extends Controller
 {
+
+    /**
+    * Authentication controller.
+    *
+    * @return void
+    */
+    public function __construct()
+    {
+        $this->middleware('isAdmin');
+    }
+
+    
     public function create(Request $request)
     {
       $file = $request->file('dokumen_peringatan');

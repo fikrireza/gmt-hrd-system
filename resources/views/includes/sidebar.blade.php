@@ -2,16 +2,20 @@
   <!-- Sidebar user panel -->
   <div class="user-panel">
     <div class="pull-left image">
+      @if(Auth::check())
       @if(Auth::user()->url_foto!="")
         <img src="{{url('images')}}/{{Auth::user()->url_foto}}" class="img-circle" alt="User Image">
       @else
         <img src="{{url('images')}}/user-not-found.png" class="img-circle" alt="User Image">
       @endif
+      @endif
     </div>
     <div class="pull-left info">
       <p>
+        @if(Auth::check())
         @if(Auth::user())
           {{ Auth::user()->master_pegawai->nama }}
+        @endif
         @endif
       </p>
       <a href="#"><i class="fa fa-circle text-success"></i> Online</a>

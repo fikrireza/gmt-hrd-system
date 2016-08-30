@@ -16,6 +16,17 @@ use DB;
 
 class PKWTController extends Controller
 {
+
+  /**
+  * Authentication controller.
+  *
+  * @return void
+  */
+  public function __construct()
+  {
+      $this->middleware('isAdmin');
+  }
+  
   public function index()
   {
     return view('pages.PKWT.viewpkwt', compact('getcountpegawai'));

@@ -11,6 +11,17 @@ use DB;
 
 class MasterJabatanController extends Controller
 {
+
+    /**
+    * Authentication controller.
+    *
+    * @return void
+    */
+    public function __construct()
+    {
+        $this->middleware('isAdmin');
+    }
+
     /**
      * Display a listing of the resource.
      *

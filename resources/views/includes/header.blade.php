@@ -14,6 +14,7 @@
     <ul class="nav navbar-nav">
       <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          @if(Auth::check())
           @if(Auth::user()->url_foto!="")
             <img src="{{ url('images') }}/{{Auth::user()->url_foto}}" class="user-image" alt="User Image">
           @else
@@ -23,6 +24,7 @@
               @if(Auth::user())
                 {{ Auth::user()->master_pegawai->nama }}
               @endif
+          @endif
             </span>
         </a>
         <ul class="dropdown-menu">
@@ -30,8 +32,10 @@
           <li class="user-header">
             <img src="{{ asset('/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
             <p>
+              @if(Auth::check())
               @if(Auth::user())
                 {{ Auth::user()->master_pegawai->nama}}
+              @endif
               @endif
               <small>Member since Nov. 2012</small>
             </p>
@@ -39,7 +43,9 @@
           <!-- Menu Footer-->
           <li class="user-footer">
             <div class="pull-left">
+              @if(Auth::check())
               <a href="{{ url('useraccount/kelola-profile') }}/{{Auth::user()->id}}" class="btn btn-default btn-flat">Profile</a>
+              @endif
             </div>
             <div class="pull-right">
               <a href="{{ url('logoutprocess') }}" class="btn btn-default btn-flat">Sign out</a>

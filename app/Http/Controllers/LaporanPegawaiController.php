@@ -19,6 +19,15 @@ use PHPExcel_Worksheet_PageSetup;
 class LaporanPegawaiController extends Controller
 {
 
+  /**
+  * Authentication controller.
+  *
+  * @return void
+  */
+  public function __construct()
+  {
+      $this->middleware('isAdmin');
+  }
 
   public function index()
   {

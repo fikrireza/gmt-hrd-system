@@ -9,17 +9,7 @@ use DB;
 use App\Http\Requests;
 use App\MasterPegawai;
 use App\MasterJabatan;
-use App\Models\DataKeluarga;
-use App\Models\KondisiKesehatan;
-use App\Models\PengalamanKerja;
-use App\Models\Pendidikan;
-use App\Models\BahasaAsing;
-use App\Models\KeahlianKomputer;
-use App\Models\RiwayatPenyakit;
-use App\Models\UploadDocument;
 use App\PKWT;
-use App\DataPeringatan;
-use App\Models\HistoriPegawai;
 
 use Excel;
 use PHPExcel_Worksheet_Drawing;
@@ -27,6 +17,16 @@ use PHPExcel_Worksheet_PageSetup;
 
 class ImportDataController extends Controller
 {
+
+  /**
+  * Authentication controller.
+  *
+  * @return void
+  */
+  public function __construct()
+  {
+      $this->middleware('isAdmin');
+  }
 
   public function index()
   {
