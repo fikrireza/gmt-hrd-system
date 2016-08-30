@@ -45,28 +45,29 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
-        return parent::render($request, $e);
+      if ($e instanceof ModelNotFoundException)
+      {
+          $e = new NotFoundHttpException($e->getMessage(), $e);
+      }
+
+      return parent::render($request, $e);
     }
 
     /**
-     * Create a Symfony response for the given exception.
+     * Convert the given exception into a Response instance.
      *
-     * @param  \Exception  $e
-     * @return mixed
+     * @param \Exception $e
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     protected function convertExceptionToResponse(Exception $e)
     {
-        if (config('app.debug')) {
-            $whoops = new \Whoops\Run;
-            $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
+        $debug = config('app.debug', false);
 
-            return response()->make(
-                $whoops->handleException($e),
-                method_exists($e, 'getStatusCode') ? $e->getStatusCode() : 500,
-                method_exists($e, 'getHeaders') ? $e->getHeaders() : []
-            );
+        if ($debug) {
+            return (new SymfonyDisplayer($debug))->createResponse($e);
         }
 
-        return parent::convertExceptionToResponse($e);
+        return response()->view('errors.404');
     }
 }

@@ -27,11 +27,6 @@
   </head>
   <body class="skin-blue-light hold-transition login-page">
     <div class="login-box">
-      <!-- <div class="login-logo">
-        <img src="{{asset('images/logo-gmt.png')}}" alt="" />
-        <a href="../../index2.html">PT. Ganda Mady Pratama</a>
-      </div> -->
-
       <div class="login-logo-custom">
         <div class="logo-custom">
           <img style="float:right;" src="{{asset('images/logo-gmt.png')}}" alt="" />
