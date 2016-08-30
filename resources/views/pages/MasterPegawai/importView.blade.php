@@ -23,20 +23,25 @@
 @section('content')
   <script>
     window.setTimeout(function() {
-      $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
+      $(".alert").fadeTo(500, 0).slideUp(500, function(){
           $(this).remove();
       });
     }, 2000);
   </script>
 
   <div class="row">
-    <!--column -->
     <div class="col-md-12">
       @if(Session::has('message'))
         <div class="alert alert-success">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
           <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
           <p>{{ Session::get('message') }}</p>
+        </div>
+      @elseif(Session::has('error'))
+        <div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h4><i class="icon fa fa-check"></i> Error!</h4>
+          <p>{{ Session::get('error') }}</p>
         </div>
       @endif
     </div>
@@ -60,16 +65,15 @@
         </div>
         <div class="box-body">
           <div class="col-md-12" style="margin-bottom:20px;">
-            <form role="form" method="post" action="{{ url('import-proses') }}">
+            <form role="form" method="post" action="{{ url('import-proses') }}" enctype="multipart/form-data">
               {!! csrf_field() !!}
               <div class="box-body">
                 <div class="form-group">
                   <label for="exampleInputFile">File input</label>
-                  <input type="file" id="exampleInputFile" accept=".xls, .xlsx">
+                  <input type="file" name="importPegawai" accept=".xls, .xlsx, .csv">
                   <p class="help-block">Harap Import Data Sesuai Dengan Template.</p>
                 </div>
-              </div><!-- /.box-body -->
-
+              </div>
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
               </div>

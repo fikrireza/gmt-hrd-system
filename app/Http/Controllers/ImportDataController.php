@@ -11,6 +11,7 @@ use App\MasterPegawai;
 use App\MasterJabatan;
 use App\PKWT;
 
+use Illuminate\Support\Facades\Input;
 use Excel;
 use PHPExcel_Worksheet_Drawing;
 use PHPExcel_Worksheet_PageSetup;
@@ -36,17 +37,55 @@ class ImportDataController extends Controller
   public function downloadExcel($type)
   {
     $jabatan = MasterJabatan::select('nama_jabatan', 'id')->get()->toArray();
-    // dd($jabatan);
-    return Excel::create('Template Import Data Pegawai', function($excel) use($jabatan){
-      $excel->sheet('Data-Import', function($sheet){
+    $nip     = MasterPegawai::select('nip', 'nama')->orderBy('id', 'DESC')->take(10)->get()->toArray();
+
+    return Excel::create('Template Import Data Pegawai', function($excel) use($jabatan, $nip)
+    {
+      $excel->sheet('Data-Import', function($sheet)
+      {
         $sheet->setOrientation('landscape');
-        $sheet->row(1, array('nip', 'no_ktp', 'no_kk', 'no_npwp', 'nama', 'tanggal_lahir', 'jenis_kelamin', 'email', 'alamat', 'agama', 'no_telp', 'status_pajak', 'kewarganegaraan', 'bpjs_kesehatan', 'bpjs_ketenagakerjaan', 'no_rekening', 'nama_darurat', 'alamat_darurat', 'hubungan_darurat', 'telepon_darurat', 'id_jabatan', 'status'));
+        $sheet->row(1, array('nip', 'nip_lama','no_ktp', 'no_kk', 'no_npwp', 'nama', 'tanggal_lahir', 'jenis_kelamin', 'email', 'alamat', 'agama', 'no_telp', 'status_pajak', 'kewarganegaraan', 'bpjs_kesehatan', 'bpjs_ketenagakerjaan', 'no_rekening', 'nama_darurat', 'alamat_darurat', 'hubungan_darurat', 'telepon_darurat', 'id_jabatan', 'status'));
         $sheet->setColumnFormat(array(
-          'F' => 'yyyy-mm-dd',
+          'G' => 'yyyy-mm-dd',
+          'C' => '@',
+          'D' => '@',
+          'E' => '@',
+          'L' => '@',
+          'O' => '@',
+          'P' => '@',
+          'Q' => '@',
+          'U' => '@',
+          'V' => '@',
+          'W' => '@',
         ));
       });
 
-      $excel->sheet('keterangan', function($sheet){
+      $excel->sheet('nip_pegawai', function($sheet) use($nip)
+      {
+        $sheet->row(1, array('Untuk Import Data Pegawai Di Awali Dengan NIP Terbesar + 1'));
+        $sheet->mergeCells('A1:J1');
+        $sheet->cells('A1:J1', function($cells){
+          $cells->setBackground('#000000');
+          $cells->setFontColor('#ffffff');
+          $cells->setFontWeight('bold');
+          $cells->setFontSize(16);
+        });
+        $sheet->fromArray($nip, null, 'A2', true);
+        $sheet->row(2, array('nip','nama'));
+        $sheet->setAllBorders('thin');
+        $sheet->setFreeze('A1');
+
+        $sheet->cells('A2:B2', function($cells){
+          $cells->setBackground('#000000');
+          $cells->setFontColor('#ffffff');
+          $cells->setFontWeight('bold');
+        });
+
+
+      });
+
+      $excel->sheet('keterangan', function($sheet)
+      {
         $sheet->row(1, array('tanggal_lahir', 'yyyy-mm-dd'));
 
         $sheet->row(3, array('keterangan', 'kode_input'));
@@ -70,6 +109,14 @@ class ImportDataController extends Controller
         $sheet->row(21, array('keterangan', 'kewarganegaraan'));
         $sheet->row(22, array('Warga Negara Indonesia', 'WNI'));
         $sheet->row(23, array('Warga Negara Asing', 'WNA'));
+
+        $sheet->row(25, array('keterangan', 'hubungan_darurat'));
+        $sheet->row(26, array('AYAH', 'AYAH'));
+        $sheet->row(27, array('IBU', 'IBU'));
+        $sheet->row(28, array('KAKAK', 'KAKAK'));
+        $sheet->row(29, array('ADIK', 'ADIK'));
+        $sheet->row(30, array('LAINNYA', 'LAINNYA'));
+
 
         $sheet->cells('A1', function($cells){
           $cells->setBackground('#000000');
@@ -101,6 +148,12 @@ class ImportDataController extends Controller
           $cells->setFontWeight('bold');
         });
 
+        $sheet->cells('A25:B25', function($cells){
+          $cells->setBackground('#000000');
+          $cells->setFontColor('#ffffff');
+          $cells->setFontWeight('bold');
+        });
+
       });
 
       $excel->sheet('id_jabatan', function($sheet) use($jabatan)
@@ -119,9 +172,54 @@ class ImportDataController extends Controller
     })->download($type);
   }
 
-  public function proses(Request $request)
+  public function proses()
   {
-    //
+
+    $timestamps = date('Y-m-d h:m:s');
+
+    if(Input::hasFile('importPegawai')){
+			$path = Input::file('importPegawai')->getRealPath();
+			$data = Excel::selectSheets('Data-Import')->load($path, function($reader) {
+			})->get();
+
+			if(!empty($data) && $data->count()){
+				foreach ($data as $key) {
+					$insert[] = ['nip'         => $key->nip,
+                       'nip_lama'    => $key->nip_lama,
+                       'no_ktp'      => $key->no_ktp,
+                       'no_kk'       => $key->no_kk,
+                       'no_npwp'     => $key->no_npwp,
+                       'nama'        => $key->nama,
+                       'tanggal_lahir'=> $key->tanggal_lahir,
+                       'jenis_kelamin' => $key->jenis_kelamin,
+                       'email'        => $key->email,
+                       'alamat'        => $key->alamat,
+                       'agama'        => $key->agama,
+                       'no_telp'      => $key->no_telp,
+                       'status_pajak' => $key->status_pajak,
+                       'kewarganegaraan' => $key->kewarganegaraan,
+                       'bpjs_kesehatan' => $key->bpjs_kesehatan,
+                       'bpjs_ketenagakerjaan' => $key->bpjs_ketenagakerjaan,
+                       'no_rekening'  => $key->no_rekening,
+                       'nama_darurat' => $key->nama_darurat,
+                       'alamat_darurat'=> $key->alamat_darurat,
+                       'hubungan_darurat'=> $key->hubungan_darurat,
+                       'telepon_darurat'=> $key->telepon_darurat,
+                       'id_jabatan'   => $key->id_jabatan,
+                       'status'       => $key->status,
+                       'created_at'   => $timestamps,
+                       'updated_at'   => $timestamps,
+                     ];
+				}
+
+				if(!empty($insert)){
+					DB::table('master_pegawai')->insert($insert);
+          return redirect()->route('import')->with('message', 'Berhasil Meng-Import Data Pegawai.');
+				}
+			}
+		}
+
+		return back()->with('error', 'Harap Pilih File Sesuai Dengan Template');
   }
 
 }
