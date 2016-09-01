@@ -16,9 +16,9 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           @if(Auth::check())
           @if(Auth::user()->url_foto!="")
-            <img src="{{ url('images') }}/{{Auth::user()->url_foto}}" class="user-image" alt="User Image">
+            <img src="{{url('images')}}/{{Auth::user()->url_foto}}" class="user-image" alt="User Image">
           @else
-            <img src="{{url('images')}}/user-not-found.png}" class="user-image" alt="User Image">
+            <img src="{{url('images')}}/user-not-found.png" class="user-image" alt="User Image">
           @endif
             <span class="hidden-xs">
               @if(Auth::user())
@@ -30,14 +30,17 @@
         <ul class="dropdown-menu">
           <!-- User image -->
           <li class="user-header">
-            <img src="{{ asset('/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+            @if(Auth::check())
+            @if(Auth::user()->url_foto!="")
+              <img src="{{url('images')}}/{{Auth::user()->url_foto}}" class="user-image" alt="User Image">
+            @else
+              <img src="{{url('images')}}/user-not-found.png" class="user-image" alt="User Image">
+            @endif
             <p>
-              @if(Auth::check())
               @if(Auth::user())
                 {{ Auth::user()->master_pegawai->nama}}
               @endif
-              @endif
-              <small>Member since Nov. 2012</small>
+            @endif
             </p>
           </li>
           <!-- Menu Footer-->
