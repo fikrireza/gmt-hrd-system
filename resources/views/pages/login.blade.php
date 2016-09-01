@@ -41,37 +41,51 @@
         </div>
       </div>
 
-      <div class="login-box-body">
-        <p class="login-box-msg">Silahkan lakukan proses login</p>
-        <form action="{{ url('loginprocess') }}" method="post">
-          {!! csrf_field() !!}
-          <div class="form-group has-feedback">
-            <input name="username" type="text" class="form-control" placeholder="Username">
-            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-          </div>
-          <div class="form-group has-feedback">
-            <input name="password" type="password" class="form-control" placeholder="Password">
-            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-          </div>
-          <div class="row">
-            <div class="col-xs-8">
-              <div class="checkbox icheck">
-                <label>
-                  <input type="checkbox"> Remember Me
-                </label>
-              </div>
-            </div><!-- /.col -->
-            <div class="col-xs-4">
-              <button type="submit" class="btn btn-primary btn-block btn-flat">Log In</button>
-            </div><!-- /.col -->
-          </div>
-        </form>
 
-
-        <a href="#">I forgot my password</a><br>
-
-      </div><!-- /.login-box-body -->
-    </div><!-- /.login-box -->
+      @if(Auth::check())
+        @if(Auth::user())
+          <div class="register-box-body">
+            <div class="social-auth-links text-center">
+              <p>Hello, {{ Auth::user()->master_pegawai->nama }}</p>
+              <a href="{{ url('/dashboard') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-bitbucket"><i class="fa fa-dashboard"></i></i> Dashboard</a>
+              <a href="{{ url('masterclient') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-dropbox"><i class="fa fa-building-o"></i> Master Client</a>
+              <a href="{{ route('masterpegawai.index') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-google"><i class="fa fa-users"></i> Master Pegawai</a>
+              <a href="{{ route('masterjabatan.create') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-instagram"><i class="fa fa-briefcase"></i> Master Jabatan</a>
+              <a href="{{url('data-pkwt')}}" class="btn btn-block btn-social btn-maroon btn-flat btn-twitter"><i class="fa fa-file-text"></i> Manajemen PKWT</a>
+              <a href="{{ url('logoutprocess') }}" class="btn btn-block btn-social btn-flat btn-github"><i class="fa fa-sign-out"></i> Logout</a>
+            </div>
+          </div>
+        @endif
+      @else
+        <div class="login-box-body">
+          <p class="login-box-msg">Silahkan lakukan proses login</p>
+          <form action="{{ url('loginprocess') }}" method="post">
+            {!! csrf_field() !!}
+            <div class="form-group has-feedback">
+              <input name="username" type="text" class="form-control" placeholder="Username">
+              <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+              <input name="password" type="password" class="form-control" placeholder="Password">
+              <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <div class="row">
+              <div class="col-xs-8">
+                <div class="checkbox icheck">
+                  <label>
+                    <input type="checkbox"> Remember Me
+                  </label>
+                </div>
+              </div><!-- /.col -->
+              <div class="col-xs-4">
+                <button type="submit" class="btn btn-primary btn-block btn-flat">Log In</button>
+              </div><!-- /.col -->
+            </div>
+          </form>
+          <a href="#">I forgot my password</a><br>
+        </div>
+      @endif
+    </div>
 
     <!-- jQuery 2.1.4 -->
     <script src="{{asset('plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
