@@ -68,17 +68,17 @@ class AkunController extends Controller
         'nip.required' => 'Anda harus memilih NIP',
         'username.required' => 'Username harus diisi',
         'password.required' => 'Password harus diisi',
+        'password.confirmed' => 'Konfirmasi password tidak valid',
         'level.required' => 'Anda harus memilih Level Akses',
         'password_confirmation.required' => 'Konfirmasi password harus diisi',
-        'password_confirmation.confirmed' => 'Konfirmasi password tidak valid'
       ];
-      
+
       $validator = Validator::make($request->all(), [
             'nip' => 'required',
             'username' => 'required',
-            'password' => 'required',
+            'password' => 'required|confirmed',
             'level' => 'required',
-            'password_confirmation' => 'required|confirmed',
+            'password_confirmation' => 'required',
         ], $messages);
 
       if ($validator->fails()) {
