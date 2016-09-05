@@ -69,44 +69,69 @@
         <form class="form-horizontal" method="post" action="{{url('useraccount')}}">
           {!! csrf_field() !!}
           <div class="box-body">
-            <div class="form-group">
+            <div class="form-group {{ $errors->has('nip') ? 'has-error' : '' }}">
               <label class="col-sm-2 control-label">NIP</label>
               <div class="col-sm-8">
                 <select name="nip" class="form-control select2" style="width: 100%;">
                   <option selected="selected"></option>
                   @foreach($getnip as $key)
-                    <option value="{{ $key->id }}">{{ $key->nip }} - {{ $key->nama }}</option>
+                    <option value="{{ $key->id }}" {{old('nip')==$key->id?'selected':''}}>{{ $key->nip }} - {{ $key->nama }}</option>
                   @endforeach
                 </select>
+                @if($errors->has('nip'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('nip')}}</strong>
+                  </span>
+                @endif
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group {{ $errors->has('username') ? 'has-error' : '' }}">
               <label class="col-sm-2 control-label">Username</label>
               <div class="col-sm-8">
-                <input type="text" name="username" class="form-control" placeholder="Username">
+                <input type="text" name="username" class="form-control" placeholder="Username" value="{{ old('username') }}">
+                @if($errors->has('username'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('username')}}</strong>
+                  </span>
+                @endif
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
               <label class="col-sm-2 control-label">Password</label>
               <div class="col-sm-8">
-                <input type="password" name="password" class="form-control" placeholder="Password">
+                <input type="password" name="password" class="form-control" placeholder="Password" value="{{ old('password') }}">
+                @if($errors->has('password'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('password')}}</strong>
+                  </span>
+                @endif
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group {{ $errors->has('password_confirmation') ? 'has-error' : '' }}">
               <label class="col-sm-2 control-label">Konfirmasi Password</label>
               <div class="col-sm-8">
-                <input type="password" name="kpassword" class="form-control" placeholder="Konfirmasi Password">
+                <input type="password" name="password_confirmation" class="form-control" placeholder="Konfirmasi Password" value="{{ old('password_confirmation') }}">
+                @if($errors->has('password_confirmation'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('password_confirmation')}}</strong>
+                  </span>
+                @endif
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group {{ $errors->has('level') ? 'has-error' : '' }}">
               <label class="col-sm-2 control-label">Level Akses</label>
               <div class="col-sm-8">
                 <select class="form-control" name="level">
                   <option></option>
-                  <option value="1">Akses HR</option>
-                  <option value="2">Akses Payroll</option>
-                  <option value="3">Akses Direktur Operasional</option>
+                  <option value="1" {{old('level')=="1"?'selected':''}}>Akses HR</option>
+                  <option value="2" {{old('level')=="2"?'selected':''}}>Akses Payroll</option>
+                  <option value="3" {{old('level')=="3"?'selected':''}}>Akses Direktur Operasional</option>
                 </select>
+                @if($errors->has('level'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('level')}}</strong>
+                  </span>
+                @endif
               </div>
             </div>
           </div><!-- /.box-body -->
