@@ -72,6 +72,7 @@ class AkunController extends Controller
         'password_confirmation.required' => 'Konfirmasi password harus diisi',
         'password_confirmation.confirmed' => 'Konfirmasi password tidak valid'
       ];
+      
       $validator = Validator::make($request->all(), [
             'nip' => 'required',
             'username' => 'required',
@@ -86,7 +87,6 @@ class AkunController extends Controller
                       ->withInput();
         }
 
-      return "baaa";
       $user = new User;
       $user->username = $request->username;
       $user->password = Hash::make($request->password);
