@@ -10,6 +10,7 @@ use App\User;
 Use Hash;
 use DB;
 use Image;
+use Validator;
 
 class AkunController extends Controller
 {
@@ -22,7 +23,7 @@ class AkunController extends Controller
     {
         $this->middleware('isAdmin');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -63,6 +64,29 @@ class AkunController extends Controller
      */
     public function store(Request $request)
     {
+      $messages = [
+        'nip.required' => 'Anda harus memilih NIP',
+        'username.required' => 'Username harus diisi',
+        'password.required' => 'Password harus diisi',
+        'password.confirmed' => 'Konfirmasi password tidak valid',
+        'level.required' => 'Anda harus memilih Level Akses',
+        'password_confirmation.required' => 'Konfirmasi password harus diisi',
+      ];
+
+      $validator = Validator::make($request->all(), [
+            'nip' => 'required',
+            'username' => 'required',
+            'password' => 'required|confirmed',
+            'level' => 'required',
+            'password_confirmation' => 'required',
+        ], $messages);
+
+      if ($validator->fails()) {
+          return redirect()->route('useraccount.create')
+                      ->withErrors($validator)
+                      ->withInput();
+        }
+
       $user = new User;
       $user->username = $request->username;
       $user->password = Hash::make($request->password);
