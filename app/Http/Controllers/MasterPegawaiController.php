@@ -208,19 +208,25 @@ class MasterPegawaiController extends Controller
 
     public function getDataForDataTable()
     {
-      $users = MasterPegawai::select(['master_pegawai.id as id', 'nip','nama','jenis_kelamin', 'no_telp', 'nama_jabatan'])
+      $users = MasterPegawai::select(['master_pegawai.id as id',
+                                      'nip','nama','no_telp','nama_jabatan','master_pegawai.status as status'])
         ->join('master_jabatan','master_pegawai.id_jabatan','=', 'master_jabatan.id')
         ->get();
-        // dd($users);
+
       return Datatables::of($users)
         ->addColumn('action', function($user){
-          return '<a href="masterpegawai/'.$user->nip.'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i></a> <span data-toggle="tooltip" title="Non Aktifkan"> <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="'.$user->id.'"><i class="fa fa-remove"></i></a></span>';
+          if ($user->status=="1") {
+            return '<a href="masterpegawai/'.$user->nip.'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i></a> <span data-toggle="tooltip" title="Non Aktifkan"> <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="'.$user->id.'"><i class="fa fa-ban"></i></a></span>';
+          } else {
+            return '<a href="masterpegawai/'.$user->nip.'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i></a> <span data-toggle="tooltip" title="Aktifkan"> <a href="" class="btn btn-xs btn-success hapus" data-toggle="modal" data-target="#myModal" data-value="'.$user->id.'"><i class="fa fa-check"></i></a></span>';
+          }
         })
-        ->editColumn('jenis_kelamin', function($users){
-          if($users->jenis_kelamin=="L")
-            return "Pria";
-          else
-            return "Wanita";
+        ->editColumn('status', function($user){
+          if ($user->status=="1") {
+            return "<span class='badge bg-green'>Aktif</span>";
+          } else {
+            return "<span class='badge bg-red'>Tidak Aktif</span>";
+          }
         })
         ->removeColumn('id')
         ->make();
@@ -653,13 +659,18 @@ class MasterPegawaiController extends Controller
 
     }
 
-    public function nonaktif($id)
+    public function changestatus($id)
     {
       $set = MasterPegawai::find($id);
-      $set->status = '0';
-      $set->save();
+      if ($set->status=='1') {
+        $set->status = '0';
+        $set->save();
+      } else {
+        $set->status = '1';
+        $set->save();
+      }
 
-      return redirect()->route('masterpegawai.index')->with('message', 'Berhasil menonaktifkan status pegawai.');
+      return redirect()->route('masterpegawai.index')->with('message', 'Berhasil mengubah status pegawai.');
     }
 
 }

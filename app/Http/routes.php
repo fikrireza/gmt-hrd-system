@@ -23,10 +23,10 @@ Route::get('dashboard', [
 Route::post('loginprocess', 'CustomAuthController@loginprocess');
 Route::get('logoutprocess', 'CustomAuthController@logoutprocess');
 
-////// MASTER PEGAWAI ///////
+////// MASTER PEGAWAI //////
 Route::resource('masterpegawai', 'MasterPegawaiController');
 Route::get('datatables', ['as'=>'datatables.data', 'uses'=>'MasterPegawaiController@getDataForDataTable']);
-Route::get('masterpegawai/nonaktif/{id}', 'MasterPegawaiController@nonaktif');
+Route::get('masterpegawai/changestatus/{id}', 'MasterPegawaiController@changestatus');
 
 ////// PKWT //////
 Route::get('data-pkwt', 'PKWTController@index')->name('kelola.pkwt');

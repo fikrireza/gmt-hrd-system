@@ -55,7 +55,7 @@
         </div>
       @endif
     </div>
-    
+
     <div class="col-md-12">
       <div class="box box-success box-solid">
         <div class="box-header">
@@ -67,9 +67,9 @@
               <tr>
                 <th>NIP</th>
                 <th>Nama</th>
-                <th>Jenis Kelamin</th>
                 <th>No Telp</th>
                 <th>Jabatan</th>
+                <th>Status</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -107,17 +107,16 @@
               {data: 'id', name: 'id'},
               {data: '0', name: 'nip'},
               {data: '1', name: 'name'},
-              {data: '2', name: 'jenis_kelamin'},
-              {data: '3', name: 'no_telp'},
-              // {data: '4', name: 'status_kontrak'},
-              {data: '5', name: 'nama_jabatan'},
+              {data: '2', name: 'no_telp'},
+              {data: '3', name: 'nama_jabatan'},
+              {data: '5', name: 'status'},
               {data: '6', name: 'action', orderable: false, searchable: false}
             ]
         });
 
         $('#tabelpegawai').DataTable().on('click', 'a.hapus[data-value]', function () {
           var a = $(this).data('value');
-          $('#set').attr('href', 'masterpegawai/nonaktif/'+a);
+          $('#set').attr('href', 'masterpegawai/changestatus/'+a);
         });
       });
   </script>
