@@ -87,7 +87,8 @@
     <div class="col-md-9">
       <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#activity" data-toggle="tab">Profile Pengguna</a></li>
+          <li class="active"><a href="#settings" data-toggle="tab">Profile Pengguna</a></li>
+          <li><a href="#password" data-toggle="tab">Ubah Password</a></li>
         </ul>
         <div class="tab-content">
           <div class="active tab-pane" id="settings">
@@ -125,6 +126,59 @@
                 <div class="col-sm-10">
                   <input type="file" name="url_foto" class="form-control">
                   <span style="color:red;">* Biarkan kosong jika tidak ingin diganti.</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                  <button type="submit" class="btn btn-success btn-flat">Simpan</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="tab-pane" id="password">
+            <form class="form-horizontal" action="{{route('profile.editpassword')}}" enctype="multipart/form-data" method="post">
+              {{csrf_field()}}
+              <div class="form-group
+                    {{ $errors->has('oldpassword') ? 'has-error' : '' }}"
+                >
+                <label for="inputName" class="col-sm-2 control-label">Password Lama</label>
+                <div class="col-sm-10">
+                  <input type="hidden" name="id" value="{{Auth::user()->pegawai_id}}">
+                  <input type="password" class="form-control" name="oldpassword"
+                    @if(!$errors->has('oldpassword'))
+                     value="{{ old('oldpassword') }}"
+                    @endif
+                  >
+                  @if($errors->has('oldpassword'))
+                    <span class="help-block">
+                      <strong>{{ $errors->first('oldpassword')}}
+                      </strong>
+                    </span>
+                  @endif
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
+                <label for="inputEmail" class="col-sm-2 control-label">Password Baru</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" name="password">
+                  @if($errors->has('password'))
+                    <span class="help-block">
+                      <strong>{{ $errors->first('password')}}
+                      </strong>
+                    </span>
+                  @endif
+                </div>
+              </div>
+              <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
+                <label for="inputEmail" class="col-sm-2 control-label">Konfirmasi Password Baru</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" name="password_confirmation">
+                  @if($errors->has('password_confirmation'))
+                    <span class="help-block">
+                      <strong>{{ $errors->first('password_confirmation')}}
+                      </strong>
+                    </span>
+                  @endif
                 </div>
               </div>
               <div class="form-group">

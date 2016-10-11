@@ -64,6 +64,7 @@ Route::resource('useraccount', 'AkunController');
 Route::get('useraccount/delete/{id}', 'AkunController@delete');
 Route::get('useraccount/kelola-profile/{id}', 'AkunController@kelolaprofile')->name('kelola.profile');
 Route::post('useraccount/update-profile', 'AkunController@updateprofile')->name('profile.edit');
+Route::post('useraccount/update-password', 'AkunController@updatepassword')->name('profile.editpassword');
 Route::resource('uploaddocument', 'UploadDocumentController');
 
 Route::post('addkeluarga', 'MasterPegawaiController@addKeluarga');

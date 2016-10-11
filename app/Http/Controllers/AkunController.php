@@ -178,4 +178,40 @@ class AkunController extends Controller
 
       return redirect()->route('kelola.profile', $request->id)->with('message', 'Berhasil mengubah profile.');
     }
+
+    public function updatepassword(Request $request)
+    {
+      $get = User::find($request->id);
+
+      if(Hash::check($request->oldpassword, $get->password)) {
+        $messages = [
+          'oldpassword.required' => 'Password lama harus diisi.',
+          'password.required' => 'Password baru harus diisi.',
+          'password_confirmation.required' => 'Konfirmasi password baru harus diisi.',
+          'password.confirmed' => 'Konfirmasi password tidak valid.',
+        ];
+
+        $validator = Validator::make($request->all(), [
+          'oldpassword' => 'required',
+          'password' => 'required|confirmed',
+          'password_confirmation' => 'required'
+        ], $messages);
+
+        if ($validator->fails()) {
+          return redirect()->route('kelola.profile', $request->id)
+          ->withErrors($validator)
+          ->with('messagefail', 'Terjadi kesalahan dalam perubahan password.')
+          ->withInput();
+        }
+
+        $get->password = Hash::make($request->password);
+        $get->save();
+
+        return redirect()->route('kelola.profile', $request->id)
+        ->with('message', 'Berhasil melakukan perubahan password.');
+      } else {
+        return redirect()->route('kelola.profile', $request->id)
+          ->with('messagefail', 'Password lama tidak valid.');
+      }
+    }
 }
