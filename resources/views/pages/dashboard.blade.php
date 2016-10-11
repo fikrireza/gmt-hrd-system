@@ -25,7 +25,7 @@
       <div class="small-box bg-aqua">
         <div class="inner">
           <h3>{{ $jumlah_pegawai }}</h3>
-          <p>Jumlah Pegawai</p>
+          <p>Jumlah Pegawai Aktif</p>
         </div>
         <div class="icon">
           <i class="ion ion-ios-people"></i>

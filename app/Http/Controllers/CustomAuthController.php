@@ -19,7 +19,7 @@ class CustomAuthController extends Controller
     $id = Auth::user()->pegawai_id;
     $getpegawai = MasterPegawai::where('id', $id)->first();
 
-    $jumlah_pegawai = MasterPegawai::count();
+    $jumlah_pegawai = MasterPegawai::where('status' , '1')->count();
     $jumlah_client = MasterClient::count();
     $jumlah_pkwt_expired = PKWT::where('tanggal_akhir_pkwt', '<', Carbon::now())->count();
     $jumlah_pkwt = PKWT::all();
