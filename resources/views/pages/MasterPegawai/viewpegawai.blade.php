@@ -17,7 +17,45 @@
 @stop
 
 @section('content')
+  <script>
+    window.setTimeout(function() {
+      $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove();
+      });
+    }, 2000);
+  </script>
+
+
+  <div class="modal modal-default fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Hapus Data Jabatan</h4>
+        </div>
+        <div class="modal-body">
+          <p>Apakah anda yakin untuk menghapus data jabatan ini?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+          <a href="#" class="btn btn-danger" id="set">Ya, saya yakin.</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="row">
+    <div class="col-md-12">
+      @if(Session::has('message'))
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+          <p>{{ Session::get('message') }}</p>
+        </div>
+      @endif
+    </div>
+    
     <div class="col-md-12">
       <div class="box box-success box-solid">
         <div class="box-header">
@@ -32,7 +70,6 @@
                 <th>Jenis Kelamin</th>
                 <th>No Telp</th>
                 <th>Jabatan</th>
-                {{-- <th>Status Kontrak</th> --}}
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -77,7 +114,12 @@
               {data: '6', name: 'action', orderable: false, searchable: false}
             ]
         });
-    });
+
+        $('#tabelpegawai').DataTable().on('click', 'a.hapus[data-value]', function () {
+          var a = $(this).data('value');
+          $('#set').attr('href', 'masterpegawai/nonaktif/'+a);
+        });
+      });
   </script>
 
 @stop

@@ -38,7 +38,7 @@ class MasterPegawaiController extends Controller
     {
         $this->middleware('isAdmin');
     }
-    
+
     public function index()
     {
       return view('pages/MasterPegawai/viewpegawai');
@@ -208,12 +208,13 @@ class MasterPegawaiController extends Controller
 
     public function getDataForDataTable()
     {
-      $users = MasterPegawai::select(['nip','nama','jenis_kelamin', 'no_telp', 'nama_jabatan'])
-        ->join('master_jabatan','master_pegawai.id_jabatan','=', 'master_jabatan.id')->get();
-      // dd($users);
+      $users = MasterPegawai::select(['master_pegawai.id as id', 'nip','nama','jenis_kelamin', 'no_telp', 'nama_jabatan'])
+        ->join('master_jabatan','master_pegawai.id_jabatan','=', 'master_jabatan.id')
+        ->get();
+        // dd($users);
       return Datatables::of($users)
         ->addColumn('action', function($user){
-          return '<a href="masterpegawai/'.$user->nip.'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i></a>';
+          return '<a href="masterpegawai/'.$user->nip.'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i></a> <span data-toggle="tooltip" title="Non Aktifkan"> <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="'.$user->id.'"><i class="fa fa-remove"></i></a></span>';
         })
         ->editColumn('jenis_kelamin', function($users){
           if($users->jenis_kelamin=="L")
@@ -221,6 +222,7 @@ class MasterPegawaiController extends Controller
           else
             return "Wanita";
         })
+        ->removeColumn('id')
         ->make();
     }
 
@@ -649,6 +651,15 @@ class MasterPegawaiController extends Controller
 
       return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil Merubah Histori Pekerjaan Pegawai.');
 
+    }
+
+    public function nonaktif($id)
+    {
+      $set = MasterPegawai::find($id);
+      $set->status = '0';
+      $set->save();
+
+      return redirect()->route('masterpegawai.index')->with('message', 'Berhasil menonaktifkan status pegawai.');
     }
 
 }

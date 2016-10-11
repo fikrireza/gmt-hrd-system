@@ -26,7 +26,7 @@ class PKWTController extends Controller
   {
       $this->middleware('isAdmin');
   }
-  
+
   public function index()
   {
     return view('pages.PKWT.viewpkwt', compact('getcountpegawai'));
