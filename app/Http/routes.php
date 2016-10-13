@@ -25,6 +25,7 @@ Route::get('logoutprocess', 'CustomAuthController@logoutprocess');
 
 ////// MASTER PEGAWAI //////
 Route::resource('masterpegawai', 'MasterPegawaiController');
+Route::post('masterpegawai', 'MasterPegawaiController@store')->name('masterpegawai.store');
 Route::get('datatables', ['as'=>'datatables.data', 'uses'=>'MasterPegawaiController@getDataForDataTable']);
 Route::get('masterpegawai/changestatus/{id}', 'MasterPegawaiController@changestatus');
 
