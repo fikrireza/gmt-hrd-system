@@ -78,7 +78,7 @@
                           @if($errors->has('kode_departemen'))
                             <span class="help-block">
                               <strong>{{ $errors->first('kode_departemen')}}
-                              </stron>
+                              </strong>
                             </span>
                           @endif
                         </div>

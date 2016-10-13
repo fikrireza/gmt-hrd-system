@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
   return view('pages/login');
-});
+})->name('login');
 
 Route::get('dashboard', [
   'as'=>'dashboard',

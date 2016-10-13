@@ -44,7 +44,7 @@ class CustomAuthController extends Controller
     if(Auth::attempt(['username'=>$request->username, 'password'=>$request->password]))
       return redirect('dashboard');
     else
-      return redirect('/');
+      return redirect()->route('login')->with('error', 'These credentials do not match our records.')->withInput($request->only('username'));
   }
 
   public function logoutprocess()
