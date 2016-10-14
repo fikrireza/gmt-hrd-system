@@ -16,9 +16,9 @@ class CreateKeahlianKomputerTable extends Migration
           $table->engine = 'InnoDB';
 
           $table->increments('id');
-          $table->string('nama_program', 100);
-          $table->string('nilai_komputer', 5);
-          $table->integer('id_pegawai')->unsigned();
+          $table->string('nama_program', 100)->nullable();
+          $table->string('nilai_komputer', 5)->nullable();
+          $table->integer('id_pegawai')->unsigned()->nullable();
           $table->timestamps();
         });
 

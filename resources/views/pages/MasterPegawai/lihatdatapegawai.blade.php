@@ -2028,10 +2028,34 @@
                 @if(count($DataPegawai)!=0)
                   @foreach($DataPegawai as $darurat)
                     <tr>
-                      <td>{{ $darurat->nama_darurat }}</td>
-                      <td>{{ $darurat->hubungan_darurat }}</td>
-                      <td>{{ $darurat->alamat_darurat }}</td>
-                      <td>{{ $darurat->telepon_darurat }}</td>
+                      <td>
+                        @if ($darurat->nama_darurat!="")
+                          {{ $darurat->nama_darurat }}
+                        @else
+                          -
+                        @endif
+                      </td>
+                      <td>
+                        @if ($darurat->hubungan_darurat!="")
+                          {{ $darurat->hubungan_darurat }}
+                        @else
+                          -
+                        @endif
+                      </td>
+                      <td>
+                        @if ($darurat->alamat_darurat!="")
+                          {{ $darurat->alamat_darurat }}
+                        @else
+                          -
+                        @endif
+                      </td>
+                      <td>
+                        @if ($darurat->telepon_darurat!="")
+                          {{ $darurat->telepon_darurat }}
+                        @else
+                          -
+                        @endif
+                      </td>
                       <td>
                         <span data-toggle="tooltip" title="Edit Data">
                           <a href="" class="btn btn-xs btn-warning editdarurat" data-toggle="modal" data-target="#editdarurat" data-value="{{$darurat->id}}"><i class="fa fa-edit"></i></a>
@@ -2192,20 +2216,55 @@
                 @if(count($DataKesehatan)!=0)
                   @foreach($DataKesehatan as $kesehatan)
                     <tr>
-                      <td>{{ $kesehatan->tinggi_badan }} CM</td>
-                      <td>{{ $kesehatan->berat_badan }} KG</td>
-                      <td>{{ $kesehatan->warna_rambut }}</td>
-                      <td>{{ $kesehatan->warna_mata }}</td>
-                      <td>@if($kesehatan->berkacamata == '0')
-                        Tidak
-                      @else
-                        Ya
-                      @endif</td>
-                      <td>@if($kesehatan->merokok == '0')
-                        Tidak
-                      @else
-                        Ya
-                      @endif</td>
+                      <td>
+                        @if ($kesehatan->tinggi_badan!="0")
+                          {{ $kesehatan->tinggi_badan }} CM
+                        @else
+                          -
+                        @endif
+                      </td>
+                      <td>
+                        @if ($kesehatan->berat_badan!="0")
+                          {{ $kesehatan->berat_badan }} KG
+                        @else
+                          -
+                        @endif
+                      </td>
+                      <td>
+                        @if ($kesehatan->warna_rambut!="")
+                          {{ $kesehatan->warna_rambut }}
+                        @else
+                          -
+                        @endif
+                      </td>
+                      <td>
+                        @if ($kesehatan->warna_mata!="")
+                          {{ $kesehatan->warna_mata }}
+                        @else
+                          -
+                        @endif
+                      </td>
+                      <td>
+                        @if ($kesehatan->berkacamata!="")
+                          @if($kesehatan->berkacamata == '0')
+                            Tidak
+                          @elseif ($kesehatan->berkacamata == '1')
+                            Ya
+                          @endif
+                        @else
+                          -
+                        @endif
+                        </td>
+                      <td>
+                        @if ($kesehatan->merokok!="")
+                          @if($kesehatan->merokok == '0')
+                            Tidak
+                          @elseif ($kesehatan->merokok == '1')
+                            Ya
+                          @endif
+                        @else
+                          -
+                        @endif
                       <td>
                         <span data-toggle="tooltip" title="Edit Data">
                           <a href="" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalkesehatan" data-value="{{$kesehatan->id}}"><i class="fa fa-edit"></i></a>

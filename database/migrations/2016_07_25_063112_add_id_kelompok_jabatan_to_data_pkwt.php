@@ -13,7 +13,7 @@ class AddIdKelompokJabatanToDataPkwt extends Migration
     public function up()
     {
         Schema::table('data_pkwt', function(Blueprint $table){
-          $table->integer('id_kelompok_jabatan')->after('id_pegawai');
+          $table->integer('id_kelompok_jabatan')->after('id_pegawai')->nullable();
         });
     }
 

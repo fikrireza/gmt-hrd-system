@@ -16,8 +16,8 @@ class CreateMasterClientTable extends Migration
           $table->engine = 'InnoDB';
 
           $table->increments('id');
-          $table->string('kode_client', 10)->unique();
-          $table->string('nama_client', 50);
+          $table->string('kode_client', 10)->unique()->nullable();
+          $table->string('nama_client', 50)->nullable();
           $table->timestamps();
         });
     }

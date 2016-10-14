@@ -14,17 +14,17 @@ class KondisiKesehatan extends Migration
     {
       Schema::create('kondisi_kesehatan', function(Blueprint $table){
         $table->engine = 'InnoDB';
-        
+
         $table->increments('id');
-        $table->integer('tinggi_badan');
-        $table->integer('berat_badan');
-        $table->string('warna_rambut', 10);
-        $table->string('warna_mata', 10);
+        $table->integer('tinggi_badan')->nullable();
+        $table->integer('berat_badan')->nullable();
+        $table->string('warna_rambut', 10)->nullable();
+        $table->string('warna_mata', 10)->nullable();
         //0 = tidak, 1 = ya
-        $table->integer('berkacamata');
+        $table->integer('berkacamata')->nullable();
         //0 = tidak, 1 = ya
-        $table->integer('merokok');
-        $table->integer('id_pegawai')->unsigned();
+        $table->integer('merokok')->nullable();
+        $table->integer('id_pegawai')->unsigned()->nullable();
         $table->timestamps();
       });
 

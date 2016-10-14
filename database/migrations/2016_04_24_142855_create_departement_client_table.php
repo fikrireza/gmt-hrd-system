@@ -16,9 +16,9 @@ class CreateDepartementClientTable extends Migration
           $table->engine = 'InnoDB';
 
           $table->increments('id');
-          $table->string('kode_departemen', 10)->unique();
-          $table->string('nama_departemen', 50);
-          $table->integer('id_cabang')->unsigned();
+          $table->string('kode_departemen', 10)->unique()->nullable();
+          $table->string('nama_departemen', 50)->nullable();
+          $table->integer('id_cabang')->unsigned()->nullable();
           $table->timestamps();
         });
 

@@ -16,9 +16,9 @@ class CreateMasterPegawaiTable extends Migration
         $table->engine = 'InnoDB';
         $table->increments('id');
         $table->string('nip')->unique();
-        $table->string('nama');
-        $table->string('email')->unique();
-        $table->string('alamat');
+        $table->string('nama')->nullable();
+        $table->string('email')->nullable();
+        $table->string('alamat')->nullable();
         // $table->string('status_kontrak');
         $table->integer('status')->default(1);
         //0 = non-aktif, 1 = aktif

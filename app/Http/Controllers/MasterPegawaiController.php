@@ -79,147 +79,124 @@ class MasterPegawaiController extends Controller
         return redirect()->route('masterpegawai.create')->withErrors($validator)->withInput();
       }
 
-      $pegawai = MasterPegawai::create([
-                    'nip'           => $request->nip,
-                    'nip_lama'      => $request->nip_lama,
-                    'no_ktp'        => $request->no_ktp,
-                    'no_kk'         => $request->no_kk,
-                    'no_npwp'       => $request->no_npwp,
-                    'nama'          => $request->nama,
-                    'tanggal_lahir' => $request->tanggal_lahir,
-                    'jenis_kelamin' => $request->jenis_kelamin,
-                    'email'         => $request->email,
-                    'alamat'        => $request->alamat,
-                    'agama'         => $request->agama,
-                    'status_kontrak'=> $request->status_karyawan,
-                    'no_telp'       => $request->no_telp,
-                    'status_pajak'  => $request->status_pajak,
-                    'kewarganegaraan' => $request->kewarganegaraan,
-                    'bpjs_kesehatan'  => $request->bpjs_kesehatan,
-                    'bpjs_ketenagakerjaan'  => $request->bpjs_ketenagakerjaan,
-                    'no_rekening'   => $request->no_rekening,
-                    'nama_darurat'   => $request->nama_darurat,
-                    'alamat_darurat'   => $request->alamat_darurat,
-                    'hubungan_darurat'   => $request->hubungan_darurat,
-                    'telepon_darurat'   => $request->telepon_darurat,
-                    'id_jabatan'     => $request->jabatan,
-      ]);
+      DB::transaction(function() use($request) {
+        $pegawai = MasterPegawai::create([
+          'nip'           => $request->nip,
+          'nip_lama'      => $request->nip_lama,
+          'no_ktp'        => $request->no_ktp,
+          'no_kk'         => $request->no_kk,
+          'no_npwp'       => $request->no_npwp,
+          'nama'          => $request->nama,
+          'tanggal_lahir' => $request->tanggal_lahir,
+          'jenis_kelamin' => $request->jenis_kelamin,
+          'email'         => $request->email,
+          'alamat'        => $request->alamat,
+          'agama'         => $request->agama,
+          // 'status_kontrak'=> $request->status_karyawan,
+          'no_telp'       => $request->no_telp,
+          'status_pajak'  => $request->status_pajak,
+          'kewarganegaraan' => $request->kewarganegaraan,
+          'bpjs_kesehatan'  => $request->bpjs_kesehatan,
+          'bpjs_ketenagakerjaan'  => $request->bpjs_ketenagakerjaan,
+          'no_rekening'   => $request->no_rekening,
+          'nama_darurat'   => $request->nama_darurat,
+          'alamat_darurat'   => $request->alamat_darurat,
+          'hubungan_darurat'   => $request->hubungan_darurat,
+          'telepon_darurat'   => $request->telepon_darurat,
+          'id_jabatan'     => $request->jabatan,
+        ]);
 
-      // DB::transaction(function() use($request) {
-      //   $pegawai = MasterPegawai::create([
-      //                 'nip'           => $request->nip,
-      //                 'nip_lama'      => $request->nip_lama,
-      //                 'no_ktp'        => $request->no_ktp,
-      //                 'no_kk'         => $request->no_kk,
-      //                 'no_npwp'       => $request->no_npwp,
-      //                 'nama'          => $request->nama,
-      //                 'tanggal_lahir' => $request->tanggal_lahir,
-      //                 'jenis_kelamin' => $request->jenis_kelamin,
-      //                 'email'         => $request->email,
-      //                 'alamat'        => $request->alamat,
-      //                 'agama'         => $request->agama,
-      //                 'status_kontrak'=> $request->status_karyawan,
-      //                 'no_telp'       => $request->no_telp,
-      //                 'status_pajak'  => $request->status_pajak,
-      //                 'kewarganegaraan' => $request->kewarganegaraan,
-      //                 'bpjs_kesehatan'  => $request->bpjs_kesehatan,
-      //                 'bpjs_ketenagakerjaan'  => $request->bpjs_ketenagakerjaan,
-      //                 'no_rekening'   => $request->no_rekening,
-      //                 'nama_darurat'   => $request->nama_darurat,
-      //                 'alamat_darurat'   => $request->alamat_darurat,
-      //                 'hubungan_darurat'   => $request->hubungan_darurat,
-      //                 'telepon_darurat'   => $request->telepon_darurat,
-      //                 'id_jabatan'     => $request->jabatan,
-      //   ]);
-      //
-      //   $kondisi_kesehatan = KondisiKesehatan::create([
-      //                 'tinggi_badan'  => $request->input('tinggi_badan'),
-      //                 'berat_badan'   => $request->input('berat_badan'),
-      //                 'warna_rambut'  => $request->input('warna_rambut'),
-      //                 'warna_mata'    => $request->input('warna_mata'),
-      //                 'berkacamata'   => $request->input('berkacamata'),
-      //                 'merokok'       => $request->input('merokok'),
-      //                 'id_pegawai'    => $pegawai->id
-      //   ]);
-      //
-      //   $keluargas = $request->input('data_keluarga');
-      //   if($keluargas != ""){
-      //     foreach($keluargas as $keluarga){
-      //       $isiKeluarga = new DataKeluarga;
-      //       $isiKeluarga->nama_keluarga           = $keluarga['nama_keluarga'];
-      //       $isiKeluarga->hubungan_keluarga       = $keluarga['hubungan_keluarga'];
-      //       $isiKeluarga->tanggal_lahir_keluarga  = $keluarga['tanggal_lahir_keluarga'];
-      //       $isiKeluarga->alamat_keluarga         = $keluarga['alamat_keluarga'];
-      //       $isiKeluarga->jenis_kelamin_keluarga  = $keluarga['jenis_kelamin_keluarga'];
-      //       $isiKeluarga->pekerjaan_keluarga      = $keluarga['pekerjaan_keluarga'];
-      //       $isiKeluarga->id_pegawai              = $pegawai->id;
-      //       $isiKeluarga->save();
-      //     }
-      //   }
-      //
-      //   $pengalaman_kerjas = $request->input('pengalaman');
-      //   if($pengalaman_kerjas != ""){
-      //     foreach($pengalaman_kerjas as $pengalaman_kerja){
-      //       $isiPengalaman  = new PengalamanKerja;
-      //       $isiPengalaman->nama_perusahaan   = $pengalaman_kerja['nama_perusahaan'];
-      //       $isiPengalaman->posisi_perusahaan = $pengalaman_kerja['posisi'];
-      //       $isiPengalaman->tahun_awal_kerja  = $pengalaman_kerja['tahun_awal_kerja'];
-      //       $isiPengalaman->tahun_akhir_kerja = $pengalaman_kerja['tahun_akhir_kerja'];
-      //       $isiPengalaman->id_pegawai        = $pegawai->id;
-      //       $isiPengalaman->save();
-      //     }
-      //   }
-      //
-      //   $pendidikans = $request->input('pendidikan');
-      //   if($pendidikans != ""){
-      //     foreach($pendidikans as $pendidikan){
-      //       $isiPendidikan  = new Pendidikan;
-      //       $isiPendidikan->jenjang_pendidikan      = $pendidikan['jenjang_pendidikan'];
-      //       $isiPendidikan->institusi_pendidikan    = $pendidikan['institusi_pendidikan'];
-      //       $isiPendidikan->tahun_masuk_pendidikan  = $pendidikan['tahun_masuk_pendidikan'];
-      //       $isiPendidikan->tahun_lulus_pendidikan  = $pendidikan['tahun_lulus_pendidikan'];
-      //       $isiPendidikan->gelar_akademik          = $pendidikan['gelar_akademik'];
-      //       $isiPendidikan->id_pegawai              = $pegawai->id;
-      //       $isiPendidikan->save();
-      //     }
-      //   }
-      //
-      //   $bahasas = $request->input('bahasa');
-      //   if($bahasas != ""){
-      //     foreach ($bahasas as $bahasa) {
-      //       $isiBahasa = new BahasaAsing;
-      //       $isiBahasa->bahasa      = $bahasa['bahasa'];
-      //       $isiBahasa->berbicara   = $bahasa['berbicara'];
-      //       $isiBahasa->menulis     = $bahasa['menulis'];
-      //       $isiBahasa->mengerti    = $bahasa['mengerti'];
-      //       $isiBahasa->id_pegawai  = $pegawai->id;
-      //       $isiBahasa->save();
-      //     }
-      //   }
-      //
-      //   $komputers = $request->input('komputer');
-      //   if($komputers != ""){
-      //     foreach ($komputers as $komputer) {
-      //       $isiKomputer  = new KeahlianKomputer;
-      //       $isiKomputer->nama_program  = $komputer['nama_program'];
-      //       $isiKomputer->nilai_komputer= $komputer['nilai'];
-      //       $isiKomputer->id_pegawai    = $pegawai->id;
-      //       $isiKomputer->save();
-      //     }
-      //   }
-      //
-      //   $penyakits = $request->input('penyakit');
-      //   if($penyakits != ""){
-      //     foreach ($penyakits as $penyakit) {
-      //       $isiPenyakit  = new RiwayatPenyakit;
-      //       $isiPenyakit->nama_penyakit       = $penyakit['nama_penyakit'];
-      //       $isiPenyakit->keterangan_penyakit = $penyakit['keterangan'];
-      //       $isiPenyakit->id_pegawai          = $pegawai->id;
-      //       $isiPenyakit->save();
-      //     }
-      //   }
-      //
-      // });
+        $kondisi_kesehatan = KondisiKesehatan::create([
+          'tinggi_badan'  => $request->input('tinggi_badan'),
+          'berat_badan'   => $request->input('berat_badan'),
+          'warna_rambut'  => $request->input('warna_rambut'),
+          'warna_mata'    => $request->input('warna_mata'),
+          'berkacamata'   => $request->input('berkacamata'),
+          'merokok'       => $request->input('merokok'),
+          'id_pegawai'    => $pegawai->id
+        ]);
+
+        $keluargas = $request->input('data_keluarga');
+        foreach($keluargas as $keluarga){
+          if ($keluarga['nama_keluarga']!="" && $keluarga['hubungan_keluarga']!="" && $keluarga['tanggal_lahir_keluarga']!="" && $keluarga['alamat_keluarga']!="" && $keluarga['pekerjaan_keluarga']!="") {
+            $isiKeluarga = new DataKeluarga;
+            $isiKeluarga->nama_keluarga           = $keluarga['nama_keluarga'];
+            $isiKeluarga->hubungan_keluarga       = $keluarga['hubungan_keluarga'];
+            $isiKeluarga->tanggal_lahir_keluarga  = $keluarga['tanggal_lahir_keluarga'];
+            $isiKeluarga->alamat_keluarga         = $keluarga['alamat_keluarga'];
+            // $isiKeluarga->jenis_kelamin_keluarga  = $keluarga['jenis_kelamin_keluarga'];
+            $isiKeluarga->pekerjaan_keluarga      = $keluarga['pekerjaan_keluarga'];
+            $isiKeluarga->id_pegawai              = $pegawai->id;
+            $isiKeluarga->save();
+          }
+        }
+
+        $pengalaman_kerjas = $request->input('pengalaman');
+        foreach($pengalaman_kerjas as $pengalaman_kerja){
+          if ($pengalaman_kerja['nama_perusahaan']!="" && $pengalaman_kerja['posisi']!="" && $pengalaman_kerja['tahun_awal_kerja']!="" && $pengalaman_kerja['tahun_akhir_kerja']!="") {
+            $isiPengalaman  = new PengalamanKerja;
+            $isiPengalaman->nama_perusahaan   = $pengalaman_kerja['nama_perusahaan'];
+            $isiPengalaman->posisi_perusahaan = $pengalaman_kerja['posisi'];
+            $isiPengalaman->tahun_awal_kerja  = $pengalaman_kerja['tahun_awal_kerja'];
+            $isiPengalaman->tahun_akhir_kerja = $pengalaman_kerja['tahun_akhir_kerja'];
+            $isiPengalaman->id_pegawai        = $pegawai->id;
+            $isiPengalaman->save();
+          }
+        }
+
+
+        $pendidikans = $request->input('pendidikan');
+        foreach($pendidikans as $pendidikan){
+          if ($pendidikan['jenjang_pendidikan']!="" && $pendidikan['institusi_pendidikan']!="" && $pendidikan['tahun_masuk_pendidikan']!="" && $pendidikan['tahun_lulus_pendidikan']!="" && $pendidikan['gelar_akademik']!="") {
+            $isiPendidikan  = new Pendidikan;
+            $isiPendidikan->jenjang_pendidikan      = $pendidikan['jenjang_pendidikan'];
+            $isiPendidikan->institusi_pendidikan    = $pendidikan['institusi_pendidikan'];
+            $isiPendidikan->tahun_masuk_pendidikan  = $pendidikan['tahun_masuk_pendidikan'];
+            $isiPendidikan->tahun_lulus_pendidikan  = $pendidikan['tahun_lulus_pendidikan'];
+            $isiPendidikan->gelar_akademik          = $pendidikan['gelar_akademik'];
+            $isiPendidikan->id_pegawai              = $pegawai->id;
+            $isiPendidikan->save();
+          }
+        }
+
+
+        $bahasas = $request->input('bahasa');
+        foreach ($bahasas as $bahasa) {
+          if ($bahasa['bahasa']!="" && $bahasa['berbicara']!="" && $bahasa['menulis']!="" && $bahasa['mengerti']!="") {
+            $isiBahasa = new BahasaAsing;
+            $isiBahasa->bahasa      = $bahasa['bahasa'];
+            $isiBahasa->berbicara   = $bahasa['berbicara'];
+            $isiBahasa->menulis     = $bahasa['menulis'];
+            $isiBahasa->mengerti    = $bahasa['mengerti'];
+            $isiBahasa->id_pegawai  = $pegawai->id;
+            $isiBahasa->save();
+          }
+        }
+
+
+        $komputers = $request->input('komputer');
+        foreach ($komputers as $komputer) {
+          if ($komputer['nama_program']!="" && $komputer['nilai']!="") {
+            $isiKomputer  = new KeahlianKomputer;
+            $isiKomputer->nama_program  = $komputer['nama_program'];
+            $isiKomputer->nilai_komputer= $komputer['nilai'];
+            $isiKomputer->id_pegawai    = $pegawai->id;
+            $isiKomputer->save();
+          }
+        }
+
+
+        $penyakits = $request->input('penyakit');
+        foreach ($penyakits as $penyakit) {
+          if ($penyakit['nama_penyakit']!="" && $penyakit['keterangan']!="") {
+            $isiPenyakit  = new RiwayatPenyakit;
+            $isiPenyakit->nama_penyakit       = $penyakit['nama_penyakit'];
+            $isiPenyakit->keterangan_penyakit = $penyakit['keterangan'];
+            $isiPenyakit->id_pegawai          = $pegawai->id;
+            $isiPenyakit->save();
+          }
+        }
+      });
 
       return redirect()->route('masterpegawai.create')->with('message','Berhasil memasukkan pegawai baru.');
     }

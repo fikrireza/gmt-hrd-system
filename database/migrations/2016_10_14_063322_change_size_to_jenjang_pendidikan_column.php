@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddStatusToMasterjabatan extends Migration
+class ChangeSizeToJenjangPendidikanColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,9 @@ class AddStatusToMasterjabatan extends Migration
      */
     public function up()
     {
-        Schema::table('master_jabatan', function($table){
-          //0 = tidak aktif, 1 = aktif
-          $table->integer('status')->default(1)->after('nama_jabatan')->nullable();
+        Schema::table('pendidikan', function($table){
+          $table->string('jenjang_pendidikan', 100)->nullable()->change();
+          $table->string('institusi_pendidikan', 100)->nullable()->change();
         });
     }
 

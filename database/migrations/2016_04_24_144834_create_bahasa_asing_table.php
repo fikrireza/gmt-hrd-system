@@ -14,14 +14,14 @@ class CreateBahasaAsingTable extends Migration
     {
         Schema::create('bahasa_asing', function(Blueprint $table){
           $table->engine = 'InnoDB';
-          
+
           $table->increments('id');
-          $table->string('bahasa', 15);
+          $table->string('bahasa')->nullable();
           //0 = tidak diisi
-          $table->enum('berbicara', [0,1,2,3]);
-          $table->enum('menulis', [0,1,2,3]);
-          $table->enum('mengerti', [0,1,2,3]);
-          $table->integer('id_pegawai')->unsigned();
+          $table->integer('berbicara')->nullable();
+          $table->integer('menulis')->nullable();
+          $table->integer('mengerti')->nullable();
+          $table->integer('id_pegawai')->unsigned()->nullable();
           $table->timestamps();
         });
 

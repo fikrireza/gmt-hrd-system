@@ -16,16 +16,16 @@ class CreateDataPkwtTable extends Migration
           $table->engine = 'InnoDB';
 
           $table->increments('id');
-          $table->date('tanggal_masuk_gmt');
-          $table->date('tanggal_masuk_client');
+          $table->date('tanggal_masuk_gmt')->nullable();
+          $table->date('tanggal_masuk_client')->nullable();
           //0 = tidak aktif, 1 = aktif
-          $table->integer('status_pkwt')->default(1);
-          $table->date('tanggal_awal_pkwt');
-          $table->date('tanggal_akhir_pkwt');
+          $table->integer('status_pkwt')->default(1)->nullable();
+          $table->date('tanggal_awal_pkwt')->nullable();
+          $table->date('tanggal_akhir_pkwt')->nullable();
           //1 = Kontrak, 2 = Freelance, 3 = Tetap
-          $table->integer('status_karyawan_pkwt')->default(1);
-          $table->integer('id_pegawai')->unsigned();
-          $table->integer('id_client')->unsigned();
+          $table->integer('status_karyawan_pkwt')->default(1)->nullable();
+          $table->integer('id_pegawai')->unsigned()->nullable();
+          $table->integer('id_client')->unsigned()->nullable();
           $table->timestamps();
         });
 

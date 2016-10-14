@@ -16,10 +16,10 @@ class CreateClientCabangTable extends Migration
           $table->engine = 'InnoDB';
 
           $table->increments('id');
-          $table->string('kode_cabang', 10)->unique();
-          $table->string('nama_cabang', 50);
-          $table->string('alamat_cabang');
-          $table->integer('id_client')->unsigned();
+          $table->string('kode_cabang', 10)->unique()->nullable();
+          $table->string('nama_cabang', 50)->nullable();
+          $table->string('alamat_cabang')->nullable();
+          $table->integer('id_client')->unsigned()->nullable();
           $table->timestamps();
         });
 

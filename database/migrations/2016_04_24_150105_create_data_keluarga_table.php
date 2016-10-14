@@ -16,13 +16,13 @@ class CreateDataKeluargaTable extends Migration
         $table->engine = 'InnoDB';
 
         $table->increments('id');
-        $table->string('nama_keluarga', 100);
-        $table->string('hubungan_keluarga', 50);
-        $table->date('tanggal_lahir_keluarga');
-        $table->string('alamat_keluarga');
-        $table->string('pekerjaan_keluarga');
-        $table->char('jenis_kelamin_keluarga', 1);
-        $table->integer('id_pegawai')->unsigned();
+        $table->string('nama_keluarga', 100)->nullable();
+        $table->string('hubungan_keluarga', 50)->nullable();
+        $table->date('tanggal_lahir_keluarga')->nullable();
+        $table->string('alamat_keluarga')->nullable();
+        $table->string('pekerjaan_keluarga')->nullable();
+        $table->char('jenis_kelamin_keluarga', 1)->nullable();
+        $table->integer('id_pegawai')->unsigned()->nullable();
         $table->timestamps();
       });
 

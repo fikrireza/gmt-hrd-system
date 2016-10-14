@@ -14,8 +14,8 @@ class CreateHistoriPegawaiTable extends Migration
     {
         Schema::create('histori_pegawai', function(Blueprint $table){
           $table->increments('id');
-          $table->integer('id_pegawai')->unsigned();
-          $table->text('keterangan');
+          $table->integer('id_pegawai')->unsigned()->nullable();
+          $table->text('keterangan')->nullable();
           $table->timestamps();
         });
 

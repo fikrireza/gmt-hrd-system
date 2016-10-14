@@ -13,7 +13,7 @@ class AddFlagTerminateToDataPkwt extends Migration
     public function up()
     {
         Schema::table('data_pkwt', function(Blueprint $table){
-          $table->integer('flag_terminate')->after('updated_at');
+          $table->integer('flag_terminate')->after('updated_at')->nullable();
         });
     }
 

@@ -13,7 +13,7 @@ class AddUrlFotoColumnToUser extends Migration
     public function up()
     {
       Schema::table('users', function($table){
-        $table->string('url_foto')->after('level');
+        $table->string('url_foto')->after('level')->nullable();
       });
     }
 

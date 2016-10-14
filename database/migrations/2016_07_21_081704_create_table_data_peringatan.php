@@ -16,10 +16,10 @@ class CreateTableDataPeringatan extends Migration
           $table->engine = 'InnoDB';
           $table->increments('id');
           $table->integer('id_pegawai')->unsigned()->nullable();
-          $table->date('tanggal_peringatan');
-          $table->string('jenis_peringatan');
-          $table->string('keterangan_peringatan');
-          $table->string('dokumen_peringatan');
+          $table->date('tanggal_peringatan')->nullable();
+          $table->string('jenis_peringatan')->nullable();
+          $table->string('keterangan_peringatan')->nullable();
+          $table->string('dokumen_peringatan')->nullable();
           $table->timestamps();
         });
 

@@ -16,11 +16,11 @@ class CreateDokumenPegawai extends Migration
         $table->engine = 'InnoDB';
 
         $table->increments('id');
-        $table->string('upload_kk', 100)->unique();
-        $table->string('upload_ktp', 100)->unique();
-        $table->string('upload_ijazah', 100)->unique();
-        $table->string('upload_foto', 100)->unique();
-        $table->integer('id_pegawai')->unsigned();
+        $table->string('upload_kk', 100)->unique()->nullable();
+        $table->string('upload_ktp', 100)->unique()->nullable();
+        $table->string('upload_ijazah', 100)->unique()->nullable();
+        $table->string('upload_foto', 100)->unique()->nullable();
+        $table->integer('id_pegawai')->unsigned()->nullable();
         $table->timestamps();
       });
 

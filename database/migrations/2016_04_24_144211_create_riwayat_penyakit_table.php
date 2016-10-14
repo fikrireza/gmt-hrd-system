@@ -16,9 +16,9 @@ class CreateRiwayatPenyakitTable extends Migration
           $table->engine = 'InnoDB';
 
           $table->increments('id');
-          $table->string('nama_penyakit', 100);
-          $table->string('keterangan_penyakit');
-          $table->integer('id_pegawai')->unsigned();
+          $table->string('nama_penyakit', 100)->nullable();
+          $table->string('keterangan_penyakit')->nullable();
+          $table->integer('id_pegawai')->unsigned()->nullable();
           $table->timestamps();
         });
 

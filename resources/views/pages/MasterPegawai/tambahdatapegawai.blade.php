@@ -580,7 +580,7 @@
                     <tr>
                       <td><input type="checkbox" name="chk"/></td>
                       <td>
-                        {!! Form::select('pendidikan[0][jenjang_pendidikan]', array('PELATIHANKEAHLIAN' => 'PELATIHAN KEAHLIAN',
+                        {!! Form::select('pendidikan[0][jenjang_pendidikan]', array('PELATIHAN KEAHLIAN' => 'PELATIHAN KEAHLIAN',
                                                         'S2' => 'S2',
                                                         'S1' => 'S1',
                                                         'D3' => 'D3',
@@ -1008,8 +1008,17 @@
         cell5.innerHTML = '<div class="input-group"><div class="input-group-addon"><i class="fa fa-calendar"></i></div><input type="text" class="form-control tahun_akhir_kerja" name="pengalaman['+numB+'][tahun_akhir_kerja]" data-date-format="dd-mm-yyyy" @if(!$errors->has('tahun_akhir_kerja'))value="{{ old('tahun_akhir_kerja') }}"@endif></div>@if($errors->has('tahun_akhir_kerja'))<span class="help-block"><strong><h6>{{ $errors->first('tahun_akhir_kerja')}}</h6></strong></span>@endif';
         numB++;
 
-        $('.tahun_awal_kerja').datepicker();
-        $('.tahun_akhir_kerja').datepicker();
+        $('.tahun_awal_kerja').datepicker({
+          format: 'yyyy',
+          startView: "years",
+          minViewMode: "years"
+        });
+
+        $('.tahun_akhir_kerja').datepicker({
+          format: 'yyyy',
+          startView: "years",
+          minViewMode: "years"
+        });
     }
 
     function delPengalaman(tableID) {
@@ -1047,7 +1056,7 @@
         cell1.innerHTML = '<input type="checkbox" name="chk[]"/>';
 
         var cell2 = row.insertCell(1);
-        cell2.innerHTML = '<select class="form-control" name="pendidikan['+numC+'][jenjang_pendidikan]" ><option value="" disabled selected>-- Pilih --</option><option value="PELATIHANKEAHLIAN">PELATIHAN KEAHLIAN</option><option value="S2">S2 Magister</option><option value="S1">S1 Universitas</option><option value="D3">D3 Akademik</option><option value="SMU">SMU</option><option value="SMP">SMP</option><option value="SD">SD</option><option value="LAINNYA">LAINNYA</option></select>@if($errors->has('jenjang_pendidikan'))<span class="help-block"><strong>{{ $errors->first('jenjang_pendidikan')}}</strong></span>@endif';
+        cell2.innerHTML = '<select class="form-control" name="pendidikan['+numC+'][jenjang_pendidikan]" ><option value="" disabled selected>-- Pilih --</option><option value="PELATIHAN KEAHLIAN">PELATIHAN KEAHLIAN</option><option value="S2">S2 Magister</option><option value="S1">S1 Universitas</option><option value="D3">D3 Akademik</option><option value="SMU">SMU</option><option value="SMP">SMP</option><option value="SD">SD</option><option value="LAINNYA">LAINNYA</option></select>@if($errors->has('jenjang_pendidikan'))<span class="help-block"><strong>{{ $errors->first('jenjang_pendidikan')}}</strong></span>@endif';
 
         var cell3 = row.insertCell(2);
         cell3.innerHTML = '<input type="text" name="pendidikan['+numC+'][institusi_pendidikan]" class="form-control uppercase" placeholder="Institusi Pendidikan" >@if($errors->has('institusi_pendidikan'))<span class="help-block"><strong>{{ $errors->first('institusi_pendidikan')}}</strong></span>@endif';

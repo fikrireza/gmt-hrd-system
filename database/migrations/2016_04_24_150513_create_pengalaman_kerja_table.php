@@ -16,11 +16,11 @@ class CreatePengalamanKerjaTable extends Migration
         $table->engine = 'InnoDB';
 
         $table->increments('id');
-        $table->string('nama_perusahaan', 100);
-        $table->string('posisi_perusahaan', 100);
-        $table->string('tahun_awal_kerja', 4);
-        $table->string('tahun_akhir_kerja', 4);
-        $table->integer('id_pegawai')->unsigned();
+        $table->string('nama_perusahaan', 100)->nullable();
+        $table->string('posisi_perusahaan', 100)->nullable();
+        $table->string('tahun_awal_kerja', 4)->nullable();
+        $table->string('tahun_akhir_kerja', 4)->nullable();
+        $table->integer('id_pegawai')->unsigned()->nullable();
         $table->timestamps();
       });
 

@@ -15,8 +15,8 @@ class CreateJabatanTable extends Migration
         Schema::create('master_jabatan', function(Blueprint $table){
           $table->engine = 'InnoDB';
           $table->increments('id');
-          $table->string('kode_jabatan', 10)->unique();
-          $table->string('nama_jabatan', 50);
+          $table->string('kode_jabatan', 10)->unique()->nullable();
+          $table->string('nama_jabatan', 50)->nullable();
           $table->timestamps();
         });
     }
