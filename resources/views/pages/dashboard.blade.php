@@ -9,7 +9,11 @@
 @section('breadcrumb')
   <h1>
     Dashboard
-    <small>Control panel</small>
+    @if (Auth::user()->level=="1")
+      <small>Akses Human Resources</small>
+    @elseif (Auth::user()->level=="2")
+      <small>Akses Payroll</small>
+    @endif
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>

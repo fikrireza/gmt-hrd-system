@@ -2,7 +2,13 @@
   <!-- mini logo for sidebar mini 50x50 pixels -->
   <span class="logo-mini"><b>GMT</b></span>
   <!-- logo for regular state and mobile devices -->
-  <span class="logo-lg" style="font-size:18px;"><b>GMT</b> Human Resources</span>
+  <span class="logo-lg" style="font-size:18px;"><b>GMT</b>
+    @if (Auth::user()->level=="1")
+      Human Resources
+    @elseif (Auth::user()->level="2")
+      Payroll System
+    @endif
+  </span>
 </a>
 <!-- Header Navbar: style can be found in header.less -->
 <nav class="navbar navbar-static-top" role="navigation">
