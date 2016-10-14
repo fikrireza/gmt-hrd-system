@@ -49,7 +49,7 @@
                 <div class="form-group {{ $errors->has('nip') ? 'has-error' : '' }}">
                   <label class="col-sm-3 control-label">NIP</label>
                   <div class="col-sm-9">
-                  {!! Form::text('nip', null, ['class'=>'form-control', 'placeholder'=>'NIP']) !!}
+                  {!! Form::text('nip', $nextid, ['class'=>'form-control', 'placeholder'=>'NIP', 'readonly'=>true]) !!}
                   @if($errors->has('nip'))
                     <span class="help-block">
                       <strong>{{ $errors->first('nip')}}
