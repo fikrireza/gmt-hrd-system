@@ -205,7 +205,7 @@ class MasterPegawaiController extends Controller
     {
       $DataPegawai    = MasterPegawai::join('master_jabatan', 'master_pegawai.id_jabatan', '=', 'master_jabatan.id')
                         ->select('master_pegawai.*', 'master_jabatan.nama_jabatan')
-                        ->where('nip', '=', $id)
+                        ->where('master_pegawai.id', '=', $id)
                         ->get();
 
       $DataJabatan    = MasterJabatan::all();
@@ -244,9 +244,9 @@ class MasterPegawaiController extends Controller
       return Datatables::of($users)
         ->addColumn('action', function($user){
           if ($user->status=="Aktif") {
-            return '<a href="masterpegawai/'.$user->nip.'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i></a> <span data-toggle="tooltip" title="Non Aktifkan"> <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="'.$user->id.'"><i class="fa fa-ban"></i></a></span>';
+            return '<a href="masterpegawai/'.$user->id.'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i></a> <span data-toggle="tooltip" title="Non Aktifkan"> <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="'.$user->id.'"><i class="fa fa-ban"></i></a></span>';
           } else {
-            return '<a href="masterpegawai/'.$user->nip.'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i></a> <span data-toggle="tooltip" title="Aktifkan"> <a href="" class="btn btn-xs btn-success hapus" data-toggle="modal" data-target="#myModal" data-value="'.$user->id.'"><i class="fa fa-check"></i></a></span>';
+            return '<a href="masterpegawai/'.$user->id.'" class="btn btn-xs btn-primary" data-toggle="tooltip" title="Lihat Detail"><i class="fa fa-eye"></i></a> <span data-toggle="tooltip" title="Aktifkan"> <a href="" class="btn btn-xs btn-success hapus" data-toggle="modal" data-target="#myModal" data-value="'.$user->id.'"><i class="fa fa-check"></i></a></span>';
           }
         })
         ->editColumn('status', function($user){
