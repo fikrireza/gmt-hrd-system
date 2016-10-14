@@ -57,7 +57,7 @@
     </div>
 
     <div class="col-md-12">
-      <div class="box box-success box-solid">
+      <div class="box box-primary box-solid">
         <div class="box-header">
           <a class="btn btn-round bg-red" href="{{ route('masterpegawai.create') }}"><i class="fa fa-users"></i> Tambah Pegawai</a>
         </div>
