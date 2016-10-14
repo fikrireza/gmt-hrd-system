@@ -123,25 +123,25 @@
                     @endif
                   </div>
                 </div>
-                <div class="form-group {{ $errors->has('jk') ? 'has-error' : '' }}">
+                <div class="form-group {{ $errors->has('jenis_kelamin') ? 'has-error' : '' }}">
                   <label class="col-sm-3 control-label">Jenis Kelamin</label>
                   <div class="col-sm-9">
                     <div class="col-sm-9">
                       <label>
-                        <input type="radio" name="jenis_kelamin" class="minimal" value="L" {{ old('jk') == 'L' ? 'checked' : '' }}>
+                        <input type="radio" name="jenis_kelamin" class="minimal" value="L" {{ old('jenis_kelamin') == 'L' ? 'checked' : '' }}>
                       </label>
                       &nbsp;
                       <label>Pria</label>
                       &nbsp;&nbsp;&nbsp;&nbsp;
                       <label>
-                        <input type="radio" name="jenis_kelamin" class="minimal" value="P" {{ old('jk') == 'P' ? 'checked' : '' }}>
+                        <input type="radio" name="jenis_kelamin" class="minimal" value="P" {{ old('jenis_kelamin') == 'P' ? 'checked' : '' }}>
                       </label>
                       &nbsp;
                       <label>Wanita</label>
                     </div>
-                    @if($errors->has('jk'))
+                    @if($errors->has('jenis_kelamin'))
                       <span class="help-block">
-                        <strong>{{ $errors->first('jk')}}
+                        <strong>{{ $errors->first('jenis_kelamin')}}
                         </strong>
                       </span>
                     @endif
