@@ -46,7 +46,7 @@ class MasterPegawaiController extends Controller
 
     public function create()
     {
-      $getjabatan = MasterJabatan::where('status', '=', '1')->lists('nama_jabatan','id');
+      $getjabatan = MasterJabatan::where('status', '=', '1')->pluck('nama_jabatan','id');
       $getid = MasterPegawai::select('nip')->orderby('id', 'desc')->first();
       $sub = substr($getid->nip, 3, 4)+1;
       $nextid = "NIP".$sub;
