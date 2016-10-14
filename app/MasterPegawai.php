@@ -16,4 +16,9 @@ class MasterPegawai extends Model
     {
       return $this->hasOne('App\User');
     }
+
+    public function detail_periode_gaji()
+    {
+      return $this->hasOne('App\Models\DetailPeriodeGaji');
+    }
 }
