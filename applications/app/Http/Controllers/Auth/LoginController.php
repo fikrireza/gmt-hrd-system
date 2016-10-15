@@ -61,13 +61,12 @@ class LoginController extends Controller
 
       $validator = Validator::make($request->all(), [
         'username' => 'required',
-        'password' => 'required|min:8',
+        'password' => 'required',
       ], $message);
 
       if($validator->fails()) {
         return redirect()->route('index')->withErrors($validator)->withInput();
       }
-
   		$logValue = $request->input('username');
 
   		$logAccess = filter_var($logValue, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
