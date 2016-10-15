@@ -109,7 +109,7 @@
       </li>
       <li class="treeview">
         <a href="#">
-          <i class="fa fa-cog"></i>
+          <i class="fa fa-money"></i>
           <span>Proses Payroll</span>
           <i class="fa fa-angle-left pull-right"></i>
         </a>
