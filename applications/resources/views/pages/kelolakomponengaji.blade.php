@@ -120,12 +120,16 @@
                   <tbody>
                     @if (count($getkomponen)!=0)
                       @php
-                        $i=1;
+                        $pageget;
+                        if($getkomponen->currentPage()==1)
+                          $pageget = 1;
+                        else
+                          $pageget = (($getkomponen->currentPage() - 1) * $getkomponen->perPage())+1;
                       @endphp
                       @foreach ($getkomponen as $key)
                         <tr>
                           <td>
-                            {{$i}}
+                            {{$pageget}}
                           </td>
                           <td>
                             {{$key->nama_komponen}}
@@ -150,7 +154,7 @@
                           </td>
                         </tr>
                         @php
-                          $i++;
+                          $pageget++;
                         @endphp
                       @endforeach
                     @endif
@@ -159,14 +163,14 @@
               </div>
             </div>
             <div class="row">
-              {{-- <div class="col-sm-5">
-                <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $data['getjabatan']->count() !!}  dari {!! $data['getjabatan']->total() !!} Jabatan</div>
+              <div class="col-sm-5">
+                {{-- <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $getkomponen->count() !!}  dari {!! count($getkomponen) !!} Data</div> --}}
               </div>
               <div class="col-sm-7">
                 <div class="pull-right">
-                  {{ $data['getjabatan']->links() }}
+                  {{ $getkomponen->links() }}
                 </div>
-              </div> --}}
+              </div>
             </div>
           </div>
           </div><!-- /.box-body -->

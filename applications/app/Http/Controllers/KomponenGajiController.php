@@ -11,7 +11,7 @@ class KomponenGajiController extends Controller
 {
     public function index()
     {
-      $getkomponen = KomponenGaji::all();
+      $getkomponen = KomponenGaji::paginate(10);
       return view('pages/kelolakomponengaji')->with('getkomponen', $getkomponen);
     }
 
