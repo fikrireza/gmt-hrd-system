@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    <title>Tambah Data Jabatan</title>
+    <title>Kelola Komponen Gaji</title>
 @stop
 
 @section('breadcrumb')
@@ -32,14 +32,14 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Hapus Data Jabatan</h4>
+            <h4 class="modal-title">Hapus Komponen Gaji</h4>
           </div>
           <div class="modal-body">
-            <p>Apakah anda yakin untuk menghapus data jabatan ini?</p>
+            <p>Apakah anda yakin untuk menghapus komponen gaji ini?</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
-            <a href="{{url('masterjabatan/hapusjabatan/1')}}" class="btn btn-primary" id="set">Ya, saya yakin.</a>
+            <a href="#" class="btn btn-danger" id="set">Ya, saya yakin.</a>
             {{-- <button type="button" class="btn btn btn-outline" data-dismiss="modal">Ya, saya yakin.</button> --}}
           </div>
         </div>
@@ -192,10 +192,10 @@
 
   <script type="text/javascript">
     $(function(){
-      $('a.hapus').click(function(){
-        var a = $(this).data('value');
-        $('#set').attr('href', "{{ url('/') }}/masterjabatan/hapusjabatan/"+a);
-      });
+      // $('a.hapus').click(function(){
+      //   var a = $(this).data('value');
+      //   $('#set').attr('href', "{{ url('/') }}/masterjabatan/hapusjabatan/"+a);
+      // });
     });
   </script>
 @stop
