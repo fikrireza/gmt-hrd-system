@@ -48,6 +48,9 @@ Route::get('laporan-pegawai', ['as' => 'laporanpegawai', 'uses' => 'LaporanPegaw
 Route::post('laporan-proses', ['as' => 'proseslaporan', 'uses' => 'LaporanPegawaiController@proses']);
 Route::get('laporan-proses/{id}/{type}', 'LaporanPegawaiController@downloadExcel');
 
+///// KOMPONEN GAJI //////
+Route::get('komponen-gaji', 'KomponenGajiController@index')->name('komgaji.index');
+Route::post('komponen-gaji', 'KomponenGajiController@store')->name('komgaji.store');
 
 Route::resource('masterclient','MasterClientController');
 Route::get('masterclient/cabang/{id}','MasterClientController@cabang_client_show');

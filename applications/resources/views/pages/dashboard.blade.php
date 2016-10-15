@@ -85,32 +85,35 @@
     </div><!-- ./col -->
   </div><!-- /.row -->
   <!-- Main row -->
-  <div class="row">
-    <section class="col-md-12">
-      <div class="box box-primary box solid">
-        <div class="box-header with-border">
-          <h3 class="box-title">Seluruh Data PKWT</h3>
-        </div><!-- /.box-header -->
-        <div class="box-body">
-          <table class="table table-hover" id="tabelpkwt">
-            <thead>
-              <tr>
-                <th>NIP</th>
-                <th>Nama</th>
-                <th>Tanggal Awal PKWT</th>
-                <th>Tanggal Akhir PKWT</th>
-                <th>Status Karyawan</th>
-                <th>Keterangan</th>
-              </tr>
-            </thead>
-          </table>
+
+  @if (Auth::user()->level=="1")
+    <div class="row">
+      <section class="col-md-12">
+        <div class="box box-primary box solid">
+          <div class="box-header with-border">
+            <h3 class="box-title">Seluruh Data PKWT</h3>
+          </div><!-- /.box-header -->
+          <div class="box-body">
+            <table class="table table-hover" id="tabelpkwt">
+              <thead>
+                <tr>
+                  <th>NIP</th>
+                  <th>Nama</th>
+                  <th>Tanggal Awal PKWT</th>
+                  <th>Tanggal Akhir PKWT</th>
+                  <th>Status Karyawan</th>
+                  <th>Keterangan</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div class="box-footer">
+            <a href="{{url('data-pkwt')}}" class="btn btn-success pull-right"><i class="fa fa-file"></i> &nbsp;&nbsp;Kelola Data PKWT</a>
+          </div>
         </div>
-        <div class="box-footer">
-          <a href="{{url('data-pkwt')}}" class="btn btn-success pull-right"><i class="fa fa-file"></i> &nbsp;&nbsp;Kelola Data PKWT</a>
-        </div>
-      </div>
-    </section>
-  </div><!-- /.row (main row) -->
+      </section>
+    </div><!-- /.row (main row) -->
+  @endif
 
   <!-- jQuery 2.1.4 -->
   <script src="{{asset('plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
@@ -128,25 +131,25 @@
   <!-- AdminLTE for demo purposes -->
   <script src="{{asset('dist/js/demo.js')}}"></script>
 
-  <script type="text/javascript">
+  @if (Auth::user()->level=="1")
+    <script type="text/javascript">
     $(function() {
-
-        $('#tabelpkwt').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{!! route('datatables.dash') !!}',
-            column: [
-              {data: 'id', name: 'id'},
-              {data: '0', name: 'nip'},
-              {data: '1', name: 'nama'},
-              {data: '2', name: 'tanggal_awal_pkwt'},
-              {data: '3', name: 'tanggal_akhir_pkwt'},
-              {data: '4', name: 'status_karyawan_pkwt'},
-              {data: '5', name: 'keterangan'}
-            ]
-        });
-
+      $('#tabelpkwt').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{!! route('datatables.dash') !!}',
+        column: [
+          {data: 'id', name: 'id'},
+          {data: '0', name: 'nip'},
+          {data: '1', name: 'nama'},
+          {data: '2', name: 'tanggal_awal_pkwt'},
+          {data: '3', name: 'tanggal_akhir_pkwt'},
+          {data: '4', name: 'status_karyawan_pkwt'},
+          {data: '5', name: 'keterangan'}
+        ]
+      });
     });
-  </script>
+    </script>
+  @endif
 
 @stop
