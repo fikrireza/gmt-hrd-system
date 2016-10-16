@@ -30,15 +30,13 @@ class MasterClientController extends Controller
      */
     public function index()
     {
-        //$MasterClient = MasterClient::latest('updated_at')->get();
-        $CountAll = DB::table('master_client')
-            ->select(DB::raw('IFNULL(count(cabang_client.id_client),0) as hitungCabang, master_client.*'))//IFNULL(COUNT(pof.ID), 0)
-            ->leftjoin('cabang_client', 'cabang_client.id_client' , '=', 'master_client.id')
-            ->groupBy('master_client.id')
-            ->latest('master_client.updated_at')
-            ->paginate(12);
-            //print_r($CountAll);
-        return view('pages/MasterClient/index', compact('CountAll'));
+      $CountAll = DB::table('master_client')
+          ->select(DB::raw('IFNULL(count(cabang_client.id_client),0) as hitungCabang, master_client.*'))
+          ->leftjoin('cabang_client', 'cabang_client.id_client' , '=', 'master_client.id')
+          ->groupBy('master_client.id')
+          ->latest('master_client.updated_at')
+          ->paginate(12);
+      return view('pages/MasterClient/index', compact('CountAll'));
     }
 
     /**
@@ -78,17 +76,6 @@ class MasterClientController extends Controller
       MasterClient::create($save);
 
       return redirect('masterclient')->with('tambah', 'Berhasil Menambah Client Baru');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**
@@ -138,14 +125,4 @@ class MasterClientController extends Controller
       return redirect('masterclient')->with('update', 'Berhasil Mengubah Data Client');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
