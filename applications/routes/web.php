@@ -48,18 +48,6 @@ Route::get('laporan-pegawai', ['as' => 'laporanpegawai', 'uses' => 'LaporanPegaw
 Route::post('laporan-proses', ['as' => 'proseslaporan', 'uses' => 'LaporanPegawaiController@proses']);
 Route::get('laporan-proses/{id}/{type}', 'LaporanPegawaiController@downloadExcel');
 
-///// KOMPONEN GAJI //////
-Route::get('komponen-gaji', 'KomponenGajiController@index')->name('komgaji.index');
-Route::post('komponen-gaji', 'KomponenGajiController@store')->name('komgaji.store');
-Route::post('komponen-gaji/update/{$id}', 'KomponenGajiController@update')->name('komgaji.update');
-Route::get('komponen-gaji/delete/{$id}', 'KomponenGajiController@delete')->name('komgaji.delete');
-
-///// PERIODE GAJI ///////
-Route::get('periode-gaji', 'PeriodeGajiController@index')->name('periodegaji.index');
-Route::post('periode-gaji', 'PeriodeGajiController@store')->name('periodegaji.store');
-Route::post('periode-gaji/update/{$id}', 'PeriodeGajiController@update')->name('periodegaji.update');
-Route::get('periode-gaji/delete/{$id}', 'PeriodeGajiController@delete')->name('periodegaji.delete');
-
 Route::resource('masterclient','MasterClientController');
 Route::get('masterclient/cabang/{id}','MasterClientController@cabang_client_show');
 Route::resource('cabangclient','CabangClientController');
@@ -130,3 +118,19 @@ Route::post('historipegawai/update', ['as' => 'historipegawai.update', 'uses' =>
 Route::get('import', ['as' => 'import', 'uses' => 'ImportDataController@index']);
 Route::post('import-proses', 'ImportDataController@proses');
 Route::get('import-template/{type}', 'ImportDataController@downloadExcel');
+
+
+///// KOMPONEN GAJI //////
+Route::get('komponen-gaji', 'KomponenGajiController@index')->name('komgaji.index');
+Route::post('komponen-gaji', 'KomponenGajiController@store')->name('komgaji.store');
+Route::post('komponen-gaji/update/{$id}', 'KomponenGajiController@update')->name('komgaji.update');
+Route::get('komponen-gaji/delete/{$id}', 'KomponenGajiController@delete')->name('komgaji.delete');
+
+///// PERIODE GAJI ///////
+Route::get('periode-gaji', 'PeriodeGajiController@index')->name('periodegaji.index');
+Route::post('periode-gaji', 'PeriodeGajiController@store')->name('periodegaji.store');
+Route::post('periode-gaji/update/{$id}', 'PeriodeGajiController@update')->name('periodegaji.update');
+Route::get('periode-gaji/delete/{$id}', 'PeriodeGajiController@delete')->name('periodegaji.delete');
+
+///// PEGAWAI TO PERIODE /////
+Route::get('periode-pegawai', 'PegawaiToPeriodeController@index')->name('periodepegawai.index');

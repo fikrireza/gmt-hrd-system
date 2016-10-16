@@ -14,7 +14,7 @@
      folder instead of downloading all of them to reduce the load. -->
 <link rel="stylesheet" href="{{ asset('/dist/css/skins/_all-skins.min.css') }}">
 <!-- iCheck -->
-<link rel="stylesheet" href="{{ asset('/plugins/iCheck/flat/blue.css') }}">
+<link rel="stylesheet" href="../../plugins/iCheck/all.css">
 <!-- Morris chart -->
 <link rel="stylesheet" href="{{ asset('/plugins/morris/morris.css') }}">
 <!-- jvectormap -->
@@ -25,6 +25,7 @@
 <link rel="stylesheet" href="{{ asset('/plugins/daterangepicker/daterangepicker-bs3.css') }}">
 <!-- bootstrap wysihtml5 - text editor -->
 <link rel="stylesheet" href="{{ asset('/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+<link rel="stylesheet" href="{{ asset('plugins/datatables/dataTables.bootstrap.css') }}">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
