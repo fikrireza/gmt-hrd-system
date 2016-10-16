@@ -44,6 +44,7 @@
 
       @if(Auth::check())
         @if(Auth::user())
+          @if(Auth::user()->level == 1)
           <div class="register-box-body">
             <div class="social-auth-links text-center">
               <p>Hello, {{ Auth::user()->master_pegawai->nama }}</p>
@@ -55,6 +56,17 @@
               <a href="{{ route('logout') }}" class="btn btn-block btn-social btn-flat btn-github"><i class="fa fa-sign-out"></i> Logout</a>
             </div>
           </div>
+          @elseif(Auth::user()->level == 2)
+          <div class="register-box-body">
+            <div class="social-auth-links text-center">
+              <p>Hello, {{ Auth::user()->master_pegawai->nama }}</p>
+              <a href="{{ url('/dashboard') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-bitbucket"><i class="fa fa-dashboard"></i></i> Dashboard</a>
+              <a href="{{ route('periodegaji.index') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-dropbox"><i class="fa fa-building-o"></i> Periode Gaji</a>
+              <a href="{{ route('komgaji.index') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-google"><i class="fa fa-users"></i> Komponen Gaji</a>
+              <a href="{{ route('logout') }}" class="btn btn-block btn-social btn-flat btn-github"><i class="fa fa-sign-out"></i> Logout</a>
+            </div>
+          </div>
+          @endif
         @endif
       @else
         <div class="login-box-body">

@@ -9,10 +9,20 @@ use App\Models\KomponenGaji;
 
 class KomponenGajiController extends Controller
 {
+    /**
+    * Authentication controller.
+    *
+    * @return void
+    */
+    public function __construct()
+    {
+        $this->middleware('isAdmin');
+    }
+    
     public function index()
     {
       $getkomponen = KomponenGaji::paginate(10);
-      return view('pages/kelolakomponengaji')->with('getkomponen', $getkomponen);
+      return view('pages/params/kelolakomponengaji')->with('getkomponen', $getkomponen);
     }
 
     public function store(Request $request)
