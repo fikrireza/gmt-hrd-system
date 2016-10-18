@@ -38,14 +38,48 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Hapus Komponen Gaji</h4>
+            <h4 class="modal-title">Hapus Batch Payroll</h4>
           </div>
           <div class="modal-body">
-            <p>Apakah anda yakin untuk menghapus komponen gaji ini?</p>
+            <p>Seluruh data penggajian pegawai yang telah di generate akan terhapus, apakah anda yakin untuk menghapus Batch Payroll ini?</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
             <a href="#" class="btn btn-danger" id="set">Ya, saya yakin.</a>
+            {{-- <button type="button" class="btn btn btn-outline" data-dismiss="modal">Ya, saya yakin.</button> --}}
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal modal-default fade" id="myModalEdit" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit Batch Payroll</h4>
+          </div>
+          <div class="modal-body">
+            <div class="col-md-14 ">
+              <label class="control-label">Periode Penggajian</label>
+              <select class="form-control" name="periode">
+                <option>-- Pilih --</option>
+                @foreach ($getperiode as $key)
+                  <option value="{{$key->id}}">Per Tanggal {{$key->tanggal}}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="col-md-14 ">
+              <label class="control-label">Tanggal Pemrosesan</label>
+              <input type="text" name="tanggal_proses" class="form-control" id="tanggaledit" data-date-format="yyyy-mm-dd">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+            <a href="#" class="btn btn-primary" id="set">Simpan Perubahan</a>
             {{-- <button type="button" class="btn btn btn-outline" data-dismiss="modal">Ya, saya yakin.</button> --}}
           </div>
         </div>
@@ -105,7 +139,7 @@
     <div class="col-md-8">
       <div class="box box-primary">
         <div class="box-header">
-          <h3 class="box-title">Seluruh Komponen Gaji</h3>
+          <h3 class="box-title">Seluruh Batch Payroll</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
           <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -132,8 +166,16 @@
                       <tr>
                         <td>{{$pageget}}</td>
                         <td>Per Tanggal {{$key->tanggal}}</td>
-                        <td>{{$key->tanggal_proses}}</td>
                         <td>
+                          @php
+                            $date = explode("-", $key->tanggal_proses);
+                          @endphp
+                          {{$date[2]}}-{{$date[1]}}-{{$date[0]}}
+                        </td>
+                        <td>
+                          <span data-toggle="tooltip" title="Lihat Detail">
+                            <a href="{{route('batchpayroll.detail', $key->id)}}" class="btn btn-xs btn-primary edit"><i class="fa fa-eye"></i></a>
+                          </span>
                           <span data-toggle="tooltip" title="Edit Data">
                             <a href="" class="btn btn-xs btn-warning edit" data-toggle="modal" data-target="#myModalEdit" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
                           </span>
@@ -189,6 +231,7 @@
       // });
 
       $('#tanggal').datepicker();
+      $('#tanggaledit').datepicker();
     });
   </script>
 @stop
