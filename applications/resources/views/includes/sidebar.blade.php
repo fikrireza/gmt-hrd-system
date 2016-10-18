@@ -105,6 +105,7 @@
         <ul class="treeview-menu">
           <li><a href="{{route('periodegaji.index')}}"><i class="fa fa-circle-o"></i> Periode Gaji</a></li>
           <li><a href="{{route('komgaji.index')}}"><i class="fa fa-circle-o"></i> Komponen Gaji</a></li>
+          <li><a href="{{route('setgaji.index')}}"><i class="fa fa-circle-o"></i> Set Gaji Pegawai</a></li>
         </ul>
       </li>
       <li class="treeview">

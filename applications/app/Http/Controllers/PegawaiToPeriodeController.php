@@ -33,10 +33,7 @@ class PegawaiToPeriodeController extends Controller
     public function store(Request $request)
     {
       foreach ($request->idpegawai as $key) {
-        $check = DetailPeriodeGaji::where([
-                      ['id_pegawai', $request->idpegawai],
-                      ['id_periode_gaji', $request->periodegaji]
-                  ])->get();
+        $check = DetailPeriodeGaji::where('id_pegawai', $request->idpegawai)->get();
 
         if(count($check)==0) {
           $set = new DetailPeriodeGaji;

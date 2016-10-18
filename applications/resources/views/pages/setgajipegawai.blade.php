@@ -1,19 +1,18 @@
 @extends('layouts.master')
 
 @section('title')
-  <title>Data Pegawai Per Periode Penggajian</title>
+  <title>Set Gaji Pegawai</title>
   <link rel="stylesheet" href="{{asset('plugins/datatables/dataTables.bootstrap.css')}}">
   <link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css')}}">
 @stop
 
 @section('breadcrumb')
   <h1>
-    Daftar Pegawai Periode Penggajian Per Tanggal {{$getperiode->tanggal}}
+    Set Gaji Pegawai
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="{{route('periodegaji.index')}}"> Keloa Periode Gaji</a></li>
-    <li class="active">Detail Pegawai Per Periode</li>
+    <li class="active">Set Gaji Pegawai</li>
   </ol>
 @stop
 
@@ -33,10 +32,10 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Hapus Pegawai Dari Periode Gaji</h4>
+          <h4 class="modal-title">Ubah Status Pegawai</h4>
         </div>
         <div class="modal-body">
-          <p>Apakah anda yakin untuk menghapus pegawai dari periode penggajian ini?</p>
+          <p>Apakah anda yakin untuk mengubah status pegawai ini?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
@@ -61,7 +60,7 @@
       <div class="box box-primary box-solid">
         <div class="box-header">
           <h3 class="box-title">
-            Seluruh Data Pegawai Periode Pengajian Per Tanggal {{$getperiode->tanggal}}
+            Seluruh Data Pegawai
           </h3>
         </div>
         <div class="box-body">
@@ -105,7 +104,7 @@
         $('#tabelpegawai').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! route('periodegaji.getdata', $idperiode) !!}',
+            ajax: '{!! route('setgaji.getdata') !!}',
             column: [
               {data: 'id', name: 'id'},
               {data: '0', name: 'nip'},
@@ -119,7 +118,7 @@
 
         $('#tabelpegawai').DataTable().on('click', 'a.hapus[data-value]', function () {
           var a = $(this).data('value');
-          $('#set').attr('href', '{{url('/')}}/periode-pegawai/delete/'+a);
+          $('#set').attr('href', 'masterpegawai/changestatus/'+a);
         });
       });
   </script>

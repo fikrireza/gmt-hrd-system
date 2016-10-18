@@ -14,7 +14,11 @@
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="{{ url('masterpegawai')}}"> Master Pegawai</a></li>
+    @if (Auth::user()->level=="1")
+      <li><a href="{{ url('masterpegawai')}}"> Master Pegawai</a></li>
+    @elseif (Auth::user()->level=="2")
+      <li><a href="{{ route('setgaji.index') }}"> Seluruh Data Pegawai</a></li>
+    @endif
     <li class="active">Data Pegawai</li>
   </ol>
 @stop
@@ -1913,7 +1917,9 @@
               </tr>
             </tbody>
           </table>
-          <a class="btn btn-xs bg-yellow pull-right" id="editpegawai"><i class="fa fa-edit"></i> Edit Data Pegawai</a>
+          @if (Auth::user()->level=="1")
+            <a class="btn btn-xs bg-yellow pull-right" id="editpegawai"><i class="fa fa-edit"></i> Edit Data Pegawai</a>
+          @endif
           <button type="submit" class="btn btn-xs bg-blue pull-right" id="btnsavepegawai"><i class="fa fa-check"></i> Simpan Perubahan</button>
         </form>
           @endforeach
@@ -1934,7 +1940,9 @@
         <div class="tab-content">
           <div class="active tab-pane" id="tabKeluarga">
             <h3>Data Keluarga</h3>
-            <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalkeluarga"><i class="fa fa-plus"></i> Tambah Data Keluarga</button>
+            @if (Auth::user()->level=="1")
+              <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalkeluarga"><i class="fa fa-plus"></i> Tambah Data Keluarga</button>
+            @endif
             <table class="table table-bordered">
               <tbody>
                 <tr class="bg-navy">
@@ -1944,7 +1952,9 @@
                   <th>Pekerjaan</th>
                   <th>Jenis Kelamin</th>
                   <th>Alamat</th>
-                  <th>Aksi</th>
+                  @if (Auth::user()->level=="1")
+                    <th>Aksi</th>
+                  @endif
                 </tr>
                 @if(count($DataKeluarga)!=0)
                   @foreach($DataKeluarga as $keluarga)
@@ -1959,14 +1969,16 @@
                         Wanita
                       @endif</td>
                       <td>{{ $keluarga->alamat_keluarga }}</td>
-                      <td>
-                        <span data-toggle="tooltip" title="Hapus Data">
-                          <a href="" class="btn btn-xs btn-danger hapuskeluarga" data-toggle="modal" data-target="#hapuskeluarga" data-value="{{$keluarga->id}}"><i class="fa fa-remove"></i></a>
-                        </span>
-                        <span data-toggle="tooltip" title="Edit Data">
-                          <a href="" class="btn btn-xs btn-warning editkeluarga" data-toggle="modal" data-target="#editkeluarga" data-value="{{$keluarga->id}}"><i class="fa fa-edit"></i></a>
-                        </span>
-                      </td>
+                      @if (Auth::user()->level=="1")
+                        <td>
+                          <span data-toggle="tooltip" title="Hapus Data">
+                            <a href="" class="btn btn-xs btn-danger hapuskeluarga" data-toggle="modal" data-target="#hapuskeluarga" data-value="{{$keluarga->id}}"><i class="fa fa-remove"></i></a>
+                          </span>
+                          <span data-toggle="tooltip" title="Edit Data">
+                            <a href="" class="btn btn-xs btn-warning editkeluarga" data-toggle="modal" data-target="#editkeluarga" data-value="{{$keluarga->id}}"><i class="fa fa-edit"></i></a>
+                          </span>
+                        </td>
+                      @endif
                     </tr>
                   @endforeach
                 @else
@@ -1978,7 +1990,9 @@
             </table>
 
             <h3>Pendidikan</h3>
-            <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalpendidikan"><i class="fa fa-plus"></i> Tambah Data Pendidikan</button>
+            @if (Auth::user()->level=="1")
+              <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalpendidikan"><i class="fa fa-plus"></i> Tambah Data Pendidikan</button>
+            @endif
             <table class="table table-bordered">
               <tbody>
                 <tr class="bg-navy">
@@ -1987,7 +2001,9 @@
                   <th>Tahun Masuk</th>
                   <th>Tahun Lulus</th>
                   <th>Gelar</th>
-                  <th>Aksi</th>
+                  @if (Auth::user()->level=="1")
+                    <th>Aksi</th>
+                  @endif
                 </tr>
                 @if(count($DataPendidikan)!=0)
                   @foreach($DataPendidikan as $pendidikan)
@@ -1997,14 +2013,16 @@
                       <td>{{ $pendidikan->tahun_masuk_pendidikan }}</td>
                       <td>{{ $pendidikan->tahun_lulus_pendidikan }}</td>
                       <td>{{ $pendidikan->gelar_akademik }}</td>
-                      <td>
-                        <span data-toggle="tooltip" title="Hapus Data">
-                          <a href="" class="btn btn-xs btn-danger hapuspendidikan" data-toggle="modal" data-target="#hapuspendidikan" data-value="{{$pendidikan->id}}"><i class="fa fa-remove"></i></a>
-                        </span>
-                        <span data-toggle="tooltip" title="Edit Data">
-                          <a href="" class="btn btn-xs btn-warning editpendidikan" data-toggle="modal" data-target="#editpendidikan" data-value="{{$pendidikan->id}}"><i class="fa fa-edit"></i></a>
-                        </span>
-                      </td>
+                      @if (Auth::user()->level=="1")
+                        <td>
+                          <span data-toggle="tooltip" title="Hapus Data">
+                            <a href="" class="btn btn-xs btn-danger hapuspendidikan" data-toggle="modal" data-target="#hapuspendidikan" data-value="{{$pendidikan->id}}"><i class="fa fa-remove"></i></a>
+                          </span>
+                          <span data-toggle="tooltip" title="Edit Data">
+                            <a href="" class="btn btn-xs btn-warning editpendidikan" data-toggle="modal" data-target="#editpendidikan" data-value="{{$pendidikan->id}}"><i class="fa fa-edit"></i></a>
+                          </span>
+                        </td>
+                      @endif
                     </tr>
                   @endforeach
                 @else
@@ -2023,7 +2041,9 @@
                   <th>Hubungan Darurat</th>
                   <th>Alamat</th>
                   <th>Telepon</th>
-                  <th>Aksi</th>
+                  @if (Auth::user()->level=="1")
+                    <th>Aksi</th>
+                  @endif
                 </tr>
                 @if(count($DataPegawai)!=0)
                   @foreach($DataPegawai as $darurat)
@@ -2056,11 +2076,13 @@
                           -
                         @endif
                       </td>
-                      <td>
-                        <span data-toggle="tooltip" title="Edit Data">
-                          <a href="" class="btn btn-xs btn-warning editdarurat" data-toggle="modal" data-target="#editdarurat" data-value="{{$darurat->id}}"><i class="fa fa-edit"></i></a>
-                        </span>
-                      </td>
+                      @if (Auth::user()->level=="1")
+                        <td>
+                          <span data-toggle="tooltip" title="Edit Data">
+                            <a href="" class="btn btn-xs btn-warning editdarurat" data-toggle="modal" data-target="#editdarurat" data-value="{{$darurat->id}}"><i class="fa fa-edit"></i></a>
+                          </span>
+                        </td>
+                      @endif
                     </tr>
                   @endforeach
                 @else
@@ -2073,7 +2095,9 @@
           </div><!-- /.End Keluarga -->
           <div class="tab-pane" id="dPengalaman">
             <h3>Pengalaman Kerja</h3>
-            <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalpengalaman"><i class="fa fa-plus"></i> Tambah Data Pengalaman Kerja</button>
+            @if (Auth::user()->level=="1")
+              <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalpengalaman"><i class="fa fa-plus"></i> Tambah Data Pengalaman Kerja</button>
+            @endif
             <table class="table table-bordered">
               <tbody>
                 <tr class="bg-navy">
@@ -2081,7 +2105,9 @@
                   <th>Posisi</th>
                   <th>Tahun Awal Kerja</th>
                   <th>Tahun Akhir Kerja</th>
-                  <th>Aksi</th>
+                  @if (Auth::user()->level=="1")
+                    <th>Aksi</th>
+                  @endif
                 </tr>
                 @if(count($DataPengalaman)!=0)
                   @foreach($DataPengalaman as $pengalaman)
@@ -2090,14 +2116,16 @@
                       <td>{{ $pengalaman->posisi_perusahaan }}</td>
                       <td>{{ $pengalaman->tahun_awal_kerja }}</td>
                       <td>{{ $pengalaman->tahun_akhir_kerja }}</td>
-                      <td>
-                        <span data-toggle="tooltip" title="Hapus Data">
-                          <a href="" class="btn btn-xs btn-danger hapuspengalaman" data-toggle="modal" data-target="#hapuspengalaman" data-value="{{$pengalaman->id}}"><i class="fa fa-remove"></i></a>
-                        </span>
-                        <span data-toggle="tooltip" title="Edit Data">
-                          <a href="" class="btn btn-xs btn-warning editpengalaman" data-toggle="modal" data-target="#editpengalaman" data-value="{{$pengalaman->id}}"><i class="fa fa-edit"></i></a>
-                        </span>
-                      </td>
+                      @if (Auth::user()->level=="1")
+                        <td>
+                          <span data-toggle="tooltip" title="Hapus Data">
+                            <a href="" class="btn btn-xs btn-danger hapuspengalaman" data-toggle="modal" data-target="#hapuspengalaman" data-value="{{$pengalaman->id}}"><i class="fa fa-remove"></i></a>
+                          </span>
+                          <span data-toggle="tooltip" title="Edit Data">
+                            <a href="" class="btn btn-xs btn-warning editpengalaman" data-toggle="modal" data-target="#editpengalaman" data-value="{{$pengalaman->id}}"><i class="fa fa-edit"></i></a>
+                          </span>
+                        </td>
+                      @endif
                     </tr>
                   @endforeach
                 @else
@@ -2109,13 +2137,17 @@
             </table>
 
             <h3>Keahlian Komputer</h3>
-            <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalkomputer"><i class="fa fa-plus"></i> Tambah Data Keahlian Komputer</button>
+            @if (Auth::user()->level=="1")
+              <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalkomputer"><i class="fa fa-plus"></i> Tambah Data Keahlian Komputer</button>
+            @endif
             <table class="table table-bordered">
               <tbody>
                 <tr class="bg-navy">
                   <th>Nama Program</th>
                   <th>Nilai</th>
-                  <th>Aksi</th>
+                  @if (Auth::user()->level=="1")
+                    <th>Aksi</th>
+                  @endif
                 </tr>
                 @if(count($DataKomputer)!=0)
                   @foreach($DataKomputer as $komputer)
@@ -2128,14 +2160,16 @@
                       @else
                         Kurang
                       @endif</td>
-                      <td>
-                        <span data-toggle="tooltip" title="Hapus Data">
-                          <a href="" class="btn btn-xs btn-danger hapuskomputer" data-toggle="modal" data-target="#hapuskomputer" data-value="{{$komputer->id}}"><i class="fa fa-remove"></i></a>
-                        </span>
-                        <span data-toggle="tooltip" title="Edit Data">
-                          <a href="" class="btn btn-xs btn-warning editkomputer" data-toggle="modal" data-target="#editkomputer" data-value="{{$komputer->id}}"><i class="fa fa-edit"></i></a>
-                        </span>
-                      </td>
+                      @if (Auth::user()->level=="1")
+                        <td>
+                          <span data-toggle="tooltip" title="Hapus Data">
+                            <a href="" class="btn btn-xs btn-danger hapuskomputer" data-toggle="modal" data-target="#hapuskomputer" data-value="{{$komputer->id}}"><i class="fa fa-remove"></i></a>
+                          </span>
+                          <span data-toggle="tooltip" title="Edit Data">
+                            <a href="" class="btn btn-xs btn-warning editkomputer" data-toggle="modal" data-target="#editkomputer" data-value="{{$komputer->id}}"><i class="fa fa-edit"></i></a>
+                          </span>
+                        </td>
+                      @endif
                     </tr>
                   @endforeach
                 @else
@@ -2147,7 +2181,9 @@
             </table>
 
             <h3>Bahasa Asing</h3>
-            <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalbahasa"><i class="fa fa-plus"></i> Tambah Data Bahasa Asing</button>
+            @if (Auth::user()->level=="1")
+              <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalbahasa"><i class="fa fa-plus"></i> Tambah Data Bahasa Asing</button>
+            @endif
             <table class="table table-bordered">
               <tbody>
                 <tr class="bg-navy">
@@ -2155,7 +2191,9 @@
                   <th>Berbicara</th>
                   <th>Menulis</th>
                   <th>Mengerti</th>
-                  <th>Aksi</th>
+                  @if (Auth::user()->level=="1")
+                    <th>Aksi</th>
+                  @endif
                 </tr>
                 @if(count($DataBahasa)!=0)
                   @foreach($DataBahasa as $bahasa)
@@ -2182,14 +2220,16 @@
                       @else
                         Kurang
                       @endif</td>
-                      <td>
-                        <span data-toggle="tooltip" title="Hapus Data">
-                          <a type="button" class="btn btn-xs btn-danger hapusbahasa" data-toggle="modal" data-target="#hapusbahasa" data-value="{{$bahasa->id}}"><i class="fa fa-remove"></i></a>
-                        </span>
-                        <span data-toggle="tooltip" title="Edit Data">
-                          <a href="" class="btn btn-xs btn-warning editbahasa" data-toggle="modal" data-target="#editbahasa" data-value="{{$bahasa->id}}"><i class="fa fa-edit"></i></a>
-                        </span>
-                      </td>
+                      @if (Auth::user()->level=="1")
+                        <td>
+                          <span data-toggle="tooltip" title="Hapus Data">
+                            <a type="button" class="btn btn-xs btn-danger hapusbahasa" data-toggle="modal" data-target="#hapusbahasa" data-value="{{$bahasa->id}}"><i class="fa fa-remove"></i></a>
+                          </span>
+                          <span data-toggle="tooltip" title="Edit Data">
+                            <a href="" class="btn btn-xs btn-warning editbahasa" data-toggle="modal" data-target="#editbahasa" data-value="{{$bahasa->id}}"><i class="fa fa-edit"></i></a>
+                          </span>
+                        </td>
+                      @endif
                     </tr>
                   @endforeach
                 @else
@@ -2211,7 +2251,9 @@
                   <th>Warna Mata</th>
                   <th>Berkacamata</th>
                   <th>Merokok</th>
-                  <th>Aksi</th>
+                  @if (Auth::user()->level=="1")
+                    <th>Aksi</th>
+                  @endif
                 </tr>
                 @if(count($DataKesehatan)!=0)
                   @foreach($DataKesehatan as $kesehatan)
@@ -2265,11 +2307,13 @@
                         @else
                           -
                         @endif
-                      <td>
-                        <span data-toggle="tooltip" title="Edit Data">
-                          <a href="" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalkesehatan" data-value="{{$kesehatan->id}}"><i class="fa fa-edit"></i></a>
-                        </span>
-                      </td>
+                      @if (Auth::user()->level=="1")
+                        <td>
+                          <span data-toggle="tooltip" title="Edit Data">
+                            <a href="" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modalkesehatan" data-value="{{$kesehatan->id}}"><i class="fa fa-edit"></i></a>
+                          </span>
+                        </td>
+                      @endif
                     </tr>
                   @endforeach
                 @else
@@ -2281,27 +2325,33 @@
             </table>
 
             <h3>Riwayat Penyakit</h3>
-            <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalpenyakit"><i class="fa fa-plus"></i> Tambah Data Riwayat Penyakit</button>
+            @if (Auth::user()->level=="1")
+              <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalpenyakit"><i class="fa fa-plus"></i> Tambah Data Riwayat Penyakit</button>
+            @endif
             <table class="table table-bordered">
               <tbody>
                 <tr class="bg-navy">
                   <th>Nama Penyakit</th>
                   <th>Keterangan</th>
-                  <th>Aksi</th>
+                  @if (Auth::user()->level=="1")
+                    <th>Aksi</th>
+                  @endif
                 </tr>
                 @if(count($DataPenyakit)!=0)
                   @foreach($DataPenyakit as $penyakit)
                     <tr>
                       <td>{{ $penyakit->nama_penyakit }}</td>
                       <td>{{ $penyakit->keterangan_penyakit }}</td>
-                      <td>
-                        <span data-toggle="tooltip" title="Hapus Data">
-                          <a href="" class="btn btn-xs btn-danger hapuspenyakit" data-toggle="modal" data-target="#hapuspenyakit" data-value="{{$penyakit->id}}"><i class="fa fa-remove"></i></a>
-                        </span>
-                        <span data-toggle="tooltip" title="Edit Data">
-                          <a href="" class="btn btn-xs btn-warning editpenyakit" data-toggle="modal" data-target="#editpenyakit" data-value="{{$penyakit->id}}"><i class="fa fa-edit"></i></a>
-                        </span>
-                      </td>
+                      @if (Auth::user()->level=="1")
+                        <td>
+                          <span data-toggle="tooltip" title="Hapus Data">
+                            <a href="" class="btn btn-xs btn-danger hapuspenyakit" data-toggle="modal" data-target="#hapuspenyakit" data-value="{{$penyakit->id}}"><i class="fa fa-remove"></i></a>
+                          </span>
+                          <span data-toggle="tooltip" title="Edit Data">
+                            <a href="" class="btn btn-xs btn-warning editpenyakit" data-toggle="modal" data-target="#editpenyakit" data-value="{{$penyakit->id}}"><i class="fa fa-edit"></i></a>
+                          </span>
+                        </td>
+                      @endif
                     </tr>
                   @endforeach
                 @else
@@ -2314,13 +2364,17 @@
           </div><!-- /.End Kesehatan -->
           <div class="tab-pane" id="dPendukung">
             <h3>Dokumen Pegawai</h3>
-            <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modaldokumenpegawai"><i class="fa fa-plus"></i> Tambah Dokumen Pegawai</button>
+            @if (Auth::user()->level=="1")
+              <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modaldokumenpegawai"><i class="fa fa-plus"></i> Tambah Dokumen Pegawai</button>
+            @endif
             <table class="table table-bordered">
               <tbody>
                 <tr class="bg-navy">
                   <th>Nama Dokumen</th>
                   <th>Dokumen</th>
-                  <th>Aksi</th>
+                  @if (Auth::user()->level=="1")
+                    <th>Aksi</th>
+                  @endif
                 </tr>
                 @if(count($DokumenPegawai)!=0)
                   @foreach($DokumenPegawai as $key)
@@ -2331,14 +2385,16 @@
                           {{$key->file_dokumen}}
                         </a>
                       </td>
-                      <td>
-                        <span data-toggle="tooltip" title="Hapus Data">
-                          <a href="" class="btn btn-xs btn-danger hapusdokumen" data-toggle="modal" data-target="#hapusdokumen" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
-                        </span>
-                        <span data-toggle="tooltip" title="Edit Data">
-                          <a href="" class="btn btn-xs btn-warning editdokumen" data-toggle="modal" data-target="#editdokumenpegawai" data-value="{{$key->id_pegawai}}"><i class="fa fa-edit"></i></a>
-                        </span>
-                      </td>
+                      @if (Auth::user()->level=="1")
+                        <td>
+                          <span data-toggle="tooltip" title="Hapus Data">
+                            <a href="" class="btn btn-xs btn-danger hapusdokumen" data-toggle="modal" data-target="#hapusdokumen" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
+                          </span>
+                          <span data-toggle="tooltip" title="Edit Data">
+                            <a href="" class="btn btn-xs btn-warning editdokumen" data-toggle="modal" data-target="#editdokumenpegawai" data-value="{{$key->id_pegawai}}"><i class="fa fa-edit"></i></a>
+                          </span>
+                        </td>
+                      @endif
                     </tr>
                   @endforeach
                 @else
@@ -2391,7 +2447,9 @@
             </table>
 
             <h3>Riwayat Peringatan</h3>
-            <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalperingatan"><i class="fa fa-plus"></i> Tambah Data Peringatan Kerja</button>
+            @if (Auth::user()->level=="1")
+              <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalperingatan"><i class="fa fa-plus"></i> Tambah Data Peringatan Kerja</button>
+            @endif
             <table class="table table-bordered">
               <tbody>
                 <tr class="bg-navy">
@@ -2400,7 +2458,9 @@
                   <th>Jenis Peringatan</th>
                   <th>Keterangan</th>
                   <th>Dokumen</th>
-                  <th>Aksi</th>
+                  @if (Auth::user()->level=="1")
+                    <th>Aksi</th>
+                  @endif
                 </tr>
                 @if(count($DataPeringatan)!=0)
                   <?php $i=1; ?>
@@ -2419,13 +2479,15 @@
                           -
                         @endif
                       </td>
-                      <td>
-                        <span data-toggle="tooltip" title="Hapus Data">
-                          <a href="" class="btn btn-xs btn-danger hapusperingatan" data-toggle="modal" data-target="#hapusperingatan" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
-                        </span>
-                        <span data-toggle="tooltip" title="Edit Data">
-                          <a href="" class="btn btn-xs btn-warning editperingatan" data-toggle="modal" data-target="#editperingatan" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
+                      @if (Auth::user()->level=="1")
+                        <td>
+                          <span data-toggle="tooltip" title="Hapus Data">
+                            <a href="" class="btn btn-xs btn-danger hapusperingatan" data-toggle="modal" data-target="#hapusperingatan" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
+                          </span>
+                          <span data-toggle="tooltip" title="Edit Data">
+                            <a href="" class="btn btn-xs btn-warning editperingatan" data-toggle="modal" data-target="#editperingatan" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
                         </td>
+                      @endif
                       </tr>
                     @endforeach
                 @else
@@ -2437,13 +2499,17 @@
             </table>
 
             <h3>Riwayat Pekerjaan</h3>
-            <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalhistoripegawai"><i class="fa fa-plus"></i> Tambah Riwayat Pekerjaan</button>
+            @if (Auth::user()->level=="1")
+              <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalhistoripegawai"><i class="fa fa-plus"></i> Tambah Riwayat Pekerjaan</button>
+            @endif
             <table class="table table-bordered">
               <tbody>
                 <tr class="bg-navy">
                   <th>#</th>
                   <th>Keterangan</th>
-                  <th>Aksi</th>
+                  @if (Auth::user()->level=="1")
+                    <th>Aksi</th>
+                  @endif
                 </tr>
                 @if(count($DataHistoriPegawai)!=0)
                   <?php $i=1; ?>
@@ -2451,10 +2517,12 @@
                     <tr>
                       <td>{{$i++}}</td>
                       <td>{{$key->keterangan}}</td>
-                      <td>
-                        <span data-toggle="tooltip" title="Edit Data">
-                          <a href="" class="btn btn-xs btn-warning edithistoripegawai" data-toggle="modal" data-target="#edithistoripegawai" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
+                      @if (Auth::user()->level=="1")
+                        <td>
+                          <span data-toggle="tooltip" title="Edit Data">
+                            <a href="" class="btn btn-xs btn-warning edithistoripegawai" data-toggle="modal" data-target="#edithistoripegawai" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
                         </td>
+                      @endif
                       </tr>
                     @endforeach
                 @else
