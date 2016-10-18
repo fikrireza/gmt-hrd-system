@@ -145,3 +145,7 @@ Route::get('pegawai/detail-pegawai/{id}', 'SetGajiController@detailpegawai')->na
 Route::get('pegawai/getdata', 'SetGajiController@getdata')->name('setgaji.getdata');
 Route::get('pegawai/bind-gaji/{id}', 'SetGajiController@bind')->name('setgaji.bind');
 Route::post('pegawai/update-gaji', 'SetGajiController@update')->name('setgaji.update');
+
+///// BATCH PAYROLL ///////
+Route::get('batch-payroll', 'BatchPayrollController@index')->name('batchpayroll.index');
+Route::post('batch-payroll', 'BatchPayrollController@store')->name('batchpayroll.store');

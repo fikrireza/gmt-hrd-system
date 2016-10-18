@@ -116,7 +116,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="{{ route('periodepegawai.index') }}"><i class="fa fa-circle-o"></i> Input Pegawai Ke Periode</a></li>
-          <li><a href="#"><i class="fa fa-circle-o"></i> Proses Gaji Per Batch</a></li>
+          <li><a href="{{ route('batchpayroll.index') }}"><i class="fa fa-circle-o"></i> Proses Gaji Per Batch</a></li>
         </ul>
       </li>
     @endif
