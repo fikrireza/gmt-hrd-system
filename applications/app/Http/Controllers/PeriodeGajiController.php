@@ -51,6 +51,7 @@ class PeriodeGajiController extends Controller
       $users = MasterPegawai::select(['master_pegawai.id as id',                                                  'nip','nama','no_telp','nama_jabatan',DB::raw("if(master_pegawai.status = 1, 'Aktif', 'Tidak Aktif') as status"), 'detail_periode_gaji.id as id_periode_gaji'])
         ->join('master_jabatan','master_pegawai.id_jabatan','=', 'master_jabatan.id')
         ->join('detail_periode_gaji', 'master_pegawai.id', '=', 'detail_periode_gaji.id_pegawai')
+        ->where('detail_periode_gaji.id_periode_gaji', $id)
         ->get();
 
       return Datatables::of($users)

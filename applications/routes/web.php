@@ -143,3 +143,5 @@ Route::get('periode-pegawai/delete/{id}', 'PegawaiToPeriodeController@delete')->
 Route::get('pegawai/set-gaji', 'SetGajiController@index')->name('setgaji.index');
 Route::get('pegawai/detail-pegawai/{id}', 'SetGajiController@detailpegawai')->name('setgaji.detailpegawai');
 Route::get('pegawai/getdata', 'SetGajiController@getdata')->name('setgaji.getdata');
+Route::get('pegawai/bind-gaji/{id}', 'SetGajiController@bind')->name('setgaji.bind');
+Route::post('pegawai/update-gaji', 'SetGajiController@update')->name('setgaji.update');

@@ -32,17 +32,44 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Ubah Status Pegawai</h4>
+          <h4 class="modal-title">Set Gaji Pegawai</h4>
         </div>
-        <div class="modal-body">
-          <p>Apakah anda yakin untuk mengubah status pegawai ini?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
-          <a href="#" class="btn btn-danger" id="set">Ya, saya yakin.</a>
-        </div>
+        <form action="{{route('setgaji.update')}}" method="post">
+          {{csrf_field()}}
+          <div class="modal-body">
+            <div class="col-sm-12" style="margin-bottom:10px;">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">NIP Pegawai</label>
+                <div class="col-sm-10">
+                  <input type="hidden" class="form-control" id="id" name="id">
+                  <input type="text" class="form-control" id="nippegawai" name="nip" readonly="">
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12" style="margin-bottom:10px;">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Nama Pegawai</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="namapegawai" name="nama" readonly="">
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12" style="margin-bottom:10px;">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Gaji Pokok</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="gajipokok" name="gajipokok">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+            <button type="submit" class="btn btn-primary" id="set">Simpan Perubahan</button>
+          </div>
       </div>
     </div>
+  </form>
   </div>
 
   <div class="row">
@@ -69,9 +96,9 @@
               <tr>
                 <th>NIP</th>
                 <th>Nama</th>
-                <th>No Telp</th>
                 <th>Jabatan</th>
-                <th>Status</th>
+                <th>Status Kepegawaian</th>
+                <th>Gaji Pokok</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -116,9 +143,25 @@
             ]
         });
 
-        $('#tabelpegawai').DataTable().on('click', 'a.hapus[data-value]', function () {
+        $('#tabelpegawai').DataTable().on('click', 'a.editgaji[data-value]', function () {
           var a = $(this).data('value');
-          $('#set').attr('href', 'masterpegawai/changestatus/'+a);
+          $.ajax({
+            url: "{{ url('/') }}/pegawai/bind-gaji/"+a,
+            dataType: 'json',
+            success: function(data){
+              // get
+              var id = data.id;
+              var nip = data.nip;
+              var nama = data.nama;
+              var gaji = data.gaji_pokok;
+
+              // set
+              $('#id').attr('value', id);
+              $('#nippegawai').attr('value', nip);
+              $('#namapegawai').attr('value', nama);
+              $('#gajipokok').attr('value', gaji);
+            }
+          });
         });
       });
   </script>
