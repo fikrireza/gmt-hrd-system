@@ -129,9 +129,12 @@ Route::get('komponen-gaji/delete/{$id}', 'KomponenGajiController@delete')->name(
 ///// PERIODE GAJI ///////
 Route::get('periode-gaji', 'PeriodeGajiController@index')->name('periodegaji.index');
 Route::post('periode-gaji', 'PeriodeGajiController@store')->name('periodegaji.store');
-Route::post('periode-gaji/update/{$id}', 'PeriodeGajiController@update')->name('periodegaji.update');
-Route::get('periode-gaji/delete/{$id}', 'PeriodeGajiController@delete')->name('periodegaji.delete');
+Route::post('periode-gaji/update/{id}', 'PeriodeGajiController@update')->name('periodegaji.update');
+Route::get('periode-gaji/delete/{id}', 'PeriodeGajiController@delete')->name('periodegaji.delete');
+Route::get('periode-gaji/detail/{id}', 'PeriodeGajiController@detail')->name('periodegaji.detail');
+Route::get('periode-gaji/get-detail/periode/{id}', 'PeriodeGajiController@getdatafordatatable')->name('periodegaji.getdata');
 
 ///// PEGAWAI TO PERIODE /////
 Route::get('periode-pegawai', 'PegawaiToPeriodeController@index')->name('periodepegawai.index');
 Route::post('periode-pegawai', 'PegawaiToPeriodeController@store')->name('periodepegawai.store');
+Route::get('periode-pegawai/delete/{id}', 'PegawaiToPeriodeController@delete')->name('periodepegawai.delete');

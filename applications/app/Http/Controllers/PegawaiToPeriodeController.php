@@ -23,6 +23,7 @@ class PegawaiToPeriodeController extends Controller
                         ->join('master_jabatan', 'master_jabatan.id', '=', 'master_pegawai.id_jabatan')
                         ->select('data_pkwt.*', 'master_pegawai.nama', 'master_pegawai.id as idpegawai', 'spv.nama as spv_nama', 'master_client.nama_client', 'cabang_client.nama_cabang')
                         ->where('status_pkwt', 1)
+                        ->where('master_pegawai.status', 1)
                         ->where('flag_terminate', 1)
                         ->get();
 
@@ -36,7 +37,7 @@ class PegawaiToPeriodeController extends Controller
                       ['id_pegawai', $request->idpegawai],
                       ['id_periode_gaji', $request->periodegaji]
                   ])->get();
-                  
+
         if(count($check)==0) {
           $set = new DetailPeriodeGaji;
           $set->id_periode_gaji = $request->periodegaji;
@@ -46,5 +47,13 @@ class PegawaiToPeriodeController extends Controller
       }
 
       return redirect()->route('periodepegawai.index')->with('message', 'Berhasil memasukkan data pegawai ke periode penggajian.');
+    }
+
+    public function delete($id)
+    {
+      $get = DetailPeriodeGaji::find($id);
+      $get->delete();
+
+      return redirect()->route('periodegaji.detail', $get->id_periode_gaji)->with('message', 'Berhasil menghapus pegawai dari periode.');
     }
 }

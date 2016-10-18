@@ -104,7 +104,7 @@
                       <div class="icon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <a href="#" class="small-box-footer">
+                      <a href="{{route('periodegaji.detail', $key->id)}}" class="small-box-footer">
                         Lihat detail pegawai di periode ini &nbsp; <i class="fa fa-arrow-circle-right"></i>
                       </a>
                     </div>
