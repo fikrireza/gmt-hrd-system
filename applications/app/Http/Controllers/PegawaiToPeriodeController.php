@@ -9,11 +9,10 @@ use App\Models\MasterPegawai;
 use App\Models\PKWT;
 use App\Models\PeriodeGaji;
 use App\Models\DetailBatchPayroll;
+use App\Models\DetailPeriodeGaji;
 
 class PegawaiToPeriodeController extends Controller
 {
-
-
     public function index() {
       $periodeGaji  = PeriodeGaji::get();
 
@@ -22,11 +21,30 @@ class PegawaiToPeriodeController extends Controller
                         ->join('cabang_client', 'cabang_client.id', '=', 'data_pkwt.id_cabang_client')
                         ->join('master_client', 'master_client.id', '=', 'cabang_client.id_client')
                         ->join('master_jabatan', 'master_jabatan.id', '=', 'master_pegawai.id_jabatan')
-                        ->select('data_pkwt.*', 'master_pegawai.nama', 'spv.nama as spv_nama', 'master_client.nama_client', 'cabang_client.nama_cabang')
+                        ->select('data_pkwt.*', 'master_pegawai.nama', 'master_pegawai.id as idpegawai', 'spv.nama as spv_nama', 'master_client.nama_client', 'cabang_client.nama_cabang')
                         ->where('status_pkwt', 1)
                         ->where('flag_terminate', 1)
                         ->get();
 
       return view('pages.prosespayroll.pegawaitoperiode', compact('periodeGaji', 'pkwtActive'));
+    }
+
+    public function store(Request $request)
+    {
+      foreach ($request->idpegawai as $key) {
+        $check = DetailPeriodeGaji::where([
+                      ['id_pegawai', $request->idpegawai],
+                      ['id_periode_gaji', $request->periodegaji]
+                  ])->get();
+                  
+        if(count($check)==0) {
+          $set = new DetailPeriodeGaji;
+          $set->id_periode_gaji = $request->periodegaji;
+          $set->id_pegawai = $key;
+          $set->save();
+        }
+      }
+
+      return redirect()->route('periodepegawai.index')->with('message', 'Berhasil memasukkan data pegawai ke periode penggajian.');
     }
 }

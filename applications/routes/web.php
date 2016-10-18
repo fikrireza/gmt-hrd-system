@@ -134,3 +134,4 @@ Route::get('periode-gaji/delete/{$id}', 'PeriodeGajiController@delete')->name('p
 
 ///// PEGAWAI TO PERIODE /////
 Route::get('periode-pegawai', 'PegawaiToPeriodeController@index')->name('periodepegawai.index');
+Route::post('periode-pegawai', 'PegawaiToPeriodeController@store')->name('periodepegawai.store');
