@@ -39,6 +39,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label">Komponen Gaji</label>
                 <div class="col-sm-8">
+                  <input type="hidden" name="name" id="idpegawaigaji">
                   <select class="form-control" id="idkomponengaji">
                     <option>-- Pilih --</option>
                     @foreach ($getkomponengaji as $key)
@@ -68,18 +69,13 @@
             </div>
             <div class="col-sm-12">
               <table class="table table-bordered" id="tabelkomponen">
-                  <thead>
-                    <tr>
-                      <th style="width: 10px">#</th>
-                      <th>Komponen Gaji</th>
-                      <th>Tipe</th>
-                      <th>Nilai</th>
-                      <th>Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-
-                  </tbody>
+                <tr>
+                  <th style="width: 10px">#</th>
+                  <th>Komponen Gaji</th>
+                  <th>Tipe</th>
+                  <th>Nilai</th>
+                  <th>Aksi</th>
+                </tr>
               </table>
             </div>
           </div>
@@ -150,6 +146,8 @@
 
   <script type="text/javascript">
     $(function() {
+
+        // yajra datatable
         $('#tabelpegawai').DataTable({
             processing: true,
             serverSide: true,
@@ -165,13 +163,14 @@
             ]
         });
 
-
+        // bind to table komponen in modal
         $('#tabelpegawai').DataTable().on('click', 'a.addkomponen[data-value]', function () {
           var idpegawai = $(this).data('value');
           $.ajax({
             url: "{{url('/')}}/detail-batch-payroll/bind-to-table/{{$idbatch}}/"+idpegawai,
             dataType: 'json',
             success: function(data){
+              $('#idpegawaigaji').val(idpegawai);
               $("#tabelkomponen").find("tr:gt(0)").remove();
               if (data.length==0) {
                 $('#tabelkomponen tr:last').after(
@@ -199,7 +198,7 @@
                       "<td>"+data[index].nama_komponen+"</td>"+
                       "<td><span class='label bg-red'>Potongan</span></td>"+
                       "<td>"+data[index].nilai+"</td>"+
-                      "<td>adf</td>"+
+                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapus' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
                       "</tr>"
                     );
                   }
@@ -210,6 +209,55 @@
           });
         });
 
+        // save to database
+        $('#addkomponentopegawai').click(function(){
+          var idkomponen = $('#idkomponengaji').val();
+          var nilai = $('#nilaikomponengaji').val();
+          var idpegawai = $('#idpegawaigaji').val();
+
+          $.ajax({
+            url: "{{url('/')}}/detail-batch-payroll/add-to-komponen/{{$idbatch}}/"+idpegawai+"/"+idkomponen+"/"+nilai,
+            dataType: 'json',
+            success: function(data){
+              $('#nilaikomponengaji').val("");
+              $('#idkomponengaji').prop('selectedIndex', 0);
+              $("#tabelkomponen").find("tr:gt(0)").remove();
+              if (data.length==0) {
+                $('#tabelkomponen tr:last').after(
+                  "<tr>"+
+                  "<td colspan='5' align='center'><span class='text-muted'>Data tidak tersedia.</span></td>"+
+                  "</tr>"
+                );
+              } else {
+                var no = 1;
+                $.each(data, function(index, value){
+                  if (data[index].tipe_komponen=="D") {
+                    $('#tabelkomponen tr:last').after(
+                      "<tr>"+
+                      "<td>"+no+"</td>"+
+                      "<td>"+data[index].nama_komponen+"</td>"+
+                      "<td><span class='label bg-green'>Penerimaan</span></td>"+
+                      "<td>"+data[index].nilai+"</td>"+
+                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapus' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
+                      "</tr>"
+                    );
+                  } else {
+                    $('#tabelkomponen tr:last').after(
+                      "<tr>"+
+                      "<td>"+no+"</td>"+
+                      "<td>"+data[index].nama_komponen+"</td>"+
+                      "<td><span class='label bg-red'>Potongan</span></td>"+
+                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapus' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
+                      "<td>adf</td>"+
+                      "</tr>"
+                    );
+                  }
+                  no++;
+                })
+              }
+            }
+          });
+        });
       });
   </script>
 
