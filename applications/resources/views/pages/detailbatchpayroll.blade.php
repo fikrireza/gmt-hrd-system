@@ -80,6 +80,7 @@
             </div>
           </div>
           <div class="modal-footer">
+            {{-- <strong>Status:</strong> Berhasil memasukkan data. --}}
             {{-- <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
             <button type="submit" class="btn btn-primary" id="set">Simpan Perubahan</button> --}}
           </div>
@@ -116,7 +117,7 @@
                 <th>Nama</th>
                 <th>Jabatan</th>
                 <th>Status Kepegawaian</th>
-                <th>Gaji Pokok</th>
+                <th>Komponen Gaji</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -255,6 +256,17 @@
                   no++;
                 })
               }
+
+              $.ajax({
+                url: "{{url('/')}}/detail-batch-payroll/cek-komponen-gaji/{{$idbatch}}/"+idpegawai,
+                dataType: 'json',
+                success: function(datax){
+                  if (datax.length!=0) {
+                    $("#statuskomponen"+idpegawai).attr('class', 'badge bg-green');
+                    $("#statuskomponen"+idpegawai).html('Sudah Di Set');
+                  }
+                }
+              });
             }
           });
         });

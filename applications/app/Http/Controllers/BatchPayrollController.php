@@ -87,9 +87,9 @@ class BatchPayrollController extends Controller
       })
       ->editColumn('komponen_gaji', function($user){
         if ($user->komponen_gaji=="Belum Di Set") {
-          return "<span class='badge bg-red'>Belum Di Set</span>";
+          return "<span class='badge bg-red' id='statuskomponen$user->id'>Belum Di Set</span>";
         } else {
-          return "<span class='badge bg-green'>Sudah Di Set</span>";
+          return "<span class='badge bg-green' id='statuskomponen$user->id'>Sudah Di Set</span>";
         }
       })
       ->removeColumn('id')

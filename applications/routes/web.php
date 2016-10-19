@@ -155,3 +155,4 @@ Route::get('batch-payroll/getdata/{id}', 'BatchPayrollController@getdatafordatat
 ///// DETAIL BATCH PAYROLL //////
 Route::get('detail-batch-payroll/bind-to-table/{idbatch}/{idpegawai}', 'DetailBatchPayrollController@getdatakomponen')->name('detailbatchpayroll.bindtotable');
 Route::get('detail-batch-payroll/add-to-komponen/{idbatch}/{idpegawai}/{idkomponen}/{nilai}', 'DetailBatchPayrollController@addtodetailkomponen')->name('detailbatchpayroll.addkomponen');
+Route::get('detail-batch-payroll/cek-komponen-gaji/{idbatch}/{idpegawai}', 'DetailBatchPayrollController@cekkomponen')->name('detailbatchpayroll.cekkomponen');

@@ -43,4 +43,15 @@ class DetailBatchPayrollController extends Controller
 
     return $getkomponengaji;
   }
+
+  public function cekkomponen($idbatch, $idpegawai)
+  {
+    $getid = DetailBatchPayroll::select('id')
+                  ->where('id_batch_payroll', $idbatch)
+                  ->where('id_pegawai', $idpegawai)
+                  ->first();
+
+    $cek = DetailKomponenGaji::where('id_detail_batch_payroll', $getid->id)->get();
+    return $cek;
+  }
 }
