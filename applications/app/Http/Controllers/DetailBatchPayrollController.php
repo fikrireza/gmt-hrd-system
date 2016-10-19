@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Models\MasterPegawai;
 use App\Models\DetailKomponenGaji;
 use App\Models\DetailBatchPayroll;
 
@@ -53,5 +54,11 @@ class DetailBatchPayrollController extends Controller
 
     $cek = DetailKomponenGaji::where('id_detail_batch_payroll', $getid->id)->get();
     return $cek;
+  }
+
+  public function getgajipokok($idpegawai)
+  {
+    $get = MasterPegawai::find($idpegawai);
+    return $get->gaji_pokok;
   }
 }

@@ -18,7 +18,10 @@ class BatchPayrollController extends Controller
   public function index()
   {
     $getperiode = PeriodeGaji::all();
-    $getbatch = BatchPayroll::select('batch_payroll.id as id', 'periode_gaji.tanggal', 'batch_payroll.tanggal_proses')->join('periode_gaji', 'batch_payroll.id_periode_gaji', '=', 'periode_gaji.id')->paginate(10);
+    $getbatch = BatchPayroll::select('batch_payroll.id as id', 'periode_gaji.tanggal', 'batch_payroll.tanggal_proses')->join('periode_gaji', 'batch_payroll.id_periode_gaji', '=', 'periode_gaji.id')
+    ->orderby('batch_payroll.id', 'desc')
+    ->paginate(10);
+
     return view('pages/kelolabatch')
       ->with('getperiode', $getperiode)
       ->with('getbatch', $getbatch);

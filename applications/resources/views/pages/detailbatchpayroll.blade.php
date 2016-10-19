@@ -167,6 +167,10 @@
         // bind to table komponen in modal
         $('#tabelpegawai').DataTable().on('click', 'a.addkomponen[data-value]', function () {
           var idpegawai = $(this).data('value');
+          $('#idkomponengaji').prop('selectedIndex', 0);
+          $('#nilaikomponengaji').val("");
+          $('#nilaikomponengaji').attr('readonly', false);
+
           $.ajax({
             url: "{{url('/')}}/detail-batch-payroll/bind-to-table/{{$idbatch}}/"+idpegawai,
             dataType: 'json',
@@ -248,8 +252,8 @@
                       "<td>"+no+"</td>"+
                       "<td>"+data[index].nama_komponen+"</td>"+
                       "<td><span class='label bg-red'>Potongan</span></td>"+
+                      "<td>"+data[index].nilai+"</td>"+
                       "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapus' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
-                      "<td>adf</td>"+
                       "</tr>"
                     );
                   }
@@ -257,6 +261,7 @@
                 })
               }
 
+              // update status komponen gaji
               $.ajax({
                 url: "{{url('/')}}/detail-batch-payroll/cek-komponen-gaji/{{$idbatch}}/"+idpegawai,
                 dataType: 'json',
@@ -269,6 +274,32 @@
               });
             }
           });
+        });
+
+        // automatically set value from gaji pokok pegawai
+        $('#idkomponengaji').change(function(){
+          var a = $(this).val();
+          var idpegawai = $('#idpegawaigaji').val();
+
+          // gaji pokok id in database is 1
+          if (a==1) {
+            $.ajax({
+              url: "{{url('/')}}/detail-batch-payroll/get-gapok/"+idpegawai,
+              dataType: 'json',
+              success: function(data){
+                if (data!=0) {
+                  $('#nilaikomponengaji').val(data);
+                  $('#nilaikomponengaji').attr('readonly', true);
+                } else {
+                  $('#nilaikomponengaji').val("");
+                  $('#nilaikomponengaji').attr('readonly', false);
+                }
+              }
+            });
+          } else {
+            $('#nilaikomponengaji').val("");
+            $('#nilaikomponengaji').attr('readonly', false);
+          }
         });
       });
   </script>
