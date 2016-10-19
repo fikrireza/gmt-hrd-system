@@ -157,3 +157,4 @@ Route::get('detail-batch-payroll/bind-to-table/{idbatch}/{idpegawai}', 'DetailBa
 Route::get('detail-batch-payroll/add-to-komponen/{idbatch}/{idpegawai}/{idkomponen}/{nilai}', 'DetailBatchPayrollController@addtodetailkomponen')->name('detailbatchpayroll.addkomponen');
 Route::get('detail-batch-payroll/cek-komponen-gaji/{idbatch}/{idpegawai}', 'DetailBatchPayrollController@cekkomponen')->name('detailbatchpayroll.cekkomponen');
 Route::get('detail-batch-payroll/get-gapok/{idpegawai}', 'DetailBatchPayrollController@getgajipokok')->name('detailbatchpayroll.getgapok');
+Route::get('detail-batch-payroll/delete-komponen-gaji/{id}', 'DetailBatchPayrollController@deletekomponengaji')->name('detailbatchpayroll.deletekomponen');

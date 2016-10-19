@@ -193,7 +193,7 @@
                       "<td>"+data[index].nama_komponen+"</td>"+
                       "<td><span class='label bg-green'>Penerimaan</span></td>"+
                       "<td>"+data[index].nilai+"</td>"+
-                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapus' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
+                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
                       "</tr>"
                     );
                   } else {
@@ -203,7 +203,7 @@
                       "<td>"+data[index].nama_komponen+"</td>"+
                       "<td><span class='label bg-red'>Potongan</span></td>"+
                       "<td>"+data[index].nilai+"</td>"+
-                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapus' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
+                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
                       "</tr>"
                     );
                   }
@@ -243,7 +243,7 @@
                       "<td>"+data[index].nama_komponen+"</td>"+
                       "<td><span class='label bg-green'>Penerimaan</span></td>"+
                       "<td>"+data[index].nilai+"</td>"+
-                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapus' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
+                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
                       "</tr>"
                     );
                   } else {
@@ -253,7 +253,7 @@
                       "<td>"+data[index].nama_komponen+"</td>"+
                       "<td><span class='label bg-red'>Potongan</span></td>"+
                       "<td>"+data[index].nilai+"</td>"+
-                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapus' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
+                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
                       "</tr>"
                     );
                   }
@@ -269,6 +269,9 @@
                   if (datax.length!=0) {
                     $("#statuskomponen"+idpegawai).attr('class', 'badge bg-green');
                     $("#statuskomponen"+idpegawai).html('Sudah Di Set');
+                  }  else {
+                    $("#statuskomponen"+idpegawai).attr('class', 'badge bg-red');
+                    $("#statuskomponen"+idpegawai).html('Belum Di Set');
                   }
                 }
               });
@@ -300,6 +303,73 @@
             $('#nilaikomponengaji').val("");
             $('#nilaikomponengaji').attr('readonly', false);
           }
+        });
+
+        $('body').on('click', 'a.hapuskomponen[data-value]', function (){
+            var idpegawai = $('#idpegawaigaji').val();
+            var a = $(this).data('value');
+            $.ajax({
+              url: "{{url('/')}}/detail-batch-payroll/delete-komponen-gaji/"+a,
+              dataType: 'json',
+              success: function(data){
+                $.ajax({
+                  url: "{{url('/')}}/detail-batch-payroll/bind-to-table/{{$idbatch}}/"+idpegawai,
+                  dataType: 'json',
+                  success: function(data){
+                    $('#idpegawaigaji').val(idpegawai);
+                    $("#tabelkomponen").find("tr:gt(0)").remove();
+                    if (data.length==0) {
+                      $('#tabelkomponen tr:last').after(
+                        "<tr>"+
+                        "<td colspan='5' align='center'><span class='text-muted'>Data tidak tersedia.</span></td>"+
+                        "</tr>"
+                      );
+                    } else {
+                      var no = 1;
+                      $.each(data, function(index, value){
+                        if (data[index].tipe_komponen=="D") {
+                          $('#tabelkomponen tr:last').after(
+                            "<tr>"+
+                            "<td>"+no+"</td>"+
+                            "<td>"+data[index].nama_komponen+"</td>"+
+                            "<td><span class='label bg-green'>Penerimaan</span></td>"+
+                            "<td>"+data[index].nilai+"</td>"+
+                            "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
+                            "</tr>"
+                          );
+                        } else {
+                          $('#tabelkomponen tr:last').after(
+                            "<tr>"+
+                            "<td>"+no+"</td>"+
+                            "<td>"+data[index].nama_komponen+"</td>"+
+                            "<td><span class='label bg-red'>Potongan</span></td>"+
+                            "<td>"+data[index].nilai+"</td>"+
+                            "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
+                            "</tr>"
+                          );
+                        }
+                        no++;
+                      })
+                    }
+
+                    // update status komponen gaji
+                    $.ajax({
+                      url: "{{url('/')}}/detail-batch-payroll/cek-komponen-gaji/{{$idbatch}}/"+idpegawai,
+                      dataType: 'json',
+                      success: function(datax){
+                        if (datax.length!=0) {
+                          $("#statuskomponen"+idpegawai).attr('class', 'badge bg-green');
+                          $("#statuskomponen"+idpegawai).html('Sudah Di Set');
+                        } else {
+                          $("#statuskomponen"+idpegawai).attr('class', 'badge bg-red');
+                          $("#statuskomponen"+idpegawai).html('Belum Di Set');
+                        }
+                      }
+                    });
+                  }
+                });
+              }
+            });
         });
       });
   </script>

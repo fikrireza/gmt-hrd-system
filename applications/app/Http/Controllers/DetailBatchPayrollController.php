@@ -61,4 +61,12 @@ class DetailBatchPayrollController extends Controller
     $get = MasterPegawai::find($idpegawai);
     return $get->gaji_pokok;
   }
+
+  public function deletekomponengaji($id)
+  {
+    $set = DetailKomponenGaji::find($id);
+    $set->delete();
+
+    return $set;
+  }
 }
