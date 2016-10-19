@@ -151,3 +151,6 @@ Route::get('batch-payroll', 'BatchPayrollController@index')->name('batchpayroll.
 Route::post('batch-payroll', 'BatchPayrollController@store')->name('batchpayroll.store');
 Route::get('batch-payroll/detail/{id}', 'BatchPayrollController@detail')->name('batchpayroll.detail');
 Route::get('batch-payroll/getdata/{id}', 'BatchPayrollController@getdatafordatatable')->name('batchpayroll.getdata');
+
+///// DETAIL BATCH PAYROLL //////
+Route::get('detail-batch-payroll/bind-to-table/{idbatch}/{idpegawai}', 'DetailBatchPayrollController@getdatakomponen')->name('detailbatchpayroll.bindtotable');

@@ -27,49 +27,68 @@
 
 
   <div class="modal modal-default fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width:700px;">
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Set Gaji Pegawai</h4>
+          <h4 class="modal-title">Set Komponen Gaji</h4>
         </div>
-        <form action="{{route('setgaji.update')}}" method="post">
-          {{csrf_field()}}
           <div class="modal-body">
             <div class="col-sm-12" style="margin-bottom:10px;">
               <div class="form-group">
-                <label class="col-sm-2 control-label">NIP Pegawai</label>
-                <div class="col-sm-10">
-                  <input type="hidden" class="form-control" id="id" name="id">
-                  <input type="text" class="form-control" id="nippegawai" name="nip" readonly="">
+                <label class="col-sm-2 control-label">Komponen Gaji</label>
+                <div class="col-sm-8">
+                  <select class="form-control" id="idkomponengaji">
+                    <option>-- Pilih --</option>
+                    @foreach ($getkomponengaji as $key)
+                      <option value="{{$key->id}}">
+                        @if ($key->tipe_komponen=="D")
+                          [Penerimaan]
+                        @else
+                          [Potongan]
+                        @endif
+                        - {{$key->nama_komponen}}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="col-sm-2"></div>
+              </div>
+            </div>
+            <div class="col-sm-12" style="margin-bottom:40px;">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Nilai</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" id="nilaikomponengaji">
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" name="button" id="addkomponentopegawai" class="btn btn-primary"><i class="fa fa-plus"></i></button>
                 </div>
               </div>
             </div>
-            <div class="col-sm-12" style="margin-bottom:10px;">
-              <div class="form-group">
-                <label class="col-sm-2 control-label">Nama Pegawai</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="namapegawai" name="nama" readonly="">
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-12" style="margin-bottom:10px;">
-              <div class="form-group">
-                <label class="col-sm-2 control-label">Gaji Pokok</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="gajipokok" name="gajipokok">
-                </div>
-              </div>
+            <div class="col-sm-12">
+              <table class="table table-bordered" id="tabelkomponen">
+                  <thead>
+                    <tr>
+                      <th style="width: 10px">#</th>
+                      <th>Komponen Gaji</th>
+                      <th>Tipe</th>
+                      <th>Nilai</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+              </table>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
-            <button type="submit" class="btn btn-primary" id="set">Simpan Perubahan</button>
+            {{-- <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+            <button type="submit" class="btn btn-primary" id="set">Simpan Perubahan</button> --}}
           </div>
       </div>
     </div>
-  </form>
   </div>
 
   <div class="row">
@@ -131,41 +150,66 @@
 
   <script type="text/javascript">
     $(function() {
-        // $('#tabelpegawai').DataTable({
-        //     processing: true,
-        //     serverSide: true,
-        //     ajax: '{!! route('setgaji.getdata') !!}',
-        //     column: [
-        //       {data: 'id', name: 'id'},
-        //       {data: '0', name: 'nip'},
-        //       {data: '1', name: 'name'},
-        //       {data: '2', name: 'no_telp'},
-        //       {data: '3', name: 'nama_jabatan'},
-        //       {data: '5', name: 'status'},
-        //       {data: '6', name: 'action', orderable: false, searchable: false}
-        //     ]
-        // });
+        $('#tabelpegawai').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: '{!! route('batchpayroll.getdata', $idbatch) !!}',
+            column: [
+              {data: 'id', name: 'id'},
+              {data: '0', name: 'nip'},
+              {data: '1', name: 'nama'},
+              {data: '2', name: 'nama_jabatan'},
+              {data: '3', name: 'status'},
+              {data: '4', name: 'komponen_gaji'},
+              {data: '5', name: 'action', orderable: false, searchable: false}
+            ]
+        });
 
-        $('#tabelpegawai').DataTable().on('click', 'a.editgaji[data-value]', function () {
-          var a = $(this).data('value');
+
+        $('#tabelpegawai').DataTable().on('click', 'a.addkomponen[data-value]', function () {
+          var idpegawai = $(this).data('value');
           $.ajax({
-            url: "{{ url('/') }}/pegawai/bind-gaji/"+a,
+            url: "{{url('/')}}/detail-batch-payroll/bind-to-table/{{$idbatch}}/"+idpegawai,
             dataType: 'json',
             success: function(data){
-              // get
-              var id = data.id;
-              var nip = data.nip;
-              var nama = data.nama;
-              var gaji = data.gaji_pokok;
-
-              // set
-              $('#id').attr('value', id);
-              $('#nippegawai').attr('value', nip);
-              $('#namapegawai').attr('value', nama);
-              $('#gajipokok').attr('value', gaji);
+              $("#tabelkomponen").find("tr:gt(0)").remove();
+              if (data.length==0) {
+                $('#tabelkomponen tr:last').after(
+                  "<tr>"+
+                  "<td colspan='5' align='center'><span class='text-muted'>Data tidak tersedia.</span></td>"+
+                  "</tr>"
+                );
+              } else {
+                var no = 1;
+                $.each(data, function(index, value){
+                  if (data[index].tipe_komponen=="D") {
+                    $('#tabelkomponen tr:last').after(
+                      "<tr>"+
+                      "<td>"+no+"</td>"+
+                      "<td>"+data[index].nama_komponen+"</td>"+
+                      "<td><span class='label bg-green'>Penerimaan</span></td>"+
+                      "<td>"+data[index].nilai+"</td>"+
+                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapus' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
+                      "</tr>"
+                    );
+                  } else {
+                    $('#tabelkomponen tr:last').after(
+                      "<tr>"+
+                      "<td>"+no+"</td>"+
+                      "<td>"+data[index].nama_komponen+"</td>"+
+                      "<td><span class='label bg-red'>Potongan</span></td>"+
+                      "<td>"+data[index].nilai+"</td>"+
+                      "<td>adf</td>"+
+                      "</tr>"
+                    );
+                  }
+                  no++;
+                })
+              }
             }
           });
         });
+
       });
   </script>
 
