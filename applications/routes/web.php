@@ -58,7 +58,6 @@ Route::get('useraccount/delete/{id}', 'AkunController@delete');
 Route::get('useraccount/kelola-profile/{id}', 'AkunController@kelolaprofile')->name('kelola.profile');
 Route::post('useraccount/update-profile', 'AkunController@updateprofile')->name('profile.edit');
 Route::post('useraccount/update-password', 'AkunController@updatepassword')->name('profile.editpassword');
-Route::resource('uploaddocument', 'UploadDocumentController');
 
 Route::post('addkeluarga', 'MasterPegawaiController@addKeluarga');
 Route::get('masterpegawai/hapuskeluarga/{id}', 'MasterPegawaiController@hapusKeluarga');
@@ -102,6 +101,7 @@ Route::get('masterpegawai/getdokumen/{id}', 'MasterPegawaiController@getdokumen'
 Route::post('masterpegawai/editdokumenpegawai', 'MasterPegawaiController@editdokumenpegawai');
 Route::post('masterpegawai/savepegawai', 'MasterPegawaiController@saveChangesPegawai');
 
+Route::resource('uploaddocument', 'UploadDocumentController');
 Route::get('upload/view-document', 'UploadDocumentController@getDocforDataTables')->name('datatables.doc');
 Route::get('upload/bind-data/{id}', 'UploadDocumentController@bindData');
 Route::post('upload/edit', 'UploadDocumentController@editDokumen')->name('upload.edit');
