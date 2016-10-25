@@ -115,13 +115,13 @@
             {!! csrf_field() !!}
             <div class="modal-body">
               <div class="box-body">
-                <div class="form-group">
+                <div class="form-group {{ $errors->has('id_pegawai') ? 'has-error' : '' }}">
                   <label class="col-sm-1 control-label" style="padding-right:0px;padding-top:4px;">Pilih NIP</label>
                   <div class="col-sm-6">
                     <select name="id_pegawai" class="form-control select2" style="width: 100%;">
                       <option selected="selected"></option>
                       @foreach($data['getpegawai'] as $key)
-                        <option value="{{ $key->id }}">{{ $key->nip }} - {{ $key->nama }}</option>
+                        <option value="{{ $key->id }}" {{ old('id_pegawai') == $key->id ? 'selected' : '' }}>{{ $key->nip }} - {{ $key->nama }}</option>
                       @endforeach
                     </select>
                   </div>
@@ -140,14 +140,14 @@
                         </tr>
                         <tr>
                           <td><input type="checkbox" name="chk"/></td>
-                          <td>
+                          <td class="{{ $errors->has('nama_dokumen[1]') ? 'has-error' : '' }}">
                             <div>
-                              <input type="text" name="nama_dokumen[]" class="form-control">
+                              <input type="text" name="nama_dokumen[1]" class="form-control" placeholder="Nama Dokument">
                             </div>
                           </td>
                           <td>
                             <div>
-                              <input type="file" name="file_dokumen[]" class="form-control">
+                              <input type="file" name="file_dokumen[1]" class="form-control">
                             </div>
                           </td>
                         </tr>
@@ -283,23 +283,16 @@
 
     var numA=1;
     function adduploaddocument(tableID) {
-
-        var table = document.getElementById(tableID);
-
-        var rowCount = table.rows.length;
-
-        var row = table.insertRow(rowCount);
-
-        var cell1 = row.insertCell(0);
-        cell1.innerHTML = '<input type="checkbox" name="chk[]"/>';
-
-        var cell2 = row.insertCell(1);
-        cell2.innerHTML = '<input type="text" name="nama_dokumen[]" class="form-control" placeholder="Nama Dokument"@if(!$errors->has('nama_dokumen'))value="{{ old('nama_dokumen') }}"@endif>@if($errors->has('nama_dokumen'))<span class="help-block"><strong><h6>{{ $errors->first('nama_dokumen')}}</h6></strong></span>@endif';
-
-        var cell3 = row.insertCell(2);
-        cell3.innerHTML = '<input type="file" class="form-control" name="file_dokumen[]" @if(!$errors->has('file_dokumen'))value="{{ old('file_dokumen') }}"@endif>@if($errors->has('file_dokumen'))<span class="help-block"><strong><h6>{{ $errors->first('file_dokumen')}}</h6></strong></span>@endif';
-
-        numA++;
+      numA++;
+      var table = document.getElementById(tableID);
+      var rowCount = table.rows.length;
+      var row = table.insertRow(rowCount);
+      var cell1 = row.insertCell(0);
+      cell1.innerHTML = '<input type="checkbox" name="chk[]"/>';
+      var cell2 = row.insertCell(1);
+      cell2.innerHTML = '<input type="text" name="nama_dokumen['+numA+']" class="form-control" placeholder="Nama Dokumen">';
+      var cell3 = row.insertCell(2);
+      cell3.innerHTML = '<input type="file" name="file_dokumen['+numA+']" class="form-control" value="" />';
     }
 
     function deluploaddocument(tableID) {
@@ -321,5 +314,12 @@
             alert(e);
         }
     }
+  </script>
+
+
+  <script type="text/javascript">
+  @if ($errors->has('id_pegawai') || $errors->has('nama_dokumen') || $errors->has('file_dokumen'))
+    $('#modalAddDocument').section('show');
+  @endif
   </script>
 @stop

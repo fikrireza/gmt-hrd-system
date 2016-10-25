@@ -11,6 +11,7 @@ use App\Models\UploadDocument;
 use App\Models\MasterJabatan;
 use Datatables;
 use DB;
+use Validator;
 
 class UploadDocumentController extends Controller
 {
@@ -25,16 +26,6 @@ class UploadDocumentController extends Controller
       $this->middleware('isAdmin');
   }
 
-  /**
-   * Display a listing of the resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index()
-  {
-
-  }
-
   public function create()
   {
     $getpegawai = MasterPegawai::where('status', 1)->get();
@@ -47,7 +38,24 @@ class UploadDocumentController extends Controller
 
   public function store(Request $request)
   {
-    $i = 0;
+    $message = [
+      'id_pegawai.required' => 'Wajib di isi.',
+      'nama_dokumen.*.required' => 'Wajib di isi.',
+      'file_dokumen.*.required' => 'Wajib di isi.'
+    ];
+
+    $validator = Validator::make($request->all(), [
+      'id_pegawai' => 'required',
+      'nama_dokumen.*' => 'required',
+      'file_dokumen.*' => 'required'
+    ], $message);
+
+    if($validator->fails())
+    {
+      return redirect()->route('uploaddocument.create')->withErrors($validator)->withInput();
+    }
+
+    $i = 1;
     foreach ($request->nama_dokumen as $key) {
       $file = $request->file_dokumen[$i];
       $file_name = time(). '.' . $file->getClientOriginalExtension();
@@ -65,24 +73,6 @@ class UploadDocumentController extends Controller
     return redirect()->route('uploaddocument.create')->with('message', "Berhasil menyimpan dokumen pegawai.");
   }
 
-  public function edit($id)
-  {
-      //
-  }
-
-  public function update($id)
-  {
-    $dataChage = MasterBahasaAsing::find($id);
-    $dataChage->bahasa = $request->bahasa;
-    $dataChage->berbicara = $request->berbicara;
-    $dataChage->menulis = $request->menulis;
-    $dataChage->mengerti = $request->mengerti;
-    $dataChage->id_pegawai = $request->id_pegawai;
-    $dataChage->save();
-
-    return redirect()->route('masterbahasaasing.create')->with('message', 'Data bahasa asing berhasil diubah.');
-  }
-
   public function getDocforDataTables()
   {
     $dokumen = UploadDocument::select(['dokumen_pegawai.id as id_doc','nip','nama','nama_dokumen', 'file_dokumen', 'dokumen_pegawai.created_at as tanggal_upload'])
@@ -97,16 +87,6 @@ class UploadDocumentController extends Controller
       })
       ->removeColumn('id_doc')
       ->make();
-  }
-
-  public function show($id)
-  {
-      //
-  }
-
-  public function destroy($id)
-  {
-      //
   }
 
   public function hapusDokumen($id)
