@@ -877,25 +877,25 @@
                   <td>
                     <select class="form-control" name="berbicara">
                       <option>-- Pilih --</option>
-                      <option value="BAIK">BAIK</option>
-                      <option value="CUKUP">CUKUP</option>
-                      <option value="KURANG">KURANG</option>
+                      <option value="1">BAIK</option>
+                      <option value="2">CUKUP</option>
+                      <option value="3">KURANG</option>
                     </select>
                   </td>
                   <td>
                     <select class="form-control" name="menulis">
                       <option>-- Pilih --</option>
-                      <option value="BAIK">BAIK</option>
-                      <option value="CUKUP">CUKUP</option>
-                      <option value="KURANG">KURANG</option>
+                      <option value="1">BAIK</option>
+                      <option value="2">CUKUP</option>
+                      <option value="3">KURANG</option>
                     </select>
                   </td>
                   <td>
                     <select class="form-control" name="mengerti">
                       <option>-- Pilih --</option>
-                      <option value="BAIK">BAIK</option>
-                      <option value="CUKUP">CUKUP</option>
-                      <option value="KURANG">KURANG</option>
+                      <option value="1">BAIK</option>
+                      <option value="2">CUKUP</option>
+                      <option value="3">KURANG</option>
                     </select>
                   </td>
                 </tr>

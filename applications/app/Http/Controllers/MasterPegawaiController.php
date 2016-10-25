@@ -366,6 +366,7 @@ class MasterPegawaiController extends Controller
 
     public function addBahasa(Request $request)
     {
+      // dd($request);
       $bahasa = new BahasaAsing;
       $bahasa->bahasa = $request->bahasa;
       $bahasa->berbicara = $request->berbicara;
