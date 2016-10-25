@@ -768,9 +768,9 @@
                   <td>
                     <select class="form-control" name="nilai_komputer">
                       <option>-- Pilih --</option>
-                      <option value="BAIK">BAIK</option>
-                      <option value="CUKUP">CUKUP</option>
-                      <option value="KURANG">KURANG</option>
+                      <option value="1">BAIK</option>
+                      <option value="2">CUKUP</option>
+                      <option value="3">KURANG</option>
                     </select>
                   </td>
                 </tr>

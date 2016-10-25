@@ -345,6 +345,7 @@ class MasterPegawaiController extends Controller
 
     public function addKomputer(Request $request)
     {
+      // dd($request);
       $komp = new KeahlianKomputer;
       $komp->nama_program = $request->nama_program;
       $komp->nilai_komputer = $request->nilai_komputer;
