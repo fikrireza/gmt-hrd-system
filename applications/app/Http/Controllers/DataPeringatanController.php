@@ -45,7 +45,7 @@ class DataPeringatanController extends Controller
         $set->save();
       }
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data peringatan.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil memasukkan data peringatan.');
     }
 
     public function editPeringatan(Request $request)
@@ -71,7 +71,7 @@ class DataPeringatanController extends Controller
         $set->save();
       }
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data peringatan.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil mengubah data peringatan.');
     }
 
     public function hapusPeringatan($id)
@@ -80,7 +80,7 @@ class DataPeringatanController extends Controller
       $getnip = MasterPegawai::find($peringatan->id_pegawai);
       $peringatan->delete();
 
-      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data peringatan kerja.');
+      return redirect()->route('masterpegawai.show', $getnip->id)->with('message','Berhasil menghapus data peringatan kerja.');
     }
 
     public function bindPeringatan($id)

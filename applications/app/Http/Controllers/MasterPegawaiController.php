@@ -277,7 +277,7 @@ class MasterPegawaiController extends Controller
       $keluarga->id_pegawai = $request->id_pegawai;
       $keluarga->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data keluarga.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil memasukkan data keluarga.');
     }
 
     public function hapusKeluarga($id)
@@ -286,7 +286,7 @@ class MasterPegawaiController extends Controller
       $getnip = MasterPegawai::find($keluarga->id_pegawai);
       $keluarga->delete();
 
-      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data keluarga.');
+      return redirect()->route('masterpegawai.show', $getnip->id)->with('message','Berhasil menghapus data keluarga.');
     }
 
     public function addPendidikan(Request $request)
@@ -300,7 +300,7 @@ class MasterPegawaiController extends Controller
       $didik->id_pegawai = $request->id_pegawai;
       $didik->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data pendidikan.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil memasukkan data pendidikan.');
     }
 
     public function hapusPendidikan($id)
@@ -309,7 +309,7 @@ class MasterPegawaiController extends Controller
       $getnip = MasterPegawai::find($didik->id_pegawai);
       $didik->delete();
 
-      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data pendidikan.');
+      return redirect()->route('masterpegawai.show', $getnip->id)->with('message','Berhasil menghapus data pendidikan.');
     }
 
     public function hapusDokumen($id)
@@ -318,7 +318,7 @@ class MasterPegawaiController extends Controller
       $getnip = MasterPegawai::find($dokumen->id_pegawai);
       $dokumen->delete();
 
-      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus dokumen pegawai.');
+      return redirect()->route('masterpegawai.show', $getnip->id)->with('message','Berhasil menghapus dokumen pegawai.');
     }
 
     public function addPengalaman(Request $request)
@@ -331,7 +331,7 @@ class MasterPegawaiController extends Controller
       $kerja->id_pegawai = $request->id_pegawai;
       $kerja->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data pengalaman kerja.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil memasukkan data pengalaman kerja.');
     }
 
     public function hapusPengalaman($id)
@@ -340,7 +340,7 @@ class MasterPegawaiController extends Controller
       $getnip = MasterPegawai::find($kerja->id_pegawai);
       $kerja->delete();
 
-      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data pengalaman kerja.');
+      return redirect()->route('masterpegawai.show', $getnip->id)->with('message','Berhasil menghapus data pengalaman kerja.');
     }
 
     public function addKomputer(Request $request)
@@ -351,7 +351,7 @@ class MasterPegawaiController extends Controller
       $komp->id_pegawai = $request->id_pegawai;
       $komp->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data keahlian komputer.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil memasukkan data keahlian komputer.');
     }
 
     public function hapusKomputer($id)
@@ -360,7 +360,7 @@ class MasterPegawaiController extends Controller
       $getnip = MasterPegawai::find($komp->id_pegawai);
       $komp->delete();
 
-      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data keahlian komputer.');
+      return redirect()->route('masterpegawai.show', $getnip->id)->with('message','Berhasil menghapus data keahlian komputer.');
     }
 
     public function addBahasa(Request $request)
@@ -373,7 +373,7 @@ class MasterPegawaiController extends Controller
       $bahasa->id_pegawai = $request->id_pegawai;
       $bahasa->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data bahasa asing.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil memasukkan data bahasa asing.');
     }
 
     public function hapusBahasa($id)
@@ -382,7 +382,7 @@ class MasterPegawaiController extends Controller
       $getnip = MasterPegawai::find($x->id_pegawai);
       $x->delete();
 
-      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data bahasa asing.');
+      return redirect()->route('masterpegawai.show', $getnip->id)->with('message','Berhasil menghapus data bahasa asing.');
     }
 
     public function addPenyakit(Request $request)
@@ -393,7 +393,7 @@ class MasterPegawaiController extends Controller
       $peny->id_pegawai = $request->id_pegawai;
       $peny->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan data riwayat penyakit.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil memasukkan data riwayat penyakit.');
     }
 
     public function hapusPenyakit($id)
@@ -402,7 +402,7 @@ class MasterPegawaiController extends Controller
       $getnip = MasterPegawai::find($x->id_pegawai);
       $x->delete();
 
-      return redirect()->route('masterpegawai.show', $getnip->nip)->with('message','Berhasil menghapus data riwayat penyakit.');
+      return redirect()->route('masterpegawai.show', $getnip->id)->with('message','Berhasil menghapus data riwayat penyakit.');
     }
 
     public function getDataKeluargaByID($id)
@@ -422,7 +422,7 @@ class MasterPegawaiController extends Controller
       $set->alamat_keluarga = $request->alamat_keluarga;
       $set->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data keluarga.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil mengubah data keluarga.');
     }
 
     public function getPendidikanByID($id)
@@ -442,7 +442,7 @@ class MasterPegawaiController extends Controller
       $set->gelar_akademik = $request->gelar_akademik;
       $set->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data pendidikan.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil mengubah data pendidikan.');
     }
 
     public function getPengalamanByID($id)
@@ -467,7 +467,7 @@ class MasterPegawaiController extends Controller
       $set->tahun_akhir_kerja = $request->tahun_akhir_kerja;
       $set->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data pengalaman.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil mengubah data pengalaman.');
     }
 
     public function saveChangesKesehatan(Request $request)
@@ -482,7 +482,7 @@ class MasterPegawaiController extends Controller
       $set->merokok = $request->merokok;
       $set->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data kesehatan.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil mengubah data kesehatan.');
     }
 
     public function getKomputerByID($id)
@@ -499,7 +499,7 @@ class MasterPegawaiController extends Controller
       $komp->nilai_komputer = $request->nilai_komputer;
       $komp->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data keahlian komputer.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil mengubah data keahlian komputer.');
     }
 
     public function getBahasaByID($id)
@@ -517,7 +517,7 @@ class MasterPegawaiController extends Controller
       $bahasa->mengerti = $request->mengerti;
       $bahasa->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data bahasa asing.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil mengubah data bahasa asing.');
     }
 
     public function getPenyakitByID($id)
@@ -533,7 +533,7 @@ class MasterPegawaiController extends Controller
       $peny->keterangan_penyakit = $request->keterangan_penyakit;
       $peny->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data riwayat penyakit.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil mengubah data riwayat penyakit.');
     }
 
     public function saveChangesPegawai(Request $request)
@@ -606,7 +606,7 @@ class MasterPegawaiController extends Controller
       $pegawai->id_jabatan = $request->jabatan;
       $pegawai->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data pegawai.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil mengubah data pegawai.');
     }
 
     public function saveChangesDarurat(Request $request)
@@ -618,7 +618,7 @@ class MasterPegawaiController extends Controller
       $set->telepon_darurat = $request->telepon_darurat;
       $set->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah data darurat.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil mengubah data darurat.');
     }
 
     public function addDokumen(Request $request)
@@ -636,7 +636,7 @@ class MasterPegawaiController extends Controller
         $set->file_dokumen = $file_name;
         $set->save();
 
-        return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil memasukkan dokumen pegawai.');
+        return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil memasukkan dokumen pegawai.');
       } else {
         return "gagal karena tidak meng-upload file.";
       }
@@ -650,7 +650,7 @@ class MasterPegawaiController extends Controller
         $set->nama_dokumen = $request->namadokumen;
         $set->save();
 
-        return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah dokumen pegawai.');
+        return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil mengubah dokumen pegawai.');
       } else {
         $file_name = time(). '.' . $file->getClientOriginalExtension();
         $file->move('documents', $file_name);
@@ -660,7 +660,7 @@ class MasterPegawaiController extends Controller
         $set->file_dokumen = $file_name;
         $set->save();
 
-        return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil mengubah dokumen pegawai.');
+        return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil mengubah dokumen pegawai.');
       }
     }
 
@@ -671,7 +671,7 @@ class MasterPegawaiController extends Controller
       $set->id_pegawai  = $request->id_pegawai;
       $set->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil Menambah Histori Pekerjaan Pegawai.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil Menambah Histori Pekerjaan Pegawai.');
     }
 
     public function bindhistoriperingatan($id)
@@ -688,7 +688,7 @@ class MasterPegawaiController extends Controller
       $set->id_pegawai  = $request->id_pegawai;
       $set->save();
 
-      return redirect()->route('masterpegawai.show', $request->nip)->with('message','Berhasil Merubah Histori Pekerjaan Pegawai.');
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil Merubah Histori Pekerjaan Pegawai.');
 
     }
 
