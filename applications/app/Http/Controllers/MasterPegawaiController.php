@@ -539,6 +539,7 @@ class MasterPegawaiController extends Controller
     public function saveChangesPegawai(Request $request)
     {
       $messages = [
+          'nama.required' => 'Nama harus diisi',
           'nip.required' => 'NIP harus diisi',
           'niplama.required' => 'NIP Lama harus diisi',
           'ktp.required' => 'KTP harus diisi',
@@ -563,6 +564,7 @@ class MasterPegawaiController extends Controller
       ];
 
       $validator = Validator::make($request->all(), [
+        'nama' => 'required',
         'nip' => 'required',
         'niplama' => 'required',
         'ktp' => 'required',
@@ -586,8 +588,9 @@ class MasterPegawaiController extends Controller
           ->withErrors($validator)
           ->withInput();
       }
-
+      
       $pegawai = MasterPegawai::find($request->id_pegawai);
+      $pegawai->nama  = $request->nama;
       $pegawai->nip = $request->nip;
       $pegawai->nip_lama = $request->niplama;
       $pegawai->no_ktp = $request->ktp;
