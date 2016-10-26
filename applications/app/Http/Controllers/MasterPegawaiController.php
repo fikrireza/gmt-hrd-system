@@ -242,7 +242,7 @@ class MasterPegawaiController extends Controller
 
     public function getDataForDataTable()
     {
-      $users = MasterPegawai::select(['master_pegawai.id as id',                                                  'nip','nama','no_telp','nama_jabatan',DB::raw("if(master_pegawai.status = 1, 'Aktif', 'Tidak Aktif') as status")])
+      $users = MasterPegawai::select(['master_pegawai.id as id', 'nip', 'nip_lama','nama','nama_jabatan',DB::raw("if(master_pegawai.status = 1, 'Aktif', 'Tidak Aktif') as status")])
         ->join('master_jabatan','master_pegawai.id_jabatan','=', 'master_jabatan.id')
         ->get();
 
@@ -588,7 +588,7 @@ class MasterPegawaiController extends Controller
           ->withErrors($validator)
           ->withInput();
       }
-      
+
       $pegawai = MasterPegawai::find($request->id_pegawai);
       $pegawai->nama  = $request->nama;
       $pegawai->nip = $request->nip;
