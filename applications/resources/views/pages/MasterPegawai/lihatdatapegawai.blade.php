@@ -1650,6 +1650,24 @@
             {!! csrf_field() !!}
           <table class="table table-condensed">
             <tbody>
+              <tr id="tdtextnama">
+                <td>Nama</td>
+                <td>:</td>
+                <td id="tdlabelnama"><b>{{ $pegawai->nama}}</b></td>
+                <td class="{{ $errors->has('nama') ? 'has-error' : ''}}">
+                    <input type="text" class="form-control" name="nama"
+                    @if($errors->has('nama'))
+                      value="{{ old('nama')}}"
+                    @else value="{{ $pegawai->nama }}"
+                    @endif >
+                    @if($errors->has('nama'))
+                     <span class="help-block">
+                       <strong>{{ $errors->first('nama')}}
+                       </strong>
+                     </span>
+                    @endif
+                </td>
+              </tr>
               <tr>
                 <td>NIP</td>
                 <td>:</td>
@@ -3042,6 +3060,7 @@
 
 
       @if(count($errors)!=0)
+        $('#tdlabelnama').hide();
         $('#tdlabelnip').hide();
         $('#tdlabelniplama').hide();
         $('#tdlabeltgllahir').hide();
@@ -3060,6 +3079,7 @@
         $('#tdlabeljabatan').hide();
         $('a#editpegawai').hide();
 
+        $('#tdtextnama').show();
         $('#tdtextnip').show();
         $('#tdtextniplama').show();
         $('#tdtexttgllahir').show();
@@ -3077,6 +3097,7 @@
         $('#tdtextwarga').show();
         $('#tdtextjabatan').show();
       @else
+        $('#tdtextnama').hide();
         $('#tdtextnip').hide();
         $('#tdtextniplama').hide();
         $('#tdtexttgllahir').hide();
@@ -3097,6 +3118,7 @@
       @endif
 
       $('a#editpegawai').click(function(){
+        $('#tdlabelnama').hide();
         $('#tdlabelnip').hide();
         $('#tdlabelniplama').hide();
         $('#tdlabeltgllahir').hide();
@@ -3115,6 +3137,7 @@
         $('#tdlabeljabatan').hide();
 
 
+        $('#tdtextnama').show();
         $('#tdtextnip').show();
         $('#tdtextniplama').show();
         $('#tdtexttgllahir').show();

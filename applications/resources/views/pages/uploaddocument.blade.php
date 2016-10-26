@@ -118,7 +118,7 @@
                 <div class="form-group {{ $errors->has('id_pegawai') ? 'has-error' : '' }}">
                   <label class="col-sm-1 control-label" style="padding-right:0px;padding-top:4px;">Pilih NIP</label>
                   <div class="col-sm-6">
-                    <select name="id_pegawai" class="form-control select2" style="width: 100%;">
+                    <select name="id_pegawai" class="form-control select2" required style="width: 100%;">
                       <option selected="selected"></option>
                       @foreach($data['getpegawai'] as $key)
                         <option value="{{ $key->id }}" {{ old('id_pegawai') == $key->id ? 'selected' : '' }}>{{ $key->nip }} - {{ $key->nama }}</option>
@@ -142,12 +142,12 @@
                           <td><input type="checkbox" name="chk"/></td>
                           <td class="{{ $errors->has('nama_dokumen[1]') ? 'has-error' : '' }}">
                             <div>
-                              <input type="text" name="nama_dokumen[1]" class="form-control" placeholder="Nama Dokument">
+                              <input type="text" name="nama_dokumen[1]" class="form-control" placeholder="Nama Dokument" required>
                             </div>
                           </td>
                           <td>
                             <div>
-                              <input type="file" name="file_dokumen[1]" class="form-control">
+                              <input type="file" name="file_dokumen[1]" class="form-control" required>
                             </div>
                           </td>
                         </tr>
