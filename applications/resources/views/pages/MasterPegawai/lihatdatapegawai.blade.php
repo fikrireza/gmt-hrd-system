@@ -768,9 +768,9 @@
                   <td>
                     <select class="form-control" name="nilai_komputer">
                       <option>-- Pilih --</option>
-                      <option value="BAIK">BAIK</option>
-                      <option value="CUKUP">CUKUP</option>
-                      <option value="KURANG">KURANG</option>
+                      <option value="1">BAIK</option>
+                      <option value="2">CUKUP</option>
+                      <option value="3">KURANG</option>
                     </select>
                   </td>
                 </tr>
@@ -877,25 +877,25 @@
                   <td>
                     <select class="form-control" name="berbicara">
                       <option>-- Pilih --</option>
-                      <option value="BAIK">BAIK</option>
-                      <option value="CUKUP">CUKUP</option>
-                      <option value="KURANG">KURANG</option>
+                      <option value="1">BAIK</option>
+                      <option value="2">CUKUP</option>
+                      <option value="3">KURANG</option>
                     </select>
                   </td>
                   <td>
                     <select class="form-control" name="menulis">
                       <option>-- Pilih --</option>
-                      <option value="BAIK">BAIK</option>
-                      <option value="CUKUP">CUKUP</option>
-                      <option value="KURANG">KURANG</option>
+                      <option value="1">BAIK</option>
+                      <option value="2">CUKUP</option>
+                      <option value="3">KURANG</option>
                     </select>
                   </td>
                   <td>
                     <select class="form-control" name="mengerti">
                       <option>-- Pilih --</option>
-                      <option value="BAIK">BAIK</option>
-                      <option value="CUKUP">CUKUP</option>
-                      <option value="KURANG">KURANG</option>
+                      <option value="1">BAIK</option>
+                      <option value="2">CUKUP</option>
+                      <option value="3">KURANG</option>
                     </select>
                   </td>
                 </tr>
@@ -1198,6 +1198,91 @@
                   </td>
                   <td>
                     <textarea name="keterangan_penyakit" rows="5" class="form-control" id="edit_keterangan_penyakit"></textarea>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+          </div>
+        </div>
+    </form>
+    </div>
+  </div>
+
+  {{-- -- modal set kesehatan -- --}}
+  <div class="modal modal-default fade" id="modalsetkesehatan" role="dialog">
+    <div class="modal-dialog" style="width:1000px;">
+      <!-- Modal content-->
+      <form action="{{ route('kesehatan.set') }}" method="post">
+        {!! csrf_field() !!}
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit Data Kondisi Kesehatan</h4>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>Tinggi Badan</th>
+                  <th>Berat Badan</th>
+                  <th>Warna Rambut</th>
+                  <th>Warna Mata</th>
+                  <th>Berkacamata</th>
+                  <th>Merokok</th>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="hidden" name="id_pegawai" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->id;
+                      }
+                    ?>">
+                    <input class="form-control" type="hidden" name="nip" value="<?php
+                      foreach ($DataPegawai as $k) {
+                        echo $k->nip;
+                      }
+                    ?>">
+                    <input type="hidden" name="id_kesehatan" class="form-control">
+                    <input type="text" name="tinggi_badan" class="form-control" >
+                  </td>
+                  <td>
+                    <input type="text" name="berat_badan" class="form-control">
+                  </td>
+                  <td>
+                    <input type="text" name="warna_rambut" class="form-control">
+                  </td>
+                  <td>
+                    <input type="text" name="warna_mata" class="form-control">
+                  </td>
+                  <td>
+                    <label>
+                      <input type="radio" name="berkacamata" class="minimal" value="1">
+                    </label>&nbsp;&nbsp;
+                    {{-- &nbsp; --}}
+                    <label>Ya</label>
+                    <br>
+                    <label>
+                      <input type="radio" name="berkacamata" class="minimal" value="0">
+                    </label>&nbsp;&nbsp;
+                    {{-- &nbsp; --}}
+                    <label>Tidak</label>
+                  </td>
+                  <td>
+                    <label>
+                      <input type="radio" name="merokok" class="minimal" value="1">
+                    </label>&nbsp;&nbsp;
+                    {{-- &nbsp; --}}
+                    <label>Ya</label>
+                    <br>
+                    <label>
+                      <input type="radio" name="merokok" class="minimal" value="0">
+                    </label>&nbsp;&nbsp;
+                    {{-- &nbsp; --}}
+                    <label>Tidak</label>
                   </td>
                 </tr>
               </tbody>
@@ -2260,6 +2345,9 @@
           </div><!-- /.End Pengalaman -->
           <div class="tab-pane" id="dKesehatan">
             <h3>Kondisi Kesehatan</h3>
+            @if (Auth::user()->level=="1")
+              <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalsetkesehatan"><i class="fa fa-plus"></i> Set Data Kondisi Kesehatan</button>
+            @endif
             <table class="table table-bordered">
               <tbody>
                 <tr class="bg-navy">

@@ -345,6 +345,7 @@ class MasterPegawaiController extends Controller
 
     public function addKomputer(Request $request)
     {
+      // dd($request);
       $komp = new KeahlianKomputer;
       $komp->nama_program = $request->nama_program;
       $komp->nilai_komputer = $request->nilai_komputer;
@@ -365,6 +366,7 @@ class MasterPegawaiController extends Controller
 
     public function addBahasa(Request $request)
     {
+      // dd($request);
       $bahasa = new BahasaAsing;
       $bahasa->bahasa = $request->bahasa;
       $bahasa->berbicara = $request->berbicara;
@@ -480,6 +482,22 @@ class MasterPegawaiController extends Controller
       $set->warna_mata = $request->warna_mata;
       $set->berkacamata = $request->berkacamata;
       $set->merokok = $request->merokok;
+      $set->save();
+
+      return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil mengubah data kesehatan.');
+    }
+
+    public function setKondisiKesehatan(Request $request)
+    {
+      // dd($request);
+      $set = new KondisiKesehatan;
+      $set->tinggi_badan = $request->tinggi_badan;
+      $set->berat_badan = $request->berat_badan;
+      $set->warna_rambut = $request->warna_rambut;
+      $set->warna_mata = $request->warna_mata;
+      $set->berkacamata = $request->berkacamata;
+      $set->merokok = $request->merokok;
+      $set->id_pegawai = $request->id_pegawai;
       $set->save();
 
       return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil mengubah data kesehatan.');

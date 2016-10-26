@@ -88,6 +88,7 @@ Route::post('masterpegawai/savebahasa', 'MasterPegawaiController@saveChangesBaha
 Route::post('addkesehatan', 'MasterPegawaiController@addKesehatan');
 Route::get('masterpegawai/hapuskesehatan/{id}', 'MasterPegawaiController@hapusKesehatan');
 Route::post('masterpegawai/savekesehatan', 'MasterPegawaiController@saveChangesKesehatan');
+Route::post('masterpegawai/setkondisikesehatan', 'MasterPegawaiController@setKondisiKesehatan')->name('kesehatan.set');
 
 Route::post('addpenyakit', 'MasterPegawaiController@addPenyakit');
 Route::get('masterpegawai/hapuspenyakit/{id}', 'MasterPegawaiController@hapusPenyakit');
