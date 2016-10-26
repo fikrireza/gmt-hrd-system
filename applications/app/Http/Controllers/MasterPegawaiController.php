@@ -628,9 +628,11 @@ class MasterPegawaiController extends Controller
     {
       $file = $request->file('unggahdokumen');
 
+      $fName  = MasterPegawai::select('nip', 'nama')->where('id', $request->id_pegawai)->get();
+
       if($file!=null)
       {
-        $file_name = time(). '.' . $file->getClientOriginalExtension();
+        $file_name = strtolower($fName[0]->nip.'-'.(str_slug($fName[0]->nama, '-')).'-'.$request->nama_dokumen[$i]).'-'.rand(). '.' . $file->getClientOriginalExtension();
         $file->move('documents', $file_name);
 
         $set = new UploadDocument;

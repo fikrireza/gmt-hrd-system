@@ -2400,7 +2400,7 @@
                       <td>{{$key->nama_dokumen}}</td>
                       <td>
                         <a href="{{url('documents')}}/{{$key->file_dokumen}}" download>
-                          {{$key->file_dokumen}}
+                          <img src="{{asset('dist/img/jpg.png')}}" width="10%"/>
                         </a>
                       </td>
                       @if (Auth::user()->level=="1")

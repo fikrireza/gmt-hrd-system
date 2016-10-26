@@ -38,6 +38,7 @@ class UploadDocumentController extends Controller
 
   public function store(Request $request)
   {
+    // dd($request);
     $message = [
       'id_pegawai.required' => 'Wajib di isi.',
       'nama_dokumen.*.required' => 'Wajib di isi.',
@@ -55,10 +56,13 @@ class UploadDocumentController extends Controller
       return redirect()->route('uploaddocument.create')->withErrors($validator)->withInput();
     }
 
+    $fName  = MasterPegawai::select('nip', 'nama')->where('id', $request->id_pegawai)->get();
+
     $i = 1;
     foreach ($request->nama_dokumen as $key) {
       $file = $request->file_dokumen[$i];
-      $file_name = time(). '.' . $file->getClientOriginalExtension();
+      $file_name = strtolower($fName[0]->nip.'-'.(str_slug($fName[0]->nama, '-')).'-'.$request->nama_dokumen[$i]).'-'.rand(). '.' . $file->getClientOriginalExtension();
+      dd($file_name);
       $file->move('documents', $file_name);
 
       $set = new uploaddocument;
@@ -80,7 +84,7 @@ class UploadDocumentController extends Controller
 
     return Datatables::of($dokumen)
       ->editColumn('file_dokumen', function($dokumen){
-        return '<a href='.url('documents').'/'.$dokumen->file_dokumen.' download>'.$dokumen->file_dokumen.'</a>';
+        return '<a href='.url('documents').'/'.$dokumen->file_dokumen.' download><img src="'.asset('dist/img/jpg.png').'" width="15%"/></a>';
       })
       ->addColumn('action', function($dokumen){
         return '<span data-toggle="tooltip" title="Hapus Data"><a href="#" class="btn btn-xs btn-danger hapusdoc" data-value="'.$dokumen->id_doc.'" data-toggle="modal" data-target="#modalDelete"><i class="fa fa-remove" ></i></a></span> <span data-toggle="tooltip" title="Edit Data"><a href="#" class="btn btn-xs btn-warning editdoc" data-value="'.$dokumen->id_doc.'" data-toggle="modal" data-target="#modalEdit"><i class="fa fa-edit"></i></a></span>';
