@@ -61,11 +61,8 @@
       </div>
     </div>
 
-
-    {{-- modal edit penyakit --}}
     <div class="modal modal-default fade" id="modaleditpkwt" role="dialog">
       <div class="modal-dialog" style="width:800px;">
-        <!-- Modal content-->
         <form class="form-horizontal" action="{{url('savepkwt')}}" method="post">
           {!! csrf_field() !!}
           <div class="modal-content">
@@ -76,7 +73,6 @@
             <div class="modal-body">
               <div class="form-group">
                 <div class="col-sm-1">
-                  {{-- divider --}}
                 </div>
                 <label class="col-sm-2">Kelompok Jabatan</label>
                 <div class="col-sm-4">
@@ -90,7 +86,6 @@
               </div>
               <div class="form-group">
                 <div class="col-sm-1">
-                  {{-- divider --}}
                 </div>
                 <label class="col-sm-2">Tanggal Masuk GMT</label>
                 <div class="col-sm-4">
@@ -106,21 +101,6 @@
               </div>
               <div class="form-group">
                 <div class="col-sm-1">
-                  {{-- divider --}}
-                </div>
-                <label class="col-sm-2">Tanggal Bekerja di Client</label>
-                <div class="col-sm-4">
-                  <div class="input-group">
-                    <div class="input-group-addon">
-                      <i class="fa fa-calendar"></i>
-                    </div>
-                    <input type="text" name="tanggal_masuk_client" class="form-control" id="tanggal_masuk_client" required>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-1">
-                  {{-- divider --}}
                 </div>
                 <label class="col-sm-2">Tanggal Awal PKWT</label>
                 <div class="col-sm-4">
@@ -134,7 +114,6 @@
               </div>
               <div class="form-group">
                 <div class="col-sm-1">
-                  {{-- divider --}}
                 </div>
                 <label class="col-sm-2">Tanggal Akhir PKWT</label>
                 <div class="col-sm-4">
@@ -148,7 +127,19 @@
               </div>
               <div class="form-group">
                 <div class="col-sm-1">
-                  {{-- divider --}}
+                </div>
+                <label class="col-sm-2">Tanggal Bekerja di Client</label>
+                <div class="col-sm-4">
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" name="tanggal_masuk_client" class="form-control" id="tanggal_masuk_client" required>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-1">
                 </div>
                 <label class="col-sm-2">Status Karyawan</label>
                 <div class="col-sm-4">
@@ -162,7 +153,6 @@
               </div>
               <div class="form-group">
                 <div class="col-sm-1">
-                  {{-- divider --}}
                 </div>
                 <label class="col-sm-2">Status PWKT</label>
                 <div class="col-sm-4">
@@ -184,7 +174,6 @@
     </div>
 
   <div class="row">
-    <!--column -->
     <div class="col-md-12">
       @if(Session::has('message'))
         <div class="alert alert-success">
