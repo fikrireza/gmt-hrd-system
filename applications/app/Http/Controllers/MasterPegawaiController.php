@@ -48,8 +48,10 @@ class MasterPegawaiController extends Controller
     {
       $getjabatan = MasterJabatan::where('status', '=', '1')->pluck('nama_jabatan','id');
       $getid = MasterPegawai::select('nip')->orderby('id', 'desc')->first();
-      $sub = substr($getid->nip, 3, 4)+1;
-      $nextid = "NIP".$sub;
+      $sub = substr($getid->nip, 8, 4)+1;
+      $thn = substr(date('Y'), -2);
+      $bln = date('m');
+      $nextid = "GMT".$thn.$bln."-".$sub;
 
       return view('pages/MasterPegawai/tambahdatapegawai')
         ->with('nextid', $nextid)

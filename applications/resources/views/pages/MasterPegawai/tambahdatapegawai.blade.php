@@ -819,30 +819,36 @@
         radioClass: 'iradio_minimal-blue'
       });
 
-      $('#tanggal_lahir').datepicker();
+      $('#tanggal_lahir').datepicker({
+        autoclose: true
+      });
       $('.tanggal_lahir_keluarga').datepicker();
       $('.tahun_awal_kerja').datepicker({
         format: 'yyyy',
         startView: "years",
-        minViewMode: "years"
+        minViewMode: "years",
+        autoclose: true
       });
 
       $('.tahun_akhir_kerja').datepicker({
         format: 'yyyy',
         startView: "years",
-        minViewMode: "years"
+        minViewMode: "years",
+        autoclose: true
       });
 
       $('.tahun_masuk_pendidikan').datepicker({
         format: 'yyyy',
         startView: "years",
-        minViewMode: "years"
+        minViewMode: "years",
+        autoclose: true
       });
 
       $('.tahun_lulus_pendidikan').datepicker({
         format: 'yyyy',
         startView: "years",
-        minViewMode: "years"
+        minViewMode: "years",
+        autoclose: true
       });
 
       $('#btn_ke_pengalaman').click(function(){
@@ -981,13 +987,15 @@
         $('.tahun_awal_kerja').datepicker({
           format: 'yyyy',
           startView: "years",
-          minViewMode: "years"
+          minViewMode: "years",
+          autoclose: true
         });
 
         $('.tahun_akhir_kerja').datepicker({
           format: 'yyyy',
           startView: "years",
-          minViewMode: "years"
+          minViewMode: "years",
+          autoclose: true
         });
     }
 
@@ -1044,13 +1052,15 @@
         $('.tahun_masuk_pendidikan').datepicker({
           format: 'yyyy',
           startView: "years",
-          minViewMode: "years"
+          minViewMode: "years",
+          autoclose: true
         });
 
         $('.tahun_lulus_pendidikan').datepicker({
           format: 'yyyy',
           startView: "years",
-          minViewMode: "years"
+          minViewMode: "years",
+          autoclose: true
         });
     }
 
