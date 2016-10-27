@@ -79,7 +79,7 @@ class UploadDocumentController extends Controller
 
   public function getDocforDataTables()
   {
-    $dokumen = UploadDocument::select(['dokumen_pegawai.id as id_doc','nip','nama','nama_dokumen', 'file_dokumen', 'dokumen_pegawai.created_at as tanggal_upload'])
+    $dokumen = UploadDocument::select(['dokumen_pegawai.id as id_doc','nip','nip_lama','nama','nama_dokumen', 'file_dokumen', 'dokumen_pegawai.created_at as tanggal_upload'])
       ->join('master_pegawai','dokumen_pegawai.id_pegawai','=', 'master_pegawai.id')->get();
 
     return Datatables::of($dokumen)

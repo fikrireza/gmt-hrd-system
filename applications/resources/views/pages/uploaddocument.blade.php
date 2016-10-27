@@ -193,6 +193,7 @@
             <thead>
               <tr>
                 <th>NIP</th>
+                <th>NIP Lama</th>
                 <th>Nama Pegawai</th>
                 <th>Nama Dokumen</th>
                 <th>File Dokumen</th>
@@ -234,10 +235,11 @@
           column: [
             {data: 'id', name: 'id'},
             {data: '0', name: 'nip'},
-            {data: '1', name: 'nama'},
-            {data: '2', name: 'nama_dokumen'},
-            {data: '3', name: 'file_dokumen'},
-            {data: '4', name: 'tanggal_upload'}
+            {data: '1', name: 'nip_lama'},
+            {data: '2', name: 'nama'},
+            {data: '3', name: 'nama_dokumen'},
+            {data: '4', name: 'file_dokumen'},
+            {data: '5', name: 'tanggal_upload'}
           ]
         });
 
