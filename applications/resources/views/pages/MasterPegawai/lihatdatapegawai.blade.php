@@ -415,6 +415,7 @@
                       <option value="S2">S2 Magister</option>
                       <option value="S1">S1 Strata</option>
                       <option value="D3">D3 Akademik</option>
+                      <option value="SMK">SMK</option>
                       <option value="SMU">SMU</option>
                       <option value="SMP">SMP</option>
                       <option value="SD">SD</option>
@@ -495,6 +496,7 @@
                       <option value="S2" id="pend_s2">S2 Magister</option>
                       <option value="S1" id="pend_s1">S1 Strata</option>
                       <option value="D3" id="pend_d3">D3 Akademik</option>
+                      <option value="SMK" id="pend_smk">SMK</option>
                       <option value="SMU" id="pend_smu">SMU</option>
                       <option value="SMP" id="pend_smp">SMP</option>
                       <option value="SD" id="pend_sd">SD</option>
@@ -2906,6 +2908,9 @@
             }
             else if (jenjang=="D3") {
               $('option#pend_d3').attr('selected','true');
+            }
+            else if (jenjang=="SMK") {
+              $('option#pend_smk').attr('selected','true');
             }
             else if (jenjang=="SMU") {
               $('option#pend_smu').attr('selected','true');

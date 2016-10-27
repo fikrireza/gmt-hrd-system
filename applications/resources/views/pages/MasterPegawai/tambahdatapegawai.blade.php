@@ -182,21 +182,6 @@
                     @endif
                   </div>
                 </div>
-                {{-- <div class="form-group {{ $errors->has('status_karyawan') ? 'has-error' : '' }}">
-                  <label class="col-sm-3 control-label">Status</label>
-                  <div class="col-sm-9">
-                    {!! Form::select('status_karyawan', array('Kontrak' => 'Kontrak',
-                                                    'Freelance' => 'Freelance',
-                                                    'Tetap' => 'Tetap'),
-                                      null, ['class' => 'form-control', 'placeholder' => '-- Pilih Status Karyawan --']) !!}
-                    @if($errors->has('status_karyawan'))
-                      <span class="help-block">
-                        <strong>{{ $errors->first('status_karyawan')}}
-                        </strong>
-                      </span>
-                    @endif
-                  </div>
-                </div> --}}
               </div><!-- /.box-body -->
           </div><!-- /.box -->
         </div><!--/.col -->
@@ -322,11 +307,7 @@
                   @endif
                 </div>
               </div>
-            </div> <!-- /.box-body -->
-            {{-- <div class="box-footer">
-              <button type="reset" class="btn btn-default">Reset Formulir</button>
-              <button type="submit" class="btn btn-info pull-right">Simpan</button>
-            </div><!-- /.box-footer --> --}}
+            </div>
           </div> <!-- /.box-info -->
         </div> <!-- /.col -->
 
@@ -395,22 +376,10 @@
                                             null, ['class' => 'form-control', 'placeholder' => '-- Pilih --']) !!}
                         </td>
                         <td>
-                          {{-- <div class="form-group"> --}}
                           {!! Form::radio('data_keluarga[0][jenis_kelamin_keluarga]', 'L', null, array('class'=>'minimal')) !!} &nbsp;<label>Pria</label>
                           <br>
                           {!! Form::radio('data_keluarga[0][jenis_kelamin_keluarga]', 'P', null, array('class'=>'minimal')) !!} &nbsp;<label>Wanita</label>
-                            <?php /* <label>
-                              <input type="radio" name="data_keluarga[0][jenis_kelamin_keluarga]" class="minimal" value="L" {{ old('jenis_kelamin_keluarga') == 'L' ? 'checked' : '' }}>
-                            </label>
-                            {{-- &nbsp; --}}
-                            <label>Pria</label>
-                            &nbsp;&nbsp;&nbsp;
-                            <label>
-                              <input type="radio" name="data_keluarga[0][jenis_kelamin_keluarga]" class="minimal" value="P" {{ old('jenis_kelamin_keluarga') == 'P' ? 'checked' : '' }}>
-                            </label>
-                            {{-- &nbsp; --}}
-                            <label>Wanita</label> */?>
-                          {{-- </div> --}}
+
                         </td>
                         <td>
                           {!! Form::textarea('data_keluarga[0][alamat_keluarga]', null, ['class'=>'form-control', 'placeholder'=>'Alamat', 'size' => '2x2']) !!}
@@ -584,6 +553,7 @@
                                                         'S2' => 'S2',
                                                         'S1' => 'S1',
                                                         'D3' => 'D3',
+                                                        'SMK' => 'SMK',
                                                         'SMU' => 'SMU',
                                                         'SMP' => 'SMP',
                                                         'SD' => 'SD',
