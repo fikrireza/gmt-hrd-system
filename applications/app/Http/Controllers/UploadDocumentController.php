@@ -38,7 +38,6 @@ class UploadDocumentController extends Controller
 
   public function store(Request $request)
   {
-    // dd($request);
     $message = [
       'id_pegawai.required' => 'Wajib di isi.',
       'nama_dokumen.*.required' => 'Wajib di isi.',
@@ -62,7 +61,6 @@ class UploadDocumentController extends Controller
     foreach ($request->nama_dokumen as $key) {
       $file = $request->file_dokumen[$i];
       $file_name = strtolower($fName[0]->nip.'-'.(str_slug($fName[0]->nama, '-')).'-'.$request->nama_dokumen[$i]).'-'.rand(). '.' . $file->getClientOriginalExtension();
-      dd($file_name);
       $file->move('documents', $file_name);
 
       $set = new uploaddocument;
