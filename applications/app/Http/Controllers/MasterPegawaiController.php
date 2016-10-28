@@ -661,7 +661,7 @@ class MasterPegawaiController extends Controller
 
       if($file!=null)
       {
-        $file_name = strtolower($fName[0]->nip.'-'.(str_slug($fName[0]->nama, '-')).'-'.$request->nama_dokumen[$i]).'-'.rand(). '.' . $file->getClientOriginalExtension();
+        $file_name = strtolower($fName[0]->nip.'-'.(str_slug($fName[0]->nama, '-')).'-'.$request->nama_dokumen).'-'.rand(). '.' . $file->getClientOriginalExtension();
         $file->move('documents', $file_name);
 
         $set = new UploadDocument;
