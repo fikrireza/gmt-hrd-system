@@ -2397,7 +2397,7 @@
                         @endif
                       </td>
                       <td>
-                        @if ($kesehatan->berkacamata!="")
+                        @if (!is_null($kesehatan->berkacamata))
                           @if($kesehatan->berkacamata == '0')
                             Tidak
                           @elseif ($kesehatan->berkacamata == '1')
@@ -2408,7 +2408,7 @@
                         @endif
                         </td>
                       <td>
-                        @if ($kesehatan->merokok!="")
+                        @if (!is_null($kesehatan->merokok))
                           @if($kesehatan->merokok == '0')
                             Tidak
                           @elseif ($kesehatan->merokok == '1')
