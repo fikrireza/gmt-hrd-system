@@ -45,6 +45,26 @@
     </div>
   </div>
 
+  {{-- modal delete riwayat pekerjaan --}}
+  <div class="modal modal-default fade" id="deleteriwayat" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Hapus Riwayat Pekerjaan</h4>
+        </div>
+        <div class="modal-body">
+          <p>Apakah anda yakin untuk menghapus riwayat pekerjaan ini?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+          <a href="#" class="btn btn-primary" id="setriwayat">Ya, saya yakin.</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   {{-- modal delete peringatan --}}
   <div class="modal modal-default fade" id="hapusperingatan" role="dialog">
     <div class="modal-dialog">
@@ -2631,6 +2651,10 @@
                         <td>
                           <span data-toggle="tooltip" title="Edit Data">
                             <a href="" class="btn btn-xs btn-warning edithistoripegawai" data-toggle="modal" data-target="#edithistoripegawai" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
+                          </span>
+                          <span data-toggle="tooltip" title="Hapus Data">
+                            <a href="" class="btn btn-xs btn-danger deleteriwayat" data-toggle="modal" data-target="#deleteriwayat" data-value="{{$key->id}}"><i class="fa fa-close"></i></a>
+                          </span>
                         </td>
                       @endif
                       </tr>
@@ -2718,6 +2742,11 @@
       $('a.hapuskeluarga').click(function(){
         var a = $(this).data('value');
         $('#setkeluarga').attr('href', "{{ url('/') }}/masterpegawai/hapuskeluarga/"+a);
+      });
+
+      $('a.deleteriwayat').click(function(){
+        var a = $(this).data('value');
+        $('#setriwayat').attr('href', "{{ url('/') }}/historipegawai/delete/"+a);
       });
 
       $('a.hapusperingatan').click(function(){

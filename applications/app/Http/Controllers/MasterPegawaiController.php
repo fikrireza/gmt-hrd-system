@@ -291,6 +291,15 @@ class MasterPegawaiController extends Controller
       return redirect()->route('masterpegawai.show', $getnip->id)->with('message','Berhasil menghapus data keluarga.');
     }
 
+    public function hapusRiwayatPekerjaan($id)
+    {
+      $histori = HistoriPegawai::find($id);
+      $getnip = MasterPegawai::find($histori->id_pegawai);
+      $histori->delete();
+
+      return redirect()->route('masterpegawai.show', $getnip->id)->with('message','Berhasil menghapus data riwayat pekerjaan.');
+    }
+
     public function addPendidikan(Request $request)
     {
       $didik = new Pendidikan;
