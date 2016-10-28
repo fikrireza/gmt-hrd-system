@@ -47,6 +47,7 @@ Route::get('masterjabatan/hapusjabatan/{id}', ['as'=>'masterjabatan.hapusjabatan
 Route::get('laporan-pegawai', ['as' => 'laporanpegawai', 'uses' => 'LaporanPegawaiController@index']);
 Route::post('laporan-proses', ['as' => 'proseslaporan', 'uses' => 'LaporanPegawaiController@proses']);
 Route::get('laporan-proses/{id}/{type}', 'LaporanPegawaiController@downloadExcel');
+Route::get('report/{kode_client}/{token}', 'LaporanPegawaiController@reportforclient')->name('reportforclient');
 
 Route::resource('masterclient','MasterClientController');
 Route::get('masterclient/cabang/{id}','MasterClientController@cabang_client_show');
