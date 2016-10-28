@@ -64,6 +64,7 @@ Route::get('masterpegawai/hapuskeluarga/{id}', 'MasterPegawaiController@hapusKel
 Route::get('masterpegawai/getkeluarga/{id}', 'MasterPegawaiController@getDataKeluargaByID');
 Route::post('masterpegawai/savekeluarga', 'MasterPegawaiController@saveChangesKeluarga');
 Route::post('masterpegawai/savedarurat', 'MasterPegawaiController@saveChangesDarurat');
+Route::get('masterpegawai/getdarurat/{id}', 'MasterPegawaiController@bindDarurat');
 
 Route::post('addpendidikan', 'MasterPegawaiController@addPendidikan');
 Route::get('masterpegawai/hapuspendidikan/{id}', 'MasterPegawaiController@hapusPendidikan');

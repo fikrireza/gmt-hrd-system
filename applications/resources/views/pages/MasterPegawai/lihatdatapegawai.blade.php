@@ -596,11 +596,11 @@
                     ?>">
                     <select class="form-control" name="hubungan_darurat">
                       <option value="">-- Pilih --</option>
-                      <option value="AYAH" id="hub_ayah">AYAH</option>
-                      <option value="IBU" id="hub_ibu">IBU</option>
-                      <option value="KAKAK" id="hub_kakak">KAKAK</option>
-                      <option value="ADIK" id="hub_adik">ADIK</option>
-                      <option value="LAINNYA" id="hub_lain">LAINNYA</option>
+                      <option value="AYAH" id="hubdar_ayah">AYAH</option>
+                      <option value="IBU" id="hubdar_ibu">IBU</option>
+                      <option value="KAKAK" id="hubdar_kakak">KAKAK</option>
+                      <option value="ADIK" id="hubdar_adik">ADIK</option>
+                      <option value="LAINNYA" id="hubdar_lain">LAINNYA</option>
                     </select>
                   </td>
                   <td>
@@ -3090,6 +3090,41 @@
             $('#id_penyakit').attr('value', id_penyakit);
             $('#edit_nama_penyakit').attr('value', nama);
             $('textarea#edit_keterangan_penyakit').val(ket);
+          }
+        });
+      });
+
+      $('a.editdarurat').click(function(){
+        var a = $(this).data('value');
+        $.ajax({
+          url: "{{ url('/') }}/masterpegawai/getdarurat/"+a,
+          dataType: 'json',
+          success: function(data){
+            var nama = data.nama_darurat;
+            var alamat = data.alamat_darurat;
+            var telepon = data.telepon_darurat;
+            var hub = data.hubungan_darurat;
+
+            // set
+            $('#edit_nama_darurat').attr('value', nama);
+            $('#edit_alamat_darurat').attr('value', alamat);
+            $('#edit_telepon_darurat').attr('value', telepon);
+
+            if(hub=="AYAH") {
+              $('option#hubdar_ayah').attr('selected', 'true');
+            }
+            else if (hub=="IBU") {
+              $('option#hubdar_ibu').attr('selected', 'true');
+            }
+            else if (hub=="KAKAK") {
+              $('option#hubdar_kakak').attr('selected', 'true');
+            }
+            else if (hub=="ADIK") {
+              $('option#hubdar_adik').attr('selected', 'true');
+            }
+            else if (hub=="LAINNYA") {
+              $('option#hubdar_lainnya').attr('selected', 'true');
+            }
           }
         });
       });

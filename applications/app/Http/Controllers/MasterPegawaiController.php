@@ -740,4 +740,11 @@ class MasterPegawaiController extends Controller
       return redirect()->route('masterpegawai.index')->with('message', 'Berhasil mengubah status pegawai.');
     }
 
+    public function bindDarurat($id)
+    {
+      $getdarurat = MasterPegawai::select('id', 'nama_darurat', 'alamat_darurat', 'hubungan_darurat', 'telepon_darurat')->where('id', $id)->first();
+
+      return $getdarurat;
+    }
+
 }
