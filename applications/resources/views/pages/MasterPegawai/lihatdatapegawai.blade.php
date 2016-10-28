@@ -2346,7 +2346,9 @@
           <div class="tab-pane" id="dKesehatan">
             <h3>Kondisi Kesehatan</h3>
             @if (Auth::user()->level=="1")
-              <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalsetkesehatan"><i class="fa fa-plus"></i> Set Data Kondisi Kesehatan</button>
+              @if (count($DataKesehatan)==0)
+                <button class="btn btn-xs bg-maroon" data-toggle="modal" data-target="#modalsetkesehatan"><i class="fa fa-plus"></i> Set Data Kondisi Kesehatan</button>
+              @endif
             @endif
             <table class="table table-bordered">
               <tbody>
