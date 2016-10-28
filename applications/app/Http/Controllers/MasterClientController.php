@@ -72,8 +72,11 @@ class MasterClientController extends Controller
      */
     public function store(MasterClientRequest $request)
     {
-      $save = $request->all();
-      MasterClient::create($save);
+      $set = new MasterClient;
+      $set->kode_client  = $request->kode_client;
+      $set->nama_client  = $request->nama_client;
+      $set->token        = hash('sha256', (random_bytes(32)));
+      $set->save();
 
       return redirect('masterclient')->with('tambah', 'Berhasil Menambah Client Baru');
     }
@@ -119,8 +122,14 @@ class MasterClientController extends Controller
      */
     public function update($id, MasterClientRequest $request)
     {
-      $MasterClient = MasterClient::findOrFail($id);
-      $MasterClient->update($request->all());
+      $set = MasterClient::find($id);
+      $set->kode_client  = $request->kode_client;
+      $set->nama_client  = $request->nama_client;
+      $set->token        = hash('sha256', (random_bytes(32)));
+      $set->update();
+      //
+      // $MasterClient = MasterClient::findOrFail($id);
+      // $MasterClient->update($request->all());
 
       return redirect('masterclient')->with('update', 'Berhasil Mengubah Data Client');
     }
