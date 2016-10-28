@@ -87,6 +87,17 @@
               </div>
             </div>
             <div class="form-group">
+              <label class="col-sm-2 control-label">Tanggal Masuk GMT</label>
+              <div class="col-sm-3">
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" name="tanggal_masuk_gmt" class="form-control" id="tanggal_masuk_gmt" required>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
               <label class="col-sm-2 control-label">Tanggal Awal PKWT</label>
               <div class="col-sm-3">
                 <div class="input-group">
@@ -105,17 +116,6 @@
                     <i class="fa fa-calendar"></i>
                   </div>
                   <input type="text" name="tanggal_akhir_pkwt" class="form-control" id="tanggal_akhir_pkwt" required>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Tanggal Masuk GMT</label>
-              <div class="col-sm-3">
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" name="tanggal_masuk_gmt" class="form-control" id="tanggal_masuk_gmt" required>
                 </div>
               </div>
             </div>
@@ -197,7 +197,7 @@
         format: 'yyyy-mm-dd'
       });
 
-      $('#tanggal_masuk_gmt').change(function(){
+      $('#tanggal_awal_pkwt').change(function(){
         var value = $(this).val();
         $('#tanggal_masuk_client').val(value);
       });

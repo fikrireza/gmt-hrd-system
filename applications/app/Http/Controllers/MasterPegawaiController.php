@@ -48,8 +48,10 @@ class MasterPegawaiController extends Controller
     {
       $getjabatan = MasterJabatan::where('status', '=', '1')->pluck('nama_jabatan','id');
       $getid = MasterPegawai::select('nip')->orderby('id', 'desc')->first();
-      $sub = substr($getid->nip, 3, 4)+1;
-      $nextid = "NIP".$sub;
+      $sub = substr($getid->nip, 8, 4)+1;
+      $thn = substr(date('Y'), -2);
+      $bln = date('m');
+      $nextid = "GMT".$thn.$bln."-".$sub;
 
       return view('pages/MasterPegawai/tambahdatapegawai')
         ->with('nextid', $nextid)
@@ -242,7 +244,7 @@ class MasterPegawaiController extends Controller
 
     public function getDataForDataTable()
     {
-      $users = MasterPegawai::select(['master_pegawai.id as id',                                                  'nip','nama','no_telp','nama_jabatan',DB::raw("if(master_pegawai.status = 1, 'Aktif', 'Tidak Aktif') as status")])
+      $users = MasterPegawai::select(['master_pegawai.id as id', 'nip', 'nip_lama','nama','nama_jabatan',DB::raw("if(master_pegawai.status = 1, 'Aktif', 'Tidak Aktif') as status")])
         ->join('master_jabatan','master_pegawai.id_jabatan','=', 'master_jabatan.id')
         ->get();
 
@@ -606,7 +608,7 @@ class MasterPegawaiController extends Controller
           ->withErrors($validator)
           ->withInput();
       }
-      
+
       $pegawai = MasterPegawai::find($request->id_pegawai);
       $pegawai->nama  = $request->nama;
       $pegawai->nip = $request->nip;
@@ -646,9 +648,11 @@ class MasterPegawaiController extends Controller
     {
       $file = $request->file('unggahdokumen');
 
+      $fName  = MasterPegawai::select('nip', 'nama')->where('id', $request->id_pegawai)->get();
+
       if($file!=null)
       {
-        $file_name = time(). '.' . $file->getClientOriginalExtension();
+        $file_name = strtolower($fName[0]->nip.'-'.(str_slug($fName[0]->nama, '-')).'-'.$request->nama_dokumen[$i]).'-'.rand(). '.' . $file->getClientOriginalExtension();
         $file->move('documents', $file_name);
 
         $set = new UploadDocument;

@@ -28,11 +28,12 @@
             <thead>
               <tr>
                 <th>NIP</th>
+                <th>NIP Lama</th>
                 <th>Nama</th>
                 <th>Tanggal Awal PKWT</th>
                 <th>Tanggal Akhir PKWT</th>
                 <th>Kelompok Jabatan</th>
-                <th>Status Karyawan</th>
+                <th>Client - Cabang</th>
                 <th>Keterangan</th>
                 <th>Aksi</th>
               </tr>
@@ -70,13 +71,14 @@
             column: [
               {data: 'id', name: 'id'},
               {data: '0', name: 'nip'},
-              {data: '1', name: 'nama'},
-              {data: '2', name: 'tanggal_awal_pkwt'},
-              {data: '3', name: 'tanggal_akhir_pkwt'},
-              {data: '4', name: 'id_kelompok_jabatan'},
-              {data: '5', name: 'status_karyawan_pkwt'},
-              {data: '6', name: 'keterangan'},
-              {data: '7', name: 'action', orderable: false, searchable: false}
+              {data: '1', name: 'nip_lama'},
+              {data: '2', name: 'nama'},
+              {data: '3', name: 'tanggal_awal_pkwt'},
+              {data: '4', name: 'tanggal_akhir_pkwt'},
+              {data: '5', name: 'id_kelompok_jabatan'},
+              {data: '6', name: 'nama_cabang'},
+              {data: '7', name: 'keterangan'},
+              {data: '8', name: 'action', orderable: false, searchable: false}
             ]
         });
 

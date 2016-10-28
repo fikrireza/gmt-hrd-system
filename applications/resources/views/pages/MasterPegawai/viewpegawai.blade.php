@@ -66,8 +66,8 @@
             <thead>
               <tr>
                 <th>NIP</th>
+                <th>NIP Lama</th>
                 <th>Nama</th>
-                <th>No Telp</th>
                 <th>Jabatan</th>
                 <th>Status</th>
                 <th>Aksi</th>
@@ -106,8 +106,8 @@
             column: [
               {data: 'id', name: 'id'},
               {data: '0', name: 'nip'},
-              {data: '1', name: 'name'},
-              {data: '2', name: 'no_telp'},
+              {data: '1', name: 'nip_lama'},
+              {data: '2', name: 'name'},
               {data: '3', name: 'nama_jabatan'},
               {data: '5', name: 'status'},
               {data: '6', name: 'action', orderable: false, searchable: false}
