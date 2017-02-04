@@ -119,8 +119,7 @@
             </div>
             <div class="col-md-14 ">
               <label class="control-label">Berkas</label>
-              <input type="file" name="berkas" class="form-control" accept=".png, .jpg, .pdf">
-              <span style="color:red;">Hanya .jpg, .png, .pdf</span>
+              <input type="file" name="berkas" class="form-control">
             </div>
           </div>
           <div class="modal-footer">
@@ -216,7 +215,6 @@
             <div class="col-md-14 ">
               <label class="control-label">Berkas</label>
               <input type="file" name="berkas" class="form-control">
-              <span style="color:red;">Hanya .jpg, .png, .pdf</span>
             </div>
         </div>
           <div class="box-footer">
