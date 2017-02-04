@@ -106,6 +106,8 @@
           <li><a href="{{route('periodegaji.index')}}"><i class="fa fa-circle-o"></i> Periode Gaji</a></li>
           <li><a href="{{route('komgaji.index')}}"><i class="fa fa-circle-o"></i> Komponen Gaji</a></li>
           <li><a href="{{route('setgaji.index')}}"><i class="fa fa-circle-o"></i> Set Gaji Pegawai</a></li>
+          <li><a href="{{route('hari.libur.index')}}"><i class="fa fa-circle-o"></i> Hari Libur</a></li>
+          <li><a href="{{route('cuti.index')}}"><i class="fa fa-circle-o"></i> Intervensi</a></li>
         </ul>
       </li>
       <li class="treeview">

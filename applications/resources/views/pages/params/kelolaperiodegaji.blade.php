@@ -70,7 +70,12 @@
         <div class="box-body">
             <div class="col-md-14 ">
               <label class="control-label">Per Tanggal</label>
-              <input type="text" name="tanggal" class="form-control" placeholder="Tanggal Periode Penggajian" id="tanggal">
+              <div class="input-group date">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" name="tanggal" class="form-control" placeholder="Tanggal Periode Penggajian" id="tanggal">
+              </div>
             </div>
             <div class="col-md-14 ">
               <label class="control-label">Keterangan</label>

@@ -123,12 +123,12 @@ Route::get('import', ['as' => 'import', 'uses' => 'ImportDataController@index'])
 Route::post('import-proses', 'ImportDataController@proses');
 Route::get('import-template/{type}', 'ImportDataController@downloadExcel');
 
-
 ///// KOMPONEN GAJI //////
 Route::get('komponen-gaji', 'KomponenGajiController@index')->name('komgaji.index');
 Route::post('komponen-gaji', 'KomponenGajiController@store')->name('komgaji.store');
-Route::post('komponen-gaji/update/{$id}', 'KomponenGajiController@update')->name('komgaji.update');
-Route::get('komponen-gaji/delete/{$id}', 'KomponenGajiController@delete')->name('komgaji.delete');
+Route::post('komponen-gaji/update', 'KomponenGajiController@update')->name('komgaji.update');
+Route::get('komponen-gaji/bind-gaji/{id}', 'KomponenGajiController@bind')->name('komgaji.bind');
+Route::get('komponen-gaji/delete/{id}', 'KomponenGajiController@delete')->name('komgaji.delete');
 
 ///// PERIODE GAJI ///////
 Route::get('periode-gaji', 'PeriodeGajiController@index')->name('periodegaji.index');
@@ -162,3 +162,18 @@ Route::get('detail-batch-payroll/add-to-komponen/{idbatch}/{idpegawai}/{idkompon
 Route::get('detail-batch-payroll/cek-komponen-gaji/{idbatch}/{idpegawai}', 'DetailBatchPayrollController@cekkomponen')->name('detailbatchpayroll.cekkomponen');
 Route::get('detail-batch-payroll/get-gapok/{idpegawai}', 'DetailBatchPayrollController@getgajipokok')->name('detailbatchpayroll.getgapok');
 Route::get('detail-batch-payroll/delete-komponen-gaji/{id}', 'DetailBatchPayrollController@deletekomponengaji')->name('detailbatchpayroll.deletekomponen');
+
+///// HARI LIBUR //////
+Route::get('hari-libur', 'HariLiburController@index')->name('hari.libur.index');
+Route::post('hari-libur', 'HariLiburController@store')->name('hari.libur.store');
+Route::post('hari-libur/update', 'HariLiburController@update')->name('hari.libur.update');
+Route::get('hari-libur/bind-hari-libur/{id}', 'HariLiburController@bind')->name('hari.libur.bind');
+Route::get('hari-libur/delete/{id}', 'HariLiburController@delete')->name('hari.libur.delete');
+
+
+///// CUTI //////
+Route::get('cuti', 'CutiController@index')->name('cuti.index');
+Route::post('cuti', 'CutiController@store')->name('cuti.store');
+Route::post('cuti/update', 'CutiController@update')->name('cuti.update');
+Route::get('cuti/bind-cuti/{id}', 'CutiController@bind')->name('cuti.bind');
+Route::get('cuti/delete/{id}', 'CutiController@delete')->name('cuti.delete');

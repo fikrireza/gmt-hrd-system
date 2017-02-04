@@ -9,6 +9,6 @@ class KomponenGaji extends Model
   protected $table = 'komponen_gaji';
 
   protected $fillable = [
-    'nama_komponen', 'tipe_komponen', 'periode_perhitungan'
+    'nama_komponen', 'tipe_komponen', 'periode_perhitungan', 'flag_status'
   ];
 }
