@@ -19,11 +19,17 @@
         @endif
       </p>
       <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        @if (Auth::user()->level=="1")
+          <span class="label label-info">Human Resources</span>
+        @elseif (Auth::user()->level="2")
+          <span class="label label-success">Payroll System</span>
+        @elseif(Auth::user()->level=="3")
+          <span class="label label-danger">Akses Dirops</span>
+        @endif
     </div>
   </div>
-
   <ul class="sidebar-menu">
-    <li class="header">NAVIGASI UTAMA</li>
+    <li class="header">NAVIGASI UTAMA</li>    
     <li>
       <a href="{{ url('/dashboard') }}">
         <i class="fa fa-dashboard"></i> <span>Dashboard</span>

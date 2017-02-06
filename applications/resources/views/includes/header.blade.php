@@ -38,13 +38,14 @@
           <li class="user-header">
             @if(Auth::check())
             @if(Auth::user()->url_foto!="")
-              <img src="{{url('images')}}/{{Auth::user()->url_foto}}" class="user-image" alt="User Image">
+              <img src="{{url('images')}}/{{Auth::user()->url_foto}}" class="img-circle" alt="User Image">
             @else
-              <img src="{{url('images')}}/user-not-found.png" class="user-image" alt="User Image">
+              <img src="{{url('images')}}/user-not-found.png" class="img-circle" alt="User Image">
             @endif
             <p>
               @if(Auth::user())
                 {{ Auth::user()->master_pegawai->nama}}
+                <small>{{ \Carbon\Carbon::parse(Auth::user()->master_pegawai->created_at)->format('d-M-y')}}</small>
               @endif
             @endif
             </p>
