@@ -17,7 +17,7 @@
 
 @section('content')
   <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-12">
   	   <div class="box box-primary box-solid">
   	      <div class="box-header with-border">
   	         <h3 class="box-title">
@@ -40,8 +40,8 @@
   			  {!! csrf_field() !!}
   			<div class="box-body">
   			<div class="form-group {{ $errors->has('kode_client') ? 'has-error' : '' }}">
-  			  <label class="col-sm-3 control-label">Kode Client</label>
-  			  <div class="col-sm-9">
+  			  <label class="col-sm-2 control-label">Kode Client</label>
+  			  <div class="col-sm-10">
   				<input type="text" name="kode_client" class="form-control" placeholder="Kode Client" maxlength="5"
   				@if(isset($MasterClient))
   				  value="{{$MasterClient->kode_client}}"
@@ -59,8 +59,8 @@
   			  </div>
   			</div>
   			<div class="form-group {{ $errors->has('nama_client') ? 'has-error' : '' }}">
-  			  <label class="col-sm-3 control-label">Nama Client</label>
-  			  <div class="col-sm-9">
+  			  <label class="col-sm-2 control-label">Nama Client</label>
+  			  <div class="col-sm-10">
   				<input type="text" name="nama_client" class="form-control" placeholder="Nama Client" maxlength="20"
   				@if(isset($MasterClient))
   				  value="{{$MasterClient->nama_client}}"

@@ -15,12 +15,11 @@
 @stop
 
 @section('content')
-
-  <div class="row">
-    <div class="col-md-3">
-      <a href="{{url('masterclient/create')}}" class="btn btn-success btn-block margin-bottom"><i class="fa fa-building-o"></i> Tambah Client</a>
+   <div class="callout callout-warning">
+      <h4>Pemberitahuan!</h4>
+      <p>Jika ingin menambahkan client maka tekan tombol dibawah ini.</p>
+        <a style="text-decoration:none" href="{{url('masterclient/create')}}" class="btn btn-primary btn-sm"><i class="fa fa-building-o"></i> Tambah Client</a>
     </div>
-  </div>
 
   <div class="row">
     <!-- Master Client -->
