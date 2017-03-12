@@ -161,9 +161,12 @@
       // });
 
       $('#tanggal').datepicker({
-        format: 'dd',
-        startView: "date",
-        minViewMode: "date"
+          autoclose: true,
+          todayHighlight: true,
+          daysOfWeekDisabled: [0,6],
+          format: 'dd',
+          startView: "date",
+          minViewMode: "date"
       });
     });
   </script>
