@@ -89,7 +89,7 @@
   @if (Auth::user()->level=="1")
     <div class="row">
       <section class="col-md-12">
-        <div class="box box-primary box solid">
+        <div class="box box-primary box-solid">
           <div class="box-header with-border">
             <h3 class="box-title">Seluruh Data PKWT</h3>
           </div><!-- /.box-header -->

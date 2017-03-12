@@ -64,7 +64,7 @@
     </div>
     <div class="col-md-5">
       <!-- Horizontal Form -->
-      <div class="box box-info">
+      <div class="box box-primary box-solid">
         <div class="box-header with-border">
           @if(isset($data['bindjabatan']))
             <h3 class="box-title">Formulir Edit Data Jabatan</h3>
@@ -126,7 +126,7 @@
             </div>
             <div class="form-group">
               <div class="col-sm-12">
-                <button type="submit" class="btn btn-info pull-right" style="margin-left:5px;">
+                <button type="submit" class="btn btn-success pull-right" style="margin-left:5px;">
                   @if(isset($data['bindjabatan']))
                     Simpan Perubahan
                   @else
@@ -134,7 +134,7 @@
                   @endif
                 </button>
                   @if(!isset($data['bindjabatan']))
-                    <button type="reset" class="btn btn-default pull-right">Reset Formulir</button>
+                    <button type="reset" class="btn btn-danger pull-right">Reset Formulir</button>
                   @endif
               </div>
             </div>
@@ -148,7 +148,7 @@
     </div><!--/.col -->
 
     <div class="col-md-7">
-      <div class="box box-info">
+      <div class="box box-primary box-solid">
         <div class="box-header">
           <h3 class="box-title">Seluruh Data Jabatan</h3>
         </div><!-- /.box-header -->

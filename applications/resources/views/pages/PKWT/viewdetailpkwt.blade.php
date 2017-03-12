@@ -33,7 +33,7 @@
 
     {{-- Modak for Terminate--}}
     <div class="modal modal-default fade" id="modalterminatepkwt" role="dialog">
-      <div class="modal-dialog" style="width:600px;">
+      <div class="modal-dialog">
         <!-- Modal content-->
         <form class="form-horizontal" action="{{url('terminatepkwt')}}" method="post">
           {!! csrf_field() !!}
@@ -44,17 +44,16 @@
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <div class="col-sm-1"></div>
-                <label class="col-sm-3">Alasan Terminate</label>
-                <div class="col-sm-6">
+                <label class="col-sm-3 control-label">Alasan Terminate</label>
+                <div class="col-sm-9">
                   <textarea name="keterangan" class="form-control" cols="35" rows="10">PKWT ini telah di-Terminate dengan alasan : </textarea>
                   <input type="hidden" name="id_pkwt" class="form-control" id="id_pkwt" required>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
-              <button type="submit" class="btn btn-danger">Terminate</button>
+              <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Tidak</button>
+              <button type="submit" class="btn btn-success">Terminate</button>
             </div>
           </div>
         </form>
@@ -62,7 +61,7 @@
     </div>
 
     <div class="modal modal-default fade" id="modaleditpkwt" role="dialog">
-      <div class="modal-dialog" style="width:800px;">
+      <div class="modal-dialog">
         <form class="form-horizontal" action="{{url('savepkwt')}}" method="post">
           {!! csrf_field() !!}
           <div class="modal-content">
@@ -72,10 +71,8 @@
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <div class="col-sm-1">
-                </div>
-                <label class="col-sm-2">Kelompok Jabatan</label>
-                <div class="col-sm-4">
+                <label class="col-sm-3 control-label">Kelompok Jabatan</label>
+                <div class="col-sm-9">
                   <select name="id_kelompok_jabatan" class="form-control select2" style="width: 100%;">
                     <option selected="selected"></option>
                     @foreach($get_kel_jabatan as $key)
@@ -85,10 +82,8 @@
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-1">
-                </div>
-                <label class="col-sm-2">Tanggal Masuk GMT</label>
-                <div class="col-sm-4">
+                <label class="col-sm-3 control-label">Tanggal Masuk GMT</label>
+                <div class="col-sm-9">
                   <div class="input-group">
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
@@ -100,10 +95,8 @@
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-1">
-                </div>
-                <label class="col-sm-2">Tanggal Awal PKWT</label>
-                <div class="col-sm-4">
+                <label class="col-sm-3 control-label">Tanggal Awal PKWT</label>
+                <div class="col-sm-9">
                   <div class="input-group">
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
@@ -113,10 +106,8 @@
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-1">
-                </div>
-                <label class="col-sm-2">Tanggal Akhir PKWT</label>
-                <div class="col-sm-4">
+                <label class="col-sm-3 control-label">Tanggal Akhir PKWT</label>
+                <div class="col-sm-9">
                   <div class="input-group">
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
@@ -126,10 +117,8 @@
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-1">
-                </div>
-                <label class="col-sm-2">Tanggal Bekerja di Client</label>
-                <div class="col-sm-4">
+                <label class="col-sm-3 control-label">Tanggal Bekerja di Client</label>
+                <div class="col-sm-9">
                   <div class="input-group">
                     <div class="input-group-addon">
                       <i class="fa fa-calendar"></i>
@@ -139,10 +128,8 @@
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-1">
-                </div>
-                <label class="col-sm-2">Status Karyawan</label>
-                <div class="col-sm-4">
+                <label class="col-sm-3 control-label">Status Karyawan</label>
+                <div class="col-sm-9">
                   <select class="form-control" name="status_karyawan_pkwt">
                     <option>-- Pilih --</option>
                     <option value="1" id="status_karyawan_kontrak">Kontrak</option>
@@ -152,10 +139,8 @@
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-1">
-                </div>
-                <label class="col-sm-2">Status PWKT</label>
-                <div class="col-sm-4">
+                <label class="col-sm-3 control-label">Status PWKT</label>
+                <div class="col-sm-9">
                   <select class="form-control" name="status_pkwt">
                     <option>-- Pilih --</option>
                     <option value="1" id="status_pkwt_aktif">Aktif</option>
@@ -165,8 +150,8 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
-              <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+              <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Tidak</button>
+              <button type="submit" class="btn btn-success">Simpan Perubahan</button>
             </div>
           </div>
         </form>
@@ -190,7 +175,7 @@
       @endif
     </div>
     <div class="col-md-12">
-      <div class="box box-primary">
+      <div class="box box-primary box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">Detail PKWT</h3>
         </div><!-- /.box-header -->
@@ -211,7 +196,7 @@
             </table>
           </div>
           <div class="col-md-12">
-            <div class="box box-success box-solid">
+            <div class="box box-primary box-solid">
               <div class="box-header with-border">
                 <h3 class="box-title">Histori PKWT</h3>
               </div><!-- /.box-header -->

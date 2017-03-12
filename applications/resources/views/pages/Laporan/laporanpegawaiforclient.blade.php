@@ -75,16 +75,16 @@
         <section class="content">
           <div class="row">
             <div class="col-md-12">
-              <div class="box box-success box-solid">
+              <div class="box box-primary box-solid">
                 <div class="box-header">
                   <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-default">Download</button>
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <button type="button" class="btn btn-round bg-red">Download</button>
+                    <button type="button" class="btn btn-round bg-red dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                       <span class="caret"></span>
                       <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                      <li><a href="{{ URL::to('laporan-proses/'.$idClient[0]->id.'/xlsx') }}">Excel</a></li>
+                      <li><a style="color: black" href="{{ URL::to('laporan-proses/'.$idClient[0]->id.'/xlsx') }}">Excel</a></li>
                     </ul>
                   </div>
                 </div>

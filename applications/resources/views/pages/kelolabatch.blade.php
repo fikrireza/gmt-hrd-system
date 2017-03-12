@@ -55,7 +55,8 @@
 
     <div class="modal modal-default fade" id="myModalEdit" role="dialog">
       <div class="modal-dialog">
-
+      <form class="form-horizontal" action="" method="post">
+      {{ csrf_field() }}
         <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
@@ -63,27 +64,30 @@
             <h4 class="modal-title">Edit Batch Payroll</h4>
           </div>
           <div class="modal-body">
-            <div class="col-md-14 ">
-              <label class="control-label">Periode Penggajian</label>
+            <div class="form-group">
+              <label class="col-md-3 control-label">Periode Penggajian</label>
+              <div class="col-sm-9">
               <select class="form-control" name="periode">
                 <option>-- Pilih --</option>
                 @foreach ($getperiode as $key)
                   <option value="{{$key->id}}">Per Tanggal {{$key->tanggal}}</option>
                 @endforeach
               </select>
+              </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Tanggal Pemrosesan</label>
+            <div class="form-group">
+              <label class="col-md-3 control-label">Tanggal Pemrosesan</label>
+              <div class="col-sm-9">
               <input type="text" name="tanggal_proses" class="form-control" id="tanggaledit" data-date-format="yyyy-mm-dd">
+              </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
-            <a href="#" class="btn btn-primary" id="set">Simpan Perubahan</a>
+            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Tidak</button>
+            <a href="#" class="btn btn-success" id="set">Simpan Perubahan</a>
             {{-- <button type="button" class="btn btn btn-outline" data-dismiss="modal">Ya, saya yakin.</button> --}}
           </div>
         </div>
-
       </div>
     </div>
 
@@ -105,39 +109,43 @@
         </div>
       @endif
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5">
       <!-- Horizontal Form -->
-      <div class="box box-primary">
+      <div class="box box-primary box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">Formulir Batch Payroll</h3>
         </div>
         <form class="form-horizontal" action="{{route('batchpayroll.store')}}" method="post">
           {{csrf_field()}}
         <div class="box-body">
-            <div class="col-md-14 ">
-              <label class="control-label">Periode Penggajian</label>
+            <div class="form-group ">
+              <label class="col-md-3  control-label">Periode Penggajian</label>
+              <div class="col-sm-9">
               <select class="form-control" name="periode">
                 <option>-- Pilih --</option>
                 @foreach ($getperiode as $key)
                   <option value="{{$key->id}}">Per Tanggal {{$key->tanggal}}</option>
                 @endforeach
               </select>
+              </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Tanggal Pemrosesan</label>
+            <div class="form-group">
+              <label class="col-md-3 control-label">Tanggal Pemrosesan</label>
+              <div class="col-sm-9">
               <input type="text" name="tanggal_proses" class="form-control" id="tanggal" data-date-format="yyyy-mm-dd">
+              </div>
             </div>
         </div>
           <div class="box-footer">
-            <button type="submit" class="btn btn-primary pull-right btn-sm btn-flat">Generate Batch</button>
-            <button type="reset" class="btn btn-default btn-sm btn-flat">Reset Formulir</button>
+            <button type="submit" class="btn btn-success pull-right btn-sm">Generate Batch</button>
+            <button type="reset" class="btn btn-danger btn-sm">Reset Formulir</button>
           </div>
         </div>
       </form>
     </div><!--/.col -->
 
-    <div class="col-md-8">
-      <div class="box box-primary">
+    <div class="col-md-7">
+      <div class="box box-primary box-solid">
         <div class="box-header">
           <h3 class="box-title">Seluruh Batch Payroll</h3>
         </div><!-- /.box-header -->

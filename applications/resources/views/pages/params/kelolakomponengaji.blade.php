@@ -63,21 +63,26 @@
             <h4 class="modal-title">Edit Komponen Gaji</h4>
           </div>
           <div class="modal-body">
-            <div class="col-md-14 ">
-              <label class="control-label">Nama Kategori</label>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Nama Kategori</label>
+              <div class="col-sm-9">
               <input type="hidden" name="id" class="form-control" id="id">
               <input type="text" name="nama_komponen" class="form-control" placeholder="Nama Kategori" id="nama_komponen">
+              </div>
             </div>
-            <div class="col-md-14">
-              <label class="control-label">Tipe Komponen</label>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Tipe Komponen</label>
+              <div class="col-sm-9">
               <select class="form-control" name="tipe_komponen" id="tipe_komponen">
                 <option value="-- Pilih --">-- Pilih --</option>
                 <option value="D" id="flag_penerimaan">Penerimaan</option>
                 <option value="P" id="flag_potongan">Potongan</option>
               </select>
+              </div>
             </div>
-             <div class="col-md-14 ">
-              <label class="control-label">Periode Perhitungan</label>
+             <div class="form-group ">
+              <label class="col-sm-3 control-label">Periode Perhitungan</label>
+              <div class="col-sm-9">
               <select class="form-control" name="periode_perhitungan" id="periode_perhitungan">
                 <option>-- Pilih --</option>
                 <option value="Bulanan" id="flag_bulanan">Bulanan</option>
@@ -85,19 +90,22 @@
                 <option value="Jam" id="flag_jam">Jam</option>
                 <option value="Shift" id="flag_shift">Shift</option>
               </select>
+              </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Status</label>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Status</label>
+              <div class="col-sm-9">
               <select class="form-control" name="flag_status" id="flag_status">
                 <option>-- Pilih --</option>
                 <option value="0" id="flag_tetap">Tetap</option>
                 <option value="1" id="flag_variabel">Variabel</option>
               </select>
+              </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="reset" class="btn btn-danger pull-left btn-flat" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary btn-flat">Simpan Perubahan</a>
+            <button type="reset" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-success">Simpan Perubahan</a>
           </div>
         </div>
       </form>
@@ -122,29 +130,34 @@
         </div>
       @endif
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5">
       <!-- Horizontal Form -->
-      <div class="box box-primary">
+      <div class="box box-primary box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">Formulir Tambah Komponen Gaji</h3>
         </div>
         <form class="form-horizontal" action="{{route('komgaji.store')}}" method="post">
           {{csrf_field()}}
         <div class="box-body">
-            <div class="col-md-14">
-              <label class="control-label">Nama Komponen</label>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Nama Komponen</label>
+              <div class="col-sm-9">
               <input type="text" name="nama_komponen" class="form-control" placeholder="Nama Komponen">
+              </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Tipe Komponen</label>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Tipe Komponen</label>
+              <div class="col-sm-9">
               <select class="form-control" name="tipe_komponen">
                 <option>-- Pilih --</option>
                 <option value="D">Penerimaan</option>
                 <option value="P">Potongan</option>
               </select>
+              </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Periode Perhitungan</label>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Periode Perhitungan</label>
+              <div class="col-sm-9">
               <select class="form-control" name="periode_perhitungan">
                 <option>-- Pilih --</option>
                 <option value="Bulanan">Bulanan</option>
@@ -152,26 +165,29 @@
                 <option value="Jam">Jam</option>
                 <option value="Shift">Shift</option>
               </select>
+              </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Status</label>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Status</label>
+              <div class="col-sm-9">
               <select class="form-control" name="flag_status">
                 <option>-- Pilih --</option>
                 <option value="0">Tetap</option>
                 <option value="1">Variabel</option>
               </select>
+              </div>
             </div>
         </div>
           <div class="box-footer">
-            <button type="submit" class="btn btn-primary pull-right btn-sm btn-flat">Simpan</button>
-            <button type="reset" class="btn btn-default btn-sm btn-flat">Reset Formulir</button>
+            <button type="submit" class="btn btn-success pull-right btn-sm">Simpan</button>
+            <button type="reset" class="btn btn-danger btn-sm">Reset Formulir</button>
           </div>
         </div>
       </form>
     </div><!--/.col -->
 
-    <div class="col-md-8">
-      <div class="box box-primary">
+    <div class="col-md-7">
+      <div class="box box-primary box-solid">
         <div class="box-header">
           <h3 class="box-title">Seluruh Komponen Gaji</h3>
         </div><!-- /.box-header -->

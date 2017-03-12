@@ -63,32 +63,38 @@
             <h4 class="modal-title">Edit Hari Libur</h4>
           </div>
           <div class="modal-body">
-            <div class="col-md-14">
-              <label class="control-label">Hari Libur</label>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Hari Libur</label>
+              <div class="col-sm-9">
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
                   <input class="form-control pull-right datepicker1" id="libur" type="text" name="libur" placeholder="Hari Libur">
                 </div>
+                </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Keterangan</label>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Keterangan</label>
+              <div class="col-sm-9">
               <input type="hidden" name="id" class="form-control" id="id">
               <input type="text" name="keterangan" class="form-control" placeholder="Keterangan" id="keterangan">
+              </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Status</label>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Status</label>
+              <div class="col-sm-9">
               <select class="form-control" name="status" id="status">
                 <option>-- Pilih --</option>
                 <option value="0" id="flag_aktif">Aktif</option>
                 <option value="1" id="flag_non_aktif">Tidak Aktif</option>
               </select>
+              </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="reset" class="btn btn-danger pull-left btn-flat" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary btn-flat">Simpan Perubahan</a>
+            <button type="reset" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Simpan Perubahan</a>
           </div>
         </div>
       </form>
@@ -113,47 +119,53 @@
         </div>
       @endif
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5">
       <!-- Horizontal Form -->
-      <div class="box box-primary">
+      <div class="box box-primary box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">Formulir Tambah Hari Libur</h3>
         </div>
         <form class="form-horizontal" action="{{route('hari.libur.store')}}" method="post">
           {{csrf_field()}}
         <div class="box-body">
-            <div class="col-md-14">
-              <label class="control-label">Hari Libur</label>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Hari Libur</label>
+              <div class="col-sm-9">
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
                   <input class="form-control pull-right datepicker1" type="text" name="libur" placeholder="Hari Libur">
                 </div>
+                </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Keterangan</label>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Keterangan</label>
+              <div class="col-sm-9">
               <input type="text" name="keterangan" class="form-control" placeholder="Keterangan">
+              </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Status</label>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Status</label>
+              <div class="col-sm-9">
               <select class="form-control" name="status">
                 <option>-- Pilih --</option>
                 <option value="0">Aktif</option>
                 <option value="1">Tidak Aktif</option>
               </select>
+              </div>
             </div>
         </div>
           <div class="box-footer">
-            <button type="submit" class="btn btn-primary pull-right btn-sm btn-flat">Simpan</button>
-            <button type="reset" class="btn btn-default btn-sm btn-flat">Reset Formulir</button>
+            <button type="submit" class="btn btn-success pull-right btn-sm">Simpan</button>
+            <button type="reset" class="btn btn-danger btn-sm">Reset Formulir</button>
           </div>
         </div>
       </form>
     </div><!--/.col -->
 
-    <div class="col-md-8">
-      <div class="box box-primary">
+    <div class="col-md-7">
+      <div class="box box-primary box-solid">
         <div class="box-header">
           <h3 class="box-title">Seluruh Hari Libur</h3>
         </div><!-- /.box-header -->

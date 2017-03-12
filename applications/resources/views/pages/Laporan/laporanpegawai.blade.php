@@ -22,7 +22,7 @@
     <!--column -->
     <div class="col-md-12">
       <!-- Horizontal Form -->
-      <div class="box box-info">
+      <div class="box box-primary box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">Pilih Client</h3>
         </div>
@@ -43,26 +43,26 @@
             </div>
           </div>
           <div class="box-footer">
-            <button type="submit" class="btn btn-info pull-right">Proses</button>
+            <button type="submit" class="btn btn-success pull-right">Proses</button>
           </div>
         </form>
       </div>
     </div>
     @if(isset($proses))
     <div class="col-md-12">
-      <div class="box box-success box-solid">
+      <div class="box box-primary box-solid">
         <div class="box-header">
           <div class="pull-left">
-            <button type="button" class="btn btn btn-default" data-clipboard-text="{{ url('report').'/'.$proses[0]->kode_client.'/'.$proses[0]->token }}">Copy Url</button>
+            <button type="button" class="btn btn-round bg-red" data-clipboard-text="{{ url('report').'/'.$proses[0]->kode_client.'/'.$proses[0]->token }}">Copy Url</button>
           </div>
           <div class="btn-group pull-right">
-            <button type="button" class="btn btn-default">Download</button>
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            <button type="button" class="btn btn-round bg-red">Download</button>
+            <button type="button" class="btn btn-round bg-red dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
               <span class="caret"></span>
               <span class="sr-only">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="{{ URL::to('laporan-proses/'.$idClient.'/xlsx') }}">Excel</a></li>
+              <li><a style="color: black" href="{{ URL::to('laporan-proses/'.$idClient.'/xlsx') }}">Excel</a></li>
             </ul>
           </div>
         </div>

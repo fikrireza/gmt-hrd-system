@@ -45,21 +45,21 @@
         </div>
       @endif
     </div>
-    <div class="col-md-4">
-      <div class="box box-info">
+    <div class="col-md-6">
+      <div class="box box-primary box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">Download Template</h3>
         </div>
           <div class="box-body">
             <div class="form-group">
-              <a href="{{ URL::to('import-template/xlsx') }}"><button class="btn btn-block btn-primary btn-lg">Download Template</button></a>
+              <a href="{{ URL::to('import-template/xlsx') }}"><button class="btn btn-block btn-success btn-lg">Download Template</button></a>
             </div>
           </div>
       </div>
     </div>
 
-    <div class="col-md-4">
-      <div class="box box-primary">
+    <div class="col-md-6">
+      <div class="box box-primary box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">Upload Data Pegawai</h3>
         </div>
@@ -75,7 +75,7 @@
                 </div>
               </div>
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-success">Submit</button>
               </div>
             </form>
           </div>

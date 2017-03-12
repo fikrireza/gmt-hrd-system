@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Cuti;
 use App\Models\MasterPegawai;
+use App\Models\HariLibur;
 
 class CutiController extends Controller
 {
@@ -41,9 +42,12 @@ class CutiController extends Controller
 
       }
 
+      $getcountharilibur = HariLibur::whereBetween('libur', [$request->tanggal_mulai,$request->tanggal_akhir])->count();
+      $countjumlhari = $request->jumlah_hari - $getcountharilibur;
+
       $set = new Cuti;
       $set->jenis_cuti = $request->jenis_cuti;
-      $set->jumlah_hari = $request->jumlah_hari;
+      $set->jumlah_hari = $countjumlhari;
       $set->tanggal_mulai = $request->tanggal_mulai;
       $set->tanggal_akhir = $request->tanggal_akhir;
       $set->deskripsi = $request->deskripsi;
@@ -57,7 +61,11 @@ class CutiController extends Controller
 
     public function bind($id)
     {
-      $get = Cuti::find($id); 
+      // $get = Cuti::find($id);
+      $get = Cuti::where('master_cuti.id', $id)
+                          ->leftJoin('master_pegawai', 'master_cuti.id_pegawai', '=', 'master_pegawai.id')
+                          ->select('master_cuti.*', 'master_pegawai.id as pegawai_id','master_pegawai.nip as nip','master_pegawai.nama')
+                          ->first(); 
       return $get;
     }
 
@@ -74,9 +82,12 @@ class CutiController extends Controller
 
       }
 
+      $getcountharilibur = HariLibur::whereBetween('libur', [$request->tanggal_mulai,$request->tanggal_akhir])->count();
+      $countjumlhari = $request->jumlah_hari - $getcountharilibur;
+
       $dataChage = Cuti::find($request->id);
       $dataChage->jenis_cuti = $request->jenis_cuti;
-      $dataChage->jumlah_hari = $request->jumlah_hari;
+      $dataChage->jumlah_hari = $countjumlhari;
       $dataChage->tanggal_mulai = $request->tanggal_mulai;
       $dataChage->tanggal_akhir = $request->tanggal_akhir;
       $dataChage->deskripsi = $request->deskripsi;

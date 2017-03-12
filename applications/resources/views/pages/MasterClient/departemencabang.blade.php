@@ -44,7 +44,7 @@
         </div>
 
         <div class="col-md-5">
-        <div class="box box-info">
+        <div class="box box-primary box-solid">
             <div class="box-header with-border">
               <h3 class="box-title">
                 @if(isset($DepartemenEdit))
@@ -67,8 +67,8 @@
                     {!! csrf_field() !!}
                     <div class="box-body">
                       <div class="form-group {{ $errors->has('kode_departemen') ? 'has-error' : '' }}">
-                        <label class="col-sm-5 control-label">Kode Departemen</label>
-                        <div class="col-sm-7">
+                        <label class="col-sm-3 control-label">Kode Departemen</label>
+                        <div class="col-sm-9">
                           <input type="text" name="kode_departemen" class="form-control" placeholder="Kode Departemen" maxlength="5" @if(isset($DepartemenEdit))
                             value="{{ $DepartemenEdit->kode_departemen}}" readonly=""
                           @else
@@ -84,8 +84,8 @@
                         </div>
                       </div>
                       <div class="form-group {{ $errors->has('nama_departemen') ? 'has-error' : '' }}">
-                        <label class="col-sm-5 control-label">Nama Departemen</label>
-                        <div class="col-sm-7">
+                        <label class="col-sm-3 control-label">Nama Departemen</label>
+                        <div class="col-sm-9">
                           <input type="text" name="nama_departemen" class="form-control" placeholder="Nama Departemen" maxlength="45" @if(isset($DepartemenEdit))
                             value="{{ $DepartemenEdit->nama_departemen}}"
                           @else
@@ -103,10 +103,10 @@
                     </div><!-- /.box-body -->
                     <div class="box-footer">
                       @if(isset($DepartemenEdit))
-                        <button type="submit" class="btn btn-info pull-right" style="margin-left:5px;">Simpan Perubahan</button>
+                        <button type="submit" class="btn btn-success pull-right" style="margin-left:5px;">Simpan Perubahan</button>
                       @else
-                        <button type="submit" class="btn btn-info pull-right" style="margin-left:5px;">Simpan</button>
-                        <button type="reset" class="btn btn-default pull-right">Reset Formulir</button>
+                        <button type="submit" class="btn btn-success pull-right" style="margin-left:5px;">Simpan</button>
+                        <button type="reset" class="btn btn-danger pull-right">Reset Formulir</button>
                       @endif
 
                     </div><!-- /.box-footer -->
@@ -118,7 +118,7 @@
         </div>
 
         <div class="col-md-7">
-          <div class="box box-info">
+          <div class="box box-primary box-solid">
                 <div class="box-header">
                   <h3 class="box-title">Tabel Departemen Cabang : {!! $CabangClient->nama_cabang !!}</h3>
                 </div><!-- /.box-header -->

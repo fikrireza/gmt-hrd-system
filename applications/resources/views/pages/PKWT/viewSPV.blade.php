@@ -41,7 +41,7 @@
       @endif
     </div>
     <div class="col-md-12">
-      <div class="box box-info">
+      <div class="box box-primary box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">Pilih Client</h3>
         </div>
@@ -62,13 +62,13 @@
             </div>
           </div>
           <div class="box-footer">
-            <button type="submit" class="btn btn-info pull-right">Proses</button>
+            <button type="submit" class="btn btn-success pull-right">Proses</button>
           </div>
         </form>
       </div>
 
       @if(isset($getSpv))
-      <div class="box box-primary">
+      <div class="box box-primary box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">SPV Terikat PKWT - {{ $getExistClient[0]->nama_client }}</h3>
         </div>
@@ -101,13 +101,13 @@
               </div>
               <div class="from-group">
                 <div class="col-sm-6">
-                  <button type="submit" class="btn btn-info pull-right">Simpan</button>
+                  <button type="submit" class="btn btn-success pull-right">Simpan</button>
                 </div>
               </div>
             </form>
           </div>
           <div class="col-md-12">
-            <div class="box box-success box-solid">
+            <div class="box box-primary box-solid">
               <div class="box-header with-border">
                 <h3 class="box-title">Histori PKWT</h3>
               </div>

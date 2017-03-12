@@ -64,67 +64,95 @@
             <h4 class="modal-title">Edit Intervensi Pegawai</h4>
           </div>
           <div class="modal-body">
-            <div class="col-md-14 ">
-              <label class="control-label">NIP</label>
+            <!-- <div class="form-group ">
+              <label class="col-sm-3 control-label">NIP</label>
+              <div class="col-sm-9">
                <select name="id_pegawai" class="form-control select2" style="width: 100%;">
                   <option selected="selected"></option>
                   @foreach($getpegawai as $key)
                     <option value="{{$key->id}}" id="editpegawai{{$key->id}}">{{$key->nama}}</option>
                   @endforeach
                 </select>
+                </div>
+            </div> -->
+            <div class="form-group">
+            <label class="col-md-3 control-label">NIP</label>
+            <div class="col-md-9">
+              <input name="nip" id="nip" class="form-control" readonly="true" value="{{ old('nip') }}" >
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Jenis Intervensi</label>
+          </div>
+          <div class="form-group">
+            <label class="col-md-3 control-label">Nama</label>
+            <div class="col-md-9">
+              <input name="nama" id="nama" class="form-control" readonly="true" value="{{ old('nama') }}">
+            </div>
+          </div>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Jenis Intervensi</label>
+              <div class="col-sm-9">
               <select class="form-control" name="jenis_cuti" id="jenis_cuti">
                 <option>-- Pilih --</option>
                 <option value="Ijin" id="flag_ijin">Ijin</option>
                 <option value="Sakit" id="flag_sakit">Sakit</option>
                 <option value="Cuti" id="flag_ijin">Cuti</option>
               </select>
+              </div>
             </div>
-            <div class="col-md-14">
-              <label class="control-label">Tanggal Awal</label>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Tanggal Awal</label>
+              <div class="col-sm-9">
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
                   <input class="form-control pull-right datepicker1" id="tanggal_mulai_edit" type="text" name="tanggal_mulai_edit" placeholder="Tanggal Awal">
                 </div>
+                </div>
             </div>
-            <div class="col-md-14">
-              <label class="control-label">Tanggal Akhir</label>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Tanggal Akhir</label>
+              <div class="col-sm-9">
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
                   <input class="form-control pull-right datepicker1" id="tanggal_akhir_edit" type="text" name="tanggal_akhir_edit" placeholder="Tanggal Akhir" onchange="durationDayEdit()">
                 </div>
+                </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Jumlah Hari</label>
+            <div class="form-group" hidden="true">
+              <label class="col-sm-3 control-label">Jumlah Hari</label>
+              <div class="col-sm-9">
               <input type="hidden" name="id" class="form-control" id="id">
               <input type="text" name="jumlah_hari" class="form-control" readonly="true" placeholder="Jumlah Hari" id="jumlah_hari_edit">
+              </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Keterangan</label>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Keterangan</label>
+              <div class="col-sm-9">
               <input type="text" name="deskripsi" class="form-control" placeholder="Keterangan" id="deskripsi">
+              </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Status</label>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Status</label>
+              <div class="col-sm-9">
               <select class="form-control" name="flag_status" id="flag_status">
                 <option>-- Pilih --</option>
                 <option value="0" id="flag_aktif">Aktif</option>
                 <option value="1" id="flag_non_aktif">Tidak Aktif</option>
               </select>
+              </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Berkas</label>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Berkas</label>
+              <div class="col-sm-9">
               <input type="file" name="berkas" class="form-control">
+              </div>
             </div>
           </div>
           <div class="modal-footer">
-            <button type="reset" class="btn btn-danger pull-left btn-flat" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary btn-flat">Simpan Perubahan</a>
+            <button type="reset" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-success">Simpan Perubahan</a>
           </div>
         </div>
       </form>
@@ -152,81 +180,97 @@
 
   <div class="col-md-4">
       <!-- Horizontal Form -->
-      <div class="box box-primary">
+      <div class="box box-primary box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">Formulir Tambah Intervensi Pegawai</h3>
         </div>
         <form class="form-horizontal" action="{{route('cuti.store')}}" method="post" enctype="multipart/form-data">
           {{csrf_field()}}
         <div class="box-body">
-            <div class="col-md-14 ">
-              <label class="control-label">NIP</label>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">NIP</label>
+              <div class="col-sm-9">
                <select name="id_pegawai" class="form-control select2" style="width: 100%;">
                   <option selected="selected"></option>
                   @foreach($getpegawai as $key)
                     <option value="{{$key->id}}">{{$key->nama}}</option>
                   @endforeach
                 </select>
+                </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Jenis Intervensi</label>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Jenis Intervensi</label>
+              <div class="col-sm-9">
               <select class="form-control" name="jenis_cuti" id="jenis_cuti">
                 <option>-- Pilih --</option>
                 <option value="Ijin" id="flag_ijin">Ijin</option>
                 <option value="Sakit" id="flag_sakit">Sakit</option>
                 <option value="Cuti" id="flag_cuti">Cuti</option>
               </select>
+              </div>
             </div>
-            <div class="col-md-14">
-              <label class="control-label">Tanggal Awal</label>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Tanggal Awal</label>
+              <div class="col-sm-9">
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
                   <input class="form-control pull-right datepicker1" id="tanggal_mulai" type="text" name="tanggal_mulai" placeholder="Tanggal Awal">
                 </div>
+                </div>
             </div>
-            <div class="col-md-14">
-              <label class="control-label">Tanggal Akhir</label>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Tanggal Akhir</label>
+              <div class="col-sm-9">
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
                   <input class="form-control pull-right datepicker1" id="tanggal_akhir" type="text" name="tanggal_akhir" placeholder="Tanggal Akhir" onchange="durationDay()">
                 </div>
+                </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Jumlah Hari</label>
+            <div class="form-group" hidden="true">
+              <label class="col-sm-3 control-label">Jumlah Hari</label>
+              <div class="col-sm-9">
               <input type="hidden" name="id" class="form-control" id="id">
               <input type="text" name="jumlah_hari" class="form-control" readonly="true" placeholder="Jumlah Hari" id="jumlah_hari">
+              </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Keterangan</label>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Keterangan</label>
+              <div class="col-sm-9">
               <input type="text" name="deskripsi" class="form-control" placeholder="Keterangan" id="deskripsi">
+              </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Status</label>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Status</label>
+              <div class="col-sm-9">
               <select class="form-control" name="flag_status" id="flag_status">
                 <option>-- Pilih --</option>
                 <option value="0" id="flag_aktif">Aktif</option>
                 <option value="1" id="flag_non_aktif">Tidak Aktif</option>
               </select>
+              </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Berkas</label>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Berkas</label>
+              <div class="col-sm-9">
               <input type="file" name="berkas" class="form-control">
+              </div>
             </div>
         </div>
           <div class="box-footer">
-            <button type="submit" class="btn btn-primary pull-right btn-sm btn-flat">Simpan</button>
-            <button type="reset" class="btn btn-default btn-sm btn-flat">Reset Formulir</button>
+            <button type="submit" class="btn btn-success pull-right btn-sm">Simpan</button>
+            <button type="reset" class="btn btn-danger btn-sm">Reset Formulir</button>
           </div>
         </div>
       </form>
     </div><!--/.col -->
 
     <div class="col-md-8">
-      <div class="box box-primary">
+      <div class="box box-primary box-solid">
         <div class="box-header">
           <h3 class="box-title">Seluruh Intervensi Pegawai</h3>
         </div><!-- /.box-header -->
@@ -354,6 +398,8 @@
           success: function(data){
             //get
             var id = data.id;
+            var nip = data.nip;
+            var nama = data.nama;
             var jenis_cuti = data.jenis_cuti;
             var tanggal_mulai_edit = data.tanggal_mulai;
             var tanggal_akhir_edit = data.tanggal_akhir;
@@ -364,6 +410,8 @@
             //set
           
             $('#id').attr('value', id);
+            $('#nip').attr('value', nip);
+            $('#nama').attr('value', nama);
             $('#tanggal_mulai_edit').attr('value', tanggal_mulai_edit);
             $('#tanggal_akhir_edit').attr('value', tanggal_akhir_edit);
             $('#jumlah_hari_edit').attr('value', jumlah_hari_edit);
@@ -388,46 +436,6 @@
         });
       });
     });
-  </script>
-  <script type="text/javascript">
-    $(document).ready(function(){
-          $("#tanggal_mulai").datepicker({
-              todayBtn:  1,
-              autoclose: true,
-          }).on('changeDate', function (selected) {
-            $("#tanggal_akhir").prop('disabled', false);
-            $("#tanggal_akhir").val("");
-            $("#jumlah_hari").val("");
-              var minDate = new Date(selected.date.valueOf());
-              $("#tanggal_akhir").datepicker('setStartDate', minDate);
-          });
-
-          $("#tanggal_akhir").datepicker()
-              .on('changeDate', function (selected) {
-                  var minDate = new Date(selected.date.valueOf());
-              //    $('.tgl_faktur_awal').datepicker('setEndDate', minDate);
-              });
-      });
-  </script>
-  <script type="text/javascript">
-    $(document).ready(function(){
-          $("#tanggal_mulai_edit").datepicker({
-              todayBtn:  1,
-              autoclose: true,
-          }).on('changeDate', function (selected) {
-            $("#tanggal_akhir_edit").prop('disabled', false);
-            $("#tanggal_akhir_edit").val("");
-            $("#jumlah_hari_edit").val("");
-              var minDate = new Date(selected.date.valueOf());
-              $("#tanggal_akhir_edit").datepicker('setStartDate', minDate);
-          });
-
-          $("#tanggal_akhir_edit").datepicker()
-              .on('changeDate', function (selected) {
-                  var minDate = new Date(selected.date.valueOf());
-              //    $('.tgl_faktur_awal').datepicker('setEndDate', minDate);
-              });
-      });
   </script>
   <script type="text/javascript">
   function durationDay(){
@@ -464,7 +472,7 @@
   }
 </script>
 <script type="text/javascript">
-  function durationDayEdit(){
+  function durationDay(){
     $(document).ready(function() {
       $('#tanggal_mulai_edit, #tanggal_akhir_edit').on('change textInput input', function () {
             if ( ($("#tanggal_mulai_edit").val() != "") && ($("#tanggal_akhir_edit").val() != "")) {
@@ -496,6 +504,46 @@
         });
     });
   }
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+          $("#tanggal_mulai").datepicker({
+              todayBtn:  1,
+              autoclose: true,
+          }).on('changeDate', function (selected) {
+            $("#tanggal_akhir").prop('disabled', false);
+            $("#tanggal_akhir").val("");
+            $("#jumlah_hari").val("");
+              var minDate = new Date(selected.date.valueOf());
+              $("#tanggal_akhir").datepicker('setStartDate', minDate);
+          });
+
+          $("#tanggal_akhir").datepicker()
+              .on('changeDate', function (selected) {
+                  var minDate = new Date(selected.date.valueOf());
+              //    $('.tgl_faktur_awal').datepicker('setEndDate', minDate);
+              });
+      });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+          $("#tanggal_mulai_edit").datepicker({
+              todayBtn:  1,
+              autoclose: true,
+          }).on('changeDate', function (selected) {
+            $("#tanggal_akhir_edit").prop('disabled', false);
+            $("#tanggal_akhir_edit").val("");
+            $("#jumlah_hari_edit").val("");
+              var minDate = new Date(selected.date.valueOf());
+              $("#tanggal_akhir_edit").datepicker('setStartDate', minDate);
+          });
+
+          $("#tanggal_akhir_edit").datepicker()
+              .on('changeDate', function (selected) {
+                  var minDate = new Date(selected.date.valueOf());
+              //    $('.tgl_faktur_awal').datepicker('setEndDate', minDate);
+              });
+      });
 </script>
 
 @stop
