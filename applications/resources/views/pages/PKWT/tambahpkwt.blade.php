@@ -188,13 +188,22 @@
   <script type="text/javascript">
     $(function(){
       $("#tanggal_awal_pkwt").datepicker({
-        format: 'yyyy-mm-dd'
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+        todayHighlight: true,
+        daysOfWeekDisabled: [0,6]
       });
       $("#tanggal_akhir_pkwt").datepicker({
-        format: 'yyyy-mm-dd'
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+        todayHighlight: true,
+        daysOfWeekDisabled: [0,6]
       });
       $("#tanggal_masuk_gmt").datepicker({
-        format: 'yyyy-mm-dd'
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+        todayHighlight: true,
+        daysOfWeekDisabled: [0,6]
       });
 
       $('#tanggal_awal_pkwt').change(function(){

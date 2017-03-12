@@ -124,8 +124,8 @@
                 @endif
               </div>
             </div>
-            <div class="form-group">
-              <div class="col-sm-12">
+          </div><!-- /.box-body -->
+          <div class="box-footer">
                 <button type="submit" class="btn btn-success pull-right" style="margin-left:5px;">
                   @if(isset($data['bindjabatan']))
                     Simpan Perubahan
@@ -134,11 +134,9 @@
                   @endif
                 </button>
                   @if(!isset($data['bindjabatan']))
-                    <button type="reset" class="btn btn-danger pull-right">Reset Formulir</button>
+                    <button type="reset" class="btn btn-danger pull-left">Reset Formulir</button>
                   @endif
-              </div>
             </div>
-          </div><!-- /.box-body -->
         @if(isset($data['bindjabatan']))
           {!! Form::close() !!}
         @else
