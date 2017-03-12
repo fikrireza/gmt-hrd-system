@@ -90,7 +90,7 @@
             <div class="form-group ">
               <label class="col-sm-3 control-label">Jenis Intervensi</label>
               <div class="col-sm-9">
-              <select class="form-control" name="jenis_cuti" id="jenis_cuti">
+              <select class="form-control" name="jenis_cuti_edit" id="jenis_cuti">
                 <option>-- Pilih --</option>
                 <option value="Ijin" id="flag_ijin">Ijin</option>
                 <option value="Sakit" id="flag_sakit">Sakit</option>
@@ -124,19 +124,19 @@
               <label class="col-sm-3 control-label">Jumlah Hari</label>
               <div class="col-sm-9">
               <input type="hidden" name="id" class="form-control" id="id">
-              <input type="text" name="jumlah_hari" class="form-control" readonly="true" placeholder="Jumlah Hari" id="jumlah_hari_edit">
+              <input type="text" name="jumlah_hari_edit" class="form-control" readonly="true" placeholder="Jumlah Hari" id="jumlah_hari_edit">
               </div>
             </div>
             <div class="form-group ">
               <label class="col-sm-3 control-label">Keterangan</label>
               <div class="col-sm-9">
-              <input type="text" name="deskripsi" class="form-control" placeholder="Keterangan" id="deskripsi">
+              <input type="text" name="deskripsi_edit" class="form-control" placeholder="Keterangan" id="deskripsi">
               </div>
             </div>
             <div class="form-group ">
               <label class="col-sm-3 control-label">Status</label>
               <div class="col-sm-9">
-              <select class="form-control" name="flag_status" id="flag_status">
+              <select class="form-control" name="flag_status_edit" id="flag_status">
                 <option>-- Pilih --</option>
                 <option value="0" id="flag_aktif">Aktif</option>
                 <option value="1" id="flag_non_aktif">Tidak Aktif</option>
@@ -305,7 +305,7 @@
                             {{$pageget}}
                           </td>
                           <td>
-                           {{$key->masterpegawai->nama}}
+                           {{$key->nama}}
                           </td>
                           <td>
                            {{$key->jenis_cuti}}
@@ -472,7 +472,7 @@
   }
 </script>
 <script type="text/javascript">
-  function durationDay(){
+  function durationDayEdit(){
     $(document).ready(function() {
       $('#tanggal_mulai_edit, #tanggal_akhir_edit').on('change textInput input', function () {
             if ( ($("#tanggal_mulai_edit").val() != "") && ($("#tanggal_akhir_edit").val() != "")) {

@@ -120,13 +120,13 @@
       @endif
     </div>
     <div class="col-md-5">
+      <form class="form-horizontal" action="{{route('hari.libur.store')}}" method="post">
+          {{csrf_field()}}
       <!-- Horizontal Form -->
       <div class="box box-primary box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">Formulir Tambah Hari Libur</h3>
         </div>
-        <form class="form-horizontal" action="{{route('hari.libur.store')}}" method="post">
-          {{csrf_field()}}
         <div class="box-body">
             <div class="form-group">
               <label class="col-sm-3 control-label">Hari Libur</label>
@@ -242,7 +242,6 @@
           </div><!-- /.box-body -->
         </div>
       </div><!--/.col -->
-      </div>   <!-- /.row -->
 
 
   <!-- jQuery 2.1.4 -->
