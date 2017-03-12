@@ -48,13 +48,30 @@
   </div>
     @foreach($CountAll as $client)
     <div class="col-md-4">
-      <div class="box box-widget widget-user-2">
-        <div class="widget-user-header bg-white">
-          <a href="{{url('masterclient', $client->id).('/edit')}}">
+      <div class="box box-primary box-solid box-widget widget-user-2">
+        <div class="box-header with-border">
+          <h3 class="box-title">
+            <a style="text-decoration:none" href="{{url('masterclient', $client->id).('/edit')}}" class="btn btn-primary btn-sm"><i class="fa fa-building-o"></i> Ubah Client</a>
+          </h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <!-- <div class="form-group">
+            <label class="col-sm-3 control-label">Kode Client</label>
+              <div class="col-sm-9">
+                <input class="form-control" type="text" name="kode_client" placeholder="Kode Client" value="{{ $client->kode_client}}" readonly="true">
+              </div>
+          </div> -->
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Nama Client</label>
+              <div class="col-sm-9">
+                <input class="form-control" type="text" name="nama_client" placeholder="Nama Client" value="{{ $client->nama_client}}" readonly="true">
+              </div>
+          </div>
+        </div>
+       <!--  <div class="widget-user-header bg-white">
             <h3 class="widget-user-username">{{ $client->nama_client}}</h3>
             <h5 class="widget-user-desc">{{ $client->kode_client}}</h5>
-          </a>
-        </div>
+        </div> -->
         <div class="box-footer no-padding">
           <ul class="nav nav-stacked">
             <li><a href="{{ url('masterclient/cabang', $client->id)}}">Cabang Client <span class="pull-right badge bg-blue">{{ $client->hitungCabang}}</span></a></li>
