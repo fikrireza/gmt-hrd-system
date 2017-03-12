@@ -40,7 +40,7 @@
           </div>
         @endif
         </div>
-        <div class="col-md-">
+        <div class="col-md-5">
         <div class="box box-primary box-solid">
             <div class="box-header with-border">
               <h3 class="box-title">
