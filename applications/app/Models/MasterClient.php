@@ -14,7 +14,7 @@ class MasterClient extends Model  {
 	protected $table = 'master_client';
 
   protected $fillable = [
-      'kode_client', 'nama_client',
+      'kode_client', 'nama_client', 'token'
   ];
 	/**
 	 * Many to Many relation

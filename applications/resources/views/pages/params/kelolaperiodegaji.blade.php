@@ -59,34 +59,43 @@
         </div>
       @endif
     </div>
-    <div class="col-md-4">
+    <div class="col-md-5">
       <!-- Horizontal Form -->
-      <div class="box box-primary">
+      <div class="box box-primary box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">Formulir Tambah Periode Gaji</h3>
         </div>
         <form class="form-horizontal" action="{{route('periodegaji.store')}}" method="post">
           {{csrf_field()}}
         <div class="box-body">
-            <div class="col-md-14 ">
-              <label class="control-label">Per Tanggal</label>
-              <input type="text" name="tanggal" class="form-control" placeholder="Tanggal Periode Penggajian" id="tanggal">
+            <div class="form-group ">
+            <label class="col-sm-3 control-label">Per Tanggal</label>
+              <div class="col-sm-9">
+              <div class="input-group date">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" name="tanggal" class="form-control" placeholder="Tanggal Periode Penggajian" id="tanggal">
+              </div>
+              </div>
             </div>
-            <div class="col-md-14 ">
-              <label class="control-label">Keterangan</label>
-              <textarea name="keterangan" rows="4" cols="40" class="form-control"></textarea>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Keterangan</label>
+              <div class="col-sm-9">
+                <textarea name="keterangan" rows="4" cols="40" class="form-control"></textarea>
+              </div>
             </div>
         </div>
           <div class="box-footer">
-            <button type="submit" class="btn btn-primary pull-right btn-sm btn-flat">Simpan</button>
-            <button type="reset" class="btn btn-default btn-sm btn-flat">Reset Formulir</button>
+            <button type="submit" class="btn btn-success pull-right btn-sm">Simpan</button>
+            <button type="reset" class="btn btn-danger btn-sm">Reset Formulir</button>
           </div>
         </div>
       </form>
     </div><!--/.col -->
 
-    <div class="col-md-8">
-      <div class="box box-primary">
+    <div class="col-md-7">
+      <div class="box box-primary box-solid">
         <div class="box-header">
           <h3 class="box-title">Seluruh Periode Penggajian</h3>
         </div><!-- /.box-header -->
@@ -152,9 +161,12 @@
       // });
 
       $('#tanggal').datepicker({
-        format: 'dd',
-        startView: "date",
-        minViewMode: "date"
+          autoclose: true,
+          todayHighlight: true,
+          daysOfWeekDisabled: [0,6],
+          format: 'dd',
+          startView: "date",
+          minViewMode: "date"
       });
     });
   </script>

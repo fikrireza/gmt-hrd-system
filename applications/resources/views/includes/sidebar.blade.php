@@ -19,11 +19,17 @@
         @endif
       </p>
       <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        @if (Auth::user()->level=="1")
+          <span class="label label-info">Human Resources</span>
+        @elseif (Auth::user()->level="2")
+          <span class="label label-success">Payroll System</span>
+        @elseif(Auth::user()->level=="3")
+          <span class="label label-danger">Akses Dirops</span>
+        @endif
     </div>
   </div>
-
   <ul class="sidebar-menu">
-    <li class="header">NAVIGASI UTAMA</li>
+    <li class="header">NAVIGASI UTAMA</li>    
     <li>
       <a href="{{ url('/dashboard') }}">
         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -106,6 +112,8 @@
           <li><a href="{{route('periodegaji.index')}}"><i class="fa fa-circle-o"></i> Periode Gaji</a></li>
           <li><a href="{{route('komgaji.index')}}"><i class="fa fa-circle-o"></i> Komponen Gaji</a></li>
           <li><a href="{{route('setgaji.index')}}"><i class="fa fa-circle-o"></i> Set Gaji Pegawai</a></li>
+          <li><a href="{{route('hari.libur.index')}}"><i class="fa fa-circle-o"></i> Hari Libur</a></li>
+          <li><a href="{{route('cuti.index')}}"><i class="fa fa-circle-o"></i> Intervensi</a></li>
         </ul>
       </li>
       <li class="treeview">

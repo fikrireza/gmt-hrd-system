@@ -61,7 +61,7 @@
     <!--column -->
     <div class="col-md-5">
       <!-- Horizontal Form -->
-      <div class="box box-info">
+      <div class="box box-primary box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">Formulir Tambah Akun</h3>
         </div><!-- /.box-header -->
@@ -70,8 +70,8 @@
           {!! csrf_field() !!}
           <div class="box-body">
             <div class="form-group {{ $errors->has('nip') ? 'has-error' : '' }}">
-              <label class="col-sm-2 control-label">NIP</label>
-              <div class="col-sm-8">
+              <label class="col-sm-3 control-label">NIP</label>
+              <div class="col-sm-9">
                 <select name="nip" class="form-control select2" style="width: 100%;">
                   <option selected="selected"></option>
                   @foreach($getnip as $key)
@@ -86,8 +86,8 @@
               </div>
             </div>
             <div class="form-group {{ $errors->has('username') ? 'has-error' : '' }}">
-              <label class="col-sm-2 control-label">Username</label>
-              <div class="col-sm-8">
+              <label class="col-sm-3 control-label">Username</label>
+              <div class="col-sm-9">
                 <input type="text" name="username" class="form-control" placeholder="Username" value="{{ old('username') }}">
                 @if($errors->has('username'))
                   <span class="help-block">
@@ -97,8 +97,8 @@
               </div>
             </div>
             <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
-              <label class="col-sm-2 control-label">Password</label>
-              <div class="col-sm-8">
+              <label class="col-sm-3 control-label">Password</label>
+              <div class="col-sm-9">
                 <input type="password" name="password" class="form-control" placeholder="Password" value="{{ old('password') }}">
                 @if($errors->has('password'))
                   <span class="help-block">
@@ -108,8 +108,8 @@
               </div>
             </div>
             <div class="form-group {{ $errors->has('password_confirmation') ? 'has-error' : '' }}">
-              <label class="col-sm-2 control-label">Konfirmasi Password</label>
-              <div class="col-sm-8">
+              <label class="col-sm-3 control-label">Konfirmasi Password</label>
+              <div class="col-sm-9">
                 <input type="password" name="password_confirmation" class="form-control" placeholder="Konfirmasi Password" value="{{ old('password_confirmation') }}">
                 @if($errors->has('password_confirmation'))
                   <span class="help-block">
@@ -119,8 +119,8 @@
               </div>
             </div>
             <div class="form-group {{ $errors->has('level') ? 'has-error' : '' }}">
-              <label class="col-sm-2 control-label">Level Akses</label>
-              <div class="col-sm-8">
+              <label class="col-sm-3 control-label">Level Akses</label>
+              <div class="col-sm-9">
                 <select class="form-control" name="level">
                   <option></option>
                   <option value="1" {{old('level')=="1"?'selected':''}}>Akses HR</option>
@@ -136,8 +136,8 @@
             </div>
           </div><!-- /.box-body -->
           <div class="box-footer">
-            <button type="reset" class="btn btn-default">Reset Formulir</button>
-            <button type="submit" class="btn btn-info pull-right">Simpan</button>
+            <button type="reset" class="btn btn-danger">Reset Formulir</button>
+            <button type="submit" class="btn btn-success pull-right">Simpan</button>
           </div><!-- /.box-footer -->
         </form>
       </div><!-- /.box -->
@@ -145,7 +145,7 @@
 
     <div class="col-md-7">
       <!-- Horizontal Form -->
-      <div class="box box-info">
+      <div class="box box-primary box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">Daftar Akun</h3>
         </div><!-- /.box-header -->

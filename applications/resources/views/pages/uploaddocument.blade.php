@@ -50,7 +50,7 @@
 
     <!--start Modal edit dokumen -->
     <div class="modal modal-default fade" id="modalEdit" role="dialog">
-      <div class="modal-dialog" style="width:50%">
+      <div class="modal-dialog">
         <form class="form-horizontal" action="{{ route('upload.edit') }}" method="post" enctype="multipart/form-data">
           {{ csrf_field() }}
         <div class="modal-content">
@@ -60,11 +60,8 @@
           </div>
           <div class="modal-body">
               <div class="form-group">
-                <div class="col-sm-1">
-                  {{-- divider --}}
-                </div>
-                <label class="col-sm-2">Pilih NIP</label>
-                <div class="col-sm-8">
+                <label class="col-sm-3 control-label">Pilih NIP</label>
+                <div class="col-sm-9">
                   <input type="hidden" name="id_doc" id="edit_id_doc">
                   <select name="id_pegawai" class="form-control select2" style="width: 100%;" id="edit_nip">
                     @foreach($data['getpegawai'] as $key)
@@ -74,28 +71,22 @@
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-1">
-                  {{-- divider --}}
-                </div>
-                <label class="col-sm-2">Nama Dokumen</label>
-                <div class="col-sm-8">
+                <label class="col-sm-3 control-label">Nama Dokumen</label>
+                <div class="col-sm-9">
                   <input type="text" name="nama_dokumen" class="form-control" required id="edit_nama_dokumen">
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-1">
-                  {{-- divider --}}
-                </div>
-                <label class="col-sm-2">File Dokumen</label>
-                <div class="col-sm-8">
+                <label class="col-sm-3 control-label">File Dokumen</label>
+                <div class="col-sm-9">
                   <input type="file" name="file_dokumen" class="form-control">
                   <span style="color:#001f3f">* Biarkan kosong jika tidak ingin diubah.</span>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn btn-primary" >Simpan Perubahan</button>
+              <button type="button" class="btn btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn btn-success" >Simpan Perubahan</button>
             </div>
         </div>
       </form>
@@ -163,8 +154,8 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn btn-default pull-left" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn btn-primary">Simpan</button>
+              <button type="button" class="btn btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn btn-success">Simpan</button>
             </div>
           </form>
         </div>
@@ -184,7 +175,7 @@
     </div>
 
     <div class="col-md-12">
-      <div class="box box-success box-solid">
+      <div class="box box-primary box-solid">
         <div class="box-header">
           <a class="btn btn-round bg-red" data-toggle="modal" data-target="#modalAddDocument"><i class="fa fa-plus"></i>&nbsp; Tambah Dokumen Pegawai</a>
         </div>

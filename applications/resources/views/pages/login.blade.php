@@ -73,9 +73,9 @@
           <p class="login-box-msg">Silahkan lakukan proses login</p>
           <form action="{{ route('login') }}" method="post">
             {!! csrf_field() !!}
-            <div class="form-group {{ $errors->has('username') ? 'has-error' : '' }}">
+            <div class="form-group {{ $errors->has('username') ? 'has-error' : '' }} has-feedback">
               <input name="username" type="text" class="form-control" placeholder="Username" value="{{ old('username') }}">
-              <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+              <span class="fa fa-user form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">
               <input name="password" type="password" class="form-control" placeholder="Password">
@@ -89,19 +89,14 @@
               @endif
             </div>
             <div class="row">
-              <div class="col-xs-8">
-                <div class="checkbox icheck">
-                  <label>
-                    <input type="checkbox"> Remember Me
-                  </label>
-                </div>
+              <div class="col-xs-6">
+                <button type="reset" class="btn btn-danger btn-block btn-flat">Reset</button>
               </div><!-- /.col -->
-              <div class="col-xs-4">
+              <div class="col-xs-6">
                 <button type="submit" class="btn btn-primary btn-block btn-flat">Log In</button>
               </div><!-- /.col -->
             </div>
           </form>
-          <a href="#">I forgot my password</a><br>
         </div>
       @endif
     </div>

@@ -15,12 +15,11 @@
 @stop
 
 @section('content')
-
-  <div class="row">
-    <div class="col-md-3">
-      <a href="{{url('masterclient/create')}}" class="btn btn-success btn-block margin-bottom"><i class="fa fa-building-o"></i> Tambah Client</a>
+   <div class="callout callout-warning">
+      <h4>Pemberitahuan!</h4>
+      <p>Jika ingin menambahkan client maka tekan tombol dibawah ini.</p>
+        <a style="text-decoration:none" href="{{url('masterclient/create')}}" class="btn btn-primary btn-sm"><i class="fa fa-building-o"></i> Tambah Client</a>
     </div>
-  </div>
 
   <div class="row">
     <!-- Master Client -->
@@ -49,64 +48,54 @@
   </div>
     @foreach($CountAll as $client)
     <div class="col-md-4">
-      <div class="box box-widget widget-user-2">
-        <div class="widget-user-header bg-white">
-          <a href="{{url('masterclient', $client->id).('/edit')}}">
+      <div class="box box-primary box-solid box-widget widget-user-2">
+        <div class="box-header with-border">
+          <h3 class="box-title">
+            <a style="text-decoration:none" href="{{url('masterclient', $client->id).('/edit')}}" class="btn btn-primary btn-sm"><i class="fa fa-building-o"></i> Ubah Client</a>
+          </h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <!-- <div class="form-group">
+            <label class="col-sm-3 control-label">Kode Client</label>
+              <div class="col-sm-9">
+                <input class="form-control" type="text" name="kode_client" placeholder="Kode Client" value="{{ $client->kode_client}}" readonly="true">
+              </div>
+          </div> -->
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Nama Client</label>
+              <div class="col-sm-9">
+                <input class="form-control" type="text" name="nama_client" placeholder="Nama Client" value="{{ $client->nama_client}}" readonly="true">
+              </div>
+          </div>
+        </div>
+       <!--  <div class="widget-user-header bg-white">
             <h3 class="widget-user-username">{{ $client->nama_client}}</h3>
             <h5 class="widget-user-desc">{{ $client->kode_client}}</h5>
-          </a>
-        </div>
+        </div> -->
         <div class="box-footer no-padding">
           <ul class="nav nav-stacked">
             <li><a href="{{ url('masterclient/cabang', $client->id)}}">Cabang Client <span class="pull-right badge bg-blue">{{ $client->hitungCabang}}</span></a></li>
           </ul>
         </div>
-      </div><!-- /.widget-user -->
+      </div>
     </div>
     @endforeach
-     @if(!$CountAll->isEmpty())
-       <div style="text-align: center; vertical-align: middle;">
-         {{ $CountAll->links() }}
-       </div>
-     @endif
-  </div><!-- /.row -->
+    </div>
+    @if(!$CountAll->isEmpty())
+    <div class="row">
+      <div style="text-align: center; vertical-align: middle;">
+        {{ $CountAll->links() }}
+      </div>
+    </div>
+    @endif
 
 
   <script src="{{ asset('/plugins/jQuery/jQuery-2.1.4.min.js') }}"></script>
-  <!-- jQuery UI 1.11.4 -->
-  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-  <script>
-    $.widget.bridge('uibutton', $.ui.button);
-  </script>
-  <!-- Bootstrap 3.3.5 -->
   <script src="{{ asset('/bootstrap/js/bootstrap.min.js') }}"></script>
-  <!-- Morris.js charts -->
-  <script src="{{ asset('/bootstrap/js/raphael-min.js') }}"></script>
-  <script src="{{ asset('/plugins/morris/morris.min.js') }}"></script>
-  <!-- Sparkline -->
-  <script src="{{ asset('/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
-  <!-- jvectormap -->
-  <script src="{{ asset('/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js') }}"></script>
-  <script src="{{ asset('/plugins/jvectormap/jquery-jvectormap-world-mill-en.js') }}"></script>
-  <!-- jQuery Knob Chart -->
-  <script src="{{ asset('/plugins/knob/jquery.knob.js') }}"></script>
-  <!-- daterangepicker -->
-  <script src="{{ asset('/bootstrap/js/moment.min.js') }}"></script>
-  <script src="{{ asset('/plugins/daterangepicker/daterangepicker.js') }}"></script>
-  <!-- datepicker -->
-  <script src="{{ asset('/plugins/datepicker/bootstrap-datepicker.js') }}"></script>
-  <!-- Bootstrap WYSIHTML5 -->
-  <script src="{{ asset('/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js') }}"></script>
-  <!-- Slimscroll -->
   <script src="{{ asset('/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
-  <!-- FastClick -->
   <script src="{{ asset('plugins/fastclick/fastclick.min.js') }}"></script>
-  <!-- AdminLTE App -->
   <script src="{{ asset('dist/js/app.min.js') }}"></script>
-  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="{{ asset('/dist/js/pages/dashboard.js') }}"></script>
-  <!-- AdminLTE for demo purposes -->
   <script src="{{ asset('/dist/js/demo.js') }}"></script>
 
 

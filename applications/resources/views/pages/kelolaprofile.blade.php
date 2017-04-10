@@ -61,13 +61,12 @@
 
           <h3 class="profile-username text-center">{{Auth::user()->master_pegawai->nama}}</h3>
 
-
           <p class="text-muted text-center">
             @if($getuser->level=="1")
               Akses HR
             @elseif($getuser->level=="2")
               Akses Payroll
-            @elseif($getuser->level=="2")
+            @elseif($getuser->level=="3")
               Akses Dirops
             @endif
           </p>

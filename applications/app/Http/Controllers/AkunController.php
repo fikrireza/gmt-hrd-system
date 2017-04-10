@@ -176,7 +176,10 @@ class AkunController extends Controller
         $set->save();
       }
 
-      return redirect()->route('kelola.profile', $request->id)->with('message', 'Berhasil mengubah profile.');
+      $users = User::where('pegawai_id', $request->id)->first();
+      
+      
+      return redirect()->route('kelola.profile', $users->id)->with('message', 'Berhasil mengubah profile.');
     }
 
     public function updatepassword(Request $request)

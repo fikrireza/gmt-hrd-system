@@ -39,7 +39,7 @@
     </div>
 
     <div class="col-md-12">
-      <div class="box box-primary">
+      <div class="box box-primary box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">Input Pegawai ke Periode</h3>
         </div>
@@ -115,7 +115,7 @@
                     </div>
                     <div class="box-footer">
                       <div class="col-sm-6">
-                        <button type="submit" class="btn btn-info pull-right">Simpan</button>
+                        <button type="submit" class="btn btn-success pull-right">Simpan</button>
                       </div>
                     </div>
                 </form> <!-- END FORM -->

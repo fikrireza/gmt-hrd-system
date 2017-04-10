@@ -41,7 +41,7 @@
         @endif
         </div>
         <div class="col-md-5">
-        <div class="box box-info">
+        <div class="box box-primary box-solid">
             <div class="box-header with-border">
               <h3 class="box-title">
                 @if(isset($CabangEdit))
@@ -65,8 +65,8 @@
                     {!! csrf_field() !!}
                     <div class="box-body">
                       <div class="form-group {{ $errors->has('kode_cabang') ? 'has-error' : '' }}">
-                        <label class="col-sm-4 control-label">Kode Cabang</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-3 control-label">Kode Cabang</label>
+                        <div class="col-sm-9">
                           <input type="text" name="kode_cabang" class="form-control" placeholder="Kode Cabang" maxlength="5"
                           @if(isset($CabangEdit))
                   				  value="{{$CabangEdit->kode_cabang}}" readonly=""
@@ -83,8 +83,8 @@
                         </div>
                       </div>
                       <div class="form-group {{ $errors->has('nama_cabang') ? 'has-error' : '' }}">
-                        <label class="col-sm-4 control-label">Nama Cabang</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-3 control-label">Nama Cabang</label>
+                        <div class="col-sm-9">
                           <input type="text" name="nama_cabang" class="form-control" placeholder="Nama Cabang" maxlength="40" @if(isset($CabangEdit))
                   				  value="{{$CabangEdit->nama_cabang}}"
                   				@else
@@ -100,8 +100,8 @@
                         </div>
                       </div>
                       <div class="form-group {{ $errors->has('alamat_cabang') ? 'has-error' : ''}}">
-                        <label class="col-sm-4 control-label">Alamat Cabang</label>
-                        <div class="col-sm-8">
+                        <label class="col-sm-3 control-label">Alamat Cabang</label>
+                        <div class="col-sm-9">
                           <textarea name="alamat_cabang" class="form-control" rows="2" placeholder="Alamat Cabang">@if(isset($CabangEdit)){{$CabangEdit->alamat_cabang}}@else{{old('alamat_cabang')}}@endif</textarea>
                           @if($errors->has('alamat_cabang'))
                             <span class="help-block">
@@ -120,11 +120,11 @@
                     </div><!-- /.box-body -->
                     <div class="box-footer">
                       @if(isset($CabangEdit))
-                        {{-- <button type="button" class="btn btn-default pull-left">Kembali</button> --}}
-                			  <button type="submit" class="btn btn-info pull-right">Simpan Perubahan</button>
+                        {{-- <button type="button" class="btn btn-danger pull-left">Kembali</button> --}}
+                			  <button type="submit" class="btn btn-success pull-right">Simpan Perubahan</button>
                 			@else
-                			  <button type="submit" class="btn btn-info pull-right" style="margin-left:5px;">Simpan</button>
-                        <button type="reset" class="btn btn-default pull-right">Reset Formulir</button>
+                			  <button type="submit" class="btn btn-danger pull-right" style="margin-left:5px;">Simpan</button>
+                        <button type="reset" class="btn btn-success pull-left">Reset Formulir</button>
                 			@endif
                     </div><!-- /.box-footer -->
                   </form>
@@ -135,7 +135,7 @@
         </div>
 
         <div class="col-md-7">
-          <div class="box box-info">
+          <div class="box box-primary box-solid">
               <div class="box-header">
                   <h3 class="box-title">Data Cabang Client : {!! $MasterClient->nama_client !!}</h3>
               </div><!-- /.box-header -->

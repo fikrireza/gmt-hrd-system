@@ -39,7 +39,7 @@
       @endif
     </div>
     <div class="col-md-12">
-      <div class="box box-info">
+      <div class="box box-primary box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">Formulir Tambah Data PKWT</h3>
         </div><!-- /.box-header -->
@@ -48,8 +48,8 @@
           {!! csrf_field() !!}
           <div class="box-body">
             <div class="form-group">
-              <label class="col-sm-2 control-label">NIP</label>
-              <div class="col-sm-4">
+              <label class="col-sm-3 control-label">NIP</label>
+              <div class="col-sm-9">
                 <select name="id_pegawai" class="form-control select2" style="width: 100%;">
                   <option selected="selected"></option>
                   @foreach($getnip as $key)
@@ -59,8 +59,8 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label">Client</label>
-              <div class="col-sm-4">
+              <label class="col-sm-3 control-label">Client</label>
+              <div class="col-sm-9">
                 <select name="id_cabang_client" class="form-control select2" style="width: 100%;">
                   <option selected="selected"></option>
                   @foreach($getclient as $client)
@@ -76,8 +76,8 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label">Kelompok Jabatan</label>
-              <div class="col-sm-4">
+              <label class="col-sm-3 control-label">Kelompok Jabatan</label>
+              <div class="col-sm-9">
                 <select name="id_kelompok_jabatan" class="form-control select2" style="width: 100%;">
                   <option selected="selected"></option>
                   @foreach($get_kel_jabatan as $key)
@@ -87,8 +87,8 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label">Tanggal Masuk GMT</label>
-              <div class="col-sm-3">
+              <label class="col-sm-3 control-label">Tanggal Masuk GMT</label>
+              <div class="col-sm-9">
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
@@ -98,8 +98,8 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label">Tanggal Awal PKWT</label>
-              <div class="col-sm-3">
+              <label class="col-sm-3 control-label">Tanggal Awal PKWT</label>
+              <div class="col-sm-9">
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
@@ -109,8 +109,8 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label">Tanggal Akhir PKWT</label>
-              <div class="col-sm-3">
+              <label class="col-sm-3 control-label">Tanggal Akhir PKWT</label>
+              <div class="col-sm-9">
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
@@ -120,8 +120,8 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label">Tanggal Kerja Pada Client</label>
-              <div class="col-sm-3">
+              <label class="col-sm-3 control-label">Tanggal Kerja Pada Client</label>
+              <div class="col-sm-9">
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
@@ -131,8 +131,8 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label">Status Karyawan</label>
-              <div class="col-sm-3">
+              <label class="col-sm-3 control-label">Status Karyawan</label>
+              <div class="col-sm-9">
                 <select class="form-control" name="status_karyawan_pkwt">
                   <option>-- Pilih --</option>
                   <option value="1">Kontrak</option>
@@ -142,8 +142,8 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-sm-2 control-label">Status PKWT</label>
-              <div class="col-sm-3">
+              <label class="col-sm-3 control-label">Status PKWT</label>
+              <div class="col-sm-9">
                 <select class="form-control" name="status_pkwt">
                   {{-- <option>-- Pilih --</option> --}}
                   <option value="1">Aktif</option>
@@ -154,8 +154,8 @@
             </div>
           </div><!-- /.box-body -->
           <div class="box-footer">
-            <button type="reset" class="btn btn-default">Cancel</button>
-            <button type="submit" class="btn btn-info pull-right">Simpan</button>
+            <button type="reset" class="btn btn-danger">Cancel</button>
+            <button type="submit" class="btn btn-success pull-right">Simpan</button>
           </div><!-- /.box-footer -->
         </form>
       </div><!-- /.box -->
@@ -188,13 +188,22 @@
   <script type="text/javascript">
     $(function(){
       $("#tanggal_awal_pkwt").datepicker({
-        format: 'yyyy-mm-dd'
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+        todayHighlight: true,
+        daysOfWeekDisabled: [0,6]
       });
       $("#tanggal_akhir_pkwt").datepicker({
-        format: 'yyyy-mm-dd'
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+        todayHighlight: true,
+        daysOfWeekDisabled: [0,6]
       });
       $("#tanggal_masuk_gmt").datepicker({
-        format: 'yyyy-mm-dd'
+        autoclose: true,
+        format: 'yyyy-mm-dd',
+        todayHighlight: true,
+        daysOfWeekDisabled: [0,6]
       });
 
       $('#tanggal_awal_pkwt').change(function(){

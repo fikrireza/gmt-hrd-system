@@ -1,13 +1,13 @@
 @extends('layouts.master')
 
 @section('title')
-    <title>Kelola Komponen Gaji</title>
+    <title>Kelola Hari Libur</title>
 @stop
 
 @section('breadcrumb')
   <h1>
-    Komponen Gaji
-    <small>Kelola Komponen Gaji</small>
+    Hari Libur
+    <small>Kelola Hari Libur</small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -38,10 +38,10 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Hapus Komponen Gaji</h4>
+            <h4 class="modal-title">Hapus Hari Libur</h4>
           </div>
           <div class="modal-body">
-            <p>Apakah anda yakin untuk menghapus komponen gaji ini?</p>
+            <p>Apakah anda yakin untuk menghapus hari libur ini?</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
@@ -55,57 +55,46 @@
     <!-- Modal Update-->
     <div class="modal fade" id="myModalEdit" role="dialog">
     <div class="modal-dialog">
-      <form class="form-horizontal" action="{{route('komgaji.update')}}" method="post">
+      <form class="form-horizontal" action="{{route('hari.libur.update')}}" method="post">
         {{ csrf_field() }}
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Edit Komponen Gaji</h4>
+            <h4 class="modal-title">Edit Hari Libur</h4>
           </div>
           <div class="modal-body">
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Hari Libur</label>
+              <div class="col-sm-9">
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input class="form-control pull-right datepicker1" id="libur" type="text" name="libur" placeholder="Hari Libur">
+                </div>
+                </div>
+            </div>
             <div class="form-group ">
-              <label class="col-sm-3 control-label">Nama Kategori</label>
+              <label class="col-sm-3 control-label">Keterangan</label>
               <div class="col-sm-9">
               <input type="hidden" name="id" class="form-control" id="id">
-              <input type="text" name="nama_komponen" class="form-control" placeholder="Nama Kategori" id="nama_komponen">
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Tipe Komponen</label>
-              <div class="col-sm-9">
-              <select class="form-control" name="tipe_komponen" id="tipe_komponen">
-                <option value="-- Pilih --">-- Pilih --</option>
-                <option value="D" id="flag_penerimaan">Penerimaan</option>
-                <option value="P" id="flag_potongan">Potongan</option>
-              </select>
-              </div>
-            </div>
-             <div class="form-group ">
-              <label class="col-sm-3 control-label">Periode Perhitungan</label>
-              <div class="col-sm-9">
-              <select class="form-control" name="periode_perhitungan" id="periode_perhitungan">
-                <option>-- Pilih --</option>
-                <option value="Bulanan" id="flag_bulanan">Bulanan</option>
-                <option value="Harian" id="flag_harian">Harian</option>
-                <option value="Jam" id="flag_jam">Jam</option>
-                <option value="Shift" id="flag_shift">Shift</option>
-              </select>
+              <input type="text" name="keterangan" class="form-control" placeholder="Keterangan" id="keterangan">
               </div>
             </div>
             <div class="form-group ">
               <label class="col-sm-3 control-label">Status</label>
               <div class="col-sm-9">
-              <select class="form-control" name="flag_status" id="flag_status">
+              <select class="form-control" name="status" id="status">
                 <option>-- Pilih --</option>
-                <option value="0" id="flag_tetap">Tetap</option>
-                <option value="1" id="flag_variabel">Variabel</option>
+                <option value="0" id="flag_aktif">Aktif</option>
+                <option value="1" id="flag_non_aktif">Tidak Aktif</option>
               </select>
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="reset" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-success">Simpan Perubahan</a>
+            <button type="submit" class="btn btn-primary">Simpan Perubahan</a>
           </div>
         </div>
       </form>
@@ -131,52 +120,41 @@
       @endif
     </div>
     <div class="col-md-5">
+      <form class="form-horizontal" action="{{route('hari.libur.store')}}" method="post">
+          {{csrf_field()}}
       <!-- Horizontal Form -->
       <div class="box box-primary box-solid">
         <div class="box-header with-border">
-          <h3 class="box-title">Formulir Tambah Komponen Gaji</h3>
+          <h3 class="box-title">Formulir Tambah Hari Libur</h3>
         </div>
-        <form class="form-horizontal" action="{{route('komgaji.store')}}" method="post">
-          {{csrf_field()}}
         <div class="box-body">
             <div class="form-group">
-              <label class="col-sm-3 control-label">Nama Komponen</label>
+              <label class="col-sm-3 control-label">Hari Libur</label>
               <div class="col-sm-9">
-              <input type="text" name="nama_komponen" class="form-control" placeholder="Nama Komponen">
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Tipe Perhitungan</label>
-              <div class="col-sm-9">
-              <select class="form-control" name="tipe_komponen">
-                <option>-- Pilih --</option>
-                <option value="D">Penerimaan</option>
-                <option value="P">Potongan</option>
-              </select>
-              </div>
-            </div>
-            <div class="form-group ">
-              <label class="col-sm-3 control-label">Periode Perhitungan</label>
-              <div class="col-sm-9">
-              <select class="form-control" name="periode_perhitungan">
-                <option>-- Pilih --</option>
-                <option value="Bulanan">Bulanan</option>
-                <option value="Harian">Harian</option>
-                <option value="Jam">Jam</option>
-                <option value="Shift">Shift</option>
-              </select>
-              </div>
-            </div>
-            <div class="form-group ">
-              <label class="col-sm-3 control-label">Tipe Komponen</label>
-                <div class="col-md-9 ">
-                  <select class="form-control" name="tipe_komponen_gaji">
-                    <option>-- Pilih --</option>
-                    <option value="0">Tetap</option>
-                    <option value="1">Variable</option>
-                  </select>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input class="form-control pull-right datepicker1" type="text" name="libur" placeholder="Hari Libur">
                 </div>
+                </div>
+            </div>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Keterangan</label>
+              <div class="col-sm-9">
+              <input type="text" name="keterangan" class="form-control" placeholder="Keterangan">
               </div>
+            </div>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Status</label>
+              <div class="col-sm-9">
+              <select class="form-control" name="status">
+                <option>-- Pilih --</option>
+                <option value="0">Aktif</option>
+                <option value="1">Tidak Aktif</option>
+              </select>
+              </div>
+            </div>
         </div>
           <div class="box-footer">
             <button type="submit" class="btn btn-success pull-right btn-sm">Simpan</button>
@@ -189,7 +167,7 @@
     <div class="col-md-7">
       <div class="box box-primary box-solid">
         <div class="box-header">
-          <h3 class="box-title">Seluruh Komponen Gaji</h3>
+          <h3 class="box-title">Seluruh Hari Libur</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
           <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -199,45 +177,37 @@
                   <thead>
                     <tr role="row">
                       <th>No</th>
-                      <th>Nama</th>
-                      <th>Tipe</th>
-                      <th>Periode</th>
+                      <th>Hari Libur</th>
+                      <th>Keterangan</th>
                       <th>Status</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @if (count($getkomponen)!=0)
+                    @if (count($getharilibur)!=0)
                       @php
                         $pageget;
-                        if($getkomponen->currentPage()==1)
+                        if($getharilibur->currentPage()==1)
                           $pageget = 1;
                         else
-                          $pageget = (($getkomponen->currentPage() - 1) * $getkomponen->perPage())+1;
+                          $pageget = (($getharilibur->currentPage() - 1) * $getharilibur->perPage())+1;
                       @endphp
-                      @foreach ($getkomponen as $key)
+                      @foreach ($getharilibur as $key)
                         <tr>
                           <td>
                             {{$pageget}}
                           </td>
                           <td>
-                            {{$key->nama_komponen}}
+                            {{ \Carbon\Carbon::parse($key->libur)->format('d-M-y')}}
                           </td>
                           <td>
-                            @if ($key->tipe_komponen=="D")
-                              <span class="badge bg-green">Penerimaan</span>
-                            @elseif ($key->tipe_komponen=="P")
-                              <span class="badge bg-red">Potongan</span>
-                            @endif
+                           {{$key->keterangan}}
                           </td>
                           <td>
-                            {{$key->periode_perhitungan}}
-                          </td>
-                          <td>
-                            @if ($key->tipe_komponen_gaji==0)
-                              <span class="badge bg-purple">Tetap</span>
-                            @else
-                              <span class="badge bg-navy">Variable</span>
+                            @if ($key->status=="0")
+                              <span class="badge bg-green">Aktif</span>
+                            @elseif ($key->status=="1")
+                              <span class="badge bg-red">Tidak Aktif</span>
                             @endif
                           </td>
                           <td>
@@ -260,11 +230,11 @@
             </div>
             <div class="row">
               <div class="col-sm-5">
-                {{-- <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $getkomponen->count() !!}  dari {!! count($getkomponen) !!} Data</div> --}}
+                {{-- <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $getharilibur->count() !!}  dari {!! count($getharilibur) !!} Data</div> --}}
               </div>
               <div class="col-sm-7">
                 <div class="pull-right">
-                  {{ $getkomponen->links() }}
+                  {{ $getharilibur->links() }}
                 </div>
               </div>
             </div>
@@ -272,7 +242,6 @@
           </div><!-- /.box-body -->
         </div>
       </div><!--/.col -->
-      </div>   <!-- /.row -->
 
 
   <!-- jQuery 2.1.4 -->
@@ -285,58 +254,46 @@
   <script src="{{asset('dist/js/app.min.js')}}"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="{{asset('dist/js/demo.js')}}"></script>
+  {{-- datepicker --}}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
+  <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
+
 
   <script type="text/javascript">
-    $(function(){
-      // $('a.hapus').click(function(){
-      //   var a = $(this).data('value');
-      //   $('#set').attr('href', "{{ url('/') }}/masterjabatan/hapusjabatan/"+a);
-      // });
-    });
+  $('.datepicker1').datepicker({
+    autoclose: true,
+    format: 'yyyy-mm-dd',
+    todayHighlight: true,
+    daysOfWeekDisabled: [0,6]
+  });
   </script>
 
   <script type="text/javascript">
     $(function(){
        $('a.hapus').click(function(){
         var a = $(this).data('value');
-          $('#sethapus').attr('href', "{{ url('/') }}/komponen-gaji/delete/"+a);
+          $('#sethapus').attr('href', "{{ url('/') }}/hari-libur/delete/"+a);
       });
 
       $('a.edit').click(function(){
         var a = $(this).data('value');
         $.ajax({
-          url: "{{url('/')}}/komponen-gaji/bind-gaji/"+a,
+          url: "{{url('/')}}/hari-libur/bind-hari-libur/"+a,
           success: function(data){
             //get
             var id = data.id;
-            var nama_komponen = data.nama_komponen;
-            var tipe_komponen = data.tipe_komponen;
-            var periode_perhitungan = data.periode_perhitungan;
-            var flag_status = data.flag_status;
+            var libur = data.libur;
+            var keterangan = data.keterangan;
+            var status = data.status;
             //set
             $('#id').attr('value', id);
-            $('#nama_komponen').attr('value', nama_komponen);
-
-            if (tipe_komponen=="D") {
-              $('#flag_penerimaan').attr('selected', true);
+            $('#libur').attr('value', libur);
+            $('#keterangan').attr('value', keterangan);
+            
+            if (status=="0") {
+              $('#flag_aktif').attr('selected', true);
             } else {
-              $('#flag_potongan').attr('selected', true);
-            }
-
-            if (periode_perhitungan=="Bulanan") {
-              $('#flag_bulanan').attr('selected', true);
-            } else if (periode_perhitungan=="Harian") {
-              $('#flag_harian').attr('selected', true);
-            } else if (periode_perhitungan=="Jam") {
-              $('#flag_jam').attr('selected', true);
-            } else if (periode_perhitungan=="Shift") {
-              $('#flag_shift').attr('selected', true);
-            }
-
-            if (flag_status=="0") {
-              $('#flag_tetap').attr('selected', true);
-            } else {
-              $('#flag_variabel').attr('selected', true);
+              $('#flag_non_aktif').attr('selected', true);
             }
           }
         });
@@ -344,3 +301,4 @@
     });
   </script>
 @stop
+
