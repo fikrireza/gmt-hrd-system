@@ -72,7 +72,7 @@
               <input type="text" name="nama_komponen" class="form-control" placeholder="Nama Komponen">
             </div>
             <div class="col-md-14 ">
-              <label class="control-label">Tipe Komponen</label>
+              <label class="control-label">Tipe Perhitungan</label>
               <select class="form-control" name="tipe_komponen">
                 <option>-- Pilih --</option>
                 <option value="D">Penerimaan</option>
@@ -87,6 +87,14 @@
                 <option value="Harian">Harian</option>
                 <option value="Jam">Jam</option>
                 <option value="Shift">Shift</option>
+              </select>
+            </div>
+            <div class="col-md-14 ">
+              <label class="control-label">Tipe Komponen</label>
+              <select class="form-control" name="tipe_komponen_gaji">
+                <option>-- Pilih --</option>
+                <option value="0">Tetap</option>
+                <option value="1">Variable</option>
               </select>
             </div>
         </div>
@@ -114,6 +122,7 @@
                       <th>Nama</th>
                       <th>Tipe</th>
                       <th>Periode</th>
+                      <th>Status</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -143,6 +152,13 @@
                           </td>
                           <td>
                             {{$key->periode_perhitungan}}
+                          </td>
+                          <td>
+                            @if ($key->tipe_komponen_gaji==0)
+                              <span class="badge bg-purple">Tetap</span>
+                            @else
+                              <span class="badge bg-navy">Variable</span>
+                            @endif
                           </td>
                           <td>
                             <span data-toggle="tooltip" title="Edit Data">

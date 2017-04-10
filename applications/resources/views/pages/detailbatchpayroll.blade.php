@@ -192,8 +192,9 @@
                       "<td>"+no+"</td>"+
                       "<td>"+data[index].nama_komponen+"</td>"+
                       "<td><span class='label bg-green'>Penerimaan</span></td>"+
-                      "<td>"+data[index].nilai+"</td>"+
-                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
+                      "<td id='nilai-for-id-"+data[index].id+"'>"+data[index].nilai+"</td>"+
+                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span>"+
+                      "<span data-toggle='tooltip' title='Edit Nilai'> <a class='btn btn-xs btn-warning editkomponen' data-value="+data[index].id+" data-nilai="+data[index].nilai+"><i class='fa fa-edit'></i></a></span></td>"+
                       "</tr>"
                     );
                   } else {
@@ -202,8 +203,9 @@
                       "<td>"+no+"</td>"+
                       "<td>"+data[index].nama_komponen+"</td>"+
                       "<td><span class='label bg-red'>Potongan</span></td>"+
-                      "<td>"+data[index].nilai+"</td>"+
-                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
+                      "<td id='nilai-for-id-"+data[index].id+"'>"+data[index].nilai+"</td>"+
+                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span>"+
+                      "<span data-toggle='tooltip' title='Edit Nilai'> <a class='btn btn-xs btn-warning editkomponen' data-value="+data[index].id+" data-nilai="+data[index].nilai+"><i class='fa fa-edit'></i></a></span></td>"+
                       "</tr>"
                     );
                   }
@@ -213,6 +215,30 @@
             }
           });
         });
+
+        $('body').on('click', 'a.editkomponen[data-value]', function (){
+          var id = $(this).data('value');
+          var nilai = $(this).data('nilai');
+          $('#nilai-for-id-'+id).html("<div class='input-group input-group-sm'>"+
+                                      "<input type='text' class='form-control' value='"+nilai+"' id='inputnilai"+id+"'>"+
+                                      "<span class='input-group-btn'>"+
+                                      "<a class='btn btn-xs btn-info btn-flat editnilai"+id+"' href='#' data-value='"+id+"'><i class='fa fa-check'></i></a>"+
+                                      "</span>"+
+                                      "</div>");
+
+          $('a.editnilai'+id).click(function(){
+            var _id = $(this).data('value');
+            var _inputnilai = $('#inputnilai'+id).val();
+            $.ajax({
+              url: "{{url('/')}}/komponen-gaji/update-nilai/"+_id+"/"+_inputnilai,
+              success: function(data){
+                $('#nilai-for-id-'+id).html(_inputnilai);
+              }
+            })
+          });
+        });
+
+
 
         // save to database
         $('#addkomponentopegawai').click(function(){
@@ -333,8 +359,9 @@
                             "<td>"+no+"</td>"+
                             "<td>"+data[index].nama_komponen+"</td>"+
                             "<td><span class='label bg-green'>Penerimaan</span></td>"+
-                            "<td>"+data[index].nilai+"</td>"+
-                            "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
+                            "<td id='nilai-for-id-"+data[index].id+"'>"+data[index].nilai+"</td>"+
+                            "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span>"+
+                            "<span data-toggle='tooltip' title='Edit Nilai'> <a class='btn btn-xs btn-warning editkomponen' data-value="+data[index].id+" data-nilai="+data[index].nilai+"><i class='fa fa-edit'></i></a></span></td>"+
                             "</tr>"
                           );
                         } else {
@@ -343,8 +370,9 @@
                             "<td>"+no+"</td>"+
                             "<td>"+data[index].nama_komponen+"</td>"+
                             "<td><span class='label bg-red'>Potongan</span></td>"+
-                            "<td>"+data[index].nilai+"</td>"+
-                            "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
+                            "<td id='nilai-for-id-"+data[index].id+"'>"+data[index].nilai+"</td>"+
+                            "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span>"+
+                            "<span data-toggle='tooltip' title='Edit Nilai'> <a class='btn btn-xs btn-warning editkomponen' data-value="+data[index].id+" data-nilai="+data[index].nilai+"><i class='fa fa-edit'></i></a></span></td>"+
                             "</tr>"
                           );
                         }

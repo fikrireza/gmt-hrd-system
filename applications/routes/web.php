@@ -126,8 +126,9 @@ Route::get('import-template/{type}', 'ImportDataController@downloadExcel');
 ///// KOMPONEN GAJI //////
 Route::get('komponen-gaji', 'KomponenGajiController@index')->name('komgaji.index');
 Route::post('komponen-gaji', 'KomponenGajiController@store')->name('komgaji.store');
-Route::post('komponen-gaji/update/{$id}', 'KomponenGajiController@update')->name('komgaji.update');
-Route::get('komponen-gaji/delete/{$id}', 'KomponenGajiController@delete')->name('komgaji.delete');
+Route::post('komponen-gaji/update/{id}', 'KomponenGajiController@update')->name('komgaji.update');
+Route::get('komponen-gaji/delete/{id}', 'KomponenGajiController@delete')->name('komgaji.delete');
+Route::get('komponen-gaji/update-nilai/{id}/{nilai}', 'KomponenGajiController@update_nilai')->name('komgaji.updatenilai');
 
 ///// PERIODE GAJI ///////
 Route::get('periode-gaji', 'PeriodeGajiController@index')->name('periodegaji.index');

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\KomponenGaji;
+use App\Models\DetailKomponenGaji;
 
 class KomponenGajiController extends Controller
 {
@@ -18,7 +19,7 @@ class KomponenGajiController extends Controller
     {
         $this->middleware('isAdmin');
     }
-    
+
     public function index()
     {
       $getkomponen = KomponenGaji::paginate(10);
@@ -31,8 +32,15 @@ class KomponenGajiController extends Controller
       $set->nama_komponen = $request->nama_komponen;
       $set->tipe_komponen = $request->tipe_komponen;
       $set->periode_perhitungan = $request->periode_perhitungan;
+      $set->tipe_komponen_gaji = $request->tipe_komponen_gaji;
       $set->save();
 
       return redirect()->route('komgaji.index')->with('message', 'Berhasil memasukkan komponen gaji.');
+    }
+
+    public function update_nilai($id, $nilai) {
+      $set = DetailKomponenGaji::find($id);
+      $set->nilai = $nilai;
+      $set->save();
     }
 }

@@ -10,7 +10,9 @@ use App\Http\Requests;
 use App\Models\PeriodeGaji;
 use App\Models\BatchPayroll;
 use App\Models\KomponenGaji;
+use App\Models\MasterPegawai;
 use App\Models\DetailPeriodeGaji;
+use App\Models\DetailKomponenGaji;
 use App\Models\DetailBatchPayroll;
 
 class BatchPayrollController extends Controller
@@ -41,12 +43,30 @@ class BatchPayrollController extends Controller
 
       $getlatestid = BatchPayroll::select('id')->orderby('id', 'desc')->first();
       $getidpegawai = DetailPeriodeGaji::select('id_pegawai')->where('id_periode_gaji', $request->periode)->get();
+      $getkomponentetap = KomponenGaji::where('tipe_komponen_gaji', 0)->get();
 
       foreach ($getidpegawai as $key) {
         $set = new DetailBatchPayroll;
         $set->id_batch_payroll = $getlatestid->id;
         $set->id_pegawai = $key->id_pegawai;
         $set->save();
+
+        // ---- LOGIC SEMENTARA (ganti logicnya setelah datanya banyak, soalnya lemot..)
+        $getlatestdetailbatchid = DetailBatchPayroll::select('id')->orderby('id', 'desc')->first();
+        $getgajipegawai = MasterPegawai::select('gaji_pokok')->where('id', $key->id_pegawai)->first();
+        // ---- END OF LOGIC SEMENTARA (ganti logicnya setelah datanya banyak, soalnya lemot..)
+
+        foreach ($getkomponentetap as $tetap) {
+          $set = new DetailKomponenGaji;
+          $set->id_detail_batch_payroll = $getlatestdetailbatchid->id;
+          $set->id_komponen_gaji = $tetap->id;
+          if ($tetap->id==1) {
+            $set->nilai = $getgajipegawai->gaji_pokok;
+          } else {
+            $set->nilai = 0;
+          }
+          $set->save();
+        }
       }
     } else {
       return redirect()->route('batchpayroll.index')->with('messagefail', 'Data Batch Payroll bulan ini telah di generate.');
