@@ -125,6 +125,21 @@
         </div>
       </div>
     </div>
+
+    <div class="col-md-4">
+      <div class="box box-primary box-solid">
+        <div class="box-header">
+          <h3 class="box-title"><strong>Summary</strong></h3>
+          <hr style="margin-top:5px;margin-bottom:8px;">
+          <ul>
+            <li>Total Pegawai : 1200</li>
+            <li>Total Penerimaan : Rp 2.333.489.894,00</li>
+            <li>Total Potongan : Rp 2.489.894,00</li>
+          </ul>
+          <button type="button" name="button" class="btn btn-warning">Proses Payroll</button>
+        </div>
+      </div>
+    </div>
   </div>   <!-- /.row -->
 
 
