@@ -59,8 +59,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Tidak</button>
-            <a href="#" class="btn btn-success" id="set">Simpan Perubahan</a>
-            {{-- <button type="button" class="btn btn btn-outline" data-dismiss="modal">Ya, saya yakin.</button> --}}
+            <button type="submit" class="btn btn-success">Simpan Perubahan</a>
           </div>
         </div>
       </div>

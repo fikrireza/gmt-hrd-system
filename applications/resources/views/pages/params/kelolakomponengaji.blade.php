@@ -294,6 +294,15 @@
       // });
     });
   </script>
+  <script type="text/javascript">
+    $('#myModalEdit').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+
+    $('#myModal').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+  </script>
 
   <script type="text/javascript">
     $(function(){
