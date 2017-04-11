@@ -2693,8 +2693,84 @@
   <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
 
   <script type="text/javascript">
+    $('#editkeluarga').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+    $('#hapuskeluarga').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+
+    $('#editpendidikan').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+    $('#hapuspendidikan').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+
+    $('#editdarurat').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+
+    $('#editpengalaman').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+    $('#hapuspengalaman').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+
+    $('#editkomputer').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+    $('#hapuskomputer').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+
+    $('#editbahasa').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+    $('#hapusbahasa').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+
+    $('#modalkesehatan').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+
+    $('#editpenyakit').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+    $('#hapuspenyakit').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+
+    $('#editdokumen').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+    $('#hapusdokumen').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+
+
+    $('#editperingatan').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+    $('#hapusperingatan').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+
+    $('#edithistoripegawai').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+    $('#deleteriwayat').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+
+  </script>
+
+  <script type="text/javascript">
     $(function(){
       $("#tanggal_peringatan").datepicker({
+        autoclose: true,
         format: 'yyyy-mm-dd'
       });
 
@@ -2704,36 +2780,43 @@
       });
 
       $('#tanggal_lahir').datepicker({
+        autoclose: true,
         format: 'yyyy-mm-dd'
       });
 
       $('#edit_tanggal_peringatan').datepicker({
+        autoclose: true,
         format: 'yyyy-mm-dd'
       });
 
       $('.tanggal_lahir_keluarga').datepicker({
+        autoclose: true,
         format: 'yyyy-mm-dd'
       });
 
       $('.tahun_awal_kerja').datepicker({
+        autoclose: true,
         format: 'yyyy',
         startView: "years",
         minViewMode: "years"
       });
 
       $('.tahun_akhir_kerja').datepicker({
+        autoclose: true,
         format: 'yyyy',
         startView: "years",
         minViewMode: "years"
       });
 
       $('.tahun_masuk_pendidikan').datepicker({
+        autoclose: true,
         format: 'yyyy',
         startView: "years",
         minViewMode: "years"
       });
 
       $('.tahun_lulus_pendidikan').datepicker({
+        autoclose: true,
         format: 'yyyy',
         startView: "years",
         minViewMode: "years"

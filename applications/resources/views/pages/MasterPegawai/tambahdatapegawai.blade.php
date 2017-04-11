@@ -822,7 +822,9 @@
       $('#tanggal_lahir').datepicker({
         autoclose: true
       });
-      $('.tanggal_lahir_keluarga').datepicker();
+      $('.tanggal_lahir_keluarga').datepicker({
+        autoclose: true
+      });
       $('.tahun_awal_kerja').datepicker({
         format: 'yyyy',
         startView: "years",
