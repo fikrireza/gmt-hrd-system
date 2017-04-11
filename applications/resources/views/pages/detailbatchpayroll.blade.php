@@ -126,7 +126,7 @@
       </div>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-12">
       <div class="box box-primary box-solid">
         <div class="box-header">
           <h3 class="box-title"><strong>Summary</strong></h3>
