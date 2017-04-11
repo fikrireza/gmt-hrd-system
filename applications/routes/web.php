@@ -160,7 +160,7 @@ Route::get('batch-payroll/bind-batch-payroll/{id}', 'BatchPayrollController@bind
 Route::get('batch-payroll/delete/{id}', 'BatchPayrollController@delete')->name('batchpayroll.delete');
 Route::get('batch-payroll/detail/{id}', 'BatchPayrollController@detail')->name('batchpayroll.detail');
 Route::get('batch-payroll/getdata/{id}', 'BatchPayrollController@getdatafordatatable')->name('batchpayroll.getdata');
-Route::get('batch-payroll/refreshrowdatatables', 'BatchPayrollController@refreshrowdatatables')->name('batchpayroll.refreshrow');
+Route::get('batch-payroll/refreshrowdatatables/{id}', 'BatchPayrollController@refreshrowdatatables')->name('batchpayroll.refreshrow');
 
 ///// DETAIL BATCH PAYROLL //////
 Route::get('detail-batch-payroll/bind-to-table/{idbatch}/{idpegawai}', 'DetailBatchPayrollController@getdatakomponen')->name('detailbatchpayroll.bindtotable');
@@ -168,6 +168,8 @@ Route::get('detail-batch-payroll/add-to-komponen/{idbatch}/{idpegawai}/{idkompon
 Route::get('detail-batch-payroll/cek-komponen-gaji/{idbatch}/{idpegawai}', 'DetailBatchPayrollController@cekkomponen')->name('detailbatchpayroll.cekkomponen');
 Route::get('detail-batch-payroll/get-gapok/{idpegawai}', 'DetailBatchPayrollController@getgajipokok')->name('detailbatchpayroll.getgapok');
 Route::get('detail-batch-payroll/delete-komponen-gaji/{id}', 'DetailBatchPayrollController@deletekomponengaji')->name('detailbatchpayroll.deletekomponen');
+Route::get('detail-batch-payroll/bind-for-absen/{id}', 'DetailBatchPayrollController@bindforabsen')->name('detailbatchpayroll.bindforabsen');
+Route::post('detail-batch-payroll/update-for-absen', 'DetailBatchPayrollController@updateforabsen')->name('detailbatchpayroll.updateforabsen');
 
 ///// HARI LIBUR //////
 Route::get('hari-libur', 'HariLiburController@index')->name('hari.libur.index');

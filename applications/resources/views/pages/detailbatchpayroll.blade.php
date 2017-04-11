@@ -12,6 +12,7 @@
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{route('batchpayroll.index')}}"> Kelola Batch Payroll</a></li>
     <li class="active">Detail Batch Payroll</li>
   </ol>
 @stop
@@ -72,6 +73,7 @@
                   <th style="width: 10px">#</th>
                   <th>Komponen Gaji</th>
                   <th>Tipe</th>
+                  <th>Perhitungan</th>
                   <th>Nilai</th>
                   <th>Aksi</th>
                 </tr>
@@ -85,7 +87,7 @@
 
   <div class="modal modal-default fade" id="myModalSetAbsen" role="dialog">
     <div class="modal-dialog">
-      <form class="form-horizontal" action="index.html" method="post">
+      <form class="form-horizontal" action="{{route('detailbatchpayroll.updateforabsen')}}" method="post">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -96,25 +98,36 @@
               <label class="col-sm-3 control-label">NIP Pegawai</label>
               <div class="col-sm-8">
                 {!! csrf_field() !!}
-                <input type="hidden" class="form-control" id="idgapok" name="id">
-                {{-- <input type="hidden" class="form-control" name="idperiode" value="{{$idperiode}}"> --}}
-                <input type="text" class="form-control" id="nippegawaigapok" name="nip" readonly="">
+                <input type="hidden" class="form-control" id="idforabsen" name="id">
+                <input type="hidden" class="form-control" name="idperiode" value="{{$idbatch}}">
+                <input type="text" class="form-control" id="nipforabsen" name="nip" readonly="">
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Nama Pegawai</label>
               <div class="col-sm-8">
-                <input type="text" class="form-control" id="namapegawaigapok" name="nama" readonly="">
+                <input type="text" class="form-control" id="namaforabsen" name="nama" readonly="">
               </div>
             </div>
             <div class="form-group">
-               <label class="col-sm-3 control-label">Gaji Pokok</label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" name="gaji_pokok" id="nilaigapok">
+               <label class="col-sm-3 control-label">Absensi</label>
+                <div class="col-sm-2">
+                  <input type="text" class="form-control" name="abstain" id="abstainforabsen" placeholder="Alpa">
+                  <span class="pull-right" style="font-size:12px;">Alpa</span>
+                </div>
+                <div class="col-sm-2">
+                  <input type="text" class="form-control" name="sick_leave" id="sickforabsen" placeholder="Sakit">
+                  <span class="pull-right" style="font-size:12px;">Sakit</span>
+                </div>
+                <div class="col-sm-2">
+                  <input type="text" class="form-control" name="permissed_leave" id="permissedforabsen" placeholder="Izin">
+                  <span class="pull-right" style="font-size:12px;">Izin</span>
                 </div>
             </div>
           </div>
-          <div class="modal-footer"></div>
+          <div class="modal-footer">
+            <input type="submit" value="Simpan Perubahan" class="btn btn-success">
+          </div>
         </div>
       </form>
     </div>
@@ -184,7 +197,7 @@
                     <span class="badge bg-blue">Izin: {{$key['permissed_leave']}}</span>
                   </td>
                   <td>
-                    <span class="badge bg-purple">{{$key['totalabsen']}}</span>
+                    <span class="badge bg-purple">{{$key['totalkerja']}}</span>
                   </td>
                   <td>{{$key['gajitetap']}}</td>
                   <td>{{$key['gajivariable']}}</td>
@@ -198,8 +211,8 @@
                       </a>
                     </span>
                     <span data-toggle="tooltip" title="Set Absensi">
-                      <a href="#" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#myModalSetAbsen" data-value="{{$key['id']}}">
-                        <i class="fa fa-list-ul"></i>
+                      <a href="#" class="btn btn-xs btn-success editabsen" data-toggle="modal" data-target="#myModalSetAbsen" data-value="{{$key['iddetailbatch']}}">
+                        <i class="fa fa-check"></i>
                       </a>
                     </span>
                   </td>
@@ -217,9 +230,10 @@
           <h3 class="box-title"><strong>Summary</strong></h3>
           <hr style="margin-top:5px;margin-bottom:8px;">
           <ul>
-            <li>Total Pegawai : 1200</li>
-            <li>Total Penerimaan : Rp 2.333.489.894,00</li>
-            <li>Total Potongan : Rp 2.489.894,00</li>
+            <li>Total Pegawai : {{$summary['totalpegawai']}}</li>
+            <li>Total Penerimaan : Rp {{$summary['totalpenerimaan']}}</li>
+            <li>Total Potongan : Rp {{$summary['totalpotongan']}}</li>
+            <li>Total Pengeluaran : Rp {{$summary['totalpengeluaran']}}</li>
           </ul>
           <button type="button" name="button" class="btn btn-warning">Proses Payroll</button>
         </div>
@@ -294,6 +308,7 @@
                       "<td>"+no+"</td>"+
                       "<td>"+data[index].nama_komponen+"</td>"+
                       "<td><span class='label bg-green'>Penerimaan</span></td>"+
+                      "<td>"+data[index].periode_perhitungan+"</td>"+
                       "<td id='nilai-for-id-"+data[index].id+"'>"+data[index].nilai+"</td>"+
                       "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span>"+
                       "<span data-toggle='tooltip' title='Edit Nilai'> <a class='btn btn-xs btn-warning editkomponen' data-value="+data[index].id+" data-nilai="+data[index].nilai+"><i class='fa fa-edit'></i></a></span></td>"+
@@ -305,6 +320,7 @@
                       "<td>"+no+"</td>"+
                       "<td>"+data[index].nama_komponen+"</td>"+
                       "<td><span class='label bg-red'>Potongan</span></td>"+
+                      "<td>"+data[index].periode_perhitungan+"</td>"+
                       "<td id='nilai-for-id-"+data[index].id+"'>"+data[index].nilai+"</td>"+
                       "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span>"+
                       "<span data-toggle='tooltip' title='Edit Nilai'> <a class='btn btn-xs btn-warning editkomponen' data-value="+data[index].id+" data-nilai="+data[index].nilai+"><i class='fa fa-edit'></i></a></span></td>"+
@@ -320,6 +336,7 @@
 
         $('body').on('click', 'a.editkomponen[data-value]', function (){
           var id = $(this).data('value');
+          alert(id);
           var nilai = $(this).data('nilai');
           $('#nilai-for-id-'+id).html("<div class='input-group input-group-sm'>"+
                                       "<input type='text' class='form-control' value='"+nilai+"' id='inputnilai"+id+"'>"+
@@ -337,7 +354,7 @@
 
                 // load data for data tables;
                 $.ajax({
-                  url: "{{url('/')}}/batch-payroll/refreshrowdatatables",
+                  url: "{{url('/')}}/batch-payroll/refreshrowdatatables/"+{{$idbatch}},
                   dataType: 'json',
                   success: function(data){
                     $('#bodydata').html("");
@@ -356,7 +373,7 @@
                             "<span class='badge bg-blue'>Izin: "+data[index].permissed_leave+"</span>"+
                           "</td>"+
                           "<td>"+
-                            "<span class='badge bg-purple'>"+data[index].totalabsen+"</span>"+
+                            "<span class='badge bg-purple'>"+data[index].totalkerja+"</span>"+
                           "</td>"+
                           "<td>"+data[index].gajitetap+"</td>"+
                           "<td>"+data[index].gajivariable+"</td>"+
@@ -367,6 +384,11 @@
                             "<span data-toggle='tooltip' title='Set Komponen Gaji'>"+
                               "<a href='#' class='btn btn-xs btn-warning addkomponen' data-toggle='modal' data-target='#myModal' data-value='"+data[index].id+"'>"+
                                 "<i class='fa fa-list-ul'></i>"+
+                              "</a>"+
+                            "</span>"+
+                            "<span data-toggle='tooltip' title='Set Absensi'>"+
+                              "<a href='#' class='btn btn-xs btn-success editabsen' data-toggle='modal' data-target='#myModalSetAbsen' data-value='"+data[index].iddetailbatch+"'>"+
+                                "<i class='fa fa-check'></i>"+
                               "</a>"+
                             "</span>"+
                           "</td>"+
@@ -411,8 +433,10 @@
                       "<td>"+no+"</td>"+
                       "<td>"+data[index].nama_komponen+"</td>"+
                       "<td><span class='label bg-green'>Penerimaan</span></td>"+
+                      "<td>"+data[index].periode_perhitungan+"</td>"+
                       "<td>"+data[index].nilai+"</td>"+
-                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
+                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span>"+
+                      "<span data-toggle='tooltip' title='Edit Nilai'> <a class='btn btn-xs btn-warning editkomponen' data-value="+data[index].id+" data-nilai="+data[index].nilai+"><i class='fa fa-edit'></i></a></span></td>"+
                       "</tr>"
                     );
                   } else {
@@ -421,8 +445,10 @@
                       "<td>"+no+"</td>"+
                       "<td>"+data[index].nama_komponen+"</td>"+
                       "<td><span class='label bg-red'>Potongan</span></td>"+
+                      "<td>"+data[index].periode_perhitungan+"</td>"+
                       "<td>"+data[index].nilai+"</td>"+
-                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
+                      "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span>"+
+                      "<span data-toggle='tooltip' title='Edit Nilai'> <a class='btn btn-xs btn-warning editkomponen' data-value="+data[index].id+" data-nilai="+data[index].nilai+"><i class='fa fa-edit'></i></a></span></td>"+
                       "</tr>"
                     );
                   }
@@ -432,7 +458,7 @@
 
               // load data for data tables;
               $.ajax({
-                url: "{{url('/')}}/batch-payroll/refreshrowdatatables",
+                url: "{{url('/')}}/batch-payroll/refreshrowdatatables/"+{{$idbatch}},
                 dataType: 'json',
                 success: function(data){
                   $('#bodydata').html("");
@@ -451,7 +477,7 @@
                           "<span class='badge bg-blue'>Izin: "+data[index].permissed_leave+"</span>"+
                         "</td>"+
                         "<td>"+
-                          "<span class='badge bg-purple'>"+data[index].totalabsen+"</span>"+
+                          "<span class='badge bg-purple'>"+data[index].totalkerja+"</span>"+
                         "</td>"+
                         "<td>"+data[index].gajitetap+"</td>"+
                         "<td>"+data[index].gajivariable+"</td>"+
@@ -462,6 +488,11 @@
                           "<span data-toggle='tooltip' title='Set Komponen Gaji'>"+
                             "<a href='#' class='btn btn-xs btn-warning addkomponen' data-toggle='modal' data-target='#myModal' data-value='"+data[index].id+"'>"+
                               "<i class='fa fa-list-ul'></i>"+
+                            "</a>"+
+                          "</span>"+
+                          "<span data-toggle='tooltip' title='Set Absensi'>"+
+                            "<a href='#' class='btn btn-xs btn-success editabsen' data-toggle='modal' data-target='#myModalSetAbsen' data-value='"+data[index].iddetailbatch+"'>"+
+                              "<i class='fa fa-check'></i>"+
                             "</a>"+
                           "</span>"+
                         "</td>"+
@@ -502,6 +533,7 @@
                             "<td>"+no+"</td>"+
                             "<td>"+data[index].nama_komponen+"</td>"+
                             "<td><span class='label bg-green'>Penerimaan</span></td>"+
+                            "<td>"+data[index].periode_perhitungan+"</td>"+
                             "<td id='nilai-for-id-"+data[index].id+"'>"+data[index].nilai+"</td>"+
                             "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span>"+
                             "<span data-toggle='tooltip' title='Edit Nilai'> <a class='btn btn-xs btn-warning editkomponen' data-value="+data[index].id+" data-nilai="+data[index].nilai+"><i class='fa fa-edit'></i></a></span></td>"+
@@ -513,6 +545,7 @@
                             "<td>"+no+"</td>"+
                             "<td>"+data[index].nama_komponen+"</td>"+
                             "<td><span class='label bg-red'>Potongan</span></td>"+
+                            "<td>"+data[index].periode_perhitungan+"</td>"+
                             "<td id='nilai-for-id-"+data[index].id+"'>"+data[index].nilai+"</td>"+
                             "<td><span data-toggle='tooltip' title='Hapus Komponen'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span>"+
                             "<span data-toggle='tooltip' title='Edit Nilai'> <a class='btn btn-xs btn-warning editkomponen' data-value="+data[index].id+" data-nilai="+data[index].nilai+"><i class='fa fa-edit'></i></a></span></td>"+
@@ -524,9 +557,105 @@
                     }
                   }
                 });
+
+                // load data for data tables;
+                $.ajax({
+                  url: "{{url('/')}}/batch-payroll/refreshrowdatatables/"+{{$idbatch}},
+                  dataType: 'json',
+                  success: function(data){
+                    $('#bodydata').html("");
+                    $.each(data, function(index, value){
+                      $('#bodydata').append(
+                        "<tr>"+
+                          "<td>"+data[index].nip+"</td>"+
+                          "<td>"+data[index].nama+"</td>"+
+                          "<td>"+data[index].jabatan+"</td>"+
+                          "<td>"+
+                            "<span class='badge bg-navy'>"+data[index].harinormal+"</span>"+
+                          "</td>"+
+                          "<td>"+
+                            "<span class='badge bg-red'>Alpa: "+data[index].abstain+"</span>"+
+                            "<span class='badge bg-green'>Sakit: "+data[index].sick_leave+"</span>"+
+                            "<span class='badge bg-blue'>Izin: "+data[index].permissed_leave+"</span>"+
+                          "</td>"+
+                          "<td>"+
+                            "<span class='badge bg-purple'>"+data[index].totalkerja+"</span>"+
+                          "</td>"+
+                          "<td>"+data[index].gajitetap+"</td>"+
+                          "<td>"+data[index].gajivariable+"</td>"+
+                          "<td>"+data[index].potongantetap+"</td>"+
+                          "<td>"+data[index].potonganvariable+"</td>"+
+                          "<td>"+data[index].total+"</td>"+
+                          "<td>"+
+                            "<span data-toggle='tooltip' title='Set Komponen Gaji'>"+
+                              "<a href='#' class='btn btn-xs btn-warning addkomponen' data-toggle='modal' data-target='#myModal' data-value='"+data[index].id+"'>"+
+                                "<i class='fa fa-list-ul'></i>"+
+                              "</a>"+
+                            "</span>"+
+                            "<span data-toggle='tooltip' title='Set Absensi'>"+
+                              "<a href='#' class='btn btn-xs btn-success editabsen' data-toggle='modal' data-target='#myModalSetAbsen' data-value='"+data[index].iddetailbatch+"'>"+
+                                "<i class='fa fa-check'></i>"+
+                              "</a>"+
+                            "</span>"+
+                          "</td>"+
+                        "</tr>"
+                      );
+                    })
+                  }
+                });
               }
             });
         });
+
+        $('#idkomponengaji').change(function(){
+           var a = $(this).val();
+           var idpegawai = $('#idpegawaigaji').val();
+
+           // gaji pokok id in database is 1
+           if (a==1) {
+             $.ajax({
+               url: "{{url('/')}}/detail-batch-payroll/get-gapok/"+idpegawai,
+               dataType: 'json',
+               success: function(data){
+                 if (data!=0) {
+                   $('#nilaikomponengaji').val(data);
+                   $('#nilaikomponengaji').attr('readonly', true);
+                 } else {
+                   $('#nilaikomponengaji').val("");
+                   $('#nilaikomponengaji').attr('readonly', false);
+                 }
+               }
+             });
+           } else {
+             $('#nilaikomponengaji').val("");
+             $('#nilaikomponengaji').attr('readonly', false);
+           }
+         });
+
+         $('#tabelpegawai').DataTable().on('click', 'a.editabsen[data-value]', function () {
+           var a = $(this).data('value');
+           $.ajax({
+             url: "{{ url('/') }}/detail-batch-payroll/bind-for-absen/"+a,
+             dataType: 'json',
+             success: function(data){
+               // get
+               var id = data.id;
+               var nip = data.nip;
+               var nama = data.nama;
+               var alpa = data.abstain;
+               var sakit = data.sick_leave;
+               var izin = data.permissed_leave;
+
+               // set
+               $('#idforabsen').attr('value', id);
+               $('#nipforabsen').attr('value', nip);
+               $('#namaforabsen').attr('value', nama);
+               $('#abstainforabsen').attr('value', alpa);
+               $('#sickforabsen').attr('value', sakit);
+               $('#permissedforabsen').attr('value', izin);
+             }
+           });
+         });
       });
   </script>
 

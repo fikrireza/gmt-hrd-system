@@ -23,9 +23,11 @@ class BatchPayrollController extends Controller
   public function index()
   {
     $getperiode = PeriodeGaji::all();
-    $getbatch = BatchPayroll::select('batch_payroll.id as id', 'periode_gaji.tanggal', 'batch_payroll.tanggal_proses')->join('periode_gaji', 'batch_payroll.id_periode_gaji', '=', 'periode_gaji.id')
-    ->orderby('batch_payroll.id', 'desc')
-    ->paginate(10);
+    $getbatch = BatchPayroll::
+      select('batch_payroll.id as id', 'periode_gaji.tanggal', 'batch_payroll.tanggal_proses', 'batch_payroll.tanggal_proses_akhir')
+      ->join('periode_gaji', 'batch_payroll.id_periode_gaji', '=', 'periode_gaji.id')
+      ->orderby('batch_payroll.id', 'desc')
+      ->paginate(10);
 
     return view('pages/kelolabatch')
       ->with('getperiode', $getperiode)
@@ -143,13 +145,14 @@ class BatchPayrollController extends Controller
   public function detail($id)
   {
     $getdetailbatchpayroll = DetailBatchPayroll::
-          select('master_pegawai.id', 'master_pegawai.nip', 'master_pegawai.nama', 'master_jabatan.nama_jabatan', 'detail_batch_payroll.workday', 'abstain', 'sick_leave', 'permissed_leave')
+          select('detail_batch_payroll.id as id_detail_batch', 'master_pegawai.id', 'master_pegawai.nip', 'master_pegawai.nama', 'master_jabatan.nama_jabatan', 'detail_batch_payroll.workday', 'abstain', 'sick_leave', 'permissed_leave')
           ->join('master_pegawai', 'detail_batch_payroll.id_pegawai', '=', 'master_pegawai.id')
           ->join('master_jabatan', 'master_pegawai.id_jabatan', '=', 'master_jabatan.id')
+          ->where('id_batch_payroll', $id)
           ->get();
 
     $getgaji = DetailKomponenGaji::
-          select('id_pegawai', 'nilai', 'tipe_komponen as tipe_perhitungan', 'tipe_komponen_gaji as tipe_komponen')
+          select('id_pegawai', 'id_komponen_gaji', 'nilai', 'tipe_komponen as tipe_perhitungan', 'tipe_komponen_gaji as tipe_komponen', 'komponen_gaji.periode_perhitungan')
           ->join('komponen_gaji', 'detail_komponen_gaji.id_komponen_gaji', '=', 'komponen_gaji.id')
           ->join('detail_batch_payroll', 'detail_komponen_gaji.id_detail_batch_payroll', '=', 'detail_batch_payroll.id')
           ->orderby('id_pegawai')
@@ -159,6 +162,7 @@ class BatchPayrollController extends Controller
     foreach ($getdetailbatchpayroll as $key) {
       $rowdata = array();
       $rowdata["id"] = $key->id;
+      $rowdata["iddetailbatch"] = $key->id_detail_batch;
       $rowdata["nip"] = $key->nip;
       $rowdata["nama"] = $key->nama;
       $rowdata["jabatan"] = $key->nama_jabatan;
@@ -166,7 +170,12 @@ class BatchPayrollController extends Controller
       $rowdata["abstain"] = $key->abstain;
       $rowdata["sick_leave"] = $key->sick_leave;
       $rowdata["permissed_leave"] = $key->permissed_leave;
-      $rowdata["totalabsen"] = $key->abstain + $key->sick_leave + $key->permissed_leave;
+
+      $harinormal = $key->workday;
+      $totaltidakmasuk = $key->abstain + $key->sick_leave + $key->permissed_leave;
+      $totalkerja = $key->workday - $totaltidakmasuk;
+
+      $rowdata["totalkerja"] = $totalkerja;
 
       $jmlgajitetap = 0;
       $jmlgajivariable = 0;
@@ -175,13 +184,44 @@ class BatchPayrollController extends Controller
       foreach ($getgaji as $gg) {
         if ($key->id == $gg->id_pegawai) {
           if ($gg->tipe_perhitungan=="D" && $gg->tipe_komponen==0) {
-            $jmlgajitetap += $gg->nilai;
+            if ($gg->periode_perhitungan=="Bulanan") {
+              if ($gg->id_komponen_gaji==1) { // apabila gaji pokok
+                $gajipokok = $gg->nilai;
+                if ($totalkerja < $harinormal) {
+                  $gajipokokperhari = $gajipokok / $harinormal;
+                  $gajipokokperhari = ceil($gajipokokperhari);
+                  if (substr($gajipokokperhari,-3)>499){
+                      $gajipokokperhari=round($gajipokokperhari,-3);
+                  } else {
+                      $gajipokokperhari=round($gajipokokperhari,-3)+500;
+                  }
+                  $gajipokok = $gajipokokperhari * $totalkerja;
+                }
+                $jmlgajitetap += $gajipokok;
+              } else {
+                $jmlgajitetap += $gg->nilai;
+              }
+            } else if ($gg->periode_perhitungan=="Harian") {
+              $jmlgajitetap += ($gg->nilai * $totalkerja);
+            }
           } else if ($gg->tipe_perhitungan=="D" && $gg->tipe_komponen==1) {
-            $jmlgajivariable += $gg->nilai;
+            if ($gg->periode_perhitungan=="Bulanan") {
+              $jmlgajivariable += $gg->nilai;
+            } else if ($gg->periode_perhitungan=="Harian") {
+              $jmlgajivariable += ($gg->nilai * $totalkerja);
+            }
           } else if ($gg->tipe_perhitungan=="P" && $gg->tipe_komponen==0) {
-            $jmlpotongantetap += $gg->nilai;
+            if ($gg->periode_perhitungan=="Bulanan") {
+              $jmlpotongantetap += $gg->nilai;
+            } else if ($gg->periode_perhitungan=="Harian") {
+              $jmlpotongantetap += ($gg->nilai * $totalkerja);
+            }
           } else if ($gg->tipe_perhitungan=="P" && $gg->tipe_komponen==1) {
-            $jmlpotonganvariable += $gg->nilai;
+            if ($gg->periode_perhitungan=="Bulanan") {
+              $jmlpotonganvariable += $gg->nilai;
+            } else if ($gg->periode_perhitungan=="Harian") {
+              $jmlpotonganvariable += ($gg->nilai * $totalkerja);
+            }
           }
         }
       }
@@ -191,9 +231,27 @@ class BatchPayrollController extends Controller
       $rowdata["potongantetap"] = $jmlpotongantetap;
       $rowdata["potonganvariable"] = $jmlpotonganvariable;
 
-      $rowdata["total"] = 0;
+      $takehomepay = ($jmlgajitetap+$jmlgajivariable) - ($jmlpotongantetap+$jmlpotonganvariable);
+      $rowdata["total"] = $takehomepay;
+
       $rowdisplay[] = $rowdata;
     }
+
+    $summary = array();
+
+    $totalpotongan = 0;
+    $totalpenerimaan = 0;
+    $totalpengeluaran = 0;
+    foreach ($rowdisplay as $key) {
+      $totalpengeluaran += $key["total"];
+      $totalpenerimaan += ($key["gajitetap"] + $key["gajivariable"]);
+      $totalpotongan += ($key["potongantetap"] + $key["potonganvariable"]);
+    }
+
+    $summary["totalpegawai"] = count($rowdisplay);
+    $summary["totalpenerimaan"] = number_format($totalpenerimaan, 2, ",", '.');
+    $summary["totalpotongan"] = number_format($totalpotongan, 2, ",", '.');
+    $summary["totalpengeluaran"] = number_format($totalpengeluaran, 2, ",", '.');
 
     $getbatch = BatchPayroll::join('periode_gaji', 'batch_payroll.id_periode_gaji', '=', 'periode_gaji.id')->first();
     $getkomponengaji = KomponenGaji::all();
@@ -201,19 +259,21 @@ class BatchPayrollController extends Controller
       ->with('idbatch', $id)
       ->with('getkomponengaji', $getkomponengaji)
       ->with('rowdisplay', $rowdisplay)
+      ->with('summary', $summary)
       ->with('getbatch', $getbatch);
   }
 
-  public function refreshrowdatatables()
+  public function refreshrowdatatables($id)
   {
     $getdetailbatchpayroll = DetailBatchPayroll::
-          select('master_pegawai.id', 'master_pegawai.nip', 'master_pegawai.nama', 'master_jabatan.nama_jabatan', 'detail_batch_payroll.workday', 'abstain', 'sick_leave', 'permissed_leave')
+          select('detail_batch_payroll.id as id_detail_batch', 'master_pegawai.id', 'master_pegawai.nip', 'master_pegawai.nama', 'master_jabatan.nama_jabatan', 'detail_batch_payroll.workday', 'abstain', 'sick_leave', 'permissed_leave')
           ->join('master_pegawai', 'detail_batch_payroll.id_pegawai', '=', 'master_pegawai.id')
           ->join('master_jabatan', 'master_pegawai.id_jabatan', '=', 'master_jabatan.id')
+          ->where('id_batch_payroll', $id)
           ->get();
 
     $getgaji = DetailKomponenGaji::
-          select('id_pegawai', 'nilai', 'tipe_komponen as tipe_perhitungan', 'tipe_komponen_gaji as tipe_komponen')
+          select('id_pegawai', 'id_komponen_gaji', 'nilai', 'tipe_komponen as tipe_perhitungan', 'tipe_komponen_gaji as tipe_komponen', 'komponen_gaji.periode_perhitungan')
           ->join('komponen_gaji', 'detail_komponen_gaji.id_komponen_gaji', '=', 'komponen_gaji.id')
           ->join('detail_batch_payroll', 'detail_komponen_gaji.id_detail_batch_payroll', '=', 'detail_batch_payroll.id')
           ->orderby('id_pegawai')
@@ -223,6 +283,7 @@ class BatchPayrollController extends Controller
     foreach ($getdetailbatchpayroll as $key) {
       $rowdata = array();
       $rowdata["id"] = $key->id;
+      $rowdata["iddetailbatch"] = $key->id_detail_batch;
       $rowdata["nip"] = $key->nip;
       $rowdata["nama"] = $key->nama;
       $rowdata["jabatan"] = $key->nama_jabatan;
@@ -230,7 +291,12 @@ class BatchPayrollController extends Controller
       $rowdata["abstain"] = $key->abstain;
       $rowdata["sick_leave"] = $key->sick_leave;
       $rowdata["permissed_leave"] = $key->permissed_leave;
-      $rowdata["totalabsen"] = $key->abstain + $key->sick_leave + $key->permissed_leave;
+
+      $harinormal = $key->workday;
+      $totaltidakmasuk = $key->abstain + $key->sick_leave + $key->permissed_leave;
+      $totalkerja = $key->workday - $totaltidakmasuk;
+
+      $rowdata["totalkerja"] = $totalkerja;
 
       $jmlgajitetap = 0;
       $jmlgajivariable = 0;
@@ -239,13 +305,44 @@ class BatchPayrollController extends Controller
       foreach ($getgaji as $gg) {
         if ($key->id == $gg->id_pegawai) {
           if ($gg->tipe_perhitungan=="D" && $gg->tipe_komponen==0) {
-            $jmlgajitetap += $gg->nilai;
+            if ($gg->periode_perhitungan=="Bulanan") {
+              if ($gg->id_komponen_gaji==1) { // apabila gaji pokok
+                $gajipokok = $gg->nilai;
+                if ($totalkerja < $harinormal) {
+                  $gajipokokperhari = $gajipokok / $harinormal;
+                  $gajipokokperhari = ceil($gajipokokperhari);
+                  if (substr($gajipokokperhari,-3)>499){
+                      $gajipokokperhari=round($gajipokokperhari,-3);
+                  } else {
+                      $gajipokokperhari=round($gajipokokperhari,-3)+500;
+                  }
+                  $gajipokok = $gajipokokperhari * $totalkerja;
+                }
+                $jmlgajitetap += $gajipokok;
+              } else {
+                $jmlgajitetap += $gg->nilai;
+              }
+            } else if ($gg->periode_perhitungan=="Harian") {
+              $jmlgajitetap += ($gg->nilai * $totalkerja);
+            }
           } else if ($gg->tipe_perhitungan=="D" && $gg->tipe_komponen==1) {
-            $jmlgajivariable += $gg->nilai;
+            if ($gg->periode_perhitungan=="Bulanan") {
+              $jmlgajivariable += $gg->nilai;
+            } else if ($gg->periode_perhitungan=="Harian") {
+              $jmlgajivariable += ($gg->nilai * $totalkerja);
+            }
           } else if ($gg->tipe_perhitungan=="P" && $gg->tipe_komponen==0) {
-            $jmlpotongantetap += $gg->nilai;
+            if ($gg->periode_perhitungan=="Bulanan") {
+              $jmlpotongantetap += $gg->nilai;
+            } else if ($gg->periode_perhitungan=="Harian") {
+              $jmlpotongantetap += ($gg->nilai * $totalkerja);
+            }
           } else if ($gg->tipe_perhitungan=="P" && $gg->tipe_komponen==1) {
-            $jmlpotonganvariable += $gg->nilai;
+            if ($gg->periode_perhitungan=="Bulanan") {
+              $jmlpotonganvariable += $gg->nilai;
+            } else if ($gg->periode_perhitungan=="Harian") {
+              $jmlpotonganvariable += ($gg->nilai * $totalkerja);
+            }
           }
         }
       }
@@ -255,7 +352,9 @@ class BatchPayrollController extends Controller
       $rowdata["potongantetap"] = $jmlpotongantetap;
       $rowdata["potonganvariable"] = $jmlpotonganvariable;
 
-      $rowdata["total"] = 0;
+      $takehomepay = ($jmlgajitetap+$jmlgajivariable) - ($jmlpotongantetap+$jmlpotonganvariable);
+      $rowdata["total"] = $takehomepay;
+
       $rowdisplay[] = $rowdata;
     }
 

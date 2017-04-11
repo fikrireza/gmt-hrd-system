@@ -208,7 +208,8 @@
                     <tr role="row">
                       <th>No</th>
                       <th>Periode Gaji</th>
-                      <th>Tanggal Pemrosesan</th>
+                      <th>Tanggal Awal</th>
+                      <th>Tanggal Akhir</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -227,6 +228,12 @@
                         <td>
                           @php
                             $date = explode("-", $key->tanggal_proses);
+                          @endphp
+                          {{$date[2]}}-{{$date[1]}}-{{$date[0]}}
+                        </td>
+                        <td>
+                          @php
+                            $date = explode("-", $key->tanggal_proses_akhir);
                           @endphp
                           {{$date[2]}}-{{$date[1]}}-{{$date[0]}}
                         </td>
