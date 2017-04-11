@@ -124,20 +124,59 @@ class BatchPayrollController extends Controller
   public function detail($id)
   {
     $getdetailbatchpayroll = DetailBatchPayroll::
-          select('master_pegawai.nip', 'master_pegawai.nama', 'master_jabatan.nama_jabatan', 'detail_batch_payroll.workday')
+          select('master_pegawai.id', 'master_pegawai.nip', 'master_pegawai.nama', 'master_jabatan.nama_jabatan', 'detail_batch_payroll.workday')
           ->join('master_pegawai', 'detail_batch_payroll.id_pegawai', '=', 'master_pegawai.id')
           ->join('master_jabatan', 'master_pegawai.id_jabatan', '=', 'master_jabatan.id')
           ->get();
 
+    $getgaji = DetailKomponenGaji::
+          select('id_pegawai', 'nilai', 'tipe_komponen as tipe_perhitungan', 'tipe_komponen_gaji as tipe_komponen')
+          ->join('komponen_gaji', 'detail_komponen_gaji.id_komponen_gaji', '=', 'komponen_gaji.id')
+          ->join('detail_batch_payroll', 'detail_komponen_gaji.id_detail_batch_payroll', '=', 'detail_batch_payroll.id')
+          ->orderby('id_pegawai')
+          ->get();
+
+    $rowdisplay = array();
+    foreach ($getdetailbatchpayroll as $key) {
+      $rowdata = array();
+      $rowdata["nip"] = $key->nip;
+      $rowdata["nama"] = $key->nama;
+      $rowdata["jabatan"] = $key->nama_jabatan;
+      $rowdata["harinormal"] = $key->workday;
+
+      $jmlgajitetap = 0;
+      $jmlgajivariable = 0;
+      $jmlpotongantetap = 0;
+      $jmlpotonganvariable = 0;
+      foreach ($getgaji as $gg) {
+        if ($key->id == $gg->id_pegawai) {
+          if ($gg->tipe_perhitungan=="D" && $gg->tipe_komponen==0) {
+            $jmlgajitetap += $gg->nilai;
+          } else if ($gg->tipe_perhitungan=="D" && $gg->tipe_komponen==1) {
+            $jmlgajivariable += $gg->nilai;
+          } else if ($gg->tipe_perhitungan=="P" && $gg->tipe_komponen==0) {
+            $jmlpotongantetap += $gg->nilai;
+          } else if ($gg->tipe_perhitungan=="P" && $gg->tipe_komponen==1) {
+            $jmlpotonganvariable += $gg->nilai;
+          }
+        }
+      }
+
+      $rowdata["gajitetap"] = $jmlgajitetap;
+      $rowdata["gajivariable"] = $jmlgajivariable;
+      $rowdata["potongantetap"] = $jmlpotongantetap;
+      $rowdata["potonganvariable"] = $jmlpotonganvariable;
+
+      $rowdata["total"] = 0;
+      $rowdisplay[] = $rowdata;
+    }
+
     $getbatch = BatchPayroll::join('periode_gaji', 'batch_payroll.id_periode_gaji', '=', 'periode_gaji.id')->first();
     $getkomponengaji = KomponenGaji::all();
-
-    
-
     return view('pages/detailbatchpayroll')
       ->with('idbatch', $id)
       ->with('getkomponengaji', $getkomponengaji)
-      // ->with('getdetailbatchpayroll', $getdetailbatchpayroll)
+      ->with('rowdisplay', $rowdisplay)
       ->with('getbatch', $getbatch);
   }
 

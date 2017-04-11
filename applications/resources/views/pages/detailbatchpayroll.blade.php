@@ -107,7 +107,7 @@
               $date = explode("-", $getbatch->tanggal_proses);
               $date2 = explode("-", $getbatch->tanggal_proses_akhir);
             @endphp
-            Seluruh Penerima Gaji Untuk Periode Per Tanggal {{$getbatch->tanggal}} &nbsp;&nbsp;|&nbsp;&nbsp; Tanggal Proses : {{$date[2]}}-{{$date[1]}}-{{$date[0]}} s/d {{$date2[2]}}-{{$date2[1]}}-{{$date2[0]}} 
+            Seluruh Penerima Gaji Untuk Periode Per Tanggal {{$getbatch->tanggal}} &nbsp;&nbsp;|&nbsp;&nbsp; Tanggal Proses : {{$date[2]}}-{{$date[1]}}-{{$date[0]}} s/d {{$date2[2]}}-{{$date2[1]}}-{{$date2[0]}}
           </h3>
         </div>
         <div class="box-body table-responsive">
@@ -132,20 +132,22 @@
               </tr>
             </thead>
             <tbody>
-              {{-- @foreach ($getdetailbatchpayroll as $key)
+              @foreach ($rowdisplay as $key)
                 <tr>
-                  <td>{{$key->nip}}</td>
-                  <td>{{$key->nama}}</td>
-                  <td>{{$key->nama_jabatan}}</td>
-                  <td>{{$key->workday}}</td>
+                  <td>{{$key['nip']}}</td>
+                  <td>{{$key['nama']}}</td>
+                  <td>{{$key['jabatan']}}</td>
+                  <td>{{$key['harinormal']}}</td>
                   <td></td>
                   <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>{{$key['gajitetap']}}</td>
+                  <td>{{$key['gajivariable']}}</td>
+                  <td>{{$key['potongantetap']}}</td>
+                  <td>{{$key['potonganvariable']}}</td>
+                  <td>{{$key['total']}}</td>
                   <td></td>
                 </tr>
-              @endforeach --}}
+              @endforeach
             </tbody>
           </table>
         </div>
