@@ -28,7 +28,6 @@
 
   <div class="modal modal-default fade" id="myModal" role="dialog">
     <div class="modal-dialog" style="width:700px;">
-      <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -79,12 +78,45 @@
               </table>
             </div>
           </div>
-          <div class="modal-footer">
-            {{-- <strong>Status:</strong> Berhasil memasukkan data. --}}
-            {{-- <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
-            <button type="submit" class="btn btn-primary" id="set">Simpan Perubahan</button> --}}
-          </div>
+          <div class="modal-footer"></div>
       </div>
+    </div>
+  </div>
+
+  <div class="modal modal-default fade" id="myModalSetAbsen" role="dialog">
+    <div class="modal-dialog">
+      <form class="form-horizontal" action="index.html" method="post">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Set Komponen Gaji</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="col-sm-3 control-label">NIP Pegawai</label>
+              <div class="col-sm-8">
+                {!! csrf_field() !!}
+                <input type="hidden" class="form-control" id="idgapok" name="id">
+                {{-- <input type="hidden" class="form-control" name="idperiode" value="{{$idperiode}}"> --}}
+                <input type="text" class="form-control" id="nippegawaigapok" name="nip" readonly="">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Nama Pegawai</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" id="namapegawaigapok" name="nama" readonly="">
+              </div>
+            </div>
+            <div class="form-group">
+               <label class="col-sm-3 control-label">Gaji Pokok</label>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" name="gaji_pokok" id="nilaigapok">
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer"></div>
+        </div>
+      </form>
     </div>
   </div>
 
@@ -131,21 +163,40 @@
                 <th>Hari Kerja</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="bodydata">
               @foreach ($rowdisplay as $key)
                 <tr>
                   <td>{{$key['nip']}}</td>
                   <td>{{$key['nama']}}</td>
                   <td>{{$key['jabatan']}}</td>
-                  <td>{{$key['harinormal']}}</td>
-                  <td></td>
-                  <td></td>
+                  <td>
+                    <span class="badge bg-navy">{{$key['harinormal']}}</span>
+                  </td>
+                  <td>
+                    <span class="badge bg-red">Alpa: {{$key['abstain']}}</span>
+                    <span class="badge bg-green">Sakit: {{$key['sick_leave']}}</span>
+                    <span class="badge bg-blue">Izin: {{$key['permissed_leave']}}</span>
+                  </td>
+                  <td>
+                    <span class="badge bg-purple">{{$key['totalabsen']}}</span>
+                  </td>
                   <td>{{$key['gajitetap']}}</td>
                   <td>{{$key['gajivariable']}}</td>
                   <td>{{$key['potongantetap']}}</td>
                   <td>{{$key['potonganvariable']}}</td>
                   <td>{{$key['total']}}</td>
-                  <td></td>
+                  <td>
+                    <span data-toggle="tooltip" title="Set Komponen Gaji">
+                      <a href="#" class="btn btn-xs btn-warning addkomponen" data-toggle="modal" data-target="#myModal" data-value="{{$key['id']}}">
+                        <i class="fa fa-list-ul"></i>
+                      </a>
+                    </span>
+                    <span data-toggle="tooltip" title="Set Absensi">
+                      <a href="#" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#myModalSetAbsen" data-value="{{$key['id']}}">
+                        <i class="fa fa-list-ul"></i>
+                      </a>
+                    </span>
+                  </td>
                 </tr>
               @endforeach
             </tbody>
@@ -277,13 +328,54 @@
             $.ajax({
               url: "{{url('/')}}/komponen-gaji/update-nilai/"+_id+"/"+_inputnilai,
               success: function(data){
+
+                // load data for data tables;
+                $.ajax({
+                  url: "{{url('/')}}/batch-payroll/refreshrowdatatables",
+                  dataType: 'json',
+                  success: function(data){
+                    $('#bodydata').html("");
+                    $.each(data, function(index, value){
+                      $('#bodydata').append(
+                        "<tr>"+
+                          "<td>"+data[index].nip+"</td>"+
+                          "<td>"+data[index].nama+"</td>"+
+                          "<td>"+data[index].jabatan+"</td>"+
+                          "<td>"+
+                            "<span class='badge bg-navy'>"+data[index].harinormal+"</span>"+
+                          "</td>"+
+                          "<td>"+
+                            "<span class='badge bg-red'>Alpa: "+data[index].abstain+"</span>"+
+                            "<span class='badge bg-green'>Sakit: "+data[index].sick_leave+"</span>"+
+                            "<span class='badge bg-blue'>Izin: "+data[index].permissed_leave+"</span>"+
+                          "</td>"+
+                          "<td>"+
+                            "<span class='badge bg-purple'>"+data[index].totalabsen+"</span>"+
+                          "</td>"+
+                          "<td>"+data[index].gajitetap+"</td>"+
+                          "<td>"+data[index].gajivariable+"</td>"+
+                          "<td>"+data[index].potongantetap+"</td>"+
+                          "<td>"+data[index].potonganvariable+"</td>"+
+                          "<td>"+data[index].total+"</td>"+
+                          "<td>"+
+                            "<span data-toggle='tooltip' title='Set Komponen Gaji'>"+
+                              "<a href='#' class='btn btn-xs btn-warning addkomponen' data-toggle='modal' data-target='#myModal' data-value='"+data[index].id+"'>"+
+                                "<i class='fa fa-list-ul'></i>"+
+                              "</a>"+
+                            "</span>"+
+                          "</td>"+
+                        "</tr>"
+                      );
+                    })
+                  }
+                });
+
+
                 $('#nilai-for-id-'+id).html(_inputnilai);
               }
             })
           });
         });
-
-
 
         // save to database
         $('#addkomponentopegawai').click(function(){
@@ -332,48 +424,48 @@
                 })
               }
 
-              // update status komponen gaji
+              // load data for data tables;
               $.ajax({
-                url: "{{url('/')}}/detail-batch-payroll/cek-komponen-gaji/{{$idbatch}}/"+idpegawai,
+                url: "{{url('/')}}/batch-payroll/refreshrowdatatables",
                 dataType: 'json',
-                success: function(datax){
-                  if (datax.length!=0) {
-                    $("#statuskomponen"+idpegawai).attr('class', 'badge bg-green');
-                    $("#statuskomponen"+idpegawai).html('Sudah Di Set');
-                  }  else {
-                    $("#statuskomponen"+idpegawai).attr('class', 'badge bg-red');
-                    $("#statuskomponen"+idpegawai).html('Belum Di Set');
-                  }
+                success: function(data){
+                  $('#bodydata').html("");
+                  $.each(data, function(index, value){
+                    $('#bodydata').append(
+                      "<tr>"+
+                        "<td>"+data[index].nip+"</td>"+
+                        "<td>"+data[index].nama+"</td>"+
+                        "<td>"+data[index].jabatan+"</td>"+
+                        "<td>"+
+                          "<span class='badge bg-navy'>"+data[index].harinormal+"</span>"+
+                        "</td>"+
+                        "<td>"+
+                          "<span class='badge bg-red'>Alpa: "+data[index].abstain+"</span>"+
+                          "<span class='badge bg-green'>Sakit: "+data[index].sick_leave+"</span>"+
+                          "<span class='badge bg-blue'>Izin: "+data[index].permissed_leave+"</span>"+
+                        "</td>"+
+                        "<td>"+
+                          "<span class='badge bg-purple'>"+data[index].totalabsen+"</span>"+
+                        "</td>"+
+                        "<td>"+data[index].gajitetap+"</td>"+
+                        "<td>"+data[index].gajivariable+"</td>"+
+                        "<td>"+data[index].potongantetap+"</td>"+
+                        "<td>"+data[index].potonganvariable+"</td>"+
+                        "<td>"+data[index].total+"</td>"+
+                        "<td>"+
+                          "<span data-toggle='tooltip' title='Set Komponen Gaji'>"+
+                            "<a href='#' class='btn btn-xs btn-warning addkomponen' data-toggle='modal' data-target='#myModal' data-value='"+data[index].id+"'>"+
+                              "<i class='fa fa-list-ul'></i>"+
+                            "</a>"+
+                          "</span>"+
+                        "</td>"+
+                      "</tr>"
+                    );
+                  })
                 }
               });
             }
           });
-        });
-
-        // automatically set value from gaji pokok pegawai
-        $('#idkomponengaji').change(function(){
-          var a = $(this).val();
-          var idpegawai = $('#idpegawaigaji').val();
-
-          // gaji pokok id in database is 1
-          if (a==1) {
-            $.ajax({
-              url: "{{url('/')}}/detail-batch-payroll/get-gapok/"+idpegawai,
-              dataType: 'json',
-              success: function(data){
-                if (data!=0) {
-                  $('#nilaikomponengaji').val(data);
-                  $('#nilaikomponengaji').attr('readonly', true);
-                } else {
-                  $('#nilaikomponengaji').val("");
-                  $('#nilaikomponengaji').attr('readonly', false);
-                }
-              }
-            });
-          } else {
-            $('#nilaikomponengaji').val("");
-            $('#nilaikomponengaji').attr('readonly', false);
-          }
         });
 
         $('body').on('click', 'a.hapuskomponen[data-value]', function (){
@@ -424,21 +516,6 @@
                         no++;
                       })
                     }
-
-                    // update status komponen gaji
-                    $.ajax({
-                      url: "{{url('/')}}/detail-batch-payroll/cek-komponen-gaji/{{$idbatch}}/"+idpegawai,
-                      dataType: 'json',
-                      success: function(datax){
-                        if (datax.length!=0) {
-                          $("#statuskomponen"+idpegawai).attr('class', 'badge bg-green');
-                          $("#statuskomponen"+idpegawai).html('Sudah Di Set');
-                        } else {
-                          $("#statuskomponen"+idpegawai).attr('class', 'badge bg-red');
-                          $("#statuskomponen"+idpegawai).html('Belum Di Set');
-                        }
-                      }
-                    });
                   }
                 });
               }
