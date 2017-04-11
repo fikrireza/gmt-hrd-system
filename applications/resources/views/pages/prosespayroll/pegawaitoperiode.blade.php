@@ -22,6 +22,12 @@
           $(this).remove();
       });
     }, 2000);
+
+    window.setTimeout(function() {
+      $(".alert-warning").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove();
+      });
+    }, 2000);
   </script>
 
 
@@ -34,6 +40,13 @@
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
         <p>{{ Session::get('message') }}</p>
+      </div>
+      @endif
+      @if(Session::has('gagal'))
+      <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-times"></i> Perhatian!</h4>
+        <p>{{ Session::get('gagal') }}</p>
       </div>
       @endif
     </div>

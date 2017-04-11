@@ -9,6 +9,8 @@ use App\Models\Cuti;
 use App\Models\MasterPegawai;
 use App\Models\HariLibur;
 
+use Validator;
+
 class CutiController extends Controller
 {
     /**
@@ -23,6 +25,7 @@ class CutiController extends Controller
     
     public function index()
     {
+
       // $getcuti = Cuti::paginate(10);
       $getcuti = Cuti::leftJoin('master_pegawai', 'master_cuti.id_pegawai', '=', 'master_pegawai.id')
                           ->select('master_cuti.*', 'master_pegawai.id as pegawai_id','master_pegawai.nip as nip','master_pegawai.nama')
@@ -34,6 +37,29 @@ class CutiController extends Controller
 
     public function store(Request $request)
     {
+      $message = [
+        'id_pegawai.required' => 'Wajib di isi',
+        'jenis_cuti.required' => 'Wajib di isi',
+        'tanggal_mulai.required' => 'Wajib di isi',
+        'tanggal_akhir.required' => 'Wajib di isi',
+        'deskripsi.required' => 'Wajib di isi',
+        'flag_status.required' => 'Wajib di isi',
+      ];
+
+      $validator = Validator::make($request->all(), [
+        'id_pegawai' => 'required',
+        'jenis_cuti' => 'required',
+        'tanggal_mulai' => 'required',
+        'tanggal_akhir' => 'required',
+        'deskripsi' => 'required',
+        'flag_status' => 'required',
+      ], $message);
+
+      if($validator->fails())
+      {
+        return redirect()->route('cuti.index')->withErrors($validator)->withInput();
+      }
+      
       // --- validasi ketersediaan tanggal intervensi
       $gettanggalintervensi = Cuti::select('tanggal_mulai', 'tanggal_akhir')
                                           ->where('id_pegawai', $request->id_pegawai)

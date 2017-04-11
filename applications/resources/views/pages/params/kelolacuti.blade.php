@@ -196,17 +196,29 @@
                     <option value="{{$key->id}}">{{$key->nama}}</option>
                   @endforeach
                 </select>
+                @if($errors->has('id_pegawai'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('id_pegawai')}}
+                    </strong>
+                  </span>
+                @endif
                 </div>
             </div>
             <div class="form-group ">
               <label class="col-sm-3 control-label">Jenis Intervensi</label>
               <div class="col-sm-9">
               <select class="form-control" name="jenis_cuti" id="jenis_cuti">
-                <option>-- Pilih --</option>
+                <option value="">-- Pilih --</option>
                 <option value="Ijin" id="flag_ijin">Ijin</option>
                 <option value="Sakit" id="flag_sakit">Sakit</option>
                 <option value="Cuti" id="flag_cuti">Cuti</option>
               </select>
+              @if($errors->has('jenis_cuti'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('jenis_cuti')}}
+                    </strong>
+                  </span>
+                @endif
               </div>
             </div>
             <div class="form-group">
@@ -218,6 +230,12 @@
                   </div>
                   <input class="form-control pull-right datepicker1" id="tanggal_mulai" type="text" name="tanggal_mulai" placeholder="Tanggal Awal">
                 </div>
+                @if($errors->has('tanggal_mulai'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('tanggal_mulai')}}
+                    </strong>
+                  </span>
+                @endif
                 </div>
             </div>
             <div class="form-group">
@@ -229,6 +247,12 @@
                   </div>
                   <input class="form-control pull-right datepicker1" id="tanggal_akhir" type="text" name="tanggal_akhir" placeholder="Tanggal Akhir" onchange="durationDay()">
                 </div>
+                @if($errors->has('tanggal_akhir'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('tanggal_akhir')}}
+                    </strong>
+                  </span>
+                @endif
                 </div>
             </div>
             <div class="form-group" hidden="true">
@@ -242,16 +266,28 @@
               <label class="col-sm-3 control-label">Keterangan</label>
               <div class="col-sm-9">
               <input type="text" name="deskripsi" class="form-control" placeholder="Keterangan" id="deskripsi">
+                @if($errors->has('deskripsi'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('deskripsi')}}
+                    </strong>
+                  </span>
+                @endif
               </div>
             </div>
             <div class="form-group ">
               <label class="col-sm-3 control-label">Status</label>
               <div class="col-sm-9">
               <select class="form-control" name="flag_status" id="flag_status">
-                <option>-- Pilih --</option>
+                <option value="">-- Pilih --</option>
                 <option value="0" id="flag_aktif">Aktif</option>
                 <option value="1" id="flag_non_aktif">Tidak Aktif</option>
               </select>
+                @if($errors->has('flag_status'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('flag_status')}}
+                    </strong>
+                  </span>
+                @endif
               </div>
             </div>
             <div class="form-group ">

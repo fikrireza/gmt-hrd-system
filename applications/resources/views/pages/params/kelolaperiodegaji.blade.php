@@ -77,12 +77,24 @@
                 </div>
                 <input type="text" name="tanggal" class="form-control" placeholder="Tanggal Periode Penggajian" id="tanggal">
               </div>
+                @if($errors->has('tanggal'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('tanggal')}}
+                    </strong>
+                  </span>
+                @endif
               </div>
             </div>
             <div class="form-group ">
               <label class="col-sm-3 control-label">Keterangan</label>
               <div class="col-sm-9">
                 <textarea name="keterangan" rows="4" cols="40" class="form-control"></textarea>
+                @if($errors->has('keterangan'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('keterangan')}}
+                    </strong>
+                  </span>
+                @endif
               </div>
             </div>
         </div>

@@ -139,7 +139,13 @@
               $date = explode("-", $getbatch->tanggal_proses);
               $date2 = explode("-", $getbatch->tanggal_proses_akhir);
             @endphp
-            Seluruh Penerima Gaji Untuk Periode Per Tanggal {{$getbatch->tanggal}} &nbsp;&nbsp;|&nbsp;&nbsp; Tanggal Proses : {{$date[2]}}-{{$date[1]}}-{{$date[0]}} s/d {{$date2[2]}}-{{$date2[1]}}-{{$date2[0]}}
+            @if($getbatch->tanggal_proses == null)
+              Seluruh Penerima Gaji Untuk Periode Per Tanggal {{$getbatch->tanggal}} &nbsp;&nbsp;|&nbsp;&nbsp; Tanggal Proses : tanggal proses awal kosong s/d {{$date2[2]}}-{{$date2[1]}}-{{$date2[0]}}
+            @elseif($getbatch->tanggal_proses_akhir == null)
+              Seluruh Penerima Gaji Untuk Periode Per Tanggal {{$getbatch->tanggal}} &nbsp;&nbsp;|&nbsp;&nbsp; Tanggal Proses : {{$date[2]}}-{{$date[1]}}-{{$date[0]}} s/d tanggal proses akhir kosong
+            @else
+              Seluruh Penerima Gaji Untuk Periode Per Tanggal {{$getbatch->tanggal}} &nbsp;&nbsp;|&nbsp;&nbsp; Tanggal Proses : {{$date[2]}}-{{$date[1]}}-{{$date[0]}} s/d {{$date2[2]}}-{{$date2[1]}}-{{$date2[0]}}
+            @endif
           </h3>
         </div>
         <div class="box-body table-responsive">

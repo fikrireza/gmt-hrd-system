@@ -137,22 +137,40 @@
                   </div>
                   <input class="form-control pull-right datepicker1" type="text" name="libur" placeholder="Hari Libur">
                 </div>
+                 @if($errors->has('libur'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('libur')}}
+                    </strong>
+                  </span>
+                @endif
                 </div>
             </div>
             <div class="form-group ">
               <label class="col-sm-3 control-label">Keterangan</label>
               <div class="col-sm-9">
               <input type="text" name="keterangan" class="form-control" placeholder="Keterangan">
+               @if($errors->has('keterangan'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('keterangan')}}
+                    </strong>
+                  </span>
+                @endif
               </div>
             </div>
             <div class="form-group ">
               <label class="col-sm-3 control-label">Status</label>
               <div class="col-sm-9">
               <select class="form-control" name="status">
-                <option>-- Pilih --</option>
+                <option value="">-- Pilih --</option>
                 <option value="0">Aktif</option>
                 <option value="1">Tidak Aktif</option>
               </select>
+               @if($errors->has('status'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('status')}}
+                    </strong>
+                  </span>
+                @endif
               </div>
             </div>
         </div>

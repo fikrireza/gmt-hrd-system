@@ -155,6 +155,9 @@ Route::post('pegawai/update-gaji', 'SetGajiController@update')->name('setgaji.up
 ///// BATCH PAYROLL ///////
 Route::get('batch-payroll', 'BatchPayrollController@index')->name('batchpayroll.index');
 Route::post('batch-payroll', 'BatchPayrollController@store')->name('batchpayroll.store');
+Route::post('batch-payroll/update', 'BatchPayrollController@update')->name('batchpayroll.update');
+Route::get('batch-payroll/bind-batch-payroll/{id}', 'BatchPayrollController@bind')->name('batchpayroll.bind');
+Route::get('batch-payroll/delete/{id}', 'BatchPayrollController@delete')->name('batchpayroll.delete');
 Route::get('batch-payroll/detail/{id}', 'BatchPayrollController@detail')->name('batchpayroll.detail');
 Route::get('batch-payroll/getdata/{id}', 'BatchPayrollController@getdatafordatatable')->name('batchpayroll.getdata');
 Route::get('batch-payroll/refreshrowdatatables', 'BatchPayrollController@refreshrowdatatables')->name('batchpayroll.refreshrow');

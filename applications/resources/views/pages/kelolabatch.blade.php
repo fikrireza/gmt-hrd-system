@@ -45,8 +45,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
-            <a href="#" class="btn btn-danger" id="set">Ya, saya yakin.</a>
-            {{-- <button type="button" class="btn btn btn-outline" data-dismiss="modal">Ya, saya yakin.</button> --}}
+            <a href="#" class="btn btn-danger" id="sethapus">Ya, saya yakin.</a>
           </div>
         </div>
 
@@ -67,10 +66,11 @@
             <div class="form-group">
               <label class="col-md-3 control-label">Periode Penggajian</label>
               <div class="col-sm-9">
-              <select class="form-control" name="periode">
-                <option>-- Pilih --</option>
+              <input type="hidden" name="id" class="form-control" id="id">
+              <select class="form-control" name="periode_edit">
+                <option value="">-- Pilih --</option>
                 @foreach ($getperiode as $key)
-                  <option value="{{$key->id}}">Per Tanggal {{$key->tanggal}}</option>
+                  <option value="{{$key->id}}" id="editperiode{{$key->id}}">Per Tanggal {{$key->tanggal}}</option>
                 @endforeach
               </select>
               </div>
@@ -82,22 +82,28 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_proses" id="tanggaledit" placeholder="Dari">
-                </div><br>
+                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_awal_edit" id="tanggal_awal_edit" placeholder="Dari">
+                </div>
+                <br>
                <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_proses" id="tanggaledit" placeholder="Sampai">
+                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_akhir_edit" id="tanggal_akhir_edit" placeholder="Sampai">
                 </div>
+                 @if($errors->has('periode'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('periode')}}
+                    </strong>
+                  </span>
+                @endif
               </div>
             </div>
 
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Tidak</button>
-            <a href="#" class="btn btn-success" id="set">Simpan Perubahan</a>
-            {{-- <button type="button" class="btn btn btn-outline" data-dismiss="modal">Ya, saya yakin.</button> --}}
+            <button type="submit" class="btn btn-primary">Simpan Perubahan</a>
           </div>
         </div>
       </form>
@@ -136,11 +142,17 @@
               <label class="col-md-3 control-label">Periode Penggajian</label>
               <div class="col-sm-9">
               <select class="form-control" name="periode">
-                <option>-- Pilih --</option>
+                <option value="">-- Pilih --</option>
                 @foreach ($getperiode as $key)
                   <option value="{{$key->id}}">Per Tanggal {{$key->tanggal}}</option>
                 @endforeach
               </select>
+                @if($errors->has('periode'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('periode')}}
+                    </strong>
+                  </span>
+                @endif
               </div>
             </div>
             <div class="form-group">
@@ -150,14 +162,27 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_awal" id="tanggal" placeholder="Dari">
-                </div><br>
+                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_awal" id="tanggal_awal" placeholder="Dari">
+                </div>
+                @if($errors->has('tanggal_awal'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('tanggal_awal')}}
+                    </strong>
+                  </span>
+                @endif
+                <br>
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_akhir" id="tanggal" placeholder="Sampai">
+                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_akhir" id="tanggal_akhir" placeholder="Sampai">
                 </div>
+                @if($errors->has('tanggal_akhir'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('tanggal_akhir')}}
+                    </strong>
+                  </span>
+                @endif
                 </div>
             </div>
           </div>
@@ -254,18 +279,82 @@
   {{-- datepicker --}}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
   <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
-
   <script type="text/javascript">
-    $(function(){
-      // $('a.hapus').click(function(){
-      //   var a = $(this).data('value');
-      //   $('#set').attr('href', "{{ url('/') }}/masterjabatan/hapusjabatan/"+a);
-      // });
+    $(document).ready(function(){
+        $("#tanggal_awal").datepicker({
+            todayBtn:  1,
+            autoclose: true,
+        }).on('changeDate', function (selected) {
+          $("#tanggal_akhir").prop('disabled', false);
+          $("#tanggal_akhir").val("");
+            var minDate = new Date(selected.date.valueOf());
+            $("#tanggal_akhir").datepicker('setStartDate', minDate);
+        });
 
-      $('#tanggal').datepicker();
-      $('#tanggaledit').datepicker();
+        $("#tanggal_akhir").datepicker()
+            .on('changeDate', function (selected) {
+                var minDate = new Date(selected.date.valueOf());
+            //    $('.tgl_faktur_awal').datepicker('setEndDate', minDate);
+            });
     });
   </script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+        $("#tanggal_awal_edit").datepicker({
+            todayBtn:  1,
+            autoclose: true,
+        }).on('changeDate', function (selected) {
+          $("#tanggal_akhir_edit").prop('disabled', false);
+          $("#tanggal_akhir_edit").val("");
+            var minDate = new Date(selected.date.valueOf());
+            $("#tanggal_akhir_edit").datepicker('setStartDate', minDate);
+        });
+
+        $("#tanggal_akhir_edit").datepicker()
+            .on('changeDate', function (selected) {
+                var minDate = new Date(selected.date.valueOf());
+            //    $('.tgl_faktur_awal').datepicker('setEndDate', minDate);
+            });
+    });
+  </script>
+
+  <script type="text/javascript">
+    $('#myModalEdit').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+
+    $('#myModal').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+  </script>
+  <script type="text/javascript">
+    $(function(){
+       $('a.hapus').click(function(){
+        var a = $(this).data('value');
+          $('#sethapus').attr('href', "{{ url('/') }}/batch-payroll/delete/"+a);
+      });
+
+      $('a.edit').click(function(){
+        var a = $(this).data('value');
+        $.ajax({
+          url: "{{url('/')}}/batch-payroll/bind-batch-payroll/"+a,
+          success: function(data){
+            //get
+            var id = data.id;
+            var periode_edit = data.id_periode_gaji;
+            var tanggal_awal_edit = data.tanggal_proses;
+            var tanggal_akhir_edit = data.tanggal_proses_akhir;
+            //set
+            $('#id').attr('value', id);
+            $('#editperiode'+periode_edit).attr('selected', true);
+            $('#tanggal_awal_edit').attr('value', tanggal_awal_edit);
+            $('#tanggal_akhir_edit').attr('value', tanggal_akhir_edit);
+          }
+        });
+      });
+    });
+  </script>
+
    <script type="text/javascript">
   $('.datepicker1').datepicker({
     autoclose: true,
