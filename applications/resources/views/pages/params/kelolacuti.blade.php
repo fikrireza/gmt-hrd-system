@@ -94,7 +94,7 @@
                 <option>-- Pilih --</option>
                 <option value="Ijin" id="flag_ijin">Ijin</option>
                 <option value="Sakit" id="flag_sakit">Sakit</option>
-                <option value="Cuti" id="flag_ijin">Cuti</option>
+                <option value="Cuti" id="flag_cuti">Cuti</option>
               </select>
               </div>
             </div>
@@ -383,7 +383,15 @@
     daysOfWeekDisabled: [0,6]
   });
   </script>
+  <script type="text/javascript">
+    $('#myModalEdit').on('hidden.bs.modal', function () {
+     location.reload();
+    });
 
+    $('#myModal').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+  </script>
   <script type="text/javascript">
     $(function(){
        $('a.hapus').click(function(){
