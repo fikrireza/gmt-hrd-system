@@ -76,13 +76,19 @@
               </div>
             </div>
             <div class="form-group">
-              <label class="col-md-3 control-label">Tanggal Pemrosesan</label>
+              <label class="col-md-3 control-label">Tanggal Cut Off Absen</label>
               <div class="col-sm-9">
                <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_proses" id="tanggaledit" placeholder="Tanggal Proses">
+                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_proses" id="tanggaledit" placeholder="Dari">
+                </div><br>
+               <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_proses" id="tanggaledit" placeholder="Sampai">
                 </div>
               </div>
             </div>
@@ -138,13 +144,19 @@
               </div>
             </div>
             <div class="form-group">
-             <label class="col-md-3 control-label">Tanggal Pemprosesan</label>
+             <label class="col-md-3 control-label">Tanggal Cut Off Absen</label>
               <div class="col-sm-9">
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_proses" id="tanggal" placeholder="Tanggal Proses">
+                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_proses" id="tanggal" placeholder="Dari">
+                </div><br>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_proses" id="tanggal" placeholder="Sampai">
                 </div>
                 </div>
             </div>
