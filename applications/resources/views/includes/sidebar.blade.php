@@ -29,7 +29,7 @@
     </div>
   </div>
   <ul class="sidebar-menu">
-    <li class="header">NAVIGASI UTAMA</li>    
+    <li class="header">NAVIGASI UTAMA</li>
     <li>
       <a href="{{ url('/dashboard') }}">
         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -109,11 +109,12 @@
           <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li><a href="{{route('periodegaji.index')}}"><i class="fa fa-circle-o"></i> Periode Gaji</a></li>
-          <li><a href="{{route('komgaji.index')}}"><i class="fa fa-circle-o"></i> Komponen Gaji</a></li>
+          <li><a href="{{route('periodegaji.index')}}"><i class="fa fa-circle-o"></i> Set Periode Gaji</a></li>
+          <li><a href="{{ route('periodepegawai.index') }}"><i class="fa fa-circle-o"></i> Set Periode Pegawai</a></li>
+          <li><a href="{{route('komgaji.index')}}"><i class="fa fa-circle-o"></i> Set Komponen Gaji</a></li>
           <li><a href="{{route('setgaji.index')}}"><i class="fa fa-circle-o"></i> Set Gaji Pegawai</a></li>
-          <li><a href="{{route('hari.libur.index')}}"><i class="fa fa-circle-o"></i> Hari Libur</a></li>
-          <li><a href="{{route('cuti.index')}}"><i class="fa fa-circle-o"></i> Intervensi</a></li>
+          <li><a href="{{route('hari.libur.index')}}"><i class="fa fa-circle-o"></i> Set Hari Libur</a></li>
+          <li><a href="{{route('cuti.index')}}"><i class="fa fa-circle-o"></i> Set Perizinan</a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -123,8 +124,17 @@
           <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li><a href="{{ route('periodepegawai.index') }}"><i class="fa fa-circle-o"></i> Input Pegawai Ke Periode</a></li>
-          <li><a href="{{ route('batchpayroll.index') }}"><i class="fa fa-circle-o"></i> Proses Gaji Per Batch</a></li>
+          <li><a href="{{ route('batchpayroll.index') }}"><i class="fa fa-circle-o"></i> Generate Batch</a></li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-money"></i>
+          <span>Proses THR</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{ route('batchpayroll.index') }}"><i class="fa fa-circle-o"></i> Perhitungan THR</a></li>
         </ul>
       </li>
     @endif

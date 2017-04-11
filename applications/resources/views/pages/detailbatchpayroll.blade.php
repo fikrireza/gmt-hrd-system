@@ -336,7 +336,6 @@
 
         $('body').on('click', 'a.editkomponen[data-value]', function (){
           var id = $(this).data('value');
-          alert(id);
           var nilai = $(this).data('nilai');
           $('#nilai-for-id-'+id).html("<div class='input-group input-group-sm'>"+
                                       "<input type='text' class='form-control' value='"+nilai+"' id='inputnilai"+id+"'>"+
