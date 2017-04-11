@@ -105,22 +105,48 @@
           <h3 class="box-title">
             @php
               $date = explode("-", $getbatch->tanggal_proses);
+              $date2 = explode("-", $getbatch->tanggal_proses_akhir);
             @endphp
-            Seluruh Penerima Gaji Untuk Periode Per Tanggal {{$getbatch->tanggal}} &nbsp;&nbsp;|&nbsp;&nbsp; Tanggal Proses : {{$date[2]}}-{{$date[1]}}-{{$date[0]}}
+            Seluruh Penerima Gaji Untuk Periode Per Tanggal {{$getbatch->tanggal}} &nbsp;&nbsp;|&nbsp;&nbsp; Tanggal Proses : {{$date[2]}}-{{$date[1]}}-{{$date[0]}} s/d {{$date2[2]}}-{{$date2[1]}}-{{$date2[0]}} 
           </h3>
         </div>
-        <div class="box-body">
-          <table class="table table-hover" id="tabelpegawai">
+        <div class="box-body table-responsive">
+          <table class="table table-bordered" id="tabelpegawai">
             <thead>
               <tr>
-                <th>NIP</th>
-                <th>Nama</th>
-                <th>Jabatan</th>
-                <th>Status Kepegawaian</th>
-                <th>Komponen Gaji</th>
-                <th>Aksi</th>
+                <th rowspan="2">NIP</th>
+                <th rowspan="2">Nama</th>
+                <th rowspan="2">Jabatan</th>
+                <th colspan="3">Absensi</th>
+                <th rowspan="2">Penerimaan Tetap</th>
+                <th rowspan="2">Penerimaan Variable</th>
+                <th rowspan="2">Potongan Tetap</th>
+                <th rowspan="2">Potongan Variable</th>
+                <th rowspan="2">Total</th>
+                <th rowspan="2">Aksi</th>
+              </tr>
+              <tr>
+                <th>Hari Normal</th>
+                <th>Absen</th>
+                <th>Hari Kerja</th>
               </tr>
             </thead>
+            <tbody>
+              {{-- @foreach ($getdetailbatchpayroll as $key)
+                <tr>
+                  <td>{{$key->nip}}</td>
+                  <td>{{$key->nama}}</td>
+                  <td>{{$key->nama_jabatan}}</td>
+                  <td>{{$key->workday}}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              @endforeach --}}
+            </tbody>
           </table>
         </div>
       </div>
@@ -163,21 +189,23 @@
   <script type="text/javascript">
     $(function() {
 
+        $('#tabelpegawai').DataTable();
+
         // yajra datatable
-        $('#tabelpegawai').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '{!! route('batchpayroll.getdata', $idbatch) !!}',
-            column: [
-              {data: 'id', name: 'id'},
-              {data: '0', name: 'nip'},
-              {data: '1', name: 'nama'},
-              {data: '2', name: 'nama_jabatan'},
-              {data: '3', name: 'status'},
-              {data: '4', name: 'komponen_gaji'},
-              {data: '5', name: 'action', orderable: false, searchable: false}
-            ]
-        });
+        // $('#tabelpegawai').DataTable({
+        //     processing: true,
+        //     serverSide: true,
+        //     ajax: '{!! route('batchpayroll.getdata', $idbatch) !!}',
+        //     column: [
+        //       {data: 'id', name: 'id'},
+        //       {data: '0', name: 'nip'},
+        //       {data: '1', name: 'nama'},
+        //       {data: '2', name: 'nama_jabatan'},
+        //       {data: '3', name: 'status'},
+        //       {data: '4', name: 'komponen_gaji'},
+        //       {data: '5', name: 'action', orderable: false, searchable: false}
+        //     ]
+        // });
 
         // bind to table komponen in modal
         $('#tabelpegawai').DataTable().on('click', 'a.addkomponen[data-value]', function () {

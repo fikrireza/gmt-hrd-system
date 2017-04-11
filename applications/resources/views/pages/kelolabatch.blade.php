@@ -150,13 +150,13 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_proses" id="tanggal" placeholder="Dari">
+                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_awal" id="tanggal" placeholder="Dari">
                 </div><br>
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_proses" id="tanggal" placeholder="Sampai">
+                  <input class="form-control pull-right datepicker1" type="text" name="tanggal_akhir" id="tanggal" placeholder="Sampai">
                 </div>
                 </div>
             </div>

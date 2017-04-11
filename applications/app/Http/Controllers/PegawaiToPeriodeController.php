@@ -32,18 +32,25 @@ class PegawaiToPeriodeController extends Controller
 
     public function store(Request $request)
     {
+      $countfailed = 0;
       foreach ($request->idpegawai as $key) {
-        $check = DetailPeriodeGaji::where('id_pegawai', $request->idpegawai)->get();
+        $check = DetailPeriodeGaji::where('id_pegawai', $key)->get();
 
         if(count($check)==0) {
           $set = new DetailPeriodeGaji;
           $set->id_periode_gaji = $request->periodegaji;
           $set->id_pegawai = $key;
           $set->save();
+        } else {
+          $countfailed++;
         }
       }
 
-      return redirect()->route('periodepegawai.index')->with('message', 'Berhasil memasukkan data pegawai ke periode penggajian.');
+      if ($countfailed==0) {
+        return redirect()->route('periodepegawai.index')->with('message', 'Berhasil memasukkan seluruh data pegawai ke periode penggajian.');
+      } else {
+        return redirect()->route('periodepegawai.index')->with('message', 'Berhasil memasukkan data pegawai ke periode penggajian, namun ada beberapa pegawai yang gagal dimasukkan karena telah terdaftar dalam periode penggajian yang lainnya.');
+      }
     }
 
     public function delete($id)

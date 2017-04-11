@@ -26,10 +26,9 @@
     }, 2000);
   </script>
 
-
+  {{-- -- MODAL DELETE -- --}}
   <div class="modal modal-default fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-      <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -45,6 +44,94 @@
       </div>
     </div>
   </div>
+  {{-- -- END OF MODAL DELETE -- --}}
+
+  {{-- -- MODAL EDIT GAJI -- --}}
+  <div class="modal modal-default fade" id="myModalEditGaji" role="dialog">
+    <div class="modal-dialog">
+      <form class="form-horizontal" action="{{route('periodegaji.update')}}" method="post">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit Gaji Pokok</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="col-sm-3 control-label">NIP Pegawai</label>
+              <div class="col-sm-9">
+                {!! csrf_field() !!}
+                <input type="hidden" class="form-control" id="idgapok" name="id">
+                <input type="hidden" class="form-control" name="idperiode" value="{{$idperiode}}">
+                <input type="text" class="form-control" id="nippegawaigapok" name="nip" readonly="">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Nama Pegawai</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="namapegawaigapok" name="nama" readonly="">
+              </div>
+            </div>
+            <div class="form-group">
+               <label class="col-sm-3 control-label">Gaji Pokok</label>
+                <div class="col-sm-9">
+                  <input type="text" class="form-control" name="gaji_pokok" id="nilaigapok">
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" class="btn btn-warning" value="Simpan Perubahan">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  {{-- -- END OF MODAL EDIT GAJI -- --}}
+
+  {{-- -- MODAL EDIT WORKDAY -- --}}
+  <div class="modal modal-default fade" id="myModalEditWorkDay" role="dialog">
+    <div class="modal-dialog">
+      <form class="form-horizontal" action="{{route('periodegaji.updateworkday')}}" method="post">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit Hari Kerja</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label class="col-sm-3 control-label">NIP Pegawai</label>
+              <div class="col-sm-9">
+                {!! csrf_field() !!}
+                <input type="hidden" class="form-control" id="idhaker" name="id">
+                <input type="hidden" class="form-control" name="idperiode" value="{{$idperiode}}">
+                <input type="text" class="form-control" id="nippegawaihaker" name="nip" readonly="">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Nama Pegawai</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="namapegawaihaker" name="nama" readonly="">
+              </div>
+            </div>
+            <div class="form-group">
+               <label class="col-sm-3 control-label">Hari Kerja</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="workday">
+                    <option value="">-- PILIH --</option>
+                    <option value="52" id="haker52">[5-2] -- 5 Hari Kerja, 2 Hari Libur</option>
+                    <option value="61" id="haker61">[6-1] -- 6 Hari Kerja, 1 Hari Libur</option>
+                  </select>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+            <input class="btn btn-success" type="submit" value="Simpan Perubahan">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  {{-- -- MODAL EDIT WORKDAY -- --}}
 
   <div class="row">
     <div class="col-md-12">
@@ -64,7 +151,7 @@
             Seluruh Data Pegawai Periode Pengajian Per Tanggal {{$getperiode->tanggal}}
           </h3>
         </div>
-        <div class="box-body">
+        <div class="box-body table-responsive">
           <table class="table table-hover" id="tabelpegawai">
             <thead>
               <tr>
@@ -73,6 +160,8 @@
                 <th>No Telp</th>
                 <th>Jabatan</th>
                 <th>Status</th>
+                <th>Gaji Pokok</th>
+                <th>Hari Kerja</th>
                 <th>Aksi</th>
               </tr>
             </thead>
@@ -120,6 +209,55 @@
         $('#tabelpegawai').DataTable().on('click', 'a.hapus[data-value]', function () {
           var a = $(this).data('value');
           $('#set').attr('href', '{{url('/')}}/periode-pegawai/delete/'+a);
+        });
+
+        $('#tabelpegawai').DataTable().on('click', 'a.editgaji[data-value]', function () {
+          var a = $(this).data('value');
+          $.ajax({
+            url: "{{ url('/') }}/pegawai/bind-gaji/"+a,
+            dataType: 'json',
+            success: function(data){
+              // get
+              var id = data.id;
+              var nip = data.nip;
+              var nama = data.nama;
+              var gaji = data.gaji_pokok;
+
+              // set
+              $('#idgapok').attr('value', id);
+              $('#nippegawaigapok').attr('value', nip);
+              $('#namapegawaigapok').attr('value', nama);
+              $('#nilaigapok').attr('value', gaji);
+            }
+          });
+        });
+
+        $('#tabelpegawai').DataTable().on('click', 'a.editworkday[data-value]', function () {
+          var a = $(this).data('value');
+          $.ajax({
+            url: "{{ url('/') }}/pegawai/bind-gaji/"+a,
+            dataType: 'json',
+            success: function(data){
+              // get
+              var id = data.id;
+              var nip = data.nip;
+              var nama = data.nama;
+              var workday = data.workday;
+
+              // set
+              $('#idhaker').attr('value', id);
+              $('#nippegawaihaker').attr('value', nip);
+              $('#namapegawaihaker').attr('value', nama);
+
+              if (workday==52) {
+                $('#haker52').attr('selected', true);
+                $('#haker61').attr('selected', false);
+              } else if (workday==61) {
+                $('#haker61').attr('selected', true);
+                $('#haker52').attr('selected', false);
+              }
+            }
+          });
         });
       });
   </script>

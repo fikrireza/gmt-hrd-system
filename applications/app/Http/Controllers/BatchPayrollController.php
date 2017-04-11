@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 use Datatables;
 use App\Http\Requests;
+use App\Models\HariLibur;
 use App\Models\PeriodeGaji;
 use App\Models\BatchPayroll;
 use App\Models\KomponenGaji;
@@ -31,14 +32,53 @@ class BatchPayrollController extends Controller
 
   public function store(Request $request)
   {
-    $getyearmonth = substr($request->tanggal_proses, 0, 7);
-    $check = BatchPayroll::where('tanggal_proses', 'like', "$getyearmonth%")
+    //--- CHECK GENERATED BATCH ---//
+    $getyearmonth1st = substr($request->tanggal_awal, 0, 7);
+    $getyearmonth2st = substr($request->tanggal_akhir, 0, 7);
+    $check = BatchPayroll::where('tanggal_proses', 'like', "$getyearmonth1st%")
+                          ->where('tanggal_proses', 'like', "$getyearmonth2st%")
                           ->where('id_periode_gaji', $request->periode)->get();
+    //--- END OF CHECK GENERATED BATCH ---//
+
+    //--- GET HARI LIBUR ---//
+    $getharilibur = HariLibur::select('libur')->whereBetween('libur', [$request->tanggal_awal, $request->tanggal_akhir])->get();
+    $arrharilibur = array();
+    foreach ($getharilibur as $key) {
+      $arrharilibur[] = $key->libur;
+    }
+
+    //--- END OF GET HARI LIBUR ---//
+
+    //-- GET TANGGAL SEHARUSNYA KERJA ---//
+    $daterange=array();
+    $idatefrom=mktime(1,0,0,substr($request->tanggal_awal,5,2), substr($request->tanggal_awal,8,2), substr($request->tanggal_awal,0,4));
+    $idateto=mktime(1,0,0,substr($request->tanggal_akhir,5,2), substr($request->tanggal_akhir,8,2), substr($request->tanggal_akhir,0,4));
+    if ($idateto>=$idatefrom)
+    {
+        array_push($daterange,date('Y-m-d',$idatefrom)); // first entry
+        while ($idatefrom<$idateto)
+        {
+            $idatefrom+=86400; // add 24 hours
+            array_push($daterange,date('Y-m-d',$idatefrom));
+        }
+    }
+    $harikerja52 = array(); // work 5, holiday 2
+    $harikerja61 = array(); // work 6, holiday 1
+    foreach ($daterange as $key) {
+      if ((date('N', strtotime($key)) < 6) && (!in_array($key, $arrharilibur))) {
+        $harikerja52[] = $key;
+      }
+      if ((date('N', strtotime($key)) < 7) && (!in_array($key, $arrharilibur))) {
+        $harikerja61[] = $key;
+      }
+    }
+    //-- END OF GET TANGGAL SEHARUSNYA KERJA ---//
 
     if ($check->count()==0) {
       $set = new BatchPayroll;
       $set->id_periode_gaji = $request->periode;
-      $set->tanggal_proses = $request->tanggal_proses;
+      $set->tanggal_proses = $request->tanggal_awal;
+      $set->tanggal_proses_akhir = $request->tanggal_akhir;
       $set->save();
 
       $getlatestid = BatchPayroll::select('id')->orderby('id', 'desc')->first();
@@ -46,15 +86,21 @@ class BatchPayrollController extends Controller
       $getkomponentetap = KomponenGaji::where('tipe_komponen_gaji', 0)->get();
 
       foreach ($getidpegawai as $key) {
+        // ---- LOGIC SEMENTARA (ganti logicnya setelah datanya banyak, soalnya lemot..)
+        $getgajipegawai = MasterPegawai::select('gaji_pokok', 'workday')->where('id', $key->id_pegawai)->first();
+        // ---- END OF LOGIC SEMENTARA (ganti logicnya setelah datanya banyak, soalnya lemot..)
+
         $set = new DetailBatchPayroll;
         $set->id_batch_payroll = $getlatestid->id;
         $set->id_pegawai = $key->id_pegawai;
+        if ($getgajipegawai->workday=="52") {
+          $set->workday = count($harikerja52);
+        } else if ($getgajipegawai->workday=="61") {
+          $set->workday = count($harikerja61);
+        }
         $set->save();
 
-        // ---- LOGIC SEMENTARA (ganti logicnya setelah datanya banyak, soalnya lemot..)
         $getlatestdetailbatchid = DetailBatchPayroll::select('id')->orderby('id', 'desc')->first();
-        $getgajipegawai = MasterPegawai::select('gaji_pokok')->where('id', $key->id_pegawai)->first();
-        // ---- END OF LOGIC SEMENTARA (ganti logicnya setelah datanya banyak, soalnya lemot..)
 
         foreach ($getkomponentetap as $tetap) {
           $set = new DetailKomponenGaji;
@@ -77,11 +123,21 @@ class BatchPayrollController extends Controller
 
   public function detail($id)
   {
+    $getdetailbatchpayroll = DetailBatchPayroll::
+          select('master_pegawai.nip', 'master_pegawai.nama', 'master_jabatan.nama_jabatan', 'detail_batch_payroll.workday')
+          ->join('master_pegawai', 'detail_batch_payroll.id_pegawai', '=', 'master_pegawai.id')
+          ->join('master_jabatan', 'master_pegawai.id_jabatan', '=', 'master_jabatan.id')
+          ->get();
+
     $getbatch = BatchPayroll::join('periode_gaji', 'batch_payroll.id_periode_gaji', '=', 'periode_gaji.id')->first();
     $getkomponengaji = KomponenGaji::all();
+
+    
+
     return view('pages/detailbatchpayroll')
       ->with('idbatch', $id)
       ->with('getkomponengaji', $getkomponengaji)
+      // ->with('getdetailbatchpayroll', $getdetailbatchpayroll)
       ->with('getbatch', $getbatch);
   }
 

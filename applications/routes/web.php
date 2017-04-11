@@ -134,7 +134,8 @@ Route::get('komponen-gaji/bind-gaji/{id}', 'KomponenGajiController@bind')->name(
 ///// PERIODE GAJI ///////
 Route::get('periode-gaji', 'PeriodeGajiController@index')->name('periodegaji.index');
 Route::post('periode-gaji', 'PeriodeGajiController@store')->name('periodegaji.store');
-Route::post('periode-gaji/update/{id}', 'PeriodeGajiController@update')->name('periodegaji.update');
+Route::post('periode-gaji/update', 'PeriodeGajiController@update')->name('periodegaji.update');
+Route::post('periode-gaji/updateworkday', 'PeriodeGajiController@updateworkday')->name('periodegaji.updateworkday');
 Route::get('periode-gaji/delete/{id}', 'PeriodeGajiController@delete')->name('periodegaji.delete');
 Route::get('periode-gaji/detail/{id}', 'PeriodeGajiController@detail')->name('periodegaji.detail');
 Route::get('periode-gaji/get-detail/periode/{id}', 'PeriodeGajiController@getdatafordatatable')->name('periodegaji.getdata');
