@@ -16,6 +16,8 @@ use App\Models\DetailPeriodeGaji;
 use App\Models\DetailKomponenGaji;
 use App\Models\DetailBatchPayroll;
 
+use Validator;
+
 class BatchPayrollController extends Controller
 {
   public function index()
@@ -32,6 +34,23 @@ class BatchPayrollController extends Controller
 
   public function store(Request $request)
   {
+    $message = [
+        'periode.required' => 'Wajib di isi',
+        'tanggal_awal.required' => 'Wajib di isi',
+        'tanggal_akhir.required' => 'Wajib di isi',
+      ];
+
+      $validator = Validator::make($request->all(), [
+        'periode' => 'required',
+        'tanggal_awal' => 'required',
+        'tanggal_akhir' => 'required',
+      ], $message);
+
+      if($validator->fails())
+      {
+        return redirect()->route('batchpayroll.index')->withErrors($validator)->withInput();
+      }
+
     //--- CHECK GENERATED BATCH ---//
     $getyearmonth1st = substr($request->tanggal_awal, 0, 7);
     $getyearmonth2st = substr($request->tanggal_akhir, 0, 7);
@@ -130,6 +149,7 @@ class BatchPayrollController extends Controller
           ->get();
 
     $getbatch = BatchPayroll::join('periode_gaji', 'batch_payroll.id_periode_gaji', '=', 'periode_gaji.id')->first();
+    // dd($getbatch);
     $getkomponengaji = KomponenGaji::all();
 
     
@@ -174,4 +194,31 @@ class BatchPayrollController extends Controller
       ->removeColumn('id')
       ->make();
   }
+
+
+  public function bind($id)
+    {
+      $get = BatchPayroll::find($id); 
+      return $get;
+    }
+
+    public function update(Request $request)
+    {
+      // dd($request);
+      $dataChage = BatchPayroll::find($request->id);
+      $set->id_periode_gaji = $request->periode_edit;
+      $set->tanggal_proses = $request->tanggal_awal_edit;
+      $set->tanggal_proses_akhir = $request->tanggal_akhir_edit;
+      $set->save();
+
+      return redirect()->route('batchpayroll.index')->with('message', 'Data batch payroll berhasil diubah.');
+    }
+
+    public function delete($id)
+    {
+      $set = BatchPayroll::find($id);
+      $set->delete();
+      return redirect()->route('batchpayroll.index')->with('message', 'Berhasil menghapus data batch payroll.');
+    }
+
 }

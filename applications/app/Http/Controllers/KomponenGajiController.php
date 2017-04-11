@@ -8,6 +8,9 @@ use App\Http\Requests;
 use App\Models\KomponenGaji;
 use App\Models\DetailKomponenGaji;
 
+use Validator;
+
+
 class KomponenGajiController extends Controller
 {
     /**
@@ -28,6 +31,24 @@ class KomponenGajiController extends Controller
 
     public function store(Request $request)
     {
+      $message = [
+        'nama_komponen.required' => 'Wajib di isi',
+        'tipe_komponen.required' => 'Wajib di isi',
+        'periode_perhitungan.required' => 'Wajib di isi',
+        'tipe_komponen_gaji.required' => 'Wajib di isi',
+      ];
+
+      $validator = Validator::make($request->all(), [
+        'nama_komponen' => 'required',
+        'tipe_komponen' => 'required',
+        'periode_perhitungan' => 'required',
+        'tipe_komponen_gaji' => 'required',
+      ], $message);
+
+      if($validator->fails())
+      {
+        return redirect()->route('komgaji.index')->withErrors($validator)->withInput();
+      }
 
       $set = new KomponenGaji;
       $set->nama_komponen = $request->nama_komponen;
@@ -54,25 +75,31 @@ class KomponenGajiController extends Controller
     public function update(Request $request)
     {
       // dd($request);
+
       // $message = [
-      //   'nama_komponen.required' => 'Wajib di isi',
-      //   'tipe_komponen.required' => 'Wajib di isi',
-      //   'periode_perhitungan.required' => 'Wajib di isi',
-      //   'flag_status.required' => 'Wajib di isi',
+      //   'nama_komponen_edit.required' => 'Wajib di isi',
+      //   'tipe_komponen_edit.required' => 'Wajib di isi',
+      //   'periode_perhitungan_edit.required' => 'Wajib di isi',
+      //   'tipe_komponen_gaji_edit.required' => 'Wajib di isi',
       // ];
 
       // $validator = Validator::make($request->all(), [
-      //   'nama_komponen' => 'required',
-      //   'tipe_komponen' => 'required',
-      //   'periode_perhitungan' => 'required',
-      //   'flag_status' => 'required',
+      //   'nama_komponen_edit' => 'required',
+      //   'tipe_komponen_edit' => 'required',
+      //   'periode_perhitungan_edit' => 'required',
+      //   'tipe_komponen_gaji_edit' => 'required',
       // ], $message);
 
+      // if($validator->fails())
+      // {
+      //   return redirect()->route('komgaji.index')->withErrors($validator)->withInput();
+      // }
+
       $dataChage = KomponenGaji::find($request->id);
-      $dataChage->nama_komponen = $request->nama_komponen;
-      $dataChage->tipe_komponen = $request->tipe_komponen;
-      $dataChage->periode_perhitungan = $request->periode_perhitungan;
-      $dataChage->flag_status = $request->flag_status;
+      $dataChage->nama_komponen = $request->nama_komponen_edit;
+      $dataChage->tipe_komponen = $request->tipe_komponen_edit;
+      $dataChage->periode_perhitungan = $request->periode_perhitungan_edit;
+      $dataChage->flag_status = $request->flag_status_edit;
       $dataChage->save();
 
       return redirect()->route('komgaji.index')->with('message', 'Data komponen gaji berhasil diubah.');

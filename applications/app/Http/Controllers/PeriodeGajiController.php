@@ -10,6 +10,8 @@ use App\Http\Requests;
 use App\Models\PeriodeGaji;
 use App\Models\MasterPegawai;
 
+use Validator;
+
 class PeriodeGajiController extends Controller
 {
     /**
@@ -30,6 +32,21 @@ class PeriodeGajiController extends Controller
 
     public function store(Request $request)
     {
+      $message = [
+        'tanggal.required' => 'Wajib di isi',
+        'keterangan.required' => 'Wajib di isi',
+      ];
+
+      $validator = Validator::make($request->all(), [
+        'tanggal' => 'required',
+        'keterangan' => 'required',
+      ], $message);
+
+      if($validator->fails())
+      {
+        return redirect()->route('periodegaji.index')->withErrors($validator)->withInput();
+      }
+
       $set = new PeriodeGaji;
       $set->tanggal = $request->tanggal;
       $set->keterangan = $request->keterangan;

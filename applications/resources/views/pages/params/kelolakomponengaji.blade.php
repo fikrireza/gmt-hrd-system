@@ -64,42 +64,66 @@
           </div>
           <div class="modal-body">
             <div class="form-group ">
-              <label class="col-sm-3 control-label">Nama Kategori</label>
+              <label class="col-sm-3 control-label">Nama Komponen</label>
               <div class="col-sm-9">
               <input type="hidden" name="id" class="form-control" id="id">
-              <input type="text" name="nama_komponen" class="form-control" placeholder="Nama Kategori" id="nama_komponen">
+              <input type="text" name="nama_komponen_edit" class="form-control" placeholder="Nama Komponen" id="nama_komponen_edit">
+                @if($errors->has('nama_komponen_edit'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('nama_komponen_edit')}}
+                    </strong>
+                  </span>
+                @endif
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Tipe Komponen</label>
               <div class="col-sm-9">
-              <select class="form-control" name="tipe_komponen" id="tipe_komponen">
-                <option value="-- Pilih --">-- Pilih --</option>
-                <option value="D" id="flag_penerimaan">Penerimaan</option>
-                <option value="P" id="flag_potongan">Potongan</option>
+              <select class="form-control" name="tipe_komponen_edit" id="tipe_komponen_edit">
+                <option value="">-- Pilih --</option>
+                <option value="D" id="flag_penerimaan_edit">Penerimaan</option>
+                <option value="P" id="flag_potongan_edit">Potongan</option>
               </select>
+                @if($errors->has('tipe_komponen_edit'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('tipe_komponen_edit')}}
+                    </strong>
+                  </span>
+                @endif
               </div>
             </div>
              <div class="form-group ">
               <label class="col-sm-3 control-label">Periode Perhitungan</label>
               <div class="col-sm-9">
-              <select class="form-control" name="periode_perhitungan" id="periode_perhitungan">
-                <option>-- Pilih --</option>
-                <option value="Bulanan" id="flag_bulanan">Bulanan</option>
-                <option value="Harian" id="flag_harian">Harian</option>
-                <option value="Jam" id="flag_jam">Jam</option>
-                <option value="Shift" id="flag_shift">Shift</option>
+              <select class="form-control" name="periode_perhitungan_edit" id="periode_perhitungan_edit">
+                <option value="">-- Pilih --</option>
+                <option value="Bulanan" id="flag_bulanan_edit">Bulanan</option>
+                <option value="Harian" id="flag_harian_edit">Harian</option>
+                <option value="Jam" id="flag_jam_edit">Jam</option>
+                <option value="Shift" id="flag_shift_edit">Shift</option>
               </select>
+               @if($errors->has('periode_perhitungan_edit'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('periode_perhitungan_edit')}}
+                    </strong>
+                  </span>
+                @endif
               </div>
             </div>
             <div class="form-group ">
               <label class="col-sm-3 control-label">Status</label>
               <div class="col-sm-9">
-              <select class="form-control" name="flag_status" id="flag_status">
-                <option>-- Pilih --</option>
-                <option value="0" id="flag_tetap">Tetap</option>
-                <option value="1" id="flag_variabel">Variabel</option>
+              <select class="form-control" name="flag_status_edit" id="flag_status_edit">
+                <option value="">-- Pilih --</option>
+                <option value="0" id="flag_tetap_edit">Tetap</option>
+                <option value="1" id="flag_variabel_edit">Variabel</option>
               </select>
+                @if($errors->has('flag_status_edit'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('flag_status_edit')}}
+                    </strong>
+                  </span>
+                @endif
               </div>
             </div>
           </div>
@@ -142,39 +166,63 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Nama Komponen</label>
               <div class="col-sm-9">
-              <input type="text" name="nama_komponen" class="form-control" placeholder="Nama Komponen">
+              <input type="text" name="nama_komponen" class="form-control" value="{{ old('nama_komponen') }}" placeholder="Nama Komponen">
+                @if($errors->has('nama_komponen'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('nama_komponen')}}
+                    </strong>
+                  </span>
+                @endif
               </div>
             </div>
             <div class="form-group">
               <label class="col-sm-3 control-label">Tipe Perhitungan</label>
               <div class="col-sm-9">
               <select class="form-control" name="tipe_komponen">
-                <option>-- Pilih --</option>
+                <option value="">-- Pilih --</option>
                 <option value="D">Penerimaan</option>
                 <option value="P">Potongan</option>
               </select>
+                @if($errors->has('tipe_komponen'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('tipe_komponen')}}
+                    </strong>
+                  </span>
+                @endif
               </div>
             </div>
             <div class="form-group ">
               <label class="col-sm-3 control-label">Periode Perhitungan</label>
               <div class="col-sm-9">
               <select class="form-control" name="periode_perhitungan">
-                <option>-- Pilih --</option>
+                <option value="">-- Pilih --</option>
                 <option value="Bulanan">Bulanan</option>
                 <option value="Harian">Harian</option>
                 <option value="Jam">Jam</option>
                 <option value="Shift">Shift</option>
               </select>
+              @if($errors->has('periode_perhitungan'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('periode_perhitungan')}}
+                    </strong>
+                  </span>
+                @endif
               </div>
             </div>
             <div class="form-group ">
               <label class="col-sm-3 control-label">Tipe Komponen</label>
                 <div class="col-md-9 ">
                   <select class="form-control" name="tipe_komponen_gaji">
-                    <option>-- Pilih --</option>
+                    <option value="">-- Pilih --</option>
                     <option value="0">Tetap</option>
                     <option value="1">Variable</option>
                   </select>
+                @if($errors->has('tipe_komponen_gaji'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('tipe_komponen_gaji')}}
+                    </strong>
+                  </span>
+                @endif
                 </div>
               </div>
         </div>
@@ -287,12 +335,9 @@
   <script src="{{asset('dist/js/demo.js')}}"></script>
 
   <script type="text/javascript">
-    $(function(){
-      // $('a.hapus').click(function(){
-      //   var a = $(this).data('value');
-      //   $('#set').attr('href', "{{ url('/') }}/masterjabatan/hapusjabatan/"+a);
-      // });
-    });
+  @if ($errors->has('nama_komponen_edit') || $errors->has('tipe_komponen_edit') || $errors->has('periode_perhitungan_edit') || $errors->has('tipe_komponen_gaji_edit'))
+    $('#myModalEdit').modal('show');
+  @endif
   </script>
   <script type="text/javascript">
     $('#myModalEdit').on('hidden.bs.modal', function () {
@@ -318,34 +363,34 @@
           success: function(data){
             //get
             var id = data.id;
-            var nama_komponen = data.nama_komponen;
-            var tipe_komponen = data.tipe_komponen;
-            var periode_perhitungan = data.periode_perhitungan;
-            var flag_status = data.flag_status;
+            var nama_komponen_edit = data.nama_komponen;
+            var tipe_komponen_edit = data.tipe_komponen;
+            var periode_perhitungan_edit = data.periode_perhitungan;
+            var flag_status_edit = data.flag_status;
             //set
             $('#id').attr('value', id);
-            $('#nama_komponen').attr('value', nama_komponen);
+            $('#nama_komponen_edit').attr('value', nama_komponen_edit);
 
-            if (tipe_komponen=="D") {
-              $('#flag_penerimaan').attr('selected', true);
+            if (tipe_komponen_edit=="D") {
+              $('#flag_penerimaan_edit').attr('selected', true);
             } else {
-              $('#flag_potongan').attr('selected', true);
+              $('#flag_potongan_edit').attr('selected', true);
             }
 
-            if (periode_perhitungan=="Bulanan") {
-              $('#flag_bulanan').attr('selected', true);
-            } else if (periode_perhitungan=="Harian") {
-              $('#flag_harian').attr('selected', true);
-            } else if (periode_perhitungan=="Jam") {
-              $('#flag_jam').attr('selected', true);
-            } else if (periode_perhitungan=="Shift") {
-              $('#flag_shift').attr('selected', true);
+            if (periode_perhitungan_edit=="Bulanan") {
+              $('#flag_bulanan_edit').attr('selected', true);
+            } else if (periode_perhitungan_edit=="Harian") {
+              $('#flag_harian_edit').attr('selected', true);
+            } else if (periode_perhitungan_edit=="Jam") {
+              $('#flag_jam_edit').attr('selected', true);
+            } else if (periode_perhitungan_edit=="Shift") {
+              $('#flag_shift_edit').attr('selected', true);
             }
 
-            if (flag_status=="0") {
-              $('#flag_tetap').attr('selected', true);
+            if (flag_status_edit=="0") {
+              $('#flag_tetap_edit').attr('selected', true);
             } else {
-              $('#flag_variabel').attr('selected', true);
+              $('#flag_variabel_edit').attr('selected', true);
             }
           }
         });

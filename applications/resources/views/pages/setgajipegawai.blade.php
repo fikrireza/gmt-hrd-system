@@ -53,7 +53,7 @@
             <div class="form-group">
                <label class="col-sm-3 control-label">Gaji Pokok</label>
                 <div class="col-sm-9">
-                  <input type="text" class="form-control" id="gajipokok" name="gajipokok">
+                  <input type="text" class="form-control" id="gajipokok" name="gajipokok" onkeypress="return isNumber(event)">
                 </div>
             </div>
           </div>
@@ -117,7 +117,16 @@
   <script src="{{asset('dist/js/app.min.js')}}"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="{{asset('dist/js/demo.js')}}"></script>
-
+  <script type="text/javascript">
+    function isNumber(evt) {
+      evt = (evt) ? evt : window.event;
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+          return false;
+      }
+      return true;
+    }
+  </script>
 
   <script type="text/javascript">
     $(function() {

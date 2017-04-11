@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\HariLibur;
 
+use Validator;
+
 class HariLiburController extends Controller
 {
     /**
@@ -27,6 +29,23 @@ class HariLiburController extends Controller
 
     public function store(Request $request)
     {
+      $message = [
+        'libur.required' => 'Wajib di isi',
+        'keterangan.required' => 'Wajib di isi',
+        'status.required' => 'Wajib di isi',
+      ];
+
+      $validator = Validator::make($request->all(), [
+        'libur' => 'required',
+        'keterangan' => 'required',
+        'status' => 'required',
+      ], $message);
+
+      if($validator->fails())
+      {
+        return redirect()->route('hari.libur.index')->withErrors($validator)->withInput();
+      }
+
       $set = new HariLibur;
       $set->libur = $request->libur;
       $set->keterangan = $request->keterangan;
