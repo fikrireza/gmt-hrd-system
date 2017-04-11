@@ -99,6 +99,7 @@ class SetGajiController extends Controller
 
   public function update(Request $request)
   {
+    // dd($request);
     $set = MasterPegawai::find($request->id);
     $set->gaji_pokok = $request->gajipokok;
     $set->save();

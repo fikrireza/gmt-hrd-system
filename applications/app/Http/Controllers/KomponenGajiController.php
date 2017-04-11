@@ -54,19 +54,19 @@ class KomponenGajiController extends Controller
     public function update(Request $request)
     {
       // dd($request);
-      $message = [
-        'nama_komponen.required' => 'Wajib di isi',
-        'tipe_komponen.required' => 'Wajib di isi',
-        'periode_perhitungan.required' => 'Wajib di isi',
-        'flag_status.required' => 'Wajib di isi',
-      ];
+      // $message = [
+      //   'nama_komponen.required' => 'Wajib di isi',
+      //   'tipe_komponen.required' => 'Wajib di isi',
+      //   'periode_perhitungan.required' => 'Wajib di isi',
+      //   'flag_status.required' => 'Wajib di isi',
+      // ];
 
-      $validator = Validator::make($request->all(), [
-        'nama_komponen' => 'required',
-        'tipe_komponen' => 'required',
-        'periode_perhitungan' => 'required',
-        'flag_status' => 'required',
-      ], $message);
+      // $validator = Validator::make($request->all(), [
+      //   'nama_komponen' => 'required',
+      //   'tipe_komponen' => 'required',
+      //   'periode_perhitungan' => 'required',
+      //   'flag_status' => 'required',
+      // ], $message);
 
       $dataChage = KomponenGaji::find($request->id);
       $dataChage->nama_komponen = $request->nama_komponen;
