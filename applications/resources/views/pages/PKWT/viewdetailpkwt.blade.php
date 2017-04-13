@@ -69,7 +69,7 @@
 
     <div class="modal modal-default fade" id="modaleditpkwt" role="dialog">
       <div class="modal-dialog">
-        <form class="form-horizontal" action="{{url('savepkwt')}}" method="post">
+        <form class="form-horizontal" action="{{url('saveChangesPKWT')}}" method="post">
           {!! csrf_field() !!}
           <div class="modal-content">
             <div class="modal-header">
@@ -80,10 +80,11 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">Kelompok Jabatan</label>
                 <div class="col-sm-9">
-                  <select name="id_kelompok_jabatan" class="form-control select2" style="width: 100%;">
-                    <option selected="selected"></option>
+                  <input type="hidden" name="id_pkwt_change" class="form-control" id="id_pkwt_change" required>
+                  <select name="id_kelompok_jabatan" class="form-control" style="width: 100%;">
+                    <option value=""></option>
                     @foreach($get_kel_jabatan as $key)
-                      <option value="{{ $key->id }}">{{ $key->nip }} - {{ $key->nama }}</option>
+                      <option value="{{$key->id}}" id="editkeljab{{$key->id}}">{{$key->nama}}</option>
                     @endforeach
                   </select>
                 </div>
@@ -96,7 +97,6 @@
                       <i class="fa fa-calendar"></i>
                     </div>
                     <input type="text" name="tanggal_masuk_gmt" class="form-control" id="tanggal_masuk_gmt" required>
-                    <input type="hidden" name="id_pkwt" class="form-control" id="id_pkwt" required>
                     <input type="hidden" name="nip" class="form-control" value="{{$getnip[0]->nip}}" required>
                   </div>
                 </div>
@@ -311,6 +311,15 @@
       $(".select2").select2();
     });
   </script>
+  <script type="text/javascript">
+    $('#modaleditpkwt').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+
+    $('#modalterminatepkwt').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+  </script>
 
   <script type="text/javascript">
     $('.terminate_pkwt').click(function(){
@@ -361,6 +370,7 @@
           dataType: 'json',
           success: function(data){
             var id_pkwt = data.id;
+            var id_kelompok_jabatan = data.id_kelompok_jabatan;
             var tanggal_masuk_gmt = data.tanggal_masuk_gmt;
             var tanggal_masuk_client = data.tanggal_masuk_client;
             var tanggal_awal_pkwt = data.tanggal_awal_pkwt;
@@ -369,7 +379,8 @@
             var status_pkwt = data.status_pkwt;
             
             // set
-            $('#id_pkwt').attr('value', id_pkwt);
+            $('#id_pkwt_change').attr('value', id_pkwt);
+            $('#editkeljab'+id_kelompok_jabatan).attr('selected', true);
             $('#tanggal_masuk_gmt').attr('value', tanggal_masuk_gmt);
             $('#tanggal_masuk_client').attr('value', tanggal_masuk_client);
             $('#tanggal_awal_pkwt').attr('value', tanggal_awal_pkwt);
@@ -378,24 +389,24 @@
             // alert(status_pkwt);
             if(status_pkwt=="1")
             {
-              $('#status_pkwt_aktif').attr('selected', 'true');
+              $('#status_pkwt_aktif').attr('selected', true);
             }
             else if(status_pkwt=="0")
             {
-              $('#status_pkwt_tidakaktif').attr('selected', 'true');
+              $('#status_pkwt_tidakaktif').attr('selected', true);
             }
 
-            if(status_karyawan_pkwt=="1")
+            if(status_karyawan_pkwt==1)
             {
-              $('#status_karyawan_kontrak').attr('selected', "true");
+              $('#status_karyawan_kontrak').attr('selected', true);
             }
-            else if(status_karyawan_pkwt=="2")
+            else if(status_karyawan_pkwt==2)
             {
-              $('#status_karyawan_freelance').attr('selected', "true");
+              $('#status_karyawan_freelance').attr('selected', true);
             }
-            else if(status_karyawan_pkwt=="3")
+            else if(status_karyawan_pkwt==3)
             {
-              $('#status_karyawan_freelance').attr('selected', "true");
+              $('#status_karyawan_freelance').attr('selected', true);
             }
           }
         });
