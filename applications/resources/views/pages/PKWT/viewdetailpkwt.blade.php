@@ -30,6 +30,13 @@
         });
       }, 2000);
     </script>
+    <script>
+      window.setTimeout(function() {
+        $(".alert-danger").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+      }, 2000);
+    </script>
 
     {{-- Modak for Terminate--}}
     <div class="modal modal-default fade" id="modalterminatepkwt" role="dialog">
@@ -169,7 +176,7 @@
       @elseif(Session::has('terminate'))
         <div class="alert alert-danger">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-          <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+          <h4><i class="icon fa fa-close"></i> Berhasil!</h4>
           <p>{{ Session::get('terminate') }}</p>
         </div>
       @endif
@@ -360,7 +367,7 @@
             var tanggal_akhir_pkwt = data.tanggal_akhir_pkwt;
             var status_karyawan_pkwt = data.status_karyawan_pkwt;
             var status_pkwt = data.status_pkwt;
-
+            
             // set
             $('#id_pkwt').attr('value', id_pkwt);
             $('#tanggal_masuk_gmt').attr('value', tanggal_masuk_gmt);
