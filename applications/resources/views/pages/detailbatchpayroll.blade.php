@@ -230,10 +230,64 @@
           <h3 class="box-title"><strong>Summary</strong></h3>
           <hr style="margin-top:5px;margin-bottom:8px;">
           <ul>
-            <li>Total Pegawai : {{$summary['totalpegawai']}}</li>
-            <li>Total Penerimaan : Rp {{$summary['totalpenerimaan']}}</li>
-            <li>Total Potongan : Rp {{$summary['totalpotongan']}}</li>
-            <li>Total Pengeluaran : Rp {{$summary['totalpengeluaran']}}</li>
+            <table>
+              <tr>
+                <td width="180px;">
+                  <li>Periode Penggajian
+                </td>
+                <td>
+                  :&nbsp;&nbsp; Per Tanggal {{$summary['periode_gaji']}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <li>Tanggal Awal Cut Off Absen
+                </td>
+                <td>
+                  :&nbsp;&nbsp; {{$summary['cutoff_awal']}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <li>Tanggal Akhir Cut Off Absen
+                </td>
+                <td>
+                  :&nbsp;&nbsp; {{$summary['cutoff_akhir']}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <li>Total Pegawai
+                </td>
+                <td>
+                  :&nbsp;&nbsp; {{$summary['totalpegawai']}}</li>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <li>Total Penerimaan
+                </td>
+                <td>
+                  :&nbsp;&nbsp; Rp {{$summary['totalpenerimaan']}}</li>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <li>Total Potongan
+                </td>
+                <td>
+                  :&nbsp;&nbsp; Rp {{$summary['totalpotongan']}}</li>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <li>Total Pengeluaran
+                </td>
+                <td>
+                  :&nbsp;&nbsp; Rp {{$summary['totalpengeluaran']}}</li>
+                </td>
+              </tr>
+            </table>
           </ul>
           <button type="button" name="button" class="btn btn-warning">Proses Payroll</button>
         </div>

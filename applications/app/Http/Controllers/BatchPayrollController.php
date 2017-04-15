@@ -248,6 +248,14 @@ class BatchPayrollController extends Controller
       $totalpotongan += ($key["potongantetap"] + $key["potonganvariable"]);
     }
 
+    $getbatchpayroll = BatchPayroll::
+          join('periode_gaji', 'batch_payroll.id_periode_gaji', '=', 'periode_gaji.id')
+          ->where('batch_payroll.id', $id)
+          ->get();
+
+    $summary['periode_gaji'] = $getbatchpayroll[0]->tanggal;
+    $summary['cutoff_awal'] = $getbatchpayroll[0]->tanggal_proses;
+    $summary['cutoff_akhir'] = $getbatchpayroll[0]->tanggal_proses_akhir;
     $summary["totalpegawai"] = count($rowdisplay);
     $summary["totalpenerimaan"] = number_format($totalpenerimaan, 2, ",", '.');
     $summary["totalpotongan"] = number_format($totalpotongan, 2, ",", '.');
