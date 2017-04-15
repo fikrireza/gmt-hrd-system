@@ -224,7 +224,7 @@
       </div>
     </div>
 
-    <div class="col-md-12">
+    <div class="col-md-6">
       <div class="box box-primary box-solid">
         <div class="box-header">
           <h3 class="box-title"><strong>Summary</strong></h3>
@@ -290,6 +290,35 @@
             </table>
           </ul>
           <button type="button" name="button" class="btn btn-warning">Proses Payroll</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="box box-success box-solid">
+        <div class="box-header">
+          <h3 class="box-title"><strong>Export Template</strong></h3>
+          <hr style="margin-top:5px;margin-bottom:8px;">
+          <div>
+            Fitur ini digunakan untuk men-download template .csv guna melengkapi data payroll pegawai.
+          </div><br>
+          <a href="{{route('detailbatchpayroll.export', $idbatch)}}" class="btn btn-warning">Download Template CSV</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="box box-warning box-solid">
+        <div class="box-header">
+          <form class="form-horizontal" action="{{route('detailbatchpayroll.import')}}" method="post" enctype="multipart/form-data">
+            {!! csrf_field() !!}
+            <h3 class="box-title"><strong>Import Template</strong></h3>
+            <hr style="margin-top:5px;margin-bottom:8px;">
+            <div style="margin-bottom:5px;">
+              Import data .csv anda disini:
+            </div>
+            <input type="file" name="filecsv" class="form-control"><br>
+            <input type="submit" class="btn btn-success" value="Import Tempate CSV">
+          </form>
         </div>
       </div>
     </div>

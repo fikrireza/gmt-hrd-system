@@ -171,13 +171,17 @@ Route::get('detail-batch-payroll/delete-komponen-gaji/{id}', 'DetailBatchPayroll
 Route::get('detail-batch-payroll/bind-for-absen/{id}', 'DetailBatchPayrollController@bindforabsen')->name('detailbatchpayroll.bindforabsen');
 Route::post('detail-batch-payroll/update-for-absen', 'DetailBatchPayrollController@updateforabsen')->name('detailbatchpayroll.updateforabsen');
 
+///// EXPORT IMPORT DETAIL BATCH PAYROLL ////
+Route::get('detail-batch-payroll/export/{idbatch}', 'ExportImportDetailBatchPayrollController@export')->name('detailbatchpayroll.export');
+Route::post('detail-batch-payroll/import', 'ExportImportDetailBatchPayrollController@import')->name('detailbatchpayroll.import');
+
+
 ///// HARI LIBUR //////
 Route::get('hari-libur', 'HariLiburController@index')->name('hari.libur.index');
 Route::post('hari-libur', 'HariLiburController@store')->name('hari.libur.store');
 Route::post('hari-libur/update', 'HariLiburController@update')->name('hari.libur.update');
 Route::get('hari-libur/bind-hari-libur/{id}', 'HariLiburController@bind')->name('hari.libur.bind');
 Route::get('hari-libur/delete/{id}', 'HariLiburController@delete')->name('hari.libur.delete');
-
 
 ///// CUTI //////
 Route::get('cuti', 'CutiController@index')->name('cuti.index');
