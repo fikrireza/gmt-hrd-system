@@ -178,15 +178,15 @@ class PKWTController extends Controller
 
   public function saveChangesPKWT(Request $request)
   {
-    dd($request->id_kel_jabatan);
-    $set = PKWT::find($request->id_pkwt);
+    // dd($request);
+    $set = PKWT::find($request->id_pkwt_change);
     $set->tanggal_masuk_gmt = $request->tanggal_masuk_gmt;
     $set->tanggal_masuk_client = $request->tanggal_masuk_client;
     $set->tanggal_awal_pkwt = $request->tanggal_awal_pkwt;
     $set->tanggal_akhir_pkwt = $request->tanggal_akhir_pkwt;
-    $set->status_karyawan_pkwt = $request->status_karyawan;
+    $set->status_karyawan_pkwt = $request->status_karyawan_pkwt;
     $set->status_pkwt = $request->status_pkwt;
-    $set->id_supervisor = $request->id_kelompok_jabatan;
+    $set->id_kelompok_jabatan = $request->id_kelompok_jabatan;
     $set->save();
 
     return redirect()->route('detail.pkwt', $request->nip)->with('message', 'Berhasil mengubah data PKWT.');

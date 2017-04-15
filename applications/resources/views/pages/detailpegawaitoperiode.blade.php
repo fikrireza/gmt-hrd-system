@@ -79,7 +79,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <input type="submit" class="btn btn-warning" value="Simpan Perubahan">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+            <input class="btn btn-success" type="submit" value="Simpan Perubahan">
           </div>
         </div>
       </form>

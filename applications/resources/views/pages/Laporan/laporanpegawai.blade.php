@@ -33,7 +33,7 @@
             <div class="form-group">
               <label class="col-sm-2 control-label">Client</label>
               <div class="col-sm-4">
-                <select name="id_client" class="form-control select2" style="width: 100%;">
+                <select name="id_client" class="form-control select2" style="width: 100%;" required="true">
                   <option selected="selected"></option>
                   @foreach($getClient as $key)
                     <option value="{{ $key->id }}" @if(isset($proses))@if($key->id == $idClient) selected="" @endif @endif>{{ $key->kode_client }} - {{ $key->nama_client }}</option>
@@ -49,58 +49,68 @@
       </div>
     </div>
     @if(isset($proses))
-    <div class="col-md-12">
-      <div class="box box-primary box-solid">
-        <div class="box-header">
-          <div class="pull-left">
-            <button type="button" class="btn btn-round bg-red" data-clipboard-text="{{ url('report').'/'.$proses[0]->kode_client.'/'.$proses[0]->token }}">Copy Url</button>
+     @if(!$proses->isEmpty())
+        <div class="col-md-12">
+          <div class="box box-primary box-solid">
+            <div class="box-header">
+              <div class="pull-left">
+                <button type="button" class="btn btn-round bg-red" data-clipboard-text="{{ url('report').'/'.$proses[0]->kode_client.'/'.$proses[0]->token }}">Copy Url</button>
+              </div>
+              <div class="btn-group pull-right">
+                <button type="button" class="btn btn-round bg-red">Download</button>
+                <button type="button" class="btn btn-round bg-red dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                  <span class="caret"></span>
+                  <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a style="color: black" href="{{ URL::to('laporan-proses/'.$idClient.'/xlsx') }}">Excel</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="box-body">
+              <table class="table table-hover" id="tabellaporan">
+                <thead>
+                  <tr>
+                    <th>NIP</th>
+                    <th>Nama</th>
+                    <th>Departemen</th>
+                    <th>Kelompok Jabatan</th>
+                    <th>Jabatan</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Tanggal Masuk GMT</th>
+                    <th>Tanggal Masuk Client</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach($proses as $key)
+                    <tr>
+                      <td>{{ $key->nip }}</td>
+                      <td>{{ $key->nama }}</td>
+                      <td>{{ $key->nama_client }} - {{$key->nama_cabang}}</td>
+                      <td>{{ $key->spv }}</td>
+                      <td>{{ $key->nama_jabatan }}</td>
+                      <td>{{ $key->jenis_kelamin }}</td>
+                      <td>{{ $key->tanggal_masuk_gmt }}</td>
+                      <td>{{ $key->tanggal_masuk_client }}</td>
+                    </tr>
+                  @endforeach
+                </tbody>
+              </table>
+            </div>
+            <div class="box-footer">
+              {{ $proses->links()}}
+            </div>
           </div>
-          <div class="btn-group pull-right">
-            <button type="button" class="btn btn-round bg-red">Download</button>
-            <button type="button" class="btn btn-round bg-red dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-              <span class="caret"></span>
-              <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a style="color: black" href="{{ URL::to('laporan-proses/'.$idClient.'/xlsx') }}">Excel</a></li>
-            </ul>
+        </div>
+      @else
+        <div class="col-md-12">
+          <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-close"></i> Perhatian!</h4>
+            <p>Data yang anda cari belum tersedia.</p>
           </div>
         </div>
-        <div class="box-body">
-          <table class="table table-hover" id="tabellaporan">
-            <thead>
-              <tr>
-                <th>NIP</th>
-                <th>Nama</th>
-                <th>Departemen</th>
-                <th>Kelompok Jabatan</th>
-                <th>Jabatan</th>
-                <th>Jenis Kelamin</th>
-                <th>Tanggal Masuk GMT</th>
-                <th>Tanggal Masuk Client</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach($proses as $key)
-                <tr>
-                  <td>{{ $key->nip }}</td>
-                  <td>{{ $key->nama }}</td>
-                  <td>{{ $key->nama_client }} - {{$key->nama_cabang}}</td>
-                  <td>{{ $key->spv }}</td>
-                  <td>{{ $key->nama_jabatan }}</td>
-                  <td>{{ $key->jenis_kelamin }}</td>
-                  <td>{{ $key->tanggal_masuk_gmt }}</td>
-                  <td>{{ $key->tanggal_masuk_client }}</td>
-                </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </div>
-        <div class="box-footer">
-          {{ $proses->links()}}
-        </div>
-      </div>
-    </div>
+      @endif
     @endif
 
   </div>

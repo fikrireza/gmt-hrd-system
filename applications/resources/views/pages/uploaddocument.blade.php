@@ -85,8 +85,8 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn btn-success" >Simpan Perubahan</button>
+              <button type="reset" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+              <button type="submit" class="btn btn-success">Simpan Perubahan</a>
             </div>
         </div>
       </form>
@@ -154,8 +154,8 @@
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn btn-danger pull-left" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn btn-success">Simpan</button>
+              <button type="reset" class="btn btn-danger pull-left" data-dismiss="modal">Tidak</button>
+              <button type="submit" class="btn btn-success">Simpan</a>
             </div>
           </form>
         </div>

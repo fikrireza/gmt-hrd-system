@@ -32,7 +32,7 @@ Route::get('add-pkwt', ['as'=>'datapkwt.create', 'uses'=>'PKWTController@create'
 Route::post('add-pkwt/proses', 'PKWTController@store');
 Route::get('view-detail-pkwt/{id}', ['as'=>'detail.pkwt', 'uses'=>'PKWTController@detail']);
 Route::get('edit-pkwt/getpkwt/{id}', 'PKWTController@bind');
-Route::post('savepkwt', 'PKWTController@saveChangesPKWT');
+Route::post('saveChangesPKWT', 'PKWTController@saveChangesPKWT');
 Route::post('terminatepkwt', 'PKWTController@terminatePKWT');
 
 ////// SPV Manajemen //////
