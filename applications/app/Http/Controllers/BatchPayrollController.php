@@ -28,6 +28,7 @@ class BatchPayrollController extends Controller
       ->join('periode_gaji', 'batch_payroll.id_periode_gaji', '=', 'periode_gaji.id')
       ->orderby('batch_payroll.id', 'desc')
       ->paginate(10);
+      // dd($getbatch);
 
     return view('pages/kelolabatch')
       ->with('getperiode', $getperiode)
@@ -414,7 +415,7 @@ class BatchPayrollController extends Controller
     public function update(Request $request)
     {
       // dd($request);
-      $dataChage = BatchPayroll::find($request->id);
+      $set = BatchPayroll::find($request->id);
       $set->id_periode_gaji = $request->periode_edit;
       $set->tanggal_proses = $request->tanggal_awal_edit;
       $set->tanggal_proses_akhir = $request->tanggal_akhir_edit;

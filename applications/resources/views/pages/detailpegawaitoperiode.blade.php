@@ -120,6 +120,7 @@
                     <option value="">-- PILIH --</option>
                     <option value="52" id="haker52">[5-2] -- 5 Hari Kerja, 2 Hari Libur</option>
                     <option value="61" id="haker61">[6-1] -- 6 Hari Kerja, 1 Hari Libur</option>
+                    <option value="70" id="haker70">[7-0] -- 7 Hari Kerja, 0 Hari Libur</option>
                   </select>
                 </div>
             </div>
@@ -253,9 +254,15 @@
               if (workday==52) {
                 $('#haker52').attr('selected', true);
                 $('#haker61').attr('selected', false);
+                $('#haker70').attr('selected', false);
               } else if (workday==61) {
                 $('#haker61').attr('selected', true);
                 $('#haker52').attr('selected', false);
+                $('#haker70').attr('selected', false);
+              } else if (workday==70) {
+                $('#haker61').attr('selected', false);
+                $('#haker52').attr('selected', false);
+                $('#haker70').attr('selected', true);
               }
             }
           });

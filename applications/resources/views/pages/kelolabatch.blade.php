@@ -54,7 +54,7 @@
 
     <div class="modal modal-default fade" id="myModalEdit" role="dialog">
     <div class="modal-dialog">
-     <form class="form-horizontal" action="" method="post">
+     <form class="form-horizontal" action="{{route('batchpayroll.update')}}" method="post">
       {{ csrf_field() }}
         <!-- Modal content-->
         <div class="modal-content">
@@ -102,8 +102,8 @@
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Tidak</button>
-            <button type="submit" class="btn btn-primary">Simpan Perubahan</a>
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+            <button type="submit" class="btn btn-success">Simpan Perubahan</a>
           </div>
         </div>
       </form>
@@ -232,10 +232,12 @@
                           {{$date[2]}}-{{$date[1]}}-{{$date[0]}}
                         </td>
                         <td>
-                          @php
-                            $date = explode("-", $key->tanggal_proses_akhir);
-                          @endphp
-                          {{$date[2]}}-{{$date[1]}}-{{$date[0]}}
+                          @if($key->tanggal_proses_akhir !=null)
+                            @php
+                              $date = explode("-", $key->tanggal_proses_akhir);
+                            @endphp
+                            {{$date[2]}}-{{$date[1]}}-{{$date[0]}}
+                          @endif
                         </td>
                         <td>
                           <span data-toggle="tooltip" title="Lihat Detail">

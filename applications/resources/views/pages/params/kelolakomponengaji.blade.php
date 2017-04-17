@@ -110,17 +110,17 @@
                 @endif
               </div>
             </div>
-            <div class="form-group ">
-              <label class="col-sm-3 control-label">Status</label>
+            <div class="form-group " hidden="true">
+              <label class="col-sm-3 control-label">Tipe Komponen</label>
               <div class="col-sm-9">
-              <select class="form-control" name="flag_status_edit" id="flag_status_edit">
+              <select class="form-control" name="tipe_komponen_gaji_edit" id="tipe_komponen_gaji_edit">
                 <option value="">-- Pilih --</option>
                 <option value="0" id="flag_tetap_edit">Tetap</option>
                 <option value="1" id="flag_variabel_edit">Variabel</option>
               </select>
-                @if($errors->has('flag_status_edit'))
+                @if($errors->has('tipe_komponen_gaji_edit'))
                   <span class="help-block">
-                    <strong style="color: red">{{ $errors->first('flag_status_edit')}}
+                    <strong style="color: red">{{ $errors->first('tipe_komponen_gaji_edit')}}
                     </strong>
                   </span>
                 @endif
@@ -209,7 +209,7 @@
                 @endif
               </div>
             </div>
-            <div class="form-group ">
+            <div class="form-group " hidden="true">
               <label class="col-sm-3 control-label">Tipe Komponen</label>
                 <div class="col-md-9 ">
                   <select class="form-control" name="tipe_komponen_gaji">
@@ -366,7 +366,7 @@
             var nama_komponen_edit = data.nama_komponen;
             var tipe_komponen_edit = data.tipe_komponen;
             var periode_perhitungan_edit = data.periode_perhitungan;
-            var flag_status_edit = data.flag_status;
+            var tipe_komponen_gaji_edit = data.tipe_komponen_gaji;
             //set
             $('#id').attr('value', id);
             $('#nama_komponen_edit').attr('value', nama_komponen_edit);
@@ -387,7 +387,7 @@
               $('#flag_shift_edit').attr('selected', true);
             }
 
-            if (flag_status_edit=="0") {
+            if (tipe_komponen_gaji_edit=="0") {
               $('#flag_tetap_edit').attr('selected', true);
             } else {
               $('#flag_variabel_edit').attr('selected', true);
