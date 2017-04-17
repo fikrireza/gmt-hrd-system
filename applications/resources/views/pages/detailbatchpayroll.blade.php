@@ -300,9 +300,9 @@
           <h3 class="box-title"><strong>Export Template</strong></h3>
           <hr style="margin-top:5px;margin-bottom:8px;">
           <div>
-            Fitur ini digunakan untuk men-download template .csv guna melengkapi data payroll pegawai.
+            Fitur ini digunakan untuk men-download template .xls guna melengkapi data payroll pegawai.
           </div><br>
-          <a href="{{route('detailbatchpayroll.export', $idbatch)}}" class="btn btn-warning">Download Template CSV</a>
+          <a href="{{route('detailbatchpayroll.export', $idbatch)}}" class="btn btn-warning">Download Template XLS</a>
         </div>
       </div>
     </div>
@@ -314,10 +314,10 @@
             <h3 class="box-title"><strong>Import Template</strong></h3>
             <hr style="margin-top:5px;margin-bottom:8px;">
             <div style="margin-bottom:5px;">
-              Import data .csv anda disini:
+              Import data .xls anda disini:
             </div>
             <input type="file" name="filecsv" class="form-control"><br>
-            <input type="submit" class="btn btn-success" value="Import Tempate CSV">
+            <input type="submit" class="btn btn-success" value="Import Tempate XLS">
           </form>
         </div>
       </div>
