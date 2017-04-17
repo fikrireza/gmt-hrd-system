@@ -10,11 +10,24 @@ use App\Models\PKWT;
 use App\Models\PeriodeGaji;
 use App\Models\DetailBatchPayroll;
 use App\Models\DetailPeriodeGaji;
+use App\Models\MasterClient;
 
 class PegawaiToPeriodeController extends Controller
 {
     public function index() {
       $periodeGaji  = PeriodeGaji::get();
+      $getClient  = MasterClient::get();
+
+
+      return view('pages.prosespayroll.pegawaitoperiode', compact('periodeGaji', 'getClient'));
+    }
+
+    public function proses(Request $request)
+    {
+      // dd($request);
+      $idClient = $request->id_client;
+      $periodeGaji  = PeriodeGaji::get();
+      $getClient  = MasterClient::get();
 
       $pkwtActive = PKWT::join('master_pegawai', 'master_pegawai.id', '=', 'data_pkwt.id_pegawai')
                         ->join('master_pegawai as spv', 'spv.id', '=', 'data_pkwt.id_kelompok_jabatan')
@@ -23,11 +36,13 @@ class PegawaiToPeriodeController extends Controller
                         ->join('master_jabatan', 'master_jabatan.id', '=', 'master_pegawai.id_jabatan')
                         ->select('data_pkwt.*', 'master_pegawai.nama', 'master_pegawai.id as idpegawai', 'spv.nama as spv_nama', 'master_client.nama_client', 'cabang_client.nama_cabang')
                         ->where('status_pkwt', 1)
+                        ->where('master_client.id', $idClient)
                         ->where('master_pegawai.status', 1)
                         ->where('flag_terminate', 1)
                         ->get();
+        // dd($pkwtActive);
 
-      return view('pages.prosespayroll.pegawaitoperiode', compact('periodeGaji', 'pkwtActive'));
+      return view('pages.prosespayroll.pegawaitoperiode', compact('periodeGaji','getClient', 'idClient', 'pkwtActive'));
     }
 
     public function store(Request $request)

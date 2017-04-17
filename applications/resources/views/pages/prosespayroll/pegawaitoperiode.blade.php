@@ -2,6 +2,7 @@
 
 @section('title')
     <title>Kelola Komponen Gaji</title>
+    <link rel="stylesheet" href="{{asset('plugins/select2/select2.min.css')}}">
 @stop
 
 @section('breadcrumb')
@@ -50,7 +51,34 @@
       </div>
       @endif
     </div>
-
+    <div class="col-md-12">
+      <!-- Horizontal Form -->
+      <div class="box box-primary box-solid">
+        <div class="box-header with-border">
+          <h3 class="box-title">Pilih Client</h3>
+        </div>
+        <!-- form start -->
+        <form class="form-horizontal" method="post" action="{{ url('periode-pegawai-proses') }}">
+          {!! csrf_field() !!}
+          <div class="box-body">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Client</label>
+              <div class="col-sm-4">
+                <select name="id_client" class="form-control select2" style="width: 100%;" required="true">
+                  <option selected="selected"></option>
+                  @foreach($getClient as $key)
+                    <option value="{{ $key->id }}" @if(isset($proses))@if($key->id == $idClient) selected="" @endif @endif>{{ $key->kode_client }} - {{ $key->nama_client }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="box-footer">
+            <button type="submit" class="btn btn-success pull-right">Proses</button>
+          </div>
+        </form>
+      </div>
+    </div>
     <div class="col-md-12">
       <div class="box box-primary box-solid">
         <div class="box-header with-border">
@@ -78,7 +106,7 @@
                 <h3 class="box-title">Pilih Pegawai</h3>
               </div>
                 <div class="box-body">
-                  <table id="example1" class="table table-hover">
+                  <table class="table table-hover">
                     <thead>
                       <tr>
                         <th>#</th>
@@ -91,6 +119,7 @@
                       </tr>
                       <thead>
                         <tbody>
+                        @if(isset($pkwtActive))
                           @foreach($pkwtActive as $key)
                             <tr>
                               <td><input type="checkbox" class="minimal" name="idpegawai[]" value="{{$key->idpegawai}}"></td>
@@ -123,6 +152,7 @@
                               }?></td>
                             </tr>
                           @endforeach
+                        @endif
                         </tbody>
                       </table>
                     </div>
@@ -148,6 +178,12 @@
   <script src="{{asset('dist/js/demo.js')}}"></script>
   <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+  <script src="{{asset('plugins/select2/select2.full.min.js')}}"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $(".select2").select2();
+    });
+  </script>
   <script>
 
   $("#example1").DataTable();

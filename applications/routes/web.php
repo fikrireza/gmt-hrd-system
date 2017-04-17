@@ -144,6 +144,7 @@ Route::get('periode-gaji/get-detail/periode/{id}', 'PeriodeGajiController@getdat
 Route::get('periode-pegawai', 'PegawaiToPeriodeController@index')->name('periodepegawai.index');
 Route::post('periode-pegawai', 'PegawaiToPeriodeController@store')->name('periodepegawai.store');
 Route::get('periode-pegawai/delete/{id}', 'PegawaiToPeriodeController@delete')->name('periodepegawai.delete');
+Route::post('periode-pegawai-proses', 'PegawaiToPeriodeController@proses')->name('periodepegawai.proses');
 
 ///// SET GAJI PEGAWAI //////
 Route::get('pegawai/set-gaji', 'SetGajiController@index')->name('setgaji.index');
@@ -182,6 +183,13 @@ Route::post('hari-libur', 'HariLiburController@store')->name('hari.libur.store')
 Route::post('hari-libur/update', 'HariLiburController@update')->name('hari.libur.update');
 Route::get('hari-libur/bind-hari-libur/{id}', 'HariLiburController@bind')->name('hari.libur.bind');
 Route::get('hari-libur/delete/{id}', 'HariLiburController@delete')->name('hari.libur.delete');
+
+///// BPJS //////
+Route::get('bpjs', 'BpjsController@index')->name('bpjs.index');
+Route::post('bpjs', 'BpjsController@store')->name('bpjs.store');
+Route::post('bpjs/update', 'BpjsController@update')->name('bpjs.update');
+Route::get('bpjs/bind-bpjs/{id}', 'BpjsController@bind')->name('bpjs.bind');
+Route::get('bpjs/delete/{id}', 'BpjsController@delete')->name('bpjs.delete');
 
 ///// CUTI //////
 Route::get('cuti', 'CutiController@index')->name('cuti.index');

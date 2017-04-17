@@ -113,6 +113,8 @@ class PeriodeGajiController extends Controller
               return "<span class='badge bg-purple'>5 - 2</span>";
             } else if ($user->workday=="61") {
               return "<span class='badge bg-navy'>6 - 1</span>";
+            } else if ($user->workday=="70") {
+              return "<span class='badge bg-maroon'>7 - 0</span>";
             }
           } else {
             return "<span class='badge bg-red'>Belum Ada</span>";

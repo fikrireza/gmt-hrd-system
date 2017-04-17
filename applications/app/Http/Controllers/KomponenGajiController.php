@@ -25,7 +25,7 @@ class KomponenGajiController extends Controller
 
     public function index()
     {
-      $getkomponen = KomponenGaji::paginate(10);
+      $getkomponen = KomponenGaji::where('tipe_komponen_gaji', '=', 1)->paginate(10);
       return view('pages/params/kelolakomponengaji')->with('getkomponen', $getkomponen);
     }
 
@@ -35,14 +35,14 @@ class KomponenGajiController extends Controller
         'nama_komponen.required' => 'Wajib di isi',
         'tipe_komponen.required' => 'Wajib di isi',
         'periode_perhitungan.required' => 'Wajib di isi',
-        'tipe_komponen_gaji.required' => 'Wajib di isi',
+        // 'tipe_komponen_gaji.required' => 'Wajib di isi',
       ];
 
       $validator = Validator::make($request->all(), [
         'nama_komponen' => 'required',
         'tipe_komponen' => 'required',
         'periode_perhitungan' => 'required',
-        'tipe_komponen_gaji' => 'required',
+        // 'tipe_komponen_gaji' => 'required',
       ], $message);
 
       if($validator->fails())
@@ -54,7 +54,7 @@ class KomponenGajiController extends Controller
       $set->nama_komponen = $request->nama_komponen;
       $set->tipe_komponen = $request->tipe_komponen;
       $set->periode_perhitungan = $request->periode_perhitungan;
-      $set->tipe_komponen_gaji = $request->tipe_komponen_gaji;
+      $set->tipe_komponen_gaji = 1;
       $set->save();
 
       return redirect()->route('komgaji.index')->with('message', 'Berhasil memasukkan komponen gaji.');
@@ -99,7 +99,7 @@ class KomponenGajiController extends Controller
       $dataChage->nama_komponen = $request->nama_komponen_edit;
       $dataChage->tipe_komponen = $request->tipe_komponen_edit;
       $dataChage->periode_perhitungan = $request->periode_perhitungan_edit;
-      $dataChage->flag_status = $request->flag_status_edit;
+      $dataChage->tipe_komponen_gaji = 1;
       $dataChage->save();
 
       return redirect()->route('komgaji.index')->with('message', 'Data komponen gaji berhasil diubah.');
