@@ -13,6 +13,7 @@ use App\Models\PeriodeGaji;
 use App\Models\BatchPayroll;
 use App\Models\KomponenGaji;
 use App\Models\MasterPegawai;
+use App\Models\BatchProcessed;
 use App\Models\DetailPeriodeGaji;
 use App\Models\DetailKomponenGaji;
 use App\Models\DetailBatchPayroll;
@@ -98,7 +99,6 @@ class BatchPayrollController extends Controller
         $harikerja70[] = $key;
       }
     }
-    return $harikerja70;
     //-- END OF GET TANGGAL SEHARUSNYA KERJA ---//
 
     //--- GET GAJI POKOK PEGAWAI ---
@@ -155,6 +155,8 @@ class BatchPayrollController extends Controller
           $set->workday = count($harikerja52);
         } else if ($workday=="61") {
           $set->workday = count($harikerja61);
+        } else if ($workday=="70") {
+          $set->workday = count($harikerja70);
         }
         $set->save();
 
@@ -314,15 +316,16 @@ class BatchPayrollController extends Controller
           ->where('batch_payroll.id', $id)
           ->get();
 
+    $summary['id_periode_gaji'] = $getbatchpayroll[0]->id_periode_gaji;
     $summary['periode_gaji'] = $getbatchpayroll[0]->tanggal;
     $summary['cutoff_awal'] = $getbatchpayroll[0]->tanggal_proses;
     $summary['cutoff_akhir'] = $getbatchpayroll[0]->tanggal_proses_akhir;
     $summary["totalpegawai"] = count($rowdisplay);
-    $summary["totalpenerimaan"] = number_format($totalpenerimaan, 2, ",", '.');
-    $summary["totalpotongan"] = number_format($totalpotongan, 2, ",", '.');
-    $summary["totalpengeluaran"] = number_format($totalpengeluaran, 2, ",", '.');
+    $summary["totalpenerimaan"] = $totalpenerimaan;
+    $summary["totalpotongan"] = $totalpotongan;
+    $summary["totalpengeluaran"] = $totalpengeluaran;
 
-    $getbatch = BatchPayroll::join('periode_gaji', 'batch_payroll.id_periode_gaji', '=', 'periode_gaji.id')->first();
+    $getbatch = BatchPayroll::join('periode_gaji', 'batch_payroll.id_periode_gaji', '=', 'periode_gaji.id')->where('batch_payroll.id', $id)->first();
     $getkomponengaji = KomponenGaji::all();
     return view('pages/detailbatchpayroll')
       ->with('idbatch', $id)
@@ -466,37 +469,52 @@ class BatchPayrollController extends Controller
 
 
   public function bind($id)
-    {
-      $get = BatchPayroll::find($id);
-      return $get;
-    }
+  {
+    $get = BatchPayroll::find($id);
+    return $get;
+  }
 
-    public function update(Request $request)
-    {
-      // dd($request);
-      $set = BatchPayroll::find($request->id);
-      $set->id_periode_gaji = $request->periode_edit;
-      $set->tanggal_proses = $request->tanggal_awal_edit;
-      $set->tanggal_proses_akhir = $request->tanggal_akhir_edit;
+  public function update(Request $request)
+  {
+    $set = BatchPayroll::find($request->id);
+    $set->id_periode_gaji = $request->periode_edit;
+    $set->tanggal_proses = $request->tanggal_awal_edit;
+    $set->tanggal_proses_akhir = $request->tanggal_akhir_edit;
+    $set->save();
+
+    return redirect()->route('batchpayroll.index')->with('message', 'Data batch payroll berhasil diubah.');
+  }
+
+  public function delete($id)
+  {
+    $set = BatchPayroll::find($id);
+    $set->delete();
+    return redirect()->route('batchpayroll.index')->with('message', 'Berhasil menghapus data batch payroll.');
+  }
+
+  public function process($idbatch, $data)
+  {
+    parse_str($data, $output);
+
+    foreach ($output as $key) {
+      $set = new BatchProcessed;
+      $set->id_batch_payroll = $idbatch;
+      $set->id_periode = $key["id_periode_gaji"];
+      $set->tanggal_proses_payroll = date("Y-m-d");
+      $set->tanggal_cutoff_awal = $key["cutoff_awal"];
+      $set->tanggal_cutoff_akhir = $key["cutoff_akhir"];
+      $set->total_pegawai = $key["totalpegawai"];
+      $set->total_penerimaan_gaji = $key["totalpenerimaan"];
+      $set->total_potongan_gaji = $key["totalpotongan"];
+      $set->total_pengeluaran = $key["totalpengeluaran"];
       $set->save();
-
-      return redirect()->route('batchpayroll.index')->with('message', 'Data batch payroll berhasil diubah.');
     }
 
-    public function delete($id)
-    {
-      $set = BatchPayroll::find($id);
-      $set->delete();
-      return redirect()->route('batchpayroll.index')->with('message', 'Berhasil menghapus data batch payroll.');
-    }
+    $set = BatchPayroll::find($idbatch);
+    $set->flag_processed = 1;
+    $set->save();
 
-    public function process($idbatch, $data)
-    {
-      parse_str($data, $output);
-
-      foreach ($output['data'] as $key) {
-        return $key["id"];
-      }
-    }
+    return redirect()->route('batchpayroll.detail', $idbatch)->with('message', 'Berhasil memproses batch payroll.');
+  }
 
 }

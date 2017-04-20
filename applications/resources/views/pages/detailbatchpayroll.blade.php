@@ -161,8 +161,27 @@
       @endif
     </div>
 
+    @if ($getbatch->flag_processed==1)
+      <div class="col-md-12">
+        <div class="box box-warning box-solid">
+          <div class="box-header">
+            <span><i>Batch ini telah di proses.</i></span>
+            <hr style="margin-top:5px;margin-bottom:15px;">
+            <strong style="font-size:17px;">Download Laporan :</strong> &nbsp;&nbsp;
+            <a href="#" class="btn btn-default bg-maroon">Laporan Bank Transfer</a>&nbsp;
+            <a href="#" class="btn btn-default bg-purple">Laporan Pembayaran Cash</a>&nbsp;
+            <a href="#" class="btn btn-default bg-green">Laporan Pembayaran Berdasarkan Client</a>&nbsp;
+          </div>
+        </div>
+      </div>
+    @endif
+
     <div class="col-md-12">
-      <div class="box box-primary box-solid">
+      @if ($getbatch->flag_processed==1)
+        <div class="box box-default box-solid">
+      @else
+        <div class="box box-primary box-solid">
+      @endif
         <div class="box-header">
           <h3 class="box-title">
             @php
@@ -205,34 +224,63 @@
                   <td>{{$key['nip']}}</td>
                   <td>{{$key['nama']}}</td>
                   <td>{{$key['jabatan']}}</td>
-                  <td>
-                    <span class="badge bg-navy">{{$key['harinormal']}}</span>
-                  </td>
-                  <td>
-                    <span class="badge bg-red">Alpa: {{$key['abstain']}}</span>
-                    <span class="badge bg-green">Sakit: {{$key['sick_leave']}}</span>
-                    <span class="badge bg-blue">Izin: {{$key['permissed_leave']}}</span>
-                  </td>
-                  <td>
-                    <span class="badge bg-purple">{{$key['totalkerja']}}</span>
-                  </td>
+                  @if ($getbatch->flag_processed==1)
+                    <td>
+                      <span class="badge">{{$key['harinormal']}}</span>
+                    </td>
+                    <td>
+                      <span class="badge">Alpa: {{$key['abstain']}}</span>
+                      <span class="badge">Sakit: {{$key['sick_leave']}}</span>
+                      <span class="badge">Izin: {{$key['permissed_leave']}}</span>
+                    </td>
+                    <td>
+                      <span class="badge">{{$key['totalkerja']}}</span>
+                    </td>
+                  @else
+                    <td>
+                      <span class="badge bg-navy">{{$key['harinormal']}}</span>
+                    </td>
+                    <td>
+                      <span class="badge bg-red">Alpa: {{$key['abstain']}}</span>
+                      <span class="badge bg-green">Sakit: {{$key['sick_leave']}}</span>
+                      <span class="badge bg-blue">Izin: {{$key['permissed_leave']}}</span>
+                    </td>
+                    <td>
+                      <span class="badge bg-purple">{{$key['totalkerja']}}</span>
+                    </td>
+                  @endif
                   <td>{{$key['gajitetap']}}</td>
                   <td>{{$key['gajivariable']}}</td>
                   <td>{{$key['potongantetap']}}</td>
                   <td>{{$key['potonganvariable']}}</td>
                   <td>{{$key['total']}}</td>
-                  <td>
-                    <span data-toggle="tooltip" title="Set Komponen Gaji">
-                      <a href="#" class="btn btn-xs btn-warning addkomponen" data-toggle="modal" data-target="#myModal" data-value="{{$key['id']}}">
-                        <i class="fa fa-list-ul"></i>
-                      </a>
-                    </span>
-                    <span data-toggle="tooltip" title="Set Absensi">
-                      <a href="#" class="btn btn-xs btn-success editabsen" data-toggle="modal" data-target="#myModalSetAbsen" data-value="{{$key['iddetailbatch']}}">
-                        <i class="fa fa-check"></i>
-                      </a>
-                    </span>
-                  </td>
+                  @if ($getbatch->flag_processed==1)
+                    <td>
+                      <span data-toggle="tooltip" title="Batch Telah Diproses">
+                        <a href="#" class="btn btn-xs btn-default addkomponen disabled" data-toggle="modal" data-target="#myModal" data-value="{{$key['id']}}">
+                          <i class="fa fa-list-ul"></i>
+                        </a>
+                      </span>
+                      <span data-toggle="tooltip" title="Batch Telah Diproses">
+                        <a href="#" class="btn btn-xs btn-default editabsen disabled" data-toggle="modal" data-target="#myModalSetAbsen" data-value="{{$key['iddetailbatch']}}">
+                          <i class="fa fa-check"></i>
+                        </a>
+                      </span>
+                    </td>
+                  @else
+                    <td>
+                      <span data-toggle="tooltip" title="Set Komponen Gaji">
+                        <a href="#" class="btn btn-xs btn-warning addkomponen" data-toggle="modal" data-target="#myModal" data-value="{{$key['id']}}">
+                          <i class="fa fa-list-ul"></i>
+                        </a>
+                      </span>
+                      <span data-toggle="tooltip" title="Set Absensi">
+                        <a href="#" class="btn btn-xs btn-success editabsen" data-toggle="modal" data-target="#myModalSetAbsen" data-value="{{$key['iddetailbatch']}}">
+                          <i class="fa fa-check"></i>
+                        </a>
+                      </span>
+                    </td>
+                  @endif
                 </tr>
               @endforeach
             </tbody>
@@ -242,7 +290,11 @@
     </div>
 
     <div class="col-md-6">
-      <div class="box box-primary box-solid">
+      @if ($getbatch->flag_processed==1)
+        <div class="box box-default box-solid">
+      @else
+        <div class="box box-primary box-solid">
+      @endif
         <div class="box-header">
           <h3 class="box-title"><strong>Summary</strong></h3>
           <hr style="margin-top:5px;margin-bottom:8px;">
@@ -285,7 +337,7 @@
                   <li>Total Penerimaan
                 </td>
                 <td>
-                  :&nbsp;&nbsp; Rp {{$summary['totalpenerimaan']}}</li>
+                  :&nbsp;&nbsp; Rp {{number_format($summary['totalpenerimaan'], '0', ',', '.')}},-</li>
                 </td>
               </tr>
               <tr>
@@ -293,7 +345,7 @@
                   <li>Total Potongan
                 </td>
                 <td>
-                  :&nbsp;&nbsp; Rp {{$summary['totalpotongan']}}</li>
+                  :&nbsp;&nbsp; Rp {{number_format($summary['totalpotongan'], '0', ',', '.')}},-</li>
                 </td>
               </tr>
               <tr>
@@ -301,30 +353,50 @@
                   <li>Total Pengeluaran
                 </td>
                 <td>
-                  :&nbsp;&nbsp; Rp {{$summary['totalpengeluaran']}}</li>
+                  :&nbsp;&nbsp; Rp {{number_format($summary['totalpengeluaran'], '0', ',', '.')}},-</li>
                 </td>
               </tr>
             </table>
           </ul>
-          <a href="{{url('batch-payroll/process/'.$idbatch.'/'.http_build_query(array('data' => $rowdisplay)))}}" class="btn btn-warning">Proses Payroll</a>
+          @if ($getbatch->flag_processed==1)
+            <span data-toggle="tooltip" title="Batch Telah Diproses">
+              <a href="#" class="btn btn-default disabled">Proses Payroll</a>
+            </span>
+          @else
+            <a href="{{url('batch-payroll/process/'.$idbatch.'/'.http_build_query(array('data' => $summary)))}}" class="btn btn-warning">Proses Payroll</a>
+          @endif
         </div>
       </div>
     </div>
 
     <div class="col-md-3">
-      <div class="box box-success box-solid">
+      @if ($getbatch->flag_processed==1)
+        <div class="box box-default box-solid">
+      @else
+        <div class="box box-success box-solid">
+      @endif
         <div class="box-header">
           <h3 class="box-title"><strong>Export Template</strong></h3>
           <hr style="margin-top:5px;margin-bottom:8px;">
           <div>
             Fitur ini digunakan untuk men-download template .xls guna melengkapi data payroll pegawai.
           </div><br>
-          <a href="{{route('detailbatchpayroll.export', $idbatch)}}" class="btn btn-warning">Download Template XLS</a>
+          @if ($getbatch->flag_processed==1)
+            <span data-toggle="tooltip" title="Batch Telah Diproses">
+              <a href="#" class="btn btn-default disabled">Download Template XLS</a>
+            </span>
+          @else
+            <a href="{{route('detailbatchpayroll.export', $idbatch)}}" class="btn btn-warning">Download Template XLS</a>
+          @endif
         </div>
       </div>
     </div>
     <div class="col-md-3">
-      <div class="box box-warning box-solid">
+      @if ($getbatch->flag_processed==1)
+        <div class="box box-default box-solid">
+      @else
+        <div class="box box-warning box-solid">
+      @endif
         <div class="box-header">
           <form class="form-horizontal" action="{{route('detailbatchpayroll.import')}}" method="post" enctype="multipart/form-data">
             {!! csrf_field() !!}
@@ -333,8 +405,18 @@
             <div style="margin-bottom:5px;">
               Import data .xls anda disini:
             </div>
-            <input type="file" name="filecsv" class="form-control"><br>
-            <input type="submit" class="btn btn-success" value="Import Tempate XLS">
+            <input type="file" name="filecsv" class="form-control"
+              @if ($getbatch->flag_processed==1)
+                disabled
+              @endif
+            ><br>
+            @if ($getbatch->flag_processed==1)
+              <span data-toggle="tooltip" title="Batch Telah Diproses">
+                <a href="#" class="btn btn-default disabled">Import Tempate XLS</a>
+              </span>
+            @else
+              <input type="submit" class="btn btn-success" value="Import Tempate XLS">
+            @endif
           </form>
         </div>
       </div>

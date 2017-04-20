@@ -245,7 +245,7 @@
                             @if ($key->flag_processed==0)
                               <span class="badge">Belum Diproses</span>
                             @else
-                              <span class="badge bg-green">Belum Diproses</span>
+                              <span class="badge bg-green">Sudah Diproses</span>
                             @endif
                           </td>
                           <td>
