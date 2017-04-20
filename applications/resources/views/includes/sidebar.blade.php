@@ -111,7 +111,8 @@
         <ul class="treeview-menu">
           <li><a href="{{route('periodegaji.index')}}"><i class="fa fa-circle-o"></i> Set Periode Gaji</a></li>
           <li><a href="{{ route('periodepegawai.index') }}"><i class="fa fa-circle-o"></i> Set Periode Pegawai</a></li>
-          <li><a href="{{route('komgaji.index')}}"><i class="fa fa-circle-o"></i> Set Komponen Gaji</a></li>
+          <li><a href="#"><i class="fa fa-circle-o"></i> Set Komponen Gaji Tetap</a></li>
+          <li><a href="{{route('komgaji.index')}}"><i class="fa fa-circle-o"></i> Set Komponen Gaji Variable</a></li>
           <li><a href="{{route('setgaji.index')}}"><i class="fa fa-circle-o"></i> Set Gaji Pegawai</a></li>
           <li><a href="{{route('hari.libur.index')}}"><i class="fa fa-circle-o"></i> Set Hari Libur</a></li>
           <li><a href="{{route('bpjs.index')}}"><i class="fa fa-circle-o"></i> Set BPJS</a></li>

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Bpjs;
 use App\Models\MasterClient;
+use App\Models\CabangClient;
+use App\Models\KomponenGaji;
 
 use Validator;
 
@@ -21,15 +23,24 @@ class BpjsController extends Controller
     {
         $this->middleware('isAdmin');
     }
-    
+
     public function index()
     {
-      $getbpjs = Bpjs::leftJoin('master_client', 'management_bpjs.id_client', '=', 'master_client.id')
-                          ->select('management_bpjs.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client')
-                          ->paginate(10);
-      
-      $getClient  = MasterClient::get();
-      return view('pages/params/kelolabpjs', compact('getbpjs', 'getClient'));
+      $getbpjs = Bpjs::
+        select('nama_client', 'nama_cabang', 'nama_komponen', 'management_bpjs.bpjs_dibayarkan')
+        ->join('cabang_client', 'management_bpjs.id_cabang_client', '=', 'cabang_client.id')
+        ->join('master_client', 'master_client.id', '=', 'cabang_client.id_client')
+        ->join('komponen_gaji', 'management_bpjs.id_bpjs', '=', 'komponen_gaji.id')
+        ->paginate(10);
+
+      $getbpjsitem = KomponenGaji::where('id', 'like', '999%')->get();
+
+      $getClient  = CabangClient::
+        select('cabang_client.id as id_cabang', 'cabang_client.kode_cabang', 'master_client.nama_client', 'cabang_client.nama_cabang')
+        ->join('master_client', 'cabang_client.id_client', '=', 'master_client.id')
+        ->get();
+
+      return view('pages/params/kelolabpjs', compact('getbpjs', 'getClient', 'getbpjsitem'));
     }
 
     public function store(Request $request)
@@ -54,10 +65,10 @@ class BpjsController extends Controller
       }
 
       $set = new Bpjs;
-      $set->tipe_bpjs = $request->tipe_bpjs;
+      $set->id_bpjs = $request->tipe_bpjs;
       $set->keterangan = $request->keterangan;
       $set->bpjs_dibayarkan = $request->bpjs_dibayarkan;
-      $set->id_client = $request->id_client;
+      $set->id_cabang_client = $request->id_client;
       $set->save();
 
       return redirect()->route('bpjs.index')->with('message', 'Berhasil memasukkan hari bpjs.');
@@ -65,7 +76,7 @@ class BpjsController extends Controller
 
     public function bind($id)
     {
-      $get = Bpjs::find($id); 
+      $get = Bpjs::find($id);
       return $get;
     }
 

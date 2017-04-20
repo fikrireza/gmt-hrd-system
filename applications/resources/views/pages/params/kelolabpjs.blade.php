@@ -142,7 +142,7 @@
                 <select name="id_client" class="form-control select2" style="width: 100%;" required="true">
                   <option selected="selected"></option>
                   @foreach($getClient as $key)
-                    <option value="{{ $key->id }}">{{ $key->kode_client }} - {{ $key->nama_client }}</option>
+                    <option value="{{ $key->id_cabang }}">{{ $key->kode_cabang }} - {{ $key->nama_client }} {{ $key->nama_cabang }}</option>
                   @endforeach
                 </select>
                 @if($errors->has('id_client'))
@@ -158,9 +158,10 @@
               <div class="col-sm-9">
               <select class="form-control" name="tipe_bpjs" id="tipe_bpjs">
                 <option value="">-- Pilih --</option>
-                <option value="Kesehatan">Kesehatan</option>
-                <option value="Ketenagakerjaan">Ketenagakerjaan</option>
-                <option value="Pensiun">Pensiun</option>
+                @foreach ($getbpjsitem as $key)
+                  <option value="{{$key->id}}">{{$key->nama_komponen}}</option>
+                @endforeach
+
               </select>
                @if($errors->has('tipe_bpjs'))
                   <span class="help-block">
@@ -237,10 +238,11 @@
                             {{$pageget}}
                           </td>
                           <td>
-                           {{$key->kode_client}} - {{$key->nama_client}}
+                           {{$key->nama_client}} -
+                           {{$key->nama_cabang}}
                           </td>
                           <td>
-                           {{$key->tipe_bpjs}}
+                           {{$key->nama_komponen}}
                           </td>
                           <td>
                           Rp. {{ number_format($key->bpjs_dibayarkan,0,',','.') }},-
@@ -258,6 +260,10 @@
                           $pageget++;
                         @endphp
                       @endforeach
+                    @else
+                      <td colspan=5 align="center">
+                        <i>Data tidak tersedia.</i>
+                      </td>
                     @endif
                   </tbody>
                 </table>
@@ -352,7 +358,7 @@
 
             $('#keterangan_edit').attr('value', keterangan_edit);
             $('#bpjs_dibayarkan_edit').attr('value', bpjs_dibayarkan_edit);
-            
+
             if (tipe_bpjs_edit=="Kesehatan") {
               $('#flag_kesehatan_edit').attr('selected', true);
             } else if (tipe_bpjs_edit=="Ketenagakerjaan") {

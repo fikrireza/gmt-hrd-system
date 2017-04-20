@@ -158,7 +158,7 @@
       <!-- Horizontal Form -->
       <div class="box box-primary box-solid">
         <div class="box-header with-border">
-          <h3 class="box-title">Formulir Tambah Komponen Gaji</h3>
+          <h3 class="box-title">Formulir Tambah Komponen Gaji Variable</h3>
         </div>
         <form class="form-horizontal" action="{{route('komgaji.store')}}" method="post">
           {{csrf_field()}}
@@ -248,9 +248,8 @@
                     <tr role="row">
                       <th>No</th>
                       <th>Nama</th>
-                      <th>Tipe</th>
                       <th>Periode</th>
-                      <th>Status</th>
+                      <th>Tipe</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -272,20 +271,13 @@
                             {{$key->nama_komponen}}
                           </td>
                           <td>
+                            {{$key->periode_perhitungan}}
+                          </td>
+                          <td>
                             @if ($key->tipe_komponen=="D")
                               <span class="badge bg-green">Penerimaan</span>
                             @elseif ($key->tipe_komponen=="P")
                               <span class="badge bg-red">Potongan</span>
-                            @endif
-                          </td>
-                          <td>
-                            {{$key->periode_perhitungan}}
-                          </td>
-                          <td>
-                            @if ($key->tipe_komponen_gaji==0)
-                              <span class="badge bg-purple">Tetap</span>
-                            @else
-                              <span class="badge bg-navy">Variable</span>
                             @endif
                           </td>
                           <td>

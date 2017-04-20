@@ -43,16 +43,16 @@ class BatchPayrollController extends Controller
         'tanggal_akhir.required' => 'Wajib di isi',
       ];
 
-      $validator = Validator::make($request->all(), [
-        'periode' => 'required',
-        'tanggal_awal' => 'required',
-        'tanggal_akhir' => 'required',
-      ], $message);
+    $validator = Validator::make($request->all(), [
+      'periode' => 'required',
+      'tanggal_awal' => 'required',
+      'tanggal_akhir' => 'required',
+    ], $message);
 
-      if($validator->fails())
-      {
-        return redirect()->route('batchpayroll.index')->withErrors($validator)->withInput();
-      }
+    if($validator->fails())
+    {
+      return redirect()->route('batchpayroll.index')->withErrors($validator)->withInput();
+    }
 
     //--- CHECK GENERATED BATCH ---//
     $getyearmonth1st = substr($request->tanggal_awal, 0, 7);
@@ -96,6 +96,21 @@ class BatchPayrollController extends Controller
     }
     //-- END OF GET TANGGAL SEHARUSNYA KERJA ---//
 
+    //--- GET GAJI POKOK PEGAWAI ---
+    $getmasterpegawai = MasterPegawai::select('id', 'gaji_pokok', 'workday')->get();
+    $getgajipegawai = array();
+    $getworkday = array();
+    foreach ($getmasterpegawai as $key) {
+      $rowgajipegawai["id_pegawai"] = $key->id;
+      $rowgajipegawai["gaji_pokok"] = $key->gaji_pokok;
+      $getgajipegawai[] = $rowgajipegawai;
+
+      $rowworkday["id_pegawai"] = $key->id;
+      $rowworkday["workday"] = $key->workday;
+      $getworkday[] = $rowworkday;
+    }
+    //--- END OF GET GAJI POKOK PEGAWAI ---
+
     if ($check->count()==0) {
       $set = new BatchPayroll;
       $set->id_periode_gaji = $request->periode;
@@ -108,16 +123,21 @@ class BatchPayrollController extends Controller
       $getkomponentetap = KomponenGaji::where('tipe_komponen_gaji', 0)->get();
 
       foreach ($getidpegawai as $key) {
-        // ---- LOGIC SEMENTARA (ganti logicnya setelah datanya banyak, soalnya lemot..)
-        $getgajipegawai = MasterPegawai::select('gaji_pokok', 'workday')->where('id', $key->id_pegawai)->first();
-        // ---- END OF LOGIC SEMENTARA (ganti logicnya setelah datanya banyak, soalnya lemot..)
-
         $set = new DetailBatchPayroll;
         $set->id_batch_payroll = $getlatestid->id;
         $set->id_pegawai = $key->id_pegawai;
-        if ($getgajipegawai->workday=="52") {
+
+        $workday = 0;
+        foreach ($getworkday as $gwd) {
+          if ($key->id_pegawai == $gwd['id_pegawai']) {
+            $workday = $gwd["workday"];
+            break;
+          }
+        }
+
+        if ($workday=="52") {
           $set->workday = count($harikerja52);
-        } else if ($getgajipegawai->workday=="61") {
+        } else if ($workday=="61") {
           $set->workday = count($harikerja61);
         }
         $set->save();
@@ -127,9 +147,17 @@ class BatchPayrollController extends Controller
         foreach ($getkomponentetap as $tetap) {
           $set = new DetailKomponenGaji;
           $set->id_detail_batch_payroll = $getlatestdetailbatchid->id;
+
+          $gapok = 0;
+          foreach ($getgajipegawai as $ggp) {
+            if ($key->id_pegawai == $ggp['id_pegawai']) {
+              $gapok = $ggp['gaji_pokok'];
+              break;
+            }
+          }
           $set->id_komponen_gaji = $tetap->id;
           if ($tetap->id==1) {
-            $set->nilai = $getgajipegawai->gaji_pokok;
+            $set->nilai = $gapok;
           } else {
             $set->nilai = 0;
           }
