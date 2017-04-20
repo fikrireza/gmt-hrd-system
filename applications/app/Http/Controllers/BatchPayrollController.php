@@ -348,6 +348,7 @@ class BatchPayrollController extends Controller
           select('id_pegawai', 'id_komponen_gaji', 'nilai', 'tipe_komponen as tipe_perhitungan', 'tipe_komponen_gaji as tipe_komponen', 'komponen_gaji.periode_perhitungan')
           ->join('komponen_gaji', 'detail_komponen_gaji.id_komponen_gaji', '=', 'komponen_gaji.id')
           ->join('detail_batch_payroll', 'detail_komponen_gaji.id_detail_batch_payroll', '=', 'detail_batch_payroll.id')
+          ->where('detail_batch_payroll.id_batch_payroll', $id)
           ->orderby('id_pegawai')
           ->get();
 
