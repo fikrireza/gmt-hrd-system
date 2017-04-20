@@ -66,10 +66,6 @@
               <div class="col-sm-4">
                 <select name="id_client" class="form-control select2" style="width: 100%;" required="true">
                   <option selected="selected"></option>
-                  <!-- @foreach($getClient as $key)
-                    <option value="{{ $key->id }}" @if(isset($proses))@if($key->id == $idClient) selected="" @endif @endif>{{ $key->kode_client }} - {{ $key->nama_client }}</option>
-                  @endforeach
- -->
                   @foreach($getClient as $client)
                     <optgroup label="{{ $client->nama_client}}">
                       @foreach($getCabang as $key)

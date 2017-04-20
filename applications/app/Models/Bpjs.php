@@ -12,6 +12,6 @@ class Bpjs extends Model  {
   protected $table = 'management_bpjs';
 
   protected $fillable = [
-      'tipe_bpjs', 'keterangan', 'bpjs_dibayarkan', 'id_client'
+      'tipe_bpjs', 'keterangan', 'bpjs_dibayarkan', 'id_cabang_client'
   ];
 }

@@ -250,6 +250,7 @@
                       <th>Nama</th>
                       <th>Periode</th>
                       <th>Tipe</th>
+                      <th>Status</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
@@ -281,9 +282,6 @@
                             @endif
                           </td>
                           <td>
-                            {{$key->periode_perhitungan}}
-                          </td>
-                          <td>
                             @if ($key->tipe_komponen_gaji==0)
                               <span class="badge bg-purple">Tetap</span>
                             @else
@@ -291,7 +289,7 @@
                             @endif
                           </td>
                           <td>
-                          @if($key->id >= '990')
+                          @if($key->id == '9991' || $key->id == '9992' || $key->id == '9993')
                             <span data-toggle="tooltip" title="Tidak Dapat Dirubah">
                               <i class="fa fa-remove"></i>
                             </span>

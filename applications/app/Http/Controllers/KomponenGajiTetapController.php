@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Models\KomponenGajiTetap;
 use App\Models\DetailKomponenGaji;
 use App\Models\MasterClient;
+use App\Models\CabangClient;
 
 use Validator;
 
@@ -26,11 +27,16 @@ class KomponenGajiTetapController extends Controller
 
     public function index()
     {
-      $getkomponentetap = KomponenGajiTetap::leftJoin('master_client', 'komponen_gaji_tetap.id_client', '=', 'master_client.id')
-                        ->select('komponen_gaji_tetap.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client')->paginate(10);
+      $getkomponentetap = KomponenGajiTetap::leftJoin('cabang_client', 'komponen_gaji_tetap.id_cabang_client', '=', 'cabang_client.id')->leftJoin('master_client', 'cabang_client.id_client', '=', 'master_client.id')
+                        ->select('komponen_gaji_tetap.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client', 'cabang_client.nama_cabang', 'cabang_client.alamat_cabang')->paginate(10);
       // dd($getkomponentetap);
-      $getClient  = MasterClient::get();
-      return view('pages/params/kelolakomponengajitetap', compact('getkomponentetap', 'getClient'));
+      // $getClient  = MasterClient::get();
+
+      $getClient  = MasterClient::select('id', 'nama_client')->get();
+      $getCabang = CabangClient::select('id','kode_cabang','nama_cabang', 'id_client')->get();
+
+
+      return view('pages/params/kelolakomponengajitetap', compact('getkomponentetap', 'getClient', 'getCabang'));
     }
 
     public function store(Request $request)
@@ -41,7 +47,7 @@ class KomponenGajiTetapController extends Controller
         'periode_perhitungan.required' => 'Wajib di isi',
         'keterangan.required' => 'Wajib di isi',
         'komgaj_tetap_dibayarkan.required' => 'Wajib di isi',
-        'id_client.required' => 'Wajib di isi',
+        'id_cabang_client.required' => 'Wajib di isi',
       ];
 
       $validator = Validator::make($request->all(), [
@@ -50,7 +56,7 @@ class KomponenGajiTetapController extends Controller
         'periode_perhitungan' => 'required',
         'keterangan' => 'required',
         'komgaj_tetap_dibayarkan' => 'required',
-        'id_client' => 'required',
+        'id_cabang_client' => 'required',
       ], $message);
 
       if($validator->fails())
@@ -64,7 +70,7 @@ class KomponenGajiTetapController extends Controller
       $set->periode_perhitungan = $request->periode_perhitungan;
       $set->keterangan = $request->keterangan;
       $set->komgaj_tetap_dibayarkan = $request->komgaj_tetap_dibayarkan;
-      $set->id_client = $request->id_client;
+      $set->id_cabang_client = $request->id_cabang_client;
       $set->save();
 
       return redirect()->route('komgajitetap.index')->with('message', 'Berhasil memasukkan komponen gaji tetap.');
@@ -85,7 +91,7 @@ class KomponenGajiTetapController extends Controller
       $dataChage->periode_perhitungan = $request->periode_perhitungan_edit;
       $dataChage->keterangan = $request->keterangan_edit;
       $dataChage->komgaj_tetap_dibayarkan = $request->komgaj_tetap_dibayarkan_edit;
-      $dataChage->id_client = $request->id_client_edit;
+      $dataChage->id_cabang_client = $request->id_cabang_client_edit;
       $dataChage->save();
 
       return redirect()->route('komgajitetap.index')->with('message', 'Data komponen gaji berhasil diubah.');

@@ -67,10 +67,16 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Client</label>
               <div class="col-sm-9">
-                <select name="id_client_edit" class="form-control select2" style="width: 100%;" id="id_client_edit">
+                <select name="id_cabang_client_edit" class="form-control select2" style="width: 100%;" id="id_cabang_client_edit">
                   <option selected="selected"></option>
-                  @foreach($getClient as $key)
-                    <option value="{{ $key->id }}" id="cel{{$key->id}}">{{ $key->kode_client }} - {{ $key->nama_client }}</option>
+                  @foreach($getClient as $client)
+                    <optgroup label="{{ $client->nama_client}}">
+                      @foreach($getCabang as $key)
+                        @if($client->id == $key->id_client)
+                          <option value="{{ $key->id }}" id="cel{{$key->id}}">{{ $key->kode_cabang }} - {{ $key->nama_cabang }}</option>
+                        @endif
+                      @endforeach
+                    </optgroup>
                   @endforeach
                 </select>
               </div>
@@ -174,15 +180,21 @@
           <div class="form-group">
               <label class="col-sm-3 control-label">Client</label>
               <div class="col-sm-9">
-                <select name="id_client" class="form-control select2" style="width: 100%;">
+                <select name="id_cabang_client" class="form-control select2" style="width: 100%;">
                   <option selected="selected"></option>
-                  @foreach($getClient as $key)
-                    <option value="{{ $key->id }}">{{ $key->kode_client }} - {{ $key->nama_client }}</option>
+                  @foreach($getClient as $client)
+                    <optgroup label="{{ $client->nama_client}}">
+                      @foreach($getCabang as $key)
+                        @if($client->id == $key->id_client)
+                          <option value="{{ $key->id }}">{{ $key->kode_cabang }} - {{ $key->nama_cabang }}</option>
+                        @endif
+                      @endforeach
+                    </optgroup>
                   @endforeach
                 </select>
-                @if($errors->has('id_client'))
+                @if($errors->has('id_cabang_client'))
                   <span class="help-block">
-                    <strong style="color: red">{{ $errors->first('id_client')}}
+                    <strong style="color: red">{{ $errors->first('id_cabang_client')}}
                     </strong>
                   </span>
                 @endif
@@ -280,6 +292,7 @@
                   <thead>
                     <tr role="row">
                       <th>No</th>
+                      <th>Client</th>
                       <th>Nama</th>
                       <th>Tipe</th>
                       <th>Periode</th>
@@ -300,6 +313,9 @@
                         <tr>
                           <td>
                             {{$pageget}}
+                          </td>
+                          <td>
+                           {{$key->nama_client}} - {{$key->nama_cabang}}
                           </td>
                           <td>
                             {{$key->nama_komponen}}
@@ -406,14 +422,14 @@
             var periode_perhitungan_edit = data.periode_perhitungan;
             var keterangan_edit = data.  keterangan;
             var komgaj_tetap_dibayarkan_edit = data.komgaj_tetap_dibayarkan;
-            var id_client_edit = data. id_client;
+            var id_cabang_client_edit = data. id_cabang_client;
 
             //set
             $('#id').attr('value', id);
             $('#nama_komponen_edit').attr('value', nama_komponen_edit);
 
             $('option').attr('selected', false);
-            $('option#cel'+id_client_edit).attr('selected', true);
+            $('option#cel'+id_cabang_client_edit).attr('selected', true);
             $(".select2").select2();
 
             if (tipe_komponen_edit=="D") {
