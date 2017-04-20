@@ -67,13 +67,13 @@
           <div class="col-md-12" style="margin-bottom:20px;">
             <form role="form" method="post" action="{{ url('import-proses') }}" enctype="multipart/form-data">
               {!! csrf_field() !!}
-              <div class="box-body">
+              <div class="callout callout-warning">
                 <div class="form-group">
                   <label for="exampleInputFile">File input</label>
                   <input type="file" name="importPegawai" accept=".xls, .xlsx, .csv">
-                  <p class="help-block">Harap Import Data Sesuai Dengan Template.</p>
                 </div>
               </div>
+               <p class="help-block" style="color: red"><i><b>*Harap Import Data Sesuai Dengan Template.</b></i></p>
               <div class="box-footer">
                 <button type="submit" class="btn btn-success">Submit</button>
               </div>

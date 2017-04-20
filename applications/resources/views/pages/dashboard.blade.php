@@ -118,7 +118,7 @@
   @if (Auth::user()->level=="2")
     <div class="row">
       <div class="col-md-6">
-        <div class="box box-info">
+        <div class="box box-primary box-solid">
           <div class="box-header">
             <div class="box-title">
               Batch Payroll
@@ -155,7 +155,7 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="box box-success">
+        <div class="box box-primary box-solid">
           <div class="box-header">
             <div class="box-title">
               Master Client

@@ -117,7 +117,7 @@
               @if (count($getperiode)!=0)
                 @foreach ($getperiode as $key)
                   <div class="col-md-6">
-                    <div class="small-box bg-primary">
+                    <div class="small-box bg-yellow">
                       <div class="inner">
                         <h3>Periode: {{$key->tanggal}}</h3>
                         <p>Pemrosesan Gaji Per Tanggal {{$key->tanggal}} Tiap Bulan</p>
