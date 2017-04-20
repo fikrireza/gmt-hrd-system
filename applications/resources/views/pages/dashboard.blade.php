@@ -115,6 +115,68 @@
     </div><!-- /.row (main row) -->
   @endif
 
+  @if (Auth::user()->level=="2")
+    <div class="row">
+      <div class="col-md-6">
+        <div class="box box-info">
+          <div class="box-header">
+            <div class="box-title">
+              Batch Payroll
+            </div>
+          </div>
+          <div class="box-body">
+            <div class="table-responsive">
+              <table class="table no-margin">
+                <thead>
+                  <tr>
+                    <th>Batch ID</th>
+                    <th>Periode</th>
+                    <th>Cut Off Absen</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for ($i=0; $i < 7; $i++)
+                    <tr>
+                      <td>312313</td>
+                      <td>Per Tanggal 25</td>
+                      <td>19-03-1999 s/d 18-03-1999</td>
+                      <td><span class="badge bg-green">Dummy</span></td>
+                      <td>
+                        <a href="#" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+                      </td>
+                    </tr>
+                  @endfor
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="box box-success">
+          <div class="box-header">
+            <div class="box-title">
+              Master Client
+            </div>
+          </div>
+          <div class="box-body">
+            <ul class="nav nav-pills nav-stacked">
+              <li><a href="#">CIMB Niaga <span class="badge bg-blue pull-right"> 12 Cabang</span></a></li>
+              <li><a href="#">PT Antam <span class="badge bg-green pull-right"> 4 Cabang</span></a></li>
+              <li><a href="#">Indosat <span class="badge bg-yellow pull-right"> 2 Cabang</span></a></li>
+              <li><a href="#">Dummy <span class="badge bg-red pull-right"> 2 Cabang</span></a></li>
+              <li><a href="#">Dummy <span class="badge bg-maroon pull-right"> 2 Cabang</span></a></li>
+              <li><a href="#">Dummy <span class="badge bg-navy pull-right"> 2 Cabang</span></a></li>
+              <li><a href="#">Dummy <span class="badge bg-blue pull-right"> 2 Cabang</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  @endif
+
   <!-- jQuery 2.1.4 -->
   <script src="{{asset('plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
   <!-- Bootstrap 3.3.5 -->
