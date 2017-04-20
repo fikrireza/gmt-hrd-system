@@ -291,7 +291,7 @@
                           <td>
                           @if($key->id == '9991' || $key->id == '9992' || $key->id == '9993')
                             <span data-toggle="tooltip" title="Tidak Dapat Dirubah">
-                              <i class="fa fa-remove"></i>
+                              <a href="" class="btn btn-xs bg-navy disabled"><i class="fa fa-warning"></i></a>
                             </span>
                           @else
                             <span data-toggle="tooltip" title="Edit Data">

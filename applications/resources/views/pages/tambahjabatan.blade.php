@@ -184,7 +184,7 @@
                       <td>
                         @if($key->id >= '990')
                           <span data-toggle="tooltip" title="Tidak Dapat Dirubah">
-                            <i class="fa fa-remove"></i>
+                            <a href="" class="btn btn-xs bg-navy disabled"><i class="fa fa-warning"></i></a>
                           </span>
                         @else
                         <a href="{{ route('masterjabatan.edit', $key->id) }}" class="btn btn-xs btn-warning" data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit"></i></a>
