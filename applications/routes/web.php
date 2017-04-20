@@ -162,6 +162,7 @@ Route::get('batch-payroll/delete/{id}', 'BatchPayrollController@delete')->name('
 Route::get('batch-payroll/detail/{id}', 'BatchPayrollController@detail')->name('batchpayroll.detail');
 Route::get('batch-payroll/getdata/{id}', 'BatchPayrollController@getdatafordatatable')->name('batchpayroll.getdata');
 Route::get('batch-payroll/refreshrowdatatables/{id}', 'BatchPayrollController@refreshrowdatatables')->name('batchpayroll.refreshrow');
+Route::get('batch-payroll/process/{idbatch}/{data}', 'BatchPayrollController@process')->name('batchpayroll.process');
 
 ///// DETAIL BATCH PAYROLL //////
 Route::get('detail-batch-payroll/bind-to-table/{idbatch}/{idpegawai}', 'DetailBatchPayrollController@getdatakomponen')->name('detailbatchpayroll.bindtotable');

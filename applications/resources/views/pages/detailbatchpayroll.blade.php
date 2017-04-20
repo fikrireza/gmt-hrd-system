@@ -306,7 +306,7 @@
               </tr>
             </table>
           </ul>
-          <button type="button" name="button" class="btn btn-warning">Proses Payroll</button>
+          <a href="{{url('batch-payroll/process/'.$idbatch.'/'.http_build_query(array('data' => $rowdisplay)))}}" class="btn btn-warning">Proses Payroll</a>
         </div>
       </div>
     </div>

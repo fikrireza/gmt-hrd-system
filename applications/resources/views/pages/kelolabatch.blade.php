@@ -210,51 +210,67 @@
                       <th>Periode Gaji</th>
                       <th>Tanggal Awal</th>
                       <th>Tanggal Akhir</th>
+                      <th>Status Proses</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @php
-                      $pageget;
-                      if($getbatch->currentPage()==1)
-                        $pageget = 1;
-                      else
-                        $pageget = (($getbatch->currentPage() - 1) * $getbatch->perPage())+1;
-                    @endphp
-                    @foreach ($getbatch as $key)
-                      <tr>
-                        <td>{{$pageget}}</td>
-                        <td>Per Tanggal {{$key->tanggal}}</td>
-                        <td>
-                          @php
-                            $date = explode("-", $key->tanggal_proses);
-                          @endphp
-                          {{$date[2]}}-{{$date[1]}}-{{$date[0]}}
-                        </td>
-                        <td>
-                          @if($key->tanggal_proses_akhir !=null)
+                    @if (count($getbatch)!=0)
+                      @php
+                        $pageget;
+                        if($getbatch->currentPage()==1)
+                          $pageget = 1;
+                        else
+                          $pageget = (($getbatch->currentPage() - 1) * $getbatch->perPage())+1;
+                      @endphp
+                      @foreach ($getbatch as $key)
+                        <tr>
+                          <td>{{$pageget}}</td>
+                          <td>Per Tanggal {{$key->tanggal}}</td>
+                          <td>
                             @php
-                              $date = explode("-", $key->tanggal_proses_akhir);
+                              $date = explode("-", $key->tanggal_proses);
                             @endphp
                             {{$date[2]}}-{{$date[1]}}-{{$date[0]}}
-                          @endif
-                        </td>
-                        <td>
-                          <span data-toggle="tooltip" title="Lihat Detail">
-                            <a href="{{route('batchpayroll.detail', $key->id)}}" class="btn btn-xs btn-primary edit"><i class="fa fa-eye"></i></a>
-                          </span>
-                          <span data-toggle="tooltip" title="Edit Data">
-                            <a href="" class="btn btn-xs btn-warning edit" data-toggle="modal" data-target="#myModalEdit" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
-                          </span>
-                          <span data-toggle="tooltip" title="Hapus Data">
-                            <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
-                          </span>
+                          </td>
+                          <td>
+                            @if($key->tanggal_proses_akhir !=null)
+                              @php
+                                $date = explode("-", $key->tanggal_proses_akhir);
+                              @endphp
+                              {{$date[2]}}-{{$date[1]}}-{{$date[0]}}
+                            @endif
+                          </td>
+                          <td>
+                            @if ($key->flag_processed==0)
+                              <span class="badge">Belum Diproses</span>
+                            @else
+                              <span class="badge bg-green">Belum Diproses</span>
+                            @endif
+                          </td>
+                          <td>
+                            <span data-toggle="tooltip" title="Lihat Detail">
+                              <a href="{{route('batchpayroll.detail', $key->id)}}" class="btn btn-xs btn-primary edit"><i class="fa fa-eye"></i></a>
+                            </span>
+                            <span data-toggle="tooltip" title="Edit Data">
+                              <a href="" class="btn btn-xs btn-warning edit" data-toggle="modal" data-target="#myModalEdit" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
+                            </span>
+                            <span data-toggle="tooltip" title="Hapus Data">
+                              <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
+                            </span>
+                          </td>
+                        </tr>
+                        @php
+                          $pageget++;
+                        @endphp
+                      @endforeach
+                    @else
+                      <tr>
+                        <td colspan=5 align="center">
+                          <i class="text-muted">Data tidak tersedia.</i>
                         </td>
                       </tr>
-                      @php
-                        $pageget++;
-                      @endphp
-                    @endforeach
+                    @endif
                   </tbody>
                 </table>
               </div>

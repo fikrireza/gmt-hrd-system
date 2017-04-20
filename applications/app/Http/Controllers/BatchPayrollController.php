@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 use Datatables;
 use App\Http\Requests;
+use App\Models\Bpjs;
 use App\Models\HariLibur;
 use App\Models\PeriodeGaji;
 use App\Models\BatchPayroll;
@@ -24,7 +25,7 @@ class BatchPayrollController extends Controller
   {
     $getperiode = PeriodeGaji::all();
     $getbatch = BatchPayroll::
-      select('batch_payroll.id as id', 'periode_gaji.tanggal', 'batch_payroll.tanggal_proses', 'batch_payroll.tanggal_proses_akhir')
+      select('batch_payroll.id as id', 'periode_gaji.tanggal', 'batch_payroll.tanggal_proses', 'batch_payroll.tanggal_proses_akhir', 'batch_payroll.flag_processed')
       ->join('periode_gaji', 'batch_payroll.id_periode_gaji', '=', 'periode_gaji.id')
       ->orderby('batch_payroll.id', 'desc')
       ->paginate(10);
@@ -93,23 +94,38 @@ class BatchPayrollController extends Controller
       if ((date('N', strtotime($key)) < 7) && (!in_array($key, $arrharilibur))) {
         $harikerja61[] = $key;
       }
+      if ((date('N', strtotime($key)) < 8) && (!in_array($key, $arrharilibur))) {
+        $harikerja70[] = $key;
+      }
     }
+    return $harikerja70;
     //-- END OF GET TANGGAL SEHARUSNYA KERJA ---//
 
     //--- GET GAJI POKOK PEGAWAI ---
-    $getmasterpegawai = MasterPegawai::select('id', 'gaji_pokok', 'workday')->get();
+    $getmasterpegawai = MasterPegawai::
+      select('master_pegawai.id as id_pegawai', 'gaji_pokok', 'workday', 'id_cabang_client')
+      ->join('data_pkwt', 'master_pegawai.id', '=', 'data_pkwt.id_pegawai')
+      ->orderby('data_pkwt.id', 'desc')
+      ->get();
+
     $getgajipegawai = array();
     $getworkday = array();
     foreach ($getmasterpegawai as $key) {
-      $rowgajipegawai["id_pegawai"] = $key->id;
+      $rowgajipegawai["id_pegawai"] = $key->id_pegawai;
       $rowgajipegawai["gaji_pokok"] = $key->gaji_pokok;
+      $rowgajipegawai["id_cabang_client"] = $key->id_cabang_client;
       $getgajipegawai[] = $rowgajipegawai;
 
-      $rowworkday["id_pegawai"] = $key->id;
+      $rowworkday["id_pegawai"] = $key->id_pegawai;
       $rowworkday["workday"] = $key->workday;
       $getworkday[] = $rowworkday;
     }
     //--- END OF GET GAJI POKOK PEGAWAI ---
+
+
+    //--- GET BPJS ---
+    $getbpjs = Bpjs::all();
+    //--- END OF GET BPJS ---
 
     if ($check->count()==0) {
       $set = new BatchPayroll;
@@ -149,15 +165,30 @@ class BatchPayrollController extends Controller
           $set->id_detail_batch_payroll = $getlatestdetailbatchid->id;
 
           $gapok = 0;
+          $idcabang = 0;
           foreach ($getgajipegawai as $ggp) {
             if ($key->id_pegawai == $ggp['id_pegawai']) {
               $gapok = $ggp['gaji_pokok'];
+              $idcabang = $ggp['id_cabang_client'];
               break;
             }
           }
+
           $set->id_komponen_gaji = $tetap->id;
           if ($tetap->id==1) {
             $set->nilai = $gapok;
+          } else if ($tetap->id==9991 || $tetap->id==9992){
+            $bpjskesehatan=0;
+            $bpjsketenagakerjaan=0;
+            foreach ($getbpjs as $bpjs) {
+              if ($bpjs->id_cabang_client == $idcabang && $bpjs->id_bpjs==9991) {
+                $set->nilai = $bpjs->bpjs_dibayarkan;
+                break;
+              } else if ($bpjs->id_cabang_client == $idcabang && $bpjs->id_bpjs==9992) {
+                $set->nilai = $bpjs->bpjs_dibayarkan;
+                break;
+              }
+            }
           } else {
             $set->nilai = 0;
           }
@@ -457,6 +488,15 @@ class BatchPayrollController extends Controller
       $set = BatchPayroll::find($id);
       $set->delete();
       return redirect()->route('batchpayroll.index')->with('message', 'Berhasil menghapus data batch payroll.');
+    }
+
+    public function process($idbatch, $data)
+    {
+      parse_str($data, $output);
+
+      foreach ($output['data'] as $key) {
+        return $key["id"];
+      }
     }
 
 }
