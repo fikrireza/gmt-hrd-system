@@ -123,13 +123,20 @@ Route::get('import', ['as' => 'import', 'uses' => 'ImportDataController@index'])
 Route::post('import-proses', 'ImportDataController@proses');
 Route::get('import-template/{type}', 'ImportDataController@downloadExcel');
 
-///// KOMPONEN GAJI //////
+///// KOMPONEN GAJI VARIABEL//////
 Route::get('komponen-gaji', 'KomponenGajiController@index')->name('komgaji.index');
 Route::post('komponen-gaji', 'KomponenGajiController@store')->name('komgaji.store');
 Route::post('komponen-gaji/update', 'KomponenGajiController@update')->name('komgaji.update');
 Route::get('komponen-gaji/delete/{id}', 'KomponenGajiController@delete')->name('komgaji.delete');
 Route::get('komponen-gaji/update-nilai/{id}/{nilai}', 'KomponenGajiController@update_nilai')->name('komgaji.updatenilai');
 Route::get('komponen-gaji/bind-gaji/{id}', 'KomponenGajiController@bind')->name('komgaji.bind');
+
+///// KOMPONEN GAJI TETAP//////
+Route::get('komponen-gaji-tetap', 'KomponenGajiTetapController@index')->name('komgajitetap.index');
+Route::post('komponen-gaji-tetap', 'KomponenGajiTetapController@store')->name('komgajitetap.store');
+Route::post('komponen-gaji-tetap/update', 'KomponenGajiTetapController@update')->name('komgajitetap.update');
+Route::get('komponen-gaji-tetap/delete/{id}', 'KomponenGajiTetapController@delete')->name('komgajitetap.delete');
+Route::get('komponen-gaji-tetap/bind-gaji-tetap/{id}', 'KomponenGajiTetapController@bind')->name('komgajitetap.bind');
 
 ///// PERIODE GAJI ///////
 Route::get('periode-gaji', 'PeriodeGajiController@index')->name('periodegaji.index');

@@ -1,13 +1,13 @@
 @extends('layouts.master')
 
 @section('title')
-    <title>Kelola Komponen Gaji</title>
+    <title>Kelola Komponen Gaji Variabel</title>
 @stop
 
 @section('breadcrumb')
   <h1>
-    Komponen Gaji
-    <small>Kelola Komponen Gaji</small>
+    Komponen Gaji Variabel
+    <small>Kelola Komponen Gaji Variabel</small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -38,7 +38,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Hapus Komponen Gaji</h4>
+            <h4 class="modal-title">Hapus Komponen Gaji Variabel</h4>
           </div>
           <div class="modal-body">
             <p>Apakah anda yakin untuk menghapus komponen gaji ini?</p>
@@ -60,7 +60,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Edit Komponen Gaji</h4>
+            <h4 class="modal-title">Edit Komponen Gaji Variabel</h4>
           </div>
           <div class="modal-body">
             <div class="form-group ">
@@ -237,7 +237,7 @@
     <div class="col-md-7">
       <div class="box box-primary box-solid">
         <div class="box-header">
-          <h3 class="box-title">Seluruh Komponen Gaji</h3>
+          <h3 class="box-title">Seluruh Komponen Gaji Variabel</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
           <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -281,12 +281,28 @@
                             @endif
                           </td>
                           <td>
+                            {{$key->periode_perhitungan}}
+                          </td>
+                          <td>
+                            @if ($key->tipe_komponen_gaji==0)
+                              <span class="badge bg-purple">Tetap</span>
+                            @else
+                              <span class="badge bg-navy">Variable</span>
+                            @endif
+                          </td>
+                          <td>
+                          @if($key->id >= '990')
+                            <span data-toggle="tooltip" title="Tidak Dapat Dirubah">
+                              <i class="fa fa-remove"></i>
+                            </span>
+                          @else
                             <span data-toggle="tooltip" title="Edit Data">
                               <a href="" class="btn btn-xs btn-warning edit" data-toggle="modal" data-target="#myModalEdit" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
                             </span>
                             <span data-toggle="tooltip" title="Hapus Data">
                               <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
                             </span>
+                          @endif
                           </td>
                         </tr>
                         @php
