@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Bpjs;
 use App\Models\MasterClient;
+use App\Models\KomponenGaji;
 
 use Validator;
 
@@ -25,11 +26,14 @@ class BpjsController extends Controller
     public function index()
     {
       $getbpjs = Bpjs::leftJoin('master_client', 'management_bpjs.id_client', '=', 'master_client.id')
-                          ->select('management_bpjs.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client')
-                          ->paginate(10);
+                        ->leftJoin('komponen_gaji', 'management_bpjs.tipe_bpjs', '=', 'komponen_gaji.id')
+                        ->select('management_bpjs.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client', 'komponen_gaji.id as id_komgaj', 'komponen_gaji.nama_komponen as nama_komponen')
+                        ->paginate(10);
       
       $getClient  = MasterClient::get();
-      return view('pages/params/kelolabpjs', compact('getbpjs', 'getClient'));
+      $getKomponentGaji = KomponenGaji::get()->where('id', '>', '9990');
+     
+      return view('pages/params/kelolabpjs', compact('getbpjs', 'getClient', 'getKomponentGaji'));
     }
 
     public function store(Request $request)

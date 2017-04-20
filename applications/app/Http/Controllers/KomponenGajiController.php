@@ -57,7 +57,7 @@ class KomponenGajiController extends Controller
       $set->tipe_komponen_gaji = 1;
       $set->save();
 
-      return redirect()->route('komgaji.index')->with('message', 'Berhasil memasukkan komponen gaji.');
+      return redirect()->route('komgaji.index')->with('message', 'Berhasil memasukkan komponen gaji variabel.');
     }
 
     public function update_nilai($id, $nilai) {
@@ -111,7 +111,7 @@ class KomponenGajiController extends Controller
       if($check=="") {
         $set = KomponenGaji::find($id);
         $set->delete();
-        return redirect()->route('komgaji.index')->with('message', 'Berhasil menghapus data komponen gaji.');
+        return redirect()->route('komgaji.index')->with('message', 'Berhasil menghapus data komponen gaji variabel.');
       } else {
         return redirect()->route('komgaji.index')->with('messagefail', 'Gagal melakukan hapus data. Data telah memiliki relasi dengan data yang lain.');
       }

@@ -1,14 +1,14 @@
 @extends('layouts.master')
 
 @section('title')
-    <title>Kelola Bpjs</title>
+    <title>Kelola Komponen Gaji Tetap</title>
     <link rel="stylesheet" href="{{asset('plugins/select2/select2.min.css')}}">
 @stop
 
 @section('breadcrumb')
   <h1>
-    BPJS
-    <small>Kelola Bpjs</small>
+    Komponen Gaji Tetap
+    <small>Kelola Komponen Gaji Tetap</small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -39,10 +39,10 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Hapus Bpjs</h4>
+            <h4 class="modal-title">Hapus Komponen Gaji Tetap</h4>
           </div>
           <div class="modal-body">
-            <p>Apakah anda yakin untuk menghapus Bpjs ini?</p>
+            <p>Apakah anda yakin untuk menghapus komponen gaji ini?</p>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
@@ -56,18 +56,17 @@
     <!-- Modal Update-->
     <div class="modal fade" id="myModalEdit" role="dialog">
     <div class="modal-dialog">
-      <form class="form-horizontal" action="{{route('bpjs.update')}}" method="post">
+      <form class="form-horizontal" action="{{route('komgajitetap.update')}}" method="post">
         {{ csrf_field() }}
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Edit Bpjs</h4>
+            <h4 class="modal-title">Edit Komponen Gaji Tetap</h4>
           </div>
           <div class="modal-body">
             <div class="form-group">
               <label class="col-sm-3 control-label">Client</label>
               <div class="col-sm-9">
-                <input type="hidden" name="id" class="form-control" id="id">
                 <select name="id_client_edit" class="form-control select2" style="width: 100%;" id="id_client_edit">
                   <option selected="selected"></option>
                   @foreach($getClient as $key)
@@ -77,20 +76,56 @@
               </div>
             </div>
             <div class="form-group ">
-              <label class="col-sm-3 control-label">Tipe Bpjs</label>
+              <label class="col-sm-3 control-label">Nama Komponen</label>
               <div class="col-sm-9">
-              <select class="form-control" name="tipe_bpjs_edit" id="tipe_bpjs_edit">
-                <option selected="selected"></option>
-                  @foreach($getKomponentGaji as $key)
-                    <option value="{{ $key->id }}" id="tipebpjs{{$key->id}}">{{ $key->nama_komponen }}</option>
-                  @endforeach
+              <input type="hidden" name="id" class="form-control" id="id">
+              <input type="text" name="nama_komponen_edit" class="form-control" placeholder="Nama Komponen" id="nama_komponen_edit">
+                @if($errors->has('nama_komponen_edit'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('nama_komponen_edit')}}
+                    </strong>
+                  </span>
+                @endif
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Tipe Komponen</label>
+              <div class="col-sm-9">
+              <select class="form-control" name="tipe_komponen_edit" id="tipe_komponen_edit">
+                <option value="">-- Pilih --</option>
+                <option value="D" id="flag_penerimaan_edit">Penerimaan</option>
+                <option value="P" id="flag_potongan_edit">Potongan</option>
               </select>
+                @if($errors->has('tipe_komponen_edit'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('tipe_komponen_edit')}}
+                    </strong>
+                  </span>
+                @endif
+              </div>
+            </div>
+             <div class="form-group ">
+              <label class="col-sm-3 control-label">Periode Perhitungan</label>
+              <div class="col-sm-9">
+              <select class="form-control" name="periode_perhitungan_edit" id="periode_perhitungan_edit">
+                <option value="">-- Pilih --</option>
+                <option value="Bulanan" id="flag_bulanan_edit">Bulanan</option>
+                <option value="Harian" id="flag_harian_edit">Harian</option>
+                <option value="Jam" id="flag_jam_edit">Jam</option>
+                <option value="Shift" id="flag_shift_edit">Shift</option>
+              </select>
+               @if($errors->has('periode_perhitungan_edit'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('periode_perhitungan_edit')}}
+                    </strong>
+                  </span>
+                @endif
               </div>
             </div>
             <div class="form-group ">
               <label class="col-sm-3 control-label">Nilai</label>
               <div class="col-sm-9">
-              <input type="text" name="bpjs_dibayarkan_edit" class="form-control" id="bpjs_dibayarkan_edit" placeholder="Nilai" id="bpjs_dibayarkan" onkeypress="return isNumber(event)">
+              <input type="text" name="komgaj_tetap_dibayarkan_edit" class="form-control" id="komgaj_tetap_dibayarkan_edit" placeholder="Nilai" id="komgaj_tetap_dibayarkan" onkeypress="return isNumber(event)">
               </div>
             </div>
             <div class="form-group ">
@@ -101,7 +136,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="reset" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
             <button type="submit" class="btn btn-success">Simpan Perubahan</a>
           </div>
         </div>
@@ -128,18 +163,18 @@
       @endif
     </div>
     <div class="col-md-5">
-      <form class="form-horizontal" action="{{route('bpjs.store')}}" method="post">
-          {{csrf_field()}}
       <!-- Horizontal Form -->
       <div class="box box-primary box-solid">
         <div class="box-header with-border">
-          <h3 class="box-title">Formulir Tambah Bpjs</h3>
+          <h3 class="box-title">Formulir Tambah Komponen Gaji Tetap</h3>
         </div>
+        <form class="form-horizontal" action="{{route('komgajitetap.store')}}" method="post">
+          {{csrf_field()}}
         <div class="box-body">
-            <div class="form-group">
+          <div class="form-group">
               <label class="col-sm-3 control-label">Client</label>
               <div class="col-sm-9">
-                <select name="id_client" class="form-control select2" style="width: 100%;" required="true">
+                <select name="id_client" class="form-control select2" style="width: 100%;">
                   <option selected="selected"></option>
                   @foreach($getClient as $key)
                     <option value="{{ $key->id }}">{{ $key->kode_client }} - {{ $key->nama_client }}</option>
@@ -153,18 +188,47 @@
                 @endif
               </div>
             </div>
-            <div class="form-group ">
-              <label class="col-sm-3 control-label">Tipe Bpjs</label>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Nama Komponen</label>
               <div class="col-sm-9">
-              <select class="form-control" name="tipe_bpjs" id="tipe_bpjs">
-                <option selected="selected"></option>
-                  @foreach($getKomponentGaji as $key)
-                    <option value="{{ $key->id }}">{{ $key->nama_komponen }}</option>
-                  @endforeach
-              </select>
-               @if($errors->has('tipe_bpjs'))
+              <input type="text" name="nama_komponen" class="form-control" value="{{ old('nama_komponen') }}" placeholder="Nama Komponen">
+                @if($errors->has('nama_komponen'))
                   <span class="help-block">
-                    <strong style="color: red">{{ $errors->first('tipe_bpjs')}}
+                    <strong style="color: red">{{ $errors->first('nama_komponen')}}
+                    </strong>
+                  </span>
+                @endif
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Tipe Perhitungan</label>
+              <div class="col-sm-9">
+              <select class="form-control" name="tipe_komponen">
+                <option value="">-- Pilih --</option>
+                <option value="D">Penerimaan</option>
+                <option value="P">Potongan</option>
+              </select>
+                @if($errors->has('tipe_komponen'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('tipe_komponen')}}
+                    </strong>
+                  </span>
+                @endif
+              </div>
+            </div>
+            <div class="form-group ">
+              <label class="col-sm-3 control-label">Periode Perhitungan</label>
+              <div class="col-sm-9">
+              <select class="form-control" name="periode_perhitungan">
+                <option value="">-- Pilih --</option>
+                <option value="Bulanan">Bulanan</option>
+                <option value="Harian">Harian</option>
+                <option value="Jam">Jam</option>
+                <option value="Shift">Shift</option>
+              </select>
+              @if($errors->has('periode_perhitungan'))
+                  <span class="help-block">
+                    <strong style="color: red">{{ $errors->first('periode_perhitungan')}}
                     </strong>
                   </span>
                 @endif
@@ -173,10 +237,10 @@
             <div class="form-group ">
               <label class="col-sm-3 control-label">Nilai</label>
               <div class="col-sm-9">
-              <input type="text" name="bpjs_dibayarkan" class="form-control" placeholder="Nilai" id="bpjs_dibayarkan" onkeypress="return isNumber(event)">
-               @if($errors->has('bpjs_dibayarkan'))
+              <input type="text" name="komgaj_tetap_dibayarkan" class="form-control" placeholder="Nilai" id="komgaj_tetap_dibayarkan" onkeypress="return isNumber(event)">
+               @if($errors->has('komgaj_tetap_dibayarkan'))
                   <span class="help-block">
-                    <strong style="color: red">{{ $errors->first('bpjs_dibayarkan')}}
+                    <strong style="color: red">{{ $errors->first('komgaj_tetap_dibayarkan')}}
                     </strong>
                   </span>
                 @endif
@@ -206,7 +270,7 @@
     <div class="col-md-7">
       <div class="box box-primary box-solid">
         <div class="box-header">
-          <h3 class="box-title">Seluruh BPJS</h3>
+          <h3 class="box-title">Seluruh Komponen Gaji Tetap</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
           <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -216,34 +280,42 @@
                   <thead>
                     <tr role="row">
                       <th>No</th>
-                      <th>Client</th>
-                      <th>Tipe BPJS</th>
+                      <th>Nama</th>
+                      <th>Tipe</th>
+                      <th>Periode</th>
                       <th>Nilai</th>
                       <th>Aksi</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @if (count($getbpjs)!=0)
+                    @if (count($getkomponentetap)!=0)
                       @php
                         $pageget;
-                        if($getbpjs->currentPage()==1)
+                        if($getkomponentetap->currentPage()==1)
                           $pageget = 1;
                         else
-                          $pageget = (($getbpjs->currentPage() - 1) * $getbpjs->perPage())+1;
+                          $pageget = (($getkomponentetap->currentPage() - 1) * $getkomponentetap->perPage())+1;
                       @endphp
-                      @foreach ($getbpjs as $key)
+                      @foreach ($getkomponentetap as $key)
                         <tr>
                           <td>
                             {{$pageget}}
                           </td>
                           <td>
-                           {{$key->kode_client}} - {{$key->nama_client}}
+                            {{$key->nama_komponen}}
                           </td>
                           <td>
-                           {{$key->nama_komponen}}
+                            @if ($key->tipe_komponen=="D")
+                              <span class="badge bg-green">Penerimaan</span>
+                            @elseif ($key->tipe_komponen=="P")
+                              <span class="badge bg-red">Potongan</span>
+                            @endif
                           </td>
                           <td>
-                          Rp. {{ number_format($key->bpjs_dibayarkan,0,',','.') }},-
+                            {{$key->periode_perhitungan}}
+                          </td>
+                          <td>
+                            Rp. {{ number_format($key->komgaj_tetap_dibayarkan,0,',','.') }},-
                           </td>
                           <td>
                             <span data-toggle="tooltip" title="Edit Data">
@@ -265,11 +337,11 @@
             </div>
             <div class="row">
               <div class="col-sm-5">
-                {{-- <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $getbpjs->count() !!}  dari {!! count($getbpjs) !!} Data</div> --}}
+                {{-- <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $getkomponentetap->count() !!}  dari {!! count($getkomponentetap) !!} Data</div> --}}
               </div>
               <div class="col-sm-7">
                 <div class="pull-right">
-                  {{ $getbpjs->links() }}
+                  {{ $getkomponentetap->links() }}
                 </div>
               </div>
             </div>
@@ -277,6 +349,7 @@
           </div><!-- /.box-body -->
         </div>
       </div><!--/.col -->
+      </div>   <!-- /.row -->
 
 
   <!-- jQuery 2.1.4 -->
@@ -289,10 +362,17 @@
   <script src="{{asset('dist/js/app.min.js')}}"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="{{asset('dist/js/demo.js')}}"></script>
-  {{-- datepicker --}}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js"></script>
-  <script src="{{asset('plugins/datepicker/bootstrap-datepicker.js')}}"></script>
   <script src="{{asset('plugins/select2/select2.full.min.js')}}"></script>
+
+  <script type="text/javascript">
+    $('#myModalEdit').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+
+    $('#myModal').on('hidden.bs.modal', function () {
+     location.reload();
+    });
+  </script>
   <script type="text/javascript">
     $(document).ready(function(){
       $(".select2").select2();
@@ -308,51 +388,52 @@
   </script>
 
   <script type="text/javascript">
-  $('.datepicker1').datepicker({
-    autoclose: true,
-    format: 'yyyy-mm-dd',
-    todayHighlight: true,
-    daysOfWeekDisabled: [0,6]
-  });
-  </script>
-  <script type="text/javascript">
-    $('#myModalEdit').on('hidden.bs.modal', function () {
-     location.reload();
-    });
-
-    $('#myModal').on('hidden.bs.modal', function () {
-     location.reload();
-    });
-  </script>
-
-  <script type="text/javascript">
     $(function(){
        $('a.hapus').click(function(){
         var a = $(this).data('value');
-          $('#sethapus').attr('href', "{{ url('/') }}/bpjs/delete/"+a);
+          $('#sethapus').attr('href', "{{ url('/') }}/komponen-gaji-tetap/delete/"+a);
       });
 
       $('a.edit').click(function(){
         var a = $(this).data('value');
         $.ajax({
-          url: "{{url('/')}}/bpjs/bind-bpjs/"+a,
+          url: "{{url('/')}}/komponen-gaji-tetap/bind-gaji-tetap/"+a,
           success: function(data){
             //get
             var id = data.id;
-            var tipe_bpjs_edit = data.tipe_bpjs;
+            var nama_komponen_edit = data.nama_komponen;
+            var tipe_komponen_edit = data.tipe_komponen;
+            var periode_perhitungan_edit = data.periode_perhitungan;
             var keterangan_edit = data.  keterangan;
-            var bpjs_dibayarkan_edit = data.bpjs_dibayarkan;
+            var komgaj_tetap_dibayarkan_edit = data.komgaj_tetap_dibayarkan;
             var id_client_edit = data. id_client;
+
             //set
             $('#id').attr('value', id);
+            $('#nama_komponen_edit').attr('value', nama_komponen_edit);
 
             $('option').attr('selected', false);
             $('option#cel'+id_client_edit).attr('selected', true);
-            $('option#tipebpjs'+tipe_bpjs_edit).attr('selected', true);
             $(".select2").select2();
 
+            if (tipe_komponen_edit=="D") {
+              $('#flag_penerimaan_edit').attr('selected', true);
+            } else {
+              $('#flag_potongan_edit').attr('selected', true);
+            }
+
+            if (periode_perhitungan_edit=="Bulanan") {
+              $('#flag_bulanan_edit').attr('selected', true);
+            } else if (periode_perhitungan_edit=="Harian") {
+              $('#flag_harian_edit').attr('selected', true);
+            } else if (periode_perhitungan_edit=="Jam") {
+              $('#flag_jam_edit').attr('selected', true);
+            } else if (periode_perhitungan_edit=="Shift") {
+              $('#flag_shift_edit').attr('selected', true);
+            }
+
             $('#keterangan_edit').attr('value', keterangan_edit);
-            $('#bpjs_dibayarkan_edit').attr('value', bpjs_dibayarkan_edit);
+            $('#komgaj_tetap_dibayarkan_edit').attr('value', komgaj_tetap_dibayarkan_edit);
           }
         });
       });
