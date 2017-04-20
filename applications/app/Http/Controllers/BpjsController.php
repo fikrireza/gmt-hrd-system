@@ -37,7 +37,11 @@ class BpjsController extends Controller
       $getClient  = MasterClient::select('id', 'nama_client')->get();
       $getCabang = CabangClient::select('id','kode_cabang','nama_cabang', 'id_client')->get();
 
-      $getKomponentGaji = KomponenGaji::get()->where('id', '>', '9990');
+      $getKomponentGaji = KomponenGaji::where(function($query) {
+                return $query->where('id', '=', '9991')
+                    ->orWhere('id', '=', '9992')
+                    ->orWhere('id', '=', '9993');
+            })->get();
      
       return view('pages/params/kelolabpjs', compact('getbpjs', 'getClient', 'getKomponentGaji', 'getCabang'));
     }
