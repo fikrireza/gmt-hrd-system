@@ -68,10 +68,16 @@
               <label class="col-sm-3 control-label">Client</label>
               <div class="col-sm-9">
                 <input type="hidden" name="id" class="form-control" id="id">
-                <select name="id_client_edit" class="form-control select2" style="width: 100%;" id="id_client_edit">
+                <select name="id_cabang_client_edit" class="form-control select2" style="width: 100%;" id="id_cabang_client_edit">
                   <option selected="selected"></option>
-                  @foreach($getClient as $key)
-                    <option value="{{ $key->id }}" id="cel{{$key->id}}">{{ $key->kode_client }} - {{ $key->nama_client }}</option>
+                  @foreach($getClient as $client)
+                    <optgroup label="{{ $client->nama_client}}">
+                      @foreach($getCabang as $key)
+                        @if($client->id == $key->id_client)
+                          <option value="{{ $key->id }}" id="cel{{$key->id}}">{{ $key->kode_cabang }} - {{ $key->nama_cabang }}</option>
+                        @endif
+                      @endforeach
+                    </optgroup>
                   @endforeach
                 </select>
               </div>
@@ -79,10 +85,10 @@
             <div class="form-group ">
               <label class="col-sm-3 control-label">Tipe Bpjs</label>
               <div class="col-sm-9">
-              <select class="form-control" name="tipe_bpjs_edit" id="tipe_bpjs_edit">
+              <select class="form-control" name="id_bpjs_edit" id="id_bpjs_edit">
                 <option selected="selected"></option>
-                  @foreach ($getbpjsitem as $key)
-                    <option value="{{$key->id}}">{{$key->nama_komponen}}</option>
+                  @foreach($getKomponentGaji as $key)
+                    <option value="{{ $key->id }}" id="tipebpjs{{$key->id}}">{{ $key->nama_komponen }}</option>
                   @endforeach
               </select>
               </div>
@@ -139,15 +145,21 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Client</label>
               <div class="col-sm-9">
-                <select name="id_client" class="form-control select2" style="width: 100%;" required="true">
+                <select name="id_cabang_client" class="form-control select2" style="width: 100%;" required="true">
                   <option selected="selected"></option>
-                  @foreach($getClient as $key)
-                    <option value="{{ $key->id_cabang }}">{{ $key->kode_cabang }} - {{ $key->nama_client }} {{ $key->nama_cabang }}</option>
+                  @foreach($getClient as $client)
+                    <optgroup label="{{ $client->nama_client}}">
+                      @foreach($getCabang as $key)
+                        @if($client->id == $key->id_client)
+                          <option value="{{ $key->id }}">{{ $key->kode_cabang }} - {{ $key->nama_cabang }}</option>
+                        @endif
+                      @endforeach
+                    </optgroup>
                   @endforeach
                 </select>
-                @if($errors->has('id_client'))
+                @if($errors->has('id_cabang_client'))
                   <span class="help-block">
-                    <strong style="color: red">{{ $errors->first('id_client')}}
+                    <strong style="color: red">{{ $errors->first('id_cabang_client')}}
                     </strong>
                   </span>
                 @endif
@@ -156,15 +168,15 @@
             <div class="form-group ">
               <label class="col-sm-3 control-label">Tipe Bpjs</label>
               <div class="col-sm-9">
-              <select class="form-control" name="tipe_bpjs" id="tipe_bpjs">
-                <option value="">-- Pilih --</option>
-                @foreach ($getbpjsitem as $key)
-                  <option value="{{$key->id}}">{{$key->nama_komponen}}</option>
-                @endforeach
+              <select class="form-control" name="id_bpjs" id="id_bpjs">
+                <option selected="selected"></option>
+                  @foreach($getKomponentGaji as $key)
+                    <option value="{{ $key->id }}">{{ $key->nama_komponen }}</option>
+                  @endforeach
               </select>
-               @if($errors->has('tipe_bpjs'))
+               @if($errors->has('id_bpjs'))
                   <span class="help-block">
-                    <strong style="color: red">{{ $errors->first('tipe_bpjs')}}
+                    <strong style="color: red">{{ $errors->first('id_bpjs')}}
                     </strong>
                   </span>
                 @endif
@@ -237,8 +249,7 @@
                             {{$pageget}}
                           </td>
                           <td>
-                           {{$key->nama_client}} -
-                           {{$key->nama_cabang}}
+                           {{$key->nama_client}} - {{$key->nama_cabang}}
                           </td>
                           <td>
                            {{$key->nama_komponen}}
@@ -259,10 +270,6 @@
                           $pageget++;
                         @endphp
                       @endforeach
-                    @else
-                      <td colspan=5 align="center">
-                        <i>Data tidak tersedia.</i>
-                      </td>
                     @endif
                   </tbody>
                 </table>
@@ -344,28 +351,21 @@
           success: function(data){
             //get
             var id = data.id;
-            var tipe_bpjs_edit = data.tipe_bpjs;
+            var id_bpjs_edit = data.id_bpjs;
             var keterangan_edit = data.  keterangan;
             var bpjs_dibayarkan_edit = data.bpjs_dibayarkan;
-            var id_client_edit = data. id_client;
+            var id_cabang_client_edit = data. id_cabang_client;
+            
             //set
             $('#id').attr('value', id);
 
             $('option').attr('selected', false);
-            $('option#cel'+id_client_edit).attr('selected', true);
-            $('option#tipebpjs'+tipe_bpjs_edit).attr('selected', true);
+            $('option#cel'+id_cabang_client_edit).attr('selected', true);
+            $('option#tipebpjs'+id_bpjs_edit).attr('selected', true);
             $(".select2").select2();
 
             $('#keterangan_edit').attr('value', keterangan_edit);
             $('#bpjs_dibayarkan_edit').attr('value', bpjs_dibayarkan_edit);
-
-            if (tipe_bpjs_edit=="Kesehatan") {
-              $('#flag_kesehatan_edit').attr('selected', true);
-            } else if (tipe_bpjs_edit=="Ketenagakerjaan") {
-              $('#flag_ketenagakerjaan_edit').attr('selected', true);
-            } else if (tipe_bpjs_edit=="Pensiun") {
-              $('#flag_pensiun_edit').attr('selected', true);
-            }
           }
         });
       });
