@@ -26,6 +26,14 @@
     }, 2000);
   </script>
 
+  <script>
+    window.setTimeout(function() {
+      $(".alert-danger").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove();
+      });
+    }, 2000);
+  </script>
+
 
   <div class="modal modal-default fade" id="myModal" role="dialog">
     <div class="modal-dialog" style="width:700px;">
@@ -140,6 +148,15 @@
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
           <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
           <p>{{ Session::get('message') }}</p>
+        </div>
+      @endif
+    </div>
+    <div class="col-md-12">
+      @if(Session::has('messagefailed'))
+        <div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h4><i class="icon fa fa-check"></i> Terjadi Kesalahan!</h4>
+          <p>{{ Session::get('messagefailed') }}</p>
         </div>
       @endif
     </div>
