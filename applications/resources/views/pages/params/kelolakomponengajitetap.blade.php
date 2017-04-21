@@ -66,6 +66,7 @@
             <div class="form-group">
               <label class="col-sm-3 control-label">Client</label>
               <div class="col-sm-9">
+                <input type="hidden" name="id" class="form-control" id="id">
                 <select name="id_cabang_client_edit" class="form-control select2" style="width: 100%;" id="id_cabang_client_edit">
                   <option selected="selected"></option>
                   @foreach($getClient as $client)
@@ -81,50 +82,14 @@
               </div>
             </div>
             <div class="form-group ">
-              <label class="col-sm-3 control-label">Nama Komponen</label>
+              <label class="col-sm-3 control-label">Tipe Komponen Gaji</label>
               <div class="col-sm-9">
-              <input type="hidden" name="id" class="form-control" id="id">
-              <input type="text" name="nama_komponen_edit" class="form-control" placeholder="Nama Komponen" id="nama_komponen_edit">
-                @if($errors->has('nama_komponen_edit'))
-                  <span class="help-block">
-                    <strong style="color: red">{{ $errors->first('nama_komponen_edit')}}
-                    </strong>
-                  </span>
-                @endif
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Tipe Komponen</label>
-              <div class="col-sm-9">
-              <select class="form-control" name="tipe_komponen_edit" id="tipe_komponen_edit">
-                <option value="">-- Pilih --</option>
-                <option value="D" id="flag_penerimaan_edit">Penerimaan</option>
-                <option value="P" id="flag_potongan_edit">Potongan</option>
+              <select class="form-control select2" name="id_komponen_gaji_edit" id="id_komponen_gaji_edit">
+                <option selected="selected"></option>
+                  @foreach($getKomponen as $key)
+                    <option value="{{ $key->id }}" id="tipekomgaj{{$key->id}}">{{ $key->nama_komponen }}</option>
+                  @endforeach
               </select>
-                @if($errors->has('tipe_komponen_edit'))
-                  <span class="help-block">
-                    <strong style="color: red">{{ $errors->first('tipe_komponen_edit')}}
-                    </strong>
-                  </span>
-                @endif
-              </div>
-            </div>
-             <div class="form-group ">
-              <label class="col-sm-3 control-label">Periode Perhitungan</label>
-              <div class="col-sm-9">
-              <select class="form-control" name="periode_perhitungan_edit" id="periode_perhitungan_edit">
-                <option value="">-- Pilih --</option>
-                <option value="Bulanan" id="flag_bulanan_edit">Bulanan</option>
-                <option value="Harian" id="flag_harian_edit">Harian</option>
-                <option value="Jam" id="flag_jam_edit">Jam</option>
-                <option value="Shift" id="flag_shift_edit">Shift</option>
-              </select>
-               @if($errors->has('periode_perhitungan_edit'))
-                  <span class="help-block">
-                    <strong style="color: red">{{ $errors->first('periode_perhitungan_edit')}}
-                    </strong>
-                  </span>
-                @endif
               </div>
             </div>
             <div class="form-group ">
@@ -199,47 +164,18 @@
                 @endif
               </div>
             </div>
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Nama Komponen</label>
-              <div class="col-sm-9">
-              <input type="text" name="nama_komponen" class="form-control" value="{{ old('nama_komponen') }}" placeholder="Nama Komponen">
-                @if($errors->has('nama_komponen'))
-                  <span class="help-block">
-                    <strong style="color: red">{{ $errors->first('nama_komponen')}}
-                    </strong>
-                  </span>
-                @endif
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Tipe Perhitungan</label>
-              <div class="col-sm-9">
-              <select class="form-control" name="tipe_komponen">
-                <option value="">-- Pilih --</option>
-                <option value="D">Penerimaan</option>
-                <option value="P">Potongan</option>
-              </select>
-                @if($errors->has('tipe_komponen'))
-                  <span class="help-block">
-                    <strong style="color: red">{{ $errors->first('tipe_komponen')}}
-                    </strong>
-                  </span>
-                @endif
-              </div>
-            </div>
             <div class="form-group ">
-              <label class="col-sm-3 control-label">Periode Perhitungan</label>
+              <label class="col-sm-3 control-label">Tipe Komponen Gaji</label>
               <div class="col-sm-9">
-              <select class="form-control" name="periode_perhitungan">
-                <option value="">-- Pilih --</option>
-                <option value="Bulanan">Bulanan</option>
-                <option value="Harian">Harian</option>
-                <option value="Jam">Jam</option>
-                <option value="Shift">Shift</option>
+              <select class="form-control select2" name="id_komponen_gaji" id="id_komponen_gaji">
+                <option selected="selected"></option>
+                  @foreach($getKomponen as $key)
+                    <option value="{{ $key->id }}">{{ $key->nama_komponen }}</option>
+                  @endforeach
               </select>
-              @if($errors->has('periode_perhitungan'))
+               @if($errors->has('id_komponen_gaji'))
                   <span class="help-block">
-                    <strong style="color: red">{{ $errors->first('periode_perhitungan')}}
+                    <strong style="color: red">{{ $errors->first('id_komponen_gaji')}}
                     </strong>
                   </span>
                 @endif
@@ -292,9 +228,8 @@
                     <tr role="row">
                       <th>No</th>
                       <th>Client</th>
-                      <th>Nama</th>
-                      <th>Tipe</th>
-                      <th>Periode</th>
+                      <th>Tipe Komponen Gaji</th>
+                      <th>Tipe Komponen</th>
                       <th>Nilai</th>
                       <th>Aksi</th>
                     </tr>
@@ -325,9 +260,6 @@
                             @elseif ($key->tipe_komponen=="P")
                               <span class="badge bg-red">Potongan</span>
                             @endif
-                          </td>
-                          <td>
-                            {{$key->periode_perhitungan}}
                           </td>
                           <td>
                             Rp. {{ number_format($key->komgaj_tetap_dibayarkan,0,',','.') }},-
@@ -422,30 +354,15 @@
             var keterangan_edit = data.  keterangan;
             var komgaj_tetap_dibayarkan_edit = data.komgaj_tetap_dibayarkan;
             var id_cabang_client_edit = data. id_cabang_client;
+            var id_komponen_gaji_edit = data. id_komponen_gaji;
 
             //set
             $('#id').attr('value', id);
-            $('#nama_komponen_edit').attr('value', nama_komponen_edit);
 
             $('option').attr('selected', false);
             $('option#cel'+id_cabang_client_edit).attr('selected', true);
+            $('option#tipekomgaj'+id_komponen_gaji_edit).attr('selected', true);
             $(".select2").select2();
-
-            if (tipe_komponen_edit=="D") {
-              $('#flag_penerimaan_edit').attr('selected', true);
-            } else {
-              $('#flag_potongan_edit').attr('selected', true);
-            }
-
-            if (periode_perhitungan_edit=="Bulanan") {
-              $('#flag_bulanan_edit').attr('selected', true);
-            } else if (periode_perhitungan_edit=="Harian") {
-              $('#flag_harian_edit').attr('selected', true);
-            } else if (periode_perhitungan_edit=="Jam") {
-              $('#flag_jam_edit').attr('selected', true);
-            } else if (periode_perhitungan_edit=="Shift") {
-              $('#flag_shift_edit').attr('selected', true);
-            }
 
             $('#keterangan_edit').attr('value', keterangan_edit);
             $('#komgaj_tetap_dibayarkan_edit').attr('value', komgaj_tetap_dibayarkan_edit);
