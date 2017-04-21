@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Models\KomponenGajiTetap;
 use App\Models\KomponenGaji;
 use App\Models\DetailKomponenGaji;
 use App\Models\MasterClient;
@@ -28,33 +27,27 @@ class KomponenGajiTetapController extends Controller
 
     public function index()
     {
-      $getkomponentetap = KomponenGajiTetap::leftJoin('cabang_client', 'komponen_gaji_tetap.id_cabang_client', '=', 'cabang_client.id')->leftJoin('master_client', 'cabang_client.id_client', '=', 'master_client.id')
-                        ->leftJoin('komponen_gaji', 'komponen_gaji_tetap.id_komponen_gaji', '=', 'komponen_gaji.id')
-                        ->select('komponen_gaji_tetap.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client', 'cabang_client.nama_cabang', 'cabang_client.alamat_cabang', 'komponen_gaji.id as id_komponen', 'komponen_gaji.nama_komponen', 'komponen_gaji.tipe_komponen')->paginate(10);
+      $getkomponen = KomponenGaji::where('tipe_komponen_gaji', '=', 0)->paginate(10);
+      $getlistClientNew = CabangClient::leftJoin('master_client', 'cabang_client.id_client', '=', 'master_client.id')
+                      ->select('cabang_client.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client')->get();
 
-      $getClient  = MasterClient::select('id', 'nama_client')->get();
-      $getKomponen  = KomponenGaji::select('*')->where('tipe_komponen_gaji','=', '0')->get();
-      // dd($getKomponen);
-      $getCabang = CabangClient::select('id','kode_cabang','nama_cabang', 'id_client')->get();
-
-
-      return view('pages/params/kelolakomponengajitetap', compact('getkomponentetap', 'getClient', 'getCabang', 'getKomponen'));
+      return view('pages/params/kelolakomponengajitetap' ,compact('getkomponen', 'getlistClientNew'));
     }
 
     public function store(Request $request)
     {
       $message = [
-        'keterangan.required' => 'Wajib di isi',
-        'komgaj_tetap_dibayarkan.required' => 'Wajib di isi',
-        'id_cabang_client.required' => 'Wajib di isi',
-        'id_komponen_gaji.required' => 'Wajib di isi',
+        'nama_komponen.required' => 'Wajib di isi',
+        'tipe_komponen.required' => 'Wajib di isi',
+        'periode_perhitungan.required' => 'Wajib di isi',
+        // 'tipe_komponen_gaji.required' => 'Wajib di isi',
       ];
 
       $validator = Validator::make($request->all(), [
-        'keterangan' => 'required',
-        'komgaj_tetap_dibayarkan' => 'required',
-        'id_cabang_client' => 'required',
-        'id_komponen_gaji' => 'required',
+        'nama_komponen' => 'required',
+        'tipe_komponen' => 'required',
+        'periode_perhitungan' => 'required',
+        // 'tipe_komponen_gaji' => 'required',
       ], $message);
 
       if($validator->fails())
@@ -62,30 +55,45 @@ class KomponenGajiTetapController extends Controller
         return redirect()->route('komgajitetap.index')->withErrors($validator)->withInput();
       }
 
-      $set = new KomponenGajiTetap;
-      $set->keterangan = $request->keterangan;
-      $set->komgaj_tetap_dibayarkan = $request->komgaj_tetap_dibayarkan;
-      $set->id_cabang_client = $request->id_cabang_client;
-      $set->id_komponen_gaji = $request->id_komponen_gaji;
+      $set = new KomponenGaji;
+      $set->nama_komponen = $request->nama_komponen;
+      $set->tipe_komponen = $request->tipe_komponen;
+      $set->periode_perhitungan = $request->periode_perhitungan;
+      $set->tipe_komponen_gaji = 0;
       $set->save();
 
-      return redirect()->route('komgajitetap.index')->with('message', 'Berhasil memasukkan komponen gaji tetap.');
+      return redirect()->route('komgajitetap.index')->with('message', 'Berhasil memasukkan komponen gaji variabel.');
+    }
+
+    public function update_nilai($id, $nilai) {
+      $set = DetailKomponenGaji::find($id);
+      $set->nilai = $nilai;
+      $set->save();
     }
 
     public function bind($id)
     {
-      $get = KomponenGajiTetap::find($id);
+      $get = KomponenGaji::find($id);
       return $get;
+    }
+
+    public function bindclient($id)
+    {
+      $getlistClientOld = CabangClient::leftJoin('master_client', 'cabang_client.id_client', '=', 'master_client.id')
+                      ->join('komponen_gaji_tetap', 'cabang_client.id', '=', 'komponen_gaji_tetap.id_cabang_client')
+                      ->select('cabang_client.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client')
+                      ->where('komponen_gaji_tetap.id_komponen_gaji', $id)
+                      ->paginate(10);
+      return $getlistClientOld;
     }
 
     public function update(Request $request)
     {
-      // dd($request);
-      $dataChage = KomponenGajiTetap::find($request->id);
-      $dataChage->keterangan = $request->keterangan_edit;
-      $dataChage->komgaj_tetap_dibayarkan = $request->komgaj_tetap_dibayarkan_edit;
-      $dataChage->id_cabang_client = $request->id_cabang_client_edit;
-      $dataChage->id_komponen_gaji = $request->id_komponen_gaji_edit;
+      $dataChage = KomponenGaji::find($request->id);
+      $dataChage->nama_komponen = $request->nama_komponen_edit;
+      $dataChage->tipe_komponen = $request->tipe_komponen_edit;
+      $dataChage->periode_perhitungan = $request->periode_perhitungan_edit;
+      $dataChage->tipe_komponen_gaji = 0;
       $dataChage->save();
 
       return redirect()->route('komgajitetap.index')->with('message', 'Data komponen gaji berhasil diubah.');
@@ -93,8 +101,13 @@ class KomponenGajiTetapController extends Controller
 
     public function delete($id)
     {
-      $set = KomponenGajiTetap::find($id);
-      $set->delete();
-      return redirect()->route('komgajitetap.index')->with('message', 'Berhasil menghapus data komponen gaji tetap.');
+      $check = DetailKomponenGaji::where('id_komponen_gaji', $id)->first();
+      if($check=="") {
+        $set = KomponenGaji::find($id);
+        $set->delete();
+        return redirect()->route('komgajitetap.index')->with('message', 'Berhasil menghapus data komponen gaji variabel.');
+      } else {
+        return redirect()->route('komgajitetap.index')->with('messagefail', 'Gagal melakukan hapus data. Data telah memiliki relasi dengan data yang lain.');
+      }
     }
 }

@@ -158,7 +158,7 @@
       <!-- Horizontal Form -->
       <div class="box box-primary box-solid">
         <div class="box-header with-border">
-          <h3 class="box-title">Formulir Tambah Komponen Gaji Variable</h3>
+          <h3 class="box-title">Formulir Tambah Komponen Gaji Variabel</h3>
         </div>
         <form class="form-horizontal" action="{{route('komgaji.store')}}" method="post">
           {{csrf_field()}}
