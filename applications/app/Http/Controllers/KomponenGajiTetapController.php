@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\KomponenGaji;
+use App\Models\KomponenGajiTetap;
 use App\Models\DetailKomponenGaji;
 use App\Models\MasterClient;
 use App\Models\CabangClient;
@@ -63,6 +64,25 @@ class KomponenGajiTetapController extends Controller
       $set->save();
 
       return redirect()->route('komgajitetap.index')->with('message', 'Berhasil memasukkan komponen gaji variabel.');
+    }
+
+
+    public function storeclient(Request $request)
+    {
+      if ($request->idcabangclient != null) {
+        foreach ($request->idcabangclient as $id_cabang_client) 
+        {
+          $set = new KomponenGajiTetap;
+          $set->keterangan = $request->keterangan_edit;
+          $set->komgaj_tetap_dibayarkan = $request->komgaj_tetap_dibayarkan_edit;
+          $set->id_cabang_client = $id_cabang_client;
+          $set->id_komponen_gaji = $request->id_komponen_client;
+          $set->save();
+        }
+        return redirect()->route('komgajitetap.index')->with('message', 'Berhasil memasukkan komponen gaji variabel.');
+      }else{
+        return redirect()->route('komgajitetap.index')->withInput()->with('messagefail', 'Pilih data client tersebuh dahulu.');
+      }
     }
 
     public function update_nilai($id, $nilai) {

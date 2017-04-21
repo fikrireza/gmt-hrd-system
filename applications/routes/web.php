@@ -134,6 +134,7 @@ Route::get('komponen-gaji/bind-gaji/{id}', 'KomponenGajiController@bind')->name(
 ///// KOMPONEN GAJI TETAP//////
 Route::get('komponen-gaji-tetap', 'KomponenGajiTetapController@index')->name('komgajitetap.index');
 Route::post('komponen-gaji-tetap', 'KomponenGajiTetapController@store')->name('komgajitetap.store');
+Route::post('komponen-gaji-tetap/client', 'KomponenGajiTetapController@storeclient')->name('komgajitetap.storeclient');
 Route::post('komponen-gaji-tetap/update', 'KomponenGajiTetapController@update')->name('komgajitetap.update');
 Route::get('komponen-gaji-tetap/delete/{id}', 'KomponenGajiTetapController@delete')->name('komgajitetap.delete');
 Route::get('komponen-gaji-tetap/bind-gaji-tetap/{id}', 'KomponenGajiTetapController@bind')->name('komgajitetap.bind');

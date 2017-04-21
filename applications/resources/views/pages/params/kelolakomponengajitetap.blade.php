@@ -55,7 +55,7 @@
     <!-- Modal Client-->
     <div class="modal fade" id="myModalClient" role="dialog">
     <div class="modal-dialog" style="width: 80%">
-      <form class="form-horizontal" action="{{route('komgajitetap.update')}}" method="post">
+      <form class="form-horizontal" action="{{route('komgajitetap.storeclient')}}" method="post">
         {{ csrf_field() }}
         <div class="modal-content">
           <div class="modal-header">
@@ -73,13 +73,13 @@
             <div class="form-group ">
               <label class="col-sm-3 control-label">Nilai</label>
               <div class="col-sm-6">
-              <input type="text" name="komgaj_tetap_dibayarkan_edit" class="form-control" id="komgaj_tetap_dibayarkan_edit" placeholder="Nilai" id="komgaj_tetap_dibayarkan" onkeypress="return isNumber(event)">
+              <input type="text" name="komgaj_tetap_dibayarkan_edit" class="form-control" id="komgaj_tetap_dibayarkan_edit" placeholder="Nilai" id="komgaj_tetap_dibayarkan" onkeypress="return isNumber(event)" required="true">
               </div>
             </div>
             <div class="form-group ">
               <label class="col-sm-3 control-label">Keterangan</label>
               <div class="col-sm-6">
-              <input type="text" name="keterangan_edit" class="form-control" placeholder="Keterangan" id="keterangan_edit">
+              <input type="text" name="keterangan_edit" class="form-control" placeholder="Keterangan" id="keterangan_edit"  required="true">
               </div>
             </div>
 
