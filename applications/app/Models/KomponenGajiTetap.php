@@ -9,6 +9,6 @@ class KomponenGajiTetap extends Model
   protected $table = 'komponen_gaji_tetap';
 
   protected $fillable = [
-    'nama_komponen', 'tipe_komponen', 'periode_perhitungan', 'tipe_komponen_gaji', 'keterangan', 'komgaj_tetap_dibayarkan', 'id_cabang_client', 'flag_status'
+    'keterangan', 'komgaj_tetap_dibayarkan', 'id_cabang_client', 'id_komponen_gaji', 'flag_status'
   ];
 }
