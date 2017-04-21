@@ -117,7 +117,7 @@
 
   @if (Auth::user()->level=="2")
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-8">
         <div class="box box-primary box-solid">
           <div class="box-header">
             <div class="box-title">
@@ -132,29 +132,45 @@
                     <th>Batch ID</th>
                     <th>Periode</th>
                     <th>Cut Off Absen</th>
+                    <th>Total Pegawai</th>
+                    <th>Total Pengeluaran</th>
                     <th>Status</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  @for ($i=0; $i < 7; $i++)
-                    <tr>
-                      <td>312313</td>
-                      <td>Per Tanggal 25</td>
-                      <td>19-03-1999 s/d 18-03-1999</td>
-                      <td><span class="badge bg-green">Dummy</span></td>
-                      <td>
-                        <a href="#" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
-                      </td>
-                    </tr>
-                  @endfor
+                  @if (count($batchprocessed)!=0)
+                    @foreach ($batchprocessed as $key)
+                      <tr>
+                        <td>{{$key->id}}</td>
+                        <td>
+                          <span class="label bg-blue">Per Tanggal {{$key->tanggal}}</span>
+                        </td>
+                        <td>
+                          {{$key->tanggal_cutoff_awal}} s/d {{$key->tanggal_cutoff_akhir}}
+                        </td>
+                        <td><span class="badge bg-orange">{{$key->total_pegawai}}</span></td>
+                        <td>Rp. {{number_format($key->total_pengeluaran, '0', ',', '.')}},-</td>
+                        <td>
+                          @if ($key->flag_processed==1)
+                            <span class="label bg-green">Sudah Diproses</span>
+                          @else
+                            <span class="label">Belum Diproses</span>
+                          @endif
+                        </td>
+                        <td>
+                          <a href="#" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+                        </td>
+                      </tr>
+                    @endforeach
+                  @endif
                 </tbody>
               </table>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="box box-primary box-solid">
           <div class="box-header">
             <div class="box-title">
