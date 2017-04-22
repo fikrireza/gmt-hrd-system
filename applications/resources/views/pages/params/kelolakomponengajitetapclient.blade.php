@@ -113,15 +113,13 @@
         <!-- MAP & BOX PANE -->
         <div class="box box-primary box-solid">
           <div class="box-header with-border">
-            <h3 class="box-title"><b>Deskripsi Gaji Tetap</b></h3>
+            <h3 style="text-align: center;"><b>Deskripsi Gaji Tetap</b></h3>
               <div class="box-body">
               <div class="table-responsive">
                 <table class="table no-margin">
-                  <tbody>
                   <tr>
                     <td style="color: white; width: 23%"><b>Nama Komponen :</b></td>
                     <td>{{$getdataKomponenGaji->nama_komponen}}</td>
-                    </td>
                   </tr>
                   <tr>
                     <td style="color: white; width: 23%"><b>Tipe Komponen :</b></td>
@@ -130,24 +128,15 @@
                     @else
                       <td><span class="badge bg-red">Potongan</span></td>
                     @endif
-                    </td>
                   </tr>
                   <tr>
                     <td style="color: white; width: 23%"><b>Periode Perhitungan :</b></td>
                     <td>{{$getdataKomponenGaji->periode_perhitungan}}</td>
-                    </td>
                   </tr>
-                  <tr>
-                    <td></td>
-                    <td>
-                      <span data-toggle="tooltip">
-                        <a class="btn btn-warning pull-right" href="{{route('komgajitetap.index')}}">Kembali Kehalaman Sebelumnya</a>
-                      </span>
-                    </td>
-                    </td>
-                  </tr>
-                  </tbody>
                 </table>
+                <h5 style="text-align: right;"><b>
+                    <a href="{{route('komgajitetap.index')}}">Kembali Kehalaman Sebelumnya</a>
+                </b></h5>
               </div>
               <!-- /.table-responsive -->
             </div>
