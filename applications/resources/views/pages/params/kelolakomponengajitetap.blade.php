@@ -52,108 +52,6 @@
       </div>
     </div>
 
-    <!-- Modal Client-->
-    <div class="modal fade" id="myModalClient" role="dialog">
-    <div class="modal-dialog" style="width: 80%">
-      <form class="form-horizontal" action="{{route('komgajitetap.storeclient')}}" method="post">
-        {{ csrf_field() }}
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Set Komponen Gaji Tetap Pada Client</h4>
-          </div>
-          <div class="modal-body">
-            <div class="form-group ">
-              <label class="col-sm-3 control-label">Komponen Gaji</label>
-              <div class="col-sm-6">
-              <input type="hidden" name="id_komponen_client" class="form-control" id="id_komponen_client">
-              <input type="text" name="nama_komponen_client_edit" class="form-control" placeholder="Nama Komponen" id="nama_komponen_client_edit" readonly="true">
-              </div>
-            </div>
-            <div class="form-group ">
-              <label class="col-sm-3 control-label">Nilai</label>
-              <div class="col-sm-6">
-              <input type="text" name="komgaj_tetap_dibayarkan_edit" class="form-control" id="komgaj_tetap_dibayarkan_edit" placeholder="Nilai" id="komgaj_tetap_dibayarkan" onkeypress="return isNumber(event)" required="true">
-              </div>
-            </div>
-            <div class="form-group ">
-              <label class="col-sm-3 control-label">Keterangan</label>
-              <div class="col-sm-6">
-              <input type="text" name="keterangan_edit" class="form-control" placeholder="Keterangan" id="keterangan_edit"  required="true">
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-sm-12">
-
-              <div class="col-md-6">
-                <div class="box box-primary box-solid">
-                  <div class="box-header">
-                    <h3 class="box-title">Seluruh Client yang tersedia</h3>
-                  </div><!-- /.box-header -->
-                  <div class="box-body">
-                      <table class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                        <thead>
-                          <tr role="row">
-                            <th>
-                              <span data-toggle="tooltip" data-placement="right" title="Pilih Semua">
-                                <input type="checkbox" onClick="toggle(this)"  class="flat-red"/>
-                              </span>
-                            </th>
-                            <th>Nama Client</th>
-                            <th>Nama Cabang</th>
-                            <th>Alamat</th>
-                          </tr>
-                           <tbody>
-                           @if(isset($getlistClientNew))
-                              @foreach($getlistClientNew as $key)
-                              <tr>
-                                <td><input type="checkbox" class="minimal" name="idcabangclient[]" value="{{$key->id}}"></td>
-                                <td>{{ $key->nama_client }}</td>
-                                <td>{{ $key->nama_cabang }}</td>
-                                <td>{{ $key->alamat_cabang }}</td>
-                              </tr>
-                              @endforeach
-                          @endif
-                          </tbody>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div class="box box-primary box-solid">
-                  <div class="box-header">
-                    <h3 class="box-title">Seluruh Client yang Sudah Diisikan</h3>
-                  </div><!-- /.box-header -->
-                    <div class="box-body">
-                        <table class="table table-bordered" id="tabelListClientOld">
-                            <tr>
-                              <th>No</th>
-                              <th>Nama Client</th>
-                              <th>Nama Cabang</th>
-                              <th>Alamat</th>
-                              <th>Aksi</th>
-                            </tr>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-              </div>  
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
-            <button type="submit" class="btn btn-success">Simpan Perubahan</a>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
     <!-- Modal Update-->
     <div class="modal fade" id="myModalEdit" role="dialog">
     <div class="modal-dialog">
@@ -403,7 +301,7 @@
                               <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
                             </span>
                             <span data-toggle="tooltip" title="Tambah Client">
-                              <a href="" class="btn btn-xs btn-success client" data-toggle="modal" data-target="#myModalClient" data-value="{{$key->id}}"><i class="fa fa-building-o"></i></a>
+                              <a href="{{route('komgajitetapclient.index', $key->id)}}" class="btn btn-xs btn-success"><i class="fa fa-building-o"></i></a>
                             </span>
                           @endif
                           </td>
@@ -460,14 +358,6 @@
     $('#myModal').on('hidden.bs.modal', function () {
      location.reload();
     });
-  </script>
-  <script type="text/javascript">
-    function toggle(pilih) {
-    checkboxes = document.getElementsByName('idcabangclient[]');
-    for(var i=0, n=checkboxes.length;i<n;i++) {
-      checkboxes[i].checked = pilih.checked;
-    }
-  } 
   </script>
    <script type="text/javascript">
     $(document).ready(function(){
@@ -528,51 +418,6 @@
             }
           }
         });
-      });
-
-
-      $('a.client').click(function(){
-        var a = $(this).data('value');
-        $.ajax({
-          url: "{{url('/')}}/komponen-gaji-tetap/bind-gaji-tetap/"+a,
-          success: function(data){
-            //get
-            var id_komponen_client = data.id;
-            var nama_komponen_client_edit = data.nama_komponen;
-            //set
-            $('#id_komponen_client').attr('value', id_komponen_client);
-            $('#nama_komponen_client_edit').attr('value', nama_komponen_client_edit);
-          }
-        });
-
-        $.ajax({
-            url: "{{url('/')}}/komponen-gaji-tetap-client/bind-gaji-tetap-client/"+a,
-            dataType: 'json',
-            success: function(data){
-              $("#tabelListClientOld").find("tr:gt(0)").remove();
-              if (data.length==0) {
-                $('#tabelListClientOld tr:last').after(
-                  "<tr>"+
-                  "<td colspan='5' align='center'><span class='text-muted'>Data tidak tersedia.</span></td>"+
-                  "</tr>"
-                );
-              } else {
-                var no = 1;
-                $.each(data, function(index, value){
-                  $('#tabelListClientOld tr:last').after(
-                      "<tr>"+
-                      "<td>"+no+"</td>"+
-                      "<td>"+data[index].nama_client+"</td>"+
-                      "<td>"+data[index].nama_cabang+"</td>"+
-                      "<td>"+data[index].alamat_cabang+"</td>"+
-                      "<td><span data-toggle='tooltip' title='Hapus Cabang Client'> <a class='btn btn-xs btn-danger hapuskomponen' data-value="+data[index].id+"><i class='fa fa-close'></i></a></span></td>"+
-                      "</tr>"
-                    );
-                  no++;
-                })
-              }
-            }
-          });
       });
     });
   </script>

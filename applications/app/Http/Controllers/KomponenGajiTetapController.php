@@ -29,10 +29,8 @@ class KomponenGajiTetapController extends Controller
     public function index()
     {
       $getkomponen = KomponenGaji::where('tipe_komponen_gaji', '=', 0)->paginate(10);
-      $getlistClientNew = CabangClient::leftJoin('master_client', 'cabang_client.id_client', '=', 'master_client.id')
-                      ->select('cabang_client.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client')->get();
 
-      return view('pages/params/kelolakomponengajitetap' ,compact('getkomponen', 'getlistClientNew'));
+      return view('pages/params/kelolakomponengajitetap' ,compact('getkomponen'));
     }
 
     public function store(Request $request)
@@ -63,26 +61,7 @@ class KomponenGajiTetapController extends Controller
       $set->tipe_komponen_gaji = 0;
       $set->save();
 
-      return redirect()->route('komgajitetap.index')->with('message', 'Berhasil memasukkan komponen gaji variabel.');
-    }
-
-
-    public function storeclient(Request $request)
-    {
-      if ($request->idcabangclient != null) {
-        foreach ($request->idcabangclient as $id_cabang_client) 
-        {
-          $set = new KomponenGajiTetap;
-          $set->keterangan = $request->keterangan_edit;
-          $set->komgaj_tetap_dibayarkan = $request->komgaj_tetap_dibayarkan_edit;
-          $set->id_cabang_client = $id_cabang_client;
-          $set->id_komponen_gaji = $request->id_komponen_client;
-          $set->save();
-        }
-        return redirect()->route('komgajitetap.index')->with('message', 'Berhasil memasukkan komponen gaji variabel.');
-      }else{
-        return redirect()->route('komgajitetap.index')->withInput()->with('messagefail', 'Pilih data client tersebuh dahulu.');
-      }
+      return redirect()->route('komgajitetap.index')->with('message', 'Berhasil memasukkan komponen gaji tetap.');
     }
 
     public function update_nilai($id, $nilai) {
@@ -95,16 +74,6 @@ class KomponenGajiTetapController extends Controller
     {
       $get = KomponenGaji::find($id);
       return $get;
-    }
-
-    public function bindclient($id)
-    {
-      $getlistClientOld = CabangClient::leftJoin('master_client', 'cabang_client.id_client', '=', 'master_client.id')
-                      ->join('komponen_gaji_tetap', 'cabang_client.id', '=', 'komponen_gaji_tetap.id_cabang_client')
-                      ->select('cabang_client.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client')
-                      ->where('komponen_gaji_tetap.id_komponen_gaji', $id)
-                      ->paginate(10);
-      return $getlistClientOld;
     }
 
     public function update(Request $request)
@@ -125,7 +94,7 @@ class KomponenGajiTetapController extends Controller
       if($check=="") {
         $set = KomponenGaji::find($id);
         $set->delete();
-        return redirect()->route('komgajitetap.index')->with('message', 'Berhasil menghapus data komponen gaji variabel.');
+        return redirect()->route('komgajitetap.index')->with('message', 'Berhasil menghapus data komponen gaji tetap.');
       } else {
         return redirect()->route('komgajitetap.index')->with('messagefail', 'Gagal melakukan hapus data. Data telah memiliki relasi dengan data yang lain.');
       }

@@ -134,18 +134,26 @@ Route::get('komponen-gaji/bind-gaji/{id}', 'KomponenGajiController@bind')->name(
 ///// KOMPONEN GAJI TETAP//////
 Route::get('komponen-gaji-tetap', 'KomponenGajiTetapController@index')->name('komgajitetap.index');
 Route::post('komponen-gaji-tetap', 'KomponenGajiTetapController@store')->name('komgajitetap.store');
-Route::post('komponen-gaji-tetap/client', 'KomponenGajiTetapController@storeclient')->name('komgajitetap.storeclient');
 Route::post('komponen-gaji-tetap/update', 'KomponenGajiTetapController@update')->name('komgajitetap.update');
 Route::get('komponen-gaji-tetap/delete/{id}', 'KomponenGajiTetapController@delete')->name('komgajitetap.delete');
 Route::get('komponen-gaji-tetap/bind-gaji-tetap/{id}', 'KomponenGajiTetapController@bind')->name('komgajitetap.bind');
-Route::get('komponen-gaji-tetap-client/bind-gaji-tetap-client/{id}', 'KomponenGajiTetapController@bindclient')->name('komgajitetap.bindclient');
+
+///// KOMPONEN GAJI TETAP DETAIL CLIENT //////
+Route::get('komponen-gaji-tetap-client/{id}', 'KomponenGajiTetapClientController@index')->name('komgajitetapclient.index');
+Route::post('komponen-gaji-tetap-client', 'KomponenGajiTetapClientController@store')->name('komgajitetapclient.store');
+Route::post('komponen-gaji-tetap-client/update', 'KomponenGajiTetapClientController@update')
+		->name('komgajitetapclient.update');
+Route::get('komponen-gaji-tetap-client/bind-komponen-gaji-tetap-client/{id}', 'KomponenGajiTetapClientController@bind')
+		->name('komgajitetapclient.bind');
+Route::get('komponen-gaji-tetap-client/delete/{id}', 'KomponenGajiTetapClientController@delete')
+		->name('komgajitetapclient.delete');
 
 ///// PERIODE GAJI ///////
 Route::get('periode-gaji', 'PeriodeGajiController@index')->name('periodegaji.index');
 Route::post('periode-gaji', 'PeriodeGajiController@store')->name('periodegaji.store');
 Route::post('periode-gaji/update', 'PeriodeGajiController@update')->name('periodegaji.update');
 Route::post('periode-gaji/updateworkday', 'PeriodeGajiController@updateworkday')->name('periodegaji.updateworkday');
-Route::get('periode-gaji/delete/{id}', 'PeriodeGajiController@delete')->name('periodegaji.delete');
+Route::get('periode-gaji/delete/{id1}/{id2}', 'PeriodeGajiController@delete')->name('periodegaji.delete');
 Route::get('periode-gaji/detail/{id}', 'PeriodeGajiController@detail')->name('periodegaji.detail');
 Route::get('periode-gaji/get-detail/periode/{id}', 'PeriodeGajiController@getdatafordatatable')->name('periodegaji.getdata');
 
