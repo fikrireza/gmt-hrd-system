@@ -111,20 +111,20 @@
 
       <div class="col-md-8">
         <!-- MAP & BOX PANE -->
-        <div class="box box-primary">
+        <div class="box box-primary box-solid">
           <div class="box-header with-border">
-            <h3 class="box-title">Deskripsi Gaji Tetap</h3>
+            <h3 class="box-title"><b>Deskripsi Gaji Tetap</b></h3>
               <div class="box-body">
               <div class="table-responsive">
                 <table class="table no-margin">
                   <tbody>
                   <tr>
-                    <td style="color: blue; width: 25%"><b>Nama Komponen :</b></td>
+                    <td style="color: white; width: 23%"><b>Nama Komponen :</b></td>
                     <td>{{$getdataKomponenGaji->nama_komponen}}</td>
                     </td>
                   </tr>
                   <tr>
-                    <td style="color: blue; width: 25%"><b>Tipe Komponen :</b></td>
+                    <td style="color: white; width: 23%"><b>Tipe Komponen :</b></td>
                     @if($getdataKomponenGaji->tipe_komponen=="D")
                       <td><span class="badge bg-green">Penerimaan</span></td>
                     @else
@@ -133,17 +133,21 @@
                     </td>
                   </tr>
                   <tr>
-                    <td style="color: blue; width: 25%"><b>Periode Perhitungan :</b></td>
+                    <td style="color: white; width: 23%"><b>Periode Perhitungan :</b></td>
                     <td>{{$getdataKomponenGaji->periode_perhitungan}}</td>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td>
+                      <span data-toggle="tooltip">
+                        <a class="btn btn-warning pull-right" href="{{route('komgajitetap.index')}}">Kembali Kehalaman Sebelumnya</a>
+                      </span>
+                    </td>
                     </td>
                   </tr>
                   </tbody>
                 </table>
-                <div class="box-footer">
-                  <span data-toggle="tooltip">
-                    <a class="btn btn-warning pull-right" href="{{route('komgajitetap.index')}}">Kembali Kehalaman Sebelumnya</a>
-                  </span>
-                </div>
               </div>
               <!-- /.table-responsive -->
             </div>
