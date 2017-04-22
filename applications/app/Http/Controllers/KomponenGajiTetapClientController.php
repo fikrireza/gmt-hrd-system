@@ -45,9 +45,10 @@ class KomponenGajiTetapClientController extends Controller
                         ,'komponen_gaji_tetap.id_komponen_gaji as id_komponen_gaji')
                       ->where('komponen_gaji_tetap.id_komponen_gaji', $id)
                       ->get();
+      $getcabangclient = CabangClient::select('*')->get();
 
       return view('pages/params/kelolakomponengajitetapclient' ,compact('getlistClientOld','getlistClientNew', 
-        'getcountCabang', 'getcountCabangKom', 'getdataKomponenGaji'));
+        'getcountCabang', 'getcountCabangKom', 'getdataKomponenGaji','getcabangclient'));
     }
 
     public function store(Request $request)
@@ -94,21 +95,21 @@ class KomponenGajiTetapClientController extends Controller
 
     public function update(Request $request)
     {
-      $dataChage = KomponenGajiTetap::find($request->id);
-      $dataChage->nama_komponen = $request->nama_komponen_edit;
-      $dataChage->tipe_komponen = $request->tipe_komponen_edit;
-      $dataChage->periode_perhitungan = $request->periode_perhitungan_edit;
-      $dataChage->tipe_komponen_gaji = 0;
-      $dataChage->save();
+      $set = KomponenGajiTetap::find($request->id);
+      $set->keterangan = $request->keterangan_edit;
+      $set->komgaj_tetap_dibayarkan = $request->komgaj_tetap_dibayarkan_edit;
+      $set->id_cabang_client = $request->id_cabang_client_edit;
+      $set->id_komponen_gaji = $request->id_komponen_client_edit;
+      $set->save();
 
-      return redirect()->route('komgajitetapclient.index')->with('message', 'Data komponen gaji berhasil diubah.');
+      return redirect()->route('komgajitetapclient.index', $request->id_komponen_client_edit)->with('message', 'Data komponen gaji berhasil diubah.');
     }
 
     public function delete($id1, $id2)
     {
-      dd($id1);
-      $set = KomponenGajiTetap::find($id);
+      // dd($id1);
+      $set = KomponenGajiTetap::find($id1);
       $set->delete();
-      return redirect()->route('komgajitetapclient.index')->with('message', 'Berhasil menghapus data komponen gaji client.');
+      return redirect()->route('komgajitetapclient.index', $id2)->with('message', 'Berhasil menghapus data komponen gaji client.');
     }
 }
