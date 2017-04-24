@@ -266,7 +266,7 @@
                       @endforeach
                     @else
                       <tr>
-                        <td colspan=5 align="center">
+                        <td colspan=6 align="center">
                           <i class="text-muted">Data tidak tersedia.</i>
                         </td>
                       </tr>

@@ -254,6 +254,11 @@
                   <td>{{$key['potongantetap']}}</td>
                   <td>{{$key['potonganvariable']}}</td>
                   <td>{{$key['total']}}</td>
+                  {{-- <td>{{number_format($key['gajitetap'], '0', ',', '.')}}</td>
+                  <td>{{number_format($key['gajivariable'], '0', ',', '.')}}</td>
+                  <td>{{number_format($key['potongantetap'], '0', ',', '.')}}</td>
+                  <td>{{number_format($key['potonganvariable'], '0', ',', '.')}}</td>
+                  <td>{{number_format($key['potonganvariable'], '0', ',', '.')}}</td> --}}
                   @if ($getbatch->flag_processed==1)
                     <td>
                       <span data-toggle="tooltip" title="Batch Telah Diproses">
@@ -304,7 +309,7 @@
                 <td width="180px;">
                   <li>Periode Penggajian
                 </td>
-                <td>
+                <td id="summary_periode">
                   :&nbsp;&nbsp; Per Tanggal {{$summary['periode_gaji']}}
                 </td>
               </tr>
@@ -312,7 +317,7 @@
                 <td>
                   <li>Tanggal Awal Cut Off Absen
                 </td>
-                <td>
+                <td id="summary_cutoff_awal">
                   :&nbsp;&nbsp; {{$summary['cutoff_awal']}}
                 </td>
               </tr>
@@ -320,7 +325,7 @@
                 <td>
                   <li>Tanggal Akhir Cut Off Absen
                 </td>
-                <td>
+                <td id="summary_cutoff_akhir">
                   :&nbsp;&nbsp; {{$summary['cutoff_akhir']}}
                 </td>
               </tr>
@@ -328,7 +333,7 @@
                 <td>
                   <li>Total Pegawai
                 </td>
-                <td>
+                <td id="summary_totalpegawai">
                   :&nbsp;&nbsp; {{$summary['totalpegawai']}}</li>
                 </td>
               </tr>
@@ -336,7 +341,7 @@
                 <td>
                   <li>Total Penerimaan
                 </td>
-                <td>
+                <td id="summary_totalpenerimaan">
                   :&nbsp;&nbsp; Rp {{number_format($summary['totalpenerimaan'], '0', ',', '.')}},-</li>
                 </td>
               </tr>
@@ -344,7 +349,7 @@
                 <td>
                   <li>Total Potongan
                 </td>
-                <td>
+                <td id="summary_totalpotongan">
                   :&nbsp;&nbsp; Rp {{number_format($summary['totalpotongan'], '0', ',', '.')}},-</li>
                 </td>
               </tr>
@@ -352,7 +357,7 @@
                 <td>
                   <li>Total Pengeluaran
                 </td>
-                <td>
+                <td id="summary_totalpengeluaran">
                   :&nbsp;&nbsp; Rp {{number_format($summary['totalpengeluaran'], '0', ',', '.')}},-</li>
                 </td>
               </tr>
@@ -539,42 +544,49 @@
                   dataType: 'json',
                   success: function(data){
                     $('#bodydata').html("");
+                    var periode_gaji, cutoff_awal, cutoff_akhir, total_pegawai, total_penerimaan, total_potongan, total_pengeluaran;
                     $.each(data, function(index, value){
+                      total_penerimaan = data[1].totalpenerimaan;
+                      total_potongan = data[1].totalpotongan;
+                      total_pengeluaran = data[1].totalpengeluaran;
                       $('#bodydata').append(
                         "<tr>"+
-                          "<td>"+data[index].nip+"</td>"+
-                          "<td>"+data[index].nama+"</td>"+
-                          "<td>"+data[index].jabatan+"</td>"+
+                          "<td>"+data[0][index].nip+"</td>"+
+                          "<td>"+data[0][index].nama+"</td>"+
+                          "<td>"+data[0][index].jabatan+"</td>"+
                           "<td>"+
-                            "<span class='badge bg-navy'>"+data[index].harinormal+"</span>"+
+                            "<span class='badge bg-navy'>"+data[0][index].harinormal+"</span>"+
                           "</td>"+
                           "<td>"+
-                            "<span class='badge bg-red'>Alpa: "+data[index].abstain+"</span>"+
-                            "<span class='badge bg-green'>Sakit: "+data[index].sick_leave+"</span>"+
-                            "<span class='badge bg-blue'>Izin: "+data[index].permissed_leave+"</span>"+
+                            "<span class='badge bg-red'>Alpa: "+data[0][index].abstain+"</span>"+
+                            "<span class='badge bg-green'>Sakit: "+data[0][index].sick_leave+"</span>"+
+                            "<span class='badge bg-blue'>Izin: "+data[0][index].permissed_leave+"</span>"+
                           "</td>"+
                           "<td>"+
-                            "<span class='badge bg-purple'>"+data[index].totalkerja+"</span>"+
+                            "<span class='badge bg-purple'>"+data[0][index].totalkerja+"</span>"+
                           "</td>"+
-                          "<td>"+data[index].gajitetap+"</td>"+
-                          "<td>"+data[index].gajivariable+"</td>"+
-                          "<td>"+data[index].potongantetap+"</td>"+
-                          "<td>"+data[index].potonganvariable+"</td>"+
-                          "<td>"+data[index].total+"</td>"+
+                          "<td>"+data[0][index].gajitetap+"</td>"+
+                          "<td>"+data[0][index].gajivariable+"</td>"+
+                          "<td>"+data[0][index].potongantetap+"</td>"+
+                          "<td>"+data[0][index].potonganvariable+"</td>"+
+                          "<td>"+data[0][index].total+"</td>"+
                           "<td>"+
                             "<span data-toggle='tooltip' title='Set Komponen Gaji'>"+
-                              "<a href='#' class='btn btn-xs btn-warning addkomponen' data-toggle='modal' data-target='#myModal' data-value='"+data[index].id+"'>"+
+                              "<a href='#' class='btn btn-xs btn-warning addkomponen' data-toggle='modal' data-target='#myModal' data-value='"+data[0][index].id+"'>"+
                                 "<i class='fa fa-list-ul'></i>"+
                               "</a>"+
                             "</span>"+
                             "<span data-toggle='tooltip' title='Set Absensi'>"+
-                              "<a href='#' class='btn btn-xs btn-success editabsen' data-toggle='modal' data-target='#myModalSetAbsen' data-value='"+data[index].iddetailbatch+"'>"+
+                              "<a href='#' class='btn btn-xs btn-success editabsen' data-toggle='modal' data-target='#myModalSetAbsen' data-value='"+data[0][index].iddetailbatch+"'>"+
                                 "<i class='fa fa-check'></i>"+
                               "</a>"+
                             "</span>"+
                           "</td>"+
                         "</tr>"
                       );
+                      $("#summary_totalpenerimaan").html(":&nbsp;&nbsp; Rp "+total_penerimaan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+",-");
+                      $("#summary_totalpotongan").html(":&nbsp;&nbsp; Rp "+total_potongan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+",-");
+                      $("#summary_totalpengeluaran").html(":&nbsp;&nbsp; Rp "+total_pengeluaran.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+",-");
                     })
                   }
                 });
@@ -644,41 +656,51 @@
                 success: function(data){
                   $('#bodydata').html("");
                   $.each(data, function(index, value){
-                    $('#bodydata').append(
-                      "<tr>"+
-                        "<td>"+data[index].nip+"</td>"+
-                        "<td>"+data[index].nama+"</td>"+
-                        "<td>"+data[index].jabatan+"</td>"+
-                        "<td>"+
-                          "<span class='badge bg-navy'>"+data[index].harinormal+"</span>"+
-                        "</td>"+
-                        "<td>"+
-                          "<span class='badge bg-red'>Alpa: "+data[index].abstain+"</span>"+
-                          "<span class='badge bg-green'>Sakit: "+data[index].sick_leave+"</span>"+
-                          "<span class='badge bg-blue'>Izin: "+data[index].permissed_leave+"</span>"+
-                        "</td>"+
-                        "<td>"+
-                          "<span class='badge bg-purple'>"+data[index].totalkerja+"</span>"+
-                        "</td>"+
-                        "<td>"+data[index].gajitetap+"</td>"+
-                        "<td>"+data[index].gajivariable+"</td>"+
-                        "<td>"+data[index].potongantetap+"</td>"+
-                        "<td>"+data[index].potonganvariable+"</td>"+
-                        "<td>"+data[index].total+"</td>"+
-                        "<td>"+
-                          "<span data-toggle='tooltip' title='Set Komponen Gaji'>"+
-                            "<a href='#' class='btn btn-xs btn-warning addkomponen' data-toggle='modal' data-target='#myModal' data-value='"+data[index].id+"'>"+
-                              "<i class='fa fa-list-ul'></i>"+
-                            "</a>"+
-                          "</span>"+
-                          "<span data-toggle='tooltip' title='Set Absensi'>"+
-                            "<a href='#' class='btn btn-xs btn-success editabsen' data-toggle='modal' data-target='#myModalSetAbsen' data-value='"+data[index].iddetailbatch+"'>"+
-                              "<i class='fa fa-check'></i>"+
-                            "</a>"+
-                          "</span>"+
-                        "</td>"+
-                      "</tr>"
-                    );
+                    $('#bodydata').html("");
+                    var periode_gaji, cutoff_awal, cutoff_akhir, total_pegawai, total_penerimaan, total_potongan, total_pengeluaran;
+                    $.each(data, function(index, value){
+                      total_penerimaan = data[1].totalpenerimaan;
+                      total_potongan = data[1].totalpotongan;
+                      total_pengeluaran = data[1].totalpengeluaran;
+                      $('#bodydata').append(
+                        "<tr>"+
+                          "<td>"+data[0][index].nip+"</td>"+
+                          "<td>"+data[0][index].nama+"</td>"+
+                          "<td>"+data[0][index].jabatan+"</td>"+
+                          "<td>"+
+                            "<span class='badge bg-navy'>"+data[0][index].harinormal+"</span>"+
+                          "</td>"+
+                          "<td>"+
+                            "<span class='badge bg-red'>Alpa: "+data[0][index].abstain+"</span>"+
+                            "<span class='badge bg-green'>Sakit: "+data[0][index].sick_leave+"</span>"+
+                            "<span class='badge bg-blue'>Izin: "+data[0][index].permissed_leave+"</span>"+
+                          "</td>"+
+                          "<td>"+
+                            "<span class='badge bg-purple'>"+data[0][index].totalkerja+"</span>"+
+                          "</td>"+
+                          "<td>"+data[0][index].gajitetap+"</td>"+
+                          "<td>"+data[0][index].gajivariable+"</td>"+
+                          "<td>"+data[0][index].potongantetap+"</td>"+
+                          "<td>"+data[0][index].potonganvariable+"</td>"+
+                          "<td>"+data[0][index].total+"</td>"+
+                          "<td>"+
+                            "<span data-toggle='tooltip' title='Set Komponen Gaji'>"+
+                              "<a href='#' class='btn btn-xs btn-warning addkomponen' data-toggle='modal' data-target='#myModal' data-value='"+data[0][index].id+"'>"+
+                                "<i class='fa fa-list-ul'></i>"+
+                              "</a>"+
+                            "</span>"+
+                            "<span data-toggle='tooltip' title='Set Absensi'>"+
+                              "<a href='#' class='btn btn-xs btn-success editabsen' data-toggle='modal' data-target='#myModalSetAbsen' data-value='"+data[0][index].iddetailbatch+"'>"+
+                                "<i class='fa fa-check'></i>"+
+                              "</a>"+
+                            "</span>"+
+                          "</td>"+
+                        "</tr>"
+                      );
+                      $("#summary_totalpenerimaan").html(":&nbsp;&nbsp; Rp "+total_penerimaan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+",-");
+                      $("#summary_totalpotongan").html(":&nbsp;&nbsp; Rp "+total_potongan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+",-");
+                      $("#summary_totalpengeluaran").html(":&nbsp;&nbsp; Rp "+total_pengeluaran.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+",-");
+                    })
                   })
                 }
               });
@@ -746,41 +768,51 @@
                   success: function(data){
                     $('#bodydata').html("");
                     $.each(data, function(index, value){
-                      $('#bodydata').append(
-                        "<tr>"+
-                          "<td>"+data[index].nip+"</td>"+
-                          "<td>"+data[index].nama+"</td>"+
-                          "<td>"+data[index].jabatan+"</td>"+
-                          "<td>"+
-                            "<span class='badge bg-navy'>"+data[index].harinormal+"</span>"+
-                          "</td>"+
-                          "<td>"+
-                            "<span class='badge bg-red'>Alpa: "+data[index].abstain+"</span>"+
-                            "<span class='badge bg-green'>Sakit: "+data[index].sick_leave+"</span>"+
-                            "<span class='badge bg-blue'>Izin: "+data[index].permissed_leave+"</span>"+
-                          "</td>"+
-                          "<td>"+
-                            "<span class='badge bg-purple'>"+data[index].totalkerja+"</span>"+
-                          "</td>"+
-                          "<td>"+data[index].gajitetap+"</td>"+
-                          "<td>"+data[index].gajivariable+"</td>"+
-                          "<td>"+data[index].potongantetap+"</td>"+
-                          "<td>"+data[index].potonganvariable+"</td>"+
-                          "<td>"+data[index].total+"</td>"+
-                          "<td>"+
-                            "<span data-toggle='tooltip' title='Set Komponen Gaji'>"+
-                              "<a href='#' class='btn btn-xs btn-warning addkomponen' data-toggle='modal' data-target='#myModal' data-value='"+data[index].id+"'>"+
-                                "<i class='fa fa-list-ul'></i>"+
-                              "</a>"+
-                            "</span>"+
-                            "<span data-toggle='tooltip' title='Set Absensi'>"+
-                              "<a href='#' class='btn btn-xs btn-success editabsen' data-toggle='modal' data-target='#myModalSetAbsen' data-value='"+data[index].iddetailbatch+"'>"+
-                                "<i class='fa fa-check'></i>"+
-                              "</a>"+
-                            "</span>"+
-                          "</td>"+
-                        "</tr>"
-                      );
+                      $('#bodydata').html("");
+                      var periode_gaji, cutoff_awal, cutoff_akhir, total_pegawai, total_penerimaan, total_potongan, total_pengeluaran;
+                      $.each(data, function(index, value){
+                        total_penerimaan = data[1].totalpenerimaan;
+                        total_potongan = data[1].totalpotongan;
+                        total_pengeluaran = data[1].totalpengeluaran;
+                        $('#bodydata').append(
+                          "<tr>"+
+                            "<td>"+data[0][index].nip+"</td>"+
+                            "<td>"+data[0][index].nama+"</td>"+
+                            "<td>"+data[0][index].jabatan+"</td>"+
+                            "<td>"+
+                              "<span class='badge bg-navy'>"+data[0][index].harinormal+"</span>"+
+                            "</td>"+
+                            "<td>"+
+                              "<span class='badge bg-red'>Alpa: "+data[0][index].abstain+"</span>"+
+                              "<span class='badge bg-green'>Sakit: "+data[0][index].sick_leave+"</span>"+
+                              "<span class='badge bg-blue'>Izin: "+data[0][index].permissed_leave+"</span>"+
+                            "</td>"+
+                            "<td>"+
+                              "<span class='badge bg-purple'>"+data[0][index].totalkerja+"</span>"+
+                            "</td>"+
+                            "<td>"+data[0][index].gajitetap+"</td>"+
+                            "<td>"+data[0][index].gajivariable+"</td>"+
+                            "<td>"+data[0][index].potongantetap+"</td>"+
+                            "<td>"+data[0][index].potonganvariable+"</td>"+
+                            "<td>"+data[0][index].total+"</td>"+
+                            "<td>"+
+                              "<span data-toggle='tooltip' title='Set Komponen Gaji'>"+
+                                "<a href='#' class='btn btn-xs btn-warning addkomponen' data-toggle='modal' data-target='#myModal' data-value='"+data[0][index].id+"'>"+
+                                  "<i class='fa fa-list-ul'></i>"+
+                                "</a>"+
+                              "</span>"+
+                              "<span data-toggle='tooltip' title='Set Absensi'>"+
+                                "<a href='#' class='btn btn-xs btn-success editabsen' data-toggle='modal' data-target='#myModalSetAbsen' data-value='"+data[0][index].iddetailbatch+"'>"+
+                                  "<i class='fa fa-check'></i>"+
+                                "</a>"+
+                              "</span>"+
+                            "</td>"+
+                          "</tr>"
+                        );
+                        $("#summary_totalpenerimaan").html(":&nbsp;&nbsp; Rp "+total_penerimaan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+",-");
+                        $("#summary_totalpotongan").html(":&nbsp;&nbsp; Rp "+total_potongan.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+",-");
+                        $("#summary_totalpengeluaran").html(":&nbsp;&nbsp; Rp "+total_pengeluaran.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+",-");
+                      })
                     })
                   }
                 });

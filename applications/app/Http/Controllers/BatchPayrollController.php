@@ -258,12 +258,7 @@ class BatchPayrollController extends Controller
                 $gajipokok = $gg->nilai;
                 if ($totalkerja < $harinormal) {
                   $gajipokokperhari = $gajipokok / $harinormal;
-                  $gajipokokperhari = ceil($gajipokokperhari);
-                  if (substr($gajipokokperhari,-3)>499){
-                      $gajipokokperhari=round($gajipokokperhari,-3);
-                  } else {
-                      $gajipokokperhari=round($gajipokokperhari,-3)+500;
-                  }
+                  $gajipokokperhari = round($gajipokokperhari);
                   $gajipokok = $gajipokokperhari * $totalkerja;
                 }
                 $jmlgajitetap += $gajipokok;
@@ -389,12 +384,7 @@ class BatchPayrollController extends Controller
                 $gajipokok = $gg->nilai;
                 if ($totalkerja < $harinormal) {
                   $gajipokokperhari = $gajipokok / $harinormal;
-                  $gajipokokperhari = ceil($gajipokokperhari);
-                  if (substr($gajipokokperhari,-3)>499){
-                      $gajipokokperhari=round($gajipokokperhari,-3);
-                  } else {
-                      $gajipokokperhari=round($gajipokokperhari,-3)+500;
-                  }
+                  $gajipokokperhari = round($gajipokokperhari);
                   $gajipokok = $gajipokokperhari * $totalkerja;
                 }
                 $jmlgajitetap += $gajipokok;
@@ -437,7 +427,36 @@ class BatchPayrollController extends Controller
       $rowdisplay[] = $rowdata;
     }
 
-    return $rowdisplay;
+    $summary = array();
+
+    $totalpotongan = 0;
+    $totalpenerimaan = 0;
+    $totalpengeluaran = 0;
+    foreach ($rowdisplay as $key) {
+      $totalpengeluaran += $key["total"];
+      $totalpenerimaan += ($key["gajitetap"] + $key["gajivariable"]);
+      $totalpotongan += ($key["potongantetap"] + $key["potonganvariable"]);
+    }
+
+    $getbatchpayroll = BatchPayroll::
+          join('periode_gaji', 'batch_payroll.id_periode_gaji', '=', 'periode_gaji.id')
+          ->where('batch_payroll.id', $id)
+          ->get();
+
+    $summary['id_periode_gaji'] = $getbatchpayroll[0]->id_periode_gaji;
+    $summary['periode_gaji'] = $getbatchpayroll[0]->tanggal;
+    $summary['cutoff_awal'] = $getbatchpayroll[0]->tanggal_proses;
+    $summary['cutoff_akhir'] = $getbatchpayroll[0]->tanggal_proses_akhir;
+    $summary["totalpegawai"] = count($rowdisplay);
+    $summary["totalpenerimaan"] = $totalpenerimaan;
+    $summary["totalpotongan"] = $totalpotongan;
+    $summary["totalpengeluaran"] = $totalpengeluaran;
+
+    $send = array();
+    $send[] = $rowdisplay;
+    $send[] = $summary;
+
+    return $send;
   }
 
   public function getdatafordatatable($id)
