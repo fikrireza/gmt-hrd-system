@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 use Auth;
+use DB;
 use App\Models\User;
 use App\Models\PKWT;
 use App\Models\MasterPegawai;
@@ -79,12 +80,19 @@ class DashboardController extends Controller
           ->orderby('batch_processed.id', 'desc')
           ->get();
 
+        $getclient = MasterClient::
+          select('master_client.id', 'master_client.nama_client', DB::RAW('count(*) as jumlah_cabang'))
+          ->join('cabang_client', 'master_client.id', '=', 'cabang_client.id_client')
+          ->groupby('cabang_client.id_client')
+          ->get();
+
         return view('pages.dashboard')
           ->with('getpegawai', $getpegawai)
           ->with('jumlah_pegawai', $jumlah_pegawai)
           ->with('jumlah_client', $jumlah_client)
           ->with('jumlah_pkwt_expired', $jumlah_pkwt_expired)
           ->with('batchprocessed', $batchprocessed)
+          ->with('getclient', $getclient)
           ->with('jumlah_pkwt_menuju_expired', $jumlah_pkwt_menuju_expired);
       }
     }

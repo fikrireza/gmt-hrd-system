@@ -283,9 +283,9 @@
                           </td>
                           <td>
                             @if ($key->tipe_komponen_gaji==0)
-                              <span class="badge bg-purple">Tetap</span>
+                              <span class="badge bg-navy">Tetap</span>
                             @else
-                              <span class="badge bg-navy">Variable</span>
+                              <span class="badge bg-purple">Variable</span>
                             @endif
                           </td>
                           <td>

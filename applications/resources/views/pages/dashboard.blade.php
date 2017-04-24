@@ -147,19 +147,18 @@
                           <span class="label bg-blue">Per Tanggal {{$key->tanggal}}</span>
                         </td>
                         <td>
-                          {{$key->tanggal_cutoff_awal}} s/d {{$key->tanggal_cutoff_akhir}}
+                          {{ \Carbon\Carbon::parse($key->tanggal_cutoff_awal)->format('d-M-y')}}
+                           s/d {{ \Carbon\Carbon::parse($key->tanggal_cutoff_akhir)->format('d-M-y')}}
                         </td>
                         <td><span class="badge bg-orange">{{$key->total_pegawai}}</span></td>
                         <td>Rp. {{number_format($key->total_pengeluaran, '0', ',', '.')}},-</td>
                         <td>
-                          @if ($key->flag_processed==1)
-                            <span class="label bg-green">Sudah Diproses</span>
-                          @else
-                            <span class="label">Belum Diproses</span>
-                          @endif
+                          <span class="label bg-green">Sudah Diproses</span>
                         </td>
                         <td>
-                          <a href="#" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+                          <span data-toggle="tooltip" title="Lihat Batch Detail">
+                            <a href="{{route('batchpayroll.detail', $key->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+                          </span>
                         </td>
                       </tr>
                     @endforeach
@@ -167,6 +166,9 @@
                 </tbody>
               </table>
             </div>
+          </div>
+          <div class="box-footer text-center">
+            <a href="{{route('batchpayroll.index')}}" class="btn btn-xs btn-primary">Lihat Seluruh Batch Payroll</a>
           </div>
         </div>
       </div>
@@ -179,14 +181,20 @@
           </div>
           <div class="box-body">
             <ul class="nav nav-pills nav-stacked">
-              <li><a href="#">CIMB Niaga <span class="badge bg-blue pull-right"> 12 Cabang</span></a></li>
-              <li><a href="#">PT Antam <span class="badge bg-green pull-right"> 4 Cabang</span></a></li>
-              <li><a href="#">Indosat <span class="badge bg-yellow pull-right"> 2 Cabang</span></a></li>
-              <li><a href="#">Dummy <span class="badge bg-red pull-right"> 2 Cabang</span></a></li>
-              <li><a href="#">Dummy <span class="badge bg-maroon pull-right"> 2 Cabang</span></a></li>
-              <li><a href="#">Dummy <span class="badge bg-navy pull-right"> 2 Cabang</span></a></li>
-              <li><a href="#">Dummy <span class="badge bg-blue pull-right"> 2 Cabang</span></a></li>
+              @php
+                $color = ['bg-blue', 'bg-green', 'bg-yellow', 'bg-red', 'bg-maroon', 'bg-navy', 'bg-purple']
+              @endphp
+              @foreach ($getclient as $key)
+                <li>
+                  <a href="{{url('masterclient/cabang')}}/{{$key->id}}">{{$key->nama_client}}
+                    <span class="badge {{$color[rand(0,6)]}} pull-right"> {{$key->jumlah_cabang}} Cabang</span>
+                  </a>
+                </li>
+              @endforeach
             </ul>
+          </div>
+          <div class="box-footer text-center">
+            <a href="{{url('masterclient')}}" class="btn btn-xs btn-primary">Lihat Seluruh Client</a>
           </div>
         </div>
       </div>
