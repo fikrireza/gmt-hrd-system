@@ -11,6 +11,7 @@
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{route('komgajitetap.index')}}"> Komponen Gaji Tetap</a></li>
     <li class="active">Dashboard</li>
   </ol>
 @stop
@@ -108,37 +109,51 @@
   <div class="row">
     <!--column -->
     <div class="col-md-12">
+      @if(Session::has('message'))
+        <div class="alert alert-success">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+          <p>{{ Session::get('message') }}</p>
+        </div>
+      @endif
+      @if(Session::has('messagefail'))
+        <div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <h4><i class="icon fa fa-ban"></i> Oops, terjadi kesalahan!</h4>
+          <p>{{ Session::get('messagefail') }}</p>
+        </div>
+      @endif
+    </div>
 
       <div class="col-md-8">
         <!-- MAP & BOX PANE -->
         <div class="box box-primary box-solid">
-          <div class="box-header with-border">
-            <h3 style="text-align: center;"><b>Deskripsi Gaji Tetap</b></h3>
+          <div class="box-header">
+            <h3 style="text-align: center;"><b>Deskripsi Komponen Tetap</b></h3>
               <div class="box-body">
-              <div class="table-responsive">
-                <table class="table no-margin">
-                  <tr>
-                    <td style="color: white; width: 23%"><b>Nama Komponen :</b></td>
-                    <td>{{$getdataKomponenGaji->nama_komponen}}</td>
-                  </tr>
-                  <tr>
-                    <td style="color: white; width: 23%"><b>Tipe Komponen :</b></td>
-                    @if($getdataKomponenGaji->tipe_komponen=="D")
-                      <td><span class="badge bg-green">Penerimaan</span></td>
-                    @else
-                      <td><span class="badge bg-red">Potongan</span></td>
-                    @endif
-                  </tr>
-                  <tr>
-                    <td style="color: white; width: 23%"><b>Periode Perhitungan :</b></td>
-                    <td>{{$getdataKomponenGaji->periode_perhitungan}}</td>
-                  </tr>
-                </table>
-                <h5 style="text-align: right;"><b>
-                    <a href="{{route('komgajitetap.index')}}">Kembali Kehalaman Sebelumnya</a>
-                </b></h5>
-              </div>
-              <!-- /.table-responsive -->
+                <div class="table-responsive">
+                  <table class="table no-margin">
+                    <tr>
+                      <td style="color: white; width: 23%"><b>Nama Komponen</b></td>
+                      <td>: &nbsp;&nbsp;{{$getdataKomponenGaji->nama_komponen}}</td>
+                    </tr>
+                    <tr>
+                      <td style="color: white; width: 23%"><b>Tipe Komponen</b></td>
+                      @if($getdataKomponenGaji->tipe_komponen=="D")
+                        <td>: &nbsp;&nbsp;<span class="badge bg-green">Penerimaan</span></td>
+                      @else
+                        <td>: &nbsp;&nbsp;<span class="badge bg-red">Potongan</span></td>
+                      @endif
+                    </tr>
+                    <tr>
+                      <td style="color: white; width: 23%"><b>Periode Perhitungan</b></td>
+                      <td>: &nbsp;&nbsp;{{$getdataKomponenGaji->periode_perhitungan}}</td>
+                    </tr>
+                    <tr><td></td><td></td></tr>
+                  </table>
+
+                </div>
+                <!-- /.table-responsive -->
             </div>
           </div>
         </div>
@@ -180,27 +195,11 @@
           <!-- /.info-box-content -->
         </div>
       </div>
-    </div>
   </div>
 
   <div class="row">
     <!--column -->
-    <div class="col-md-12">
-      @if(Session::has('message'))
-        <div class="alert alert-success">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-          <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
-          <p>{{ Session::get('message') }}</p>
-        </div>
-      @endif
-      @if(Session::has('messagefail'))
-        <div class="alert alert-danger">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-          <h4><i class="icon fa fa-ban"></i> Oops, terjadi kesalahan!</h4>
-          <p>{{ Session::get('messagefail') }}</p>
-        </div>
-      @endif
-    </div>
+
     <div class="col-md-12">
       <!-- Horizontal Form -->
       <div class="box box-primary">
@@ -250,7 +249,7 @@
                     <h3 class="box-title">Seluruh Client yang tersedia</h3>
                   </div><!-- /.box-header -->
                   <div class="box-body">
-                      <table class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                      <table class="table table-bordered table-striped" role="grid" aria-describedby="example1_info">
                         <thead>
                           <tr role="row">
                             <th>
@@ -330,7 +329,7 @@
                       </div>
                     </div>
                   </div>
-              </div>  
+              </div>
             </div>
           </div>
           <div class="box-footer">
@@ -376,7 +375,7 @@
     for(var i=0, n=checkboxes.length;i<n;i++) {
       checkboxes[i].checked = pilih.checked;
     }
-  } 
+  }
   </script>
    <script type="text/javascript">
     $(document).ready(function(){

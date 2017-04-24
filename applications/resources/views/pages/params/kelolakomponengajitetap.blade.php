@@ -289,8 +289,12 @@
                             @endif
                           </td>
                           <td>
-                          @if($key->id == '9991' || $key->id == '9992' || $key->id == '9993')
-                            <span data-toggle="tooltip" title="Tidak Dapat Dirubah">
+                          @if($key->id == 9991 || $key->id == 9992 || $key->id == 9993)
+                            <span data-toggle="tooltip" title="Gunakan Menu Set BPJS Untuk Merubah Nilai">
+                              <a href="" class="btn btn-xs bg-navy disabled"><i class="fa fa-warning"></i></a>
+                            </span>
+                          @elseif ($key->id == 1)
+                            <span data-toggle="tooltip" title="Gunakan Menu Set Periode Gaji Untuk Merubah Nilai">
                               <a href="" class="btn btn-xs bg-navy disabled"><i class="fa fa-warning"></i></a>
                             </span>
                           @else
