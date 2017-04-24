@@ -14,6 +14,7 @@ use App\Models\BatchPayroll;
 use App\Models\KomponenGaji;
 use App\Models\MasterPegawai;
 use App\Models\BatchProcessed;
+use App\Models\KomponenGajiTetap;
 use App\Models\DetailPeriodeGaji;
 use App\Models\DetailKomponenGaji;
 use App\Models\DetailBatchPayroll;
@@ -123,9 +124,10 @@ class BatchPayrollController extends Controller
     //--- END OF GET GAJI POKOK PEGAWAI ---
 
 
-    //--- GET BPJS ---
+    //--- GET BPJS & KOMPONEN GAJI TETAP ---
     $getbpjs = Bpjs::all();
-    //--- END OF GET BPJS ---
+    $getkomtetap = KomponenGajiTetap::all();
+    //--- END OF GET BPJS & KOMPONEN GAJI TETAP ---
 
     if ($check->count()==0) {
       $set = new BatchPayroll;
@@ -179,20 +181,24 @@ class BatchPayrollController extends Controller
           $set->id_komponen_gaji = $tetap->id;
           if ($tetap->id==1) {
             $set->nilai = $gapok;
-          } else if ($tetap->id==9991 || $tetap->id==9992){
-            $bpjskesehatan=0;
-            $bpjsketenagakerjaan=0;
+          } else if ($tetap->id==9991 || $tetap->id==9992) {
+            $defbpjs = 0;
             foreach ($getbpjs as $bpjs) {
-              if ($bpjs->id_cabang_client == $idcabang && $bpjs->id_bpjs==9991) {
-                $set->nilai = $bpjs->bpjs_dibayarkan;
-                break;
-              } else if ($bpjs->id_cabang_client == $idcabang && $bpjs->id_bpjs==9992) {
-                $set->nilai = $bpjs->bpjs_dibayarkan;
+              if ($bpjs->id_cabang_client == $idcabang && $bpjs->id_bpjs == $tetap->id) {
+                $defbpjs = $bpjs->bpjs_dibayarkan;
                 break;
               }
             }
+            $set->nilai = $defbpjs;
           } else {
-            $set->nilai = 0;
+            $defvalue = 0;
+            foreach ($getkomtetap as $gkt) {
+              if ($gkt->id_cabang_client == $idcabang) {
+                $defvalue = $gkt->komgaj_tetap_dibayarkan;
+                break;
+              }
+            }
+            $set->nilai = $defvalue;
           }
           $set->save();
         }
