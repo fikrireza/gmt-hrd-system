@@ -231,11 +231,10 @@
       </div><!--/.col -->
     </div>
 
-  <div class="row">
-    <!--column -->
-    <div class="col-md-12">
-      <div class="col-md-4">
-      <div class="box box-danger box-solid">
+    <div class="row">
+      <div class="col-lg-4 col-xs-6">
+        <!-- small box -->
+        <div class="box box-danger box-solid">
         <div class="box-header">
           <h3 class="box-title">Data Seluruh BPJS KESEHATAN</h3>
         </div><!-- /.box-header -->
@@ -303,152 +302,159 @@
           </div>
           </div><!-- /.box-body -->
         </div>
-      </div><!--/.col -->
+      </div><!-- ./col -->
 
-      <div class="col-md-4">
+
+      <div class="col-lg-4 col-xs-6">
+        <!-- small box -->
         <div class="box box-warning box-solid">
-          <div class="box-header">
-            <h3 class="box-title">Data Seluruh BPJS KETENAGAKERJAAN</h3>
-          </div><!-- /.box-header -->
-          <div class="box-body">
-            <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-              <div class="row">
-                <div class="col-sm-12">
-                  <table class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                    <thead>
-                      <tr role="row">
-                        <th>No</th>
-                        <th>Client</th>
-                        <th>Nilai</th>
-                        <th>Aksi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @if (count($getbpjsketenagakerjaan)!=0)
+        <div class="box-header">
+          <h3 class="box-title">Data Seluruh BPJS KESEHATAN</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                  <thead>
+                    <tr role="row">
+                      <th>No</th>
+                      <th>Client</th>
+                      <th>Nilai</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @if (count($getbpjsketenagakerjaan)!=0)
+                      @php
+                        $pageget;
+                        if($getbpjsketenagakerjaan->currentPage()==1)
+                          $pageget = 1;
+                        else
+                          $pageget = (($getbpjsketenagakerjaan->currentPage() - 1) * $getbpjsketenagakerjaan->perPage())+1;
+                      @endphp
+                      @foreach ($getbpjsketenagakerjaan as $key)
+                        <tr>
+                          <td>
+                            {{$pageget}}
+                          </td>
+                          <td>
+                           {{$key->nama_client}} - {{$key->nama_cabang}}
+                          </td>
+                          <td>
+                          Rp. {{ number_format($key->bpjs_dibayarkan,0,',','.') }},-
+                          </td>
+                          <td>
+                            <span data-toggle="tooltip" title="Edit Data">
+                              <a href="" class="btn btn-xs btn-warning edit" data-toggle="modal" data-target="#myModalEdit" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
+                            </span>
+                            <span data-toggle="tooltip" title="Hapus Data">
+                              <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
+                            </span>
+                          </td>
+                        </tr>
                         @php
-                          $pageget;
-                          if($getbpjsketenagakerjaan->currentPage()==1)
-                            $pageget = 1;
-                          else
-                            $pageget = (($getbpjsketenagakerjaan->currentPage() - 1) * $getbpjsketenagakerjaan->perPage())+1;
+                          $pageget++;
                         @endphp
-                        @foreach ($getbpjsketenagakerjaan as $key)
-                          <tr>
-                            <td>
-                              {{$pageget}}
-                            </td>
-                            <td>
-                             {{$key->nama_client}} - {{$key->nama_cabang}}
-                            </td>
-                            <td>
-                            Rp. {{ number_format($key->bpjs_dibayarkan,0,',','.') }},-
-                            </td>
-                            <td>
-                              <span data-toggle="tooltip" title="Edit Data">
-                                <a href="" class="btn btn-xs btn-warning edit" data-toggle="modal" data-target="#myModalEdit" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
-                              </span>
-                              <span data-toggle="tooltip" title="Hapus Data">
-                                <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
-                              </span>
-                            </td>
-                          </tr>
-                          @php
-                            $pageget++;
-                          @endphp
-                        @endforeach
-                      @endif
-                    </tbody>
-                  </table>
-                </div>
+                      @endforeach
+                    @endif
+                  </tbody>
+                </table>
               </div>
-              <div class="row">
-                <div class="col-sm-5">
-                  {{-- <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $getbpjsketenagakerjaan->count() !!}  dari {!! count($getbpjsketenagakerjaan) !!} Data</div> --}}
-                </div>
-                <div class="col-sm-7">
-                  <div class="pull-right">
-                    {{ $getbpjsketenagakerjaan->links() }}
-                  </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-5">
+                {{-- <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $getbpjsketenagakerjaan->count() !!}  dari {!! count($getbpjsketenagakerjaan) !!} Data</div> --}}
+              </div>
+              <div class="col-sm-7">
+                <div class="pull-right">
+                  {{ $getbpjsketenagakerjaan->links() }}
                 </div>
               </div>
             </div>
-            </div><!-- /.box-body -->
           </div>
-        </div><!--/.col -->
+          </div><!-- /.box-body -->
+        </div>
+        
+      </div><!-- ./col -->
 
-        <div class="col-md-4">
+
+      <div class="col-lg-4 col-xs-6">
         <div class="box box-success box-solid">
-          <div class="box-header">
-            <h3 class="box-title">Data Seluruh BPJS PENSIUN</h3>
-          </div><!-- /.box-header -->
-          <div class="box-body">
-            <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-              <div class="row">
-                <div class="col-sm-12">
-                  <table class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                    <thead>
-                      <tr role="row">
-                        <th>No</th>
-                        <th>Client</th>
-                        <th>Nilai</th>
-                        <th>Aksi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      @if (count($getbpjspensiun)!=0)
+        <div class="box-header">
+          <h3 class="box-title">Data Seluruh BPJS KESEHATAN</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+          <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+              <div class="col-sm-12">
+                <table class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                  <thead>
+                    <tr role="row">
+                      <th>No</th>
+                      <th>Client</th>
+                      <th>Nilai</th>
+                      <th>Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @if (count($getbpjspensiun)!=0)
+                      @php
+                        $pageget;
+                        if($getbpjspensiun->currentPage()==1)
+                          $pageget = 1;
+                        else
+                          $pageget = (($getbpjspensiun->currentPage() - 1) * $getbpjspensiun->perPage())+1;
+                      @endphp
+                      @foreach ($getbpjspensiun as $key)
+                        <tr>
+                          <td>
+                            {{$pageget}}
+                          </td>
+                          <td>
+                           {{$key->nama_client}} - {{$key->nama_cabang}}
+                          </td>
+                          <td>
+                          Rp. {{ number_format($key->bpjs_dibayarkan,0,',','.') }},-
+                          </td>
+                          <td>
+                            <span data-toggle="tooltip" title="Edit Data">
+                              <a href="" class="btn btn-xs btn-warning edit" data-toggle="modal" data-target="#myModalEdit" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
+                            </span>
+                            <span data-toggle="tooltip" title="Hapus Data">
+                              <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
+                            </span>
+                          </td>
+                        </tr>
                         @php
-                          $pageget;
-                          if($getbpjspensiun->currentPage()==1)
-                            $pageget = 1;
-                          else
-                            $pageget = (($getbpjspensiun->currentPage() - 1) * $getbpjspensiun->perPage())+1;
+                          $pageget++;
                         @endphp
-                        @foreach ($getbpjspensiun as $key)
-                          <tr>
-                            <td>
-                              {{$pageget}}
-                            </td>
-                            <td>
-                             {{$key->nama_client}} - {{$key->nama_cabang}}
-                            </td>
-                            <td>
-                            Rp. {{ number_format($key->bpjs_dibayarkan,0,',','.') }},-
-                            </td>
-                            <td>
-                              <span data-toggle="tooltip" title="Edit Data">
-                                <a href="" class="btn btn-xs btn-warning edit" data-toggle="modal" data-target="#myModalEdit" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
-                              </span>
-                              <span data-toggle="tooltip" title="Hapus Data">
-                                <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
-                              </span>
-                            </td>
-                          </tr>
-                          @php
-                            $pageget++;
-                          @endphp
-                        @endforeach
-                      @endif
-                    </tbody>
-                  </table>
-                </div>
+                      @endforeach
+                    @endif
+                  </tbody>
+                </table>
               </div>
-              <div class="row">
-                <div class="col-sm-5">
-                  {{-- <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $getbpjspensiun->count() !!}  dari {!! count($getbpjspensiun) !!} Data</div> --}}
-                </div>
-                <div class="col-sm-7">
-                  <div class="pull-right">
-                    {{ $getbpjspensiun->links() }}
-                  </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-5">
+                {{-- <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $getbpjspensiun->count() !!}  dari {!! count($getbpjspensiun) !!} Data</div> --}}
+              </div>
+              <div class="col-sm-7">
+                <div class="pull-right">
+                  {{ $getbpjspensiun->links() }}
                 </div>
               </div>
             </div>
-            </div><!-- /.box-body -->
           </div>
-        </div><!--/.col -->
+          </div><!-- /.box-body -->
+        </div>
+        
+      </div><!-- ./col -->
 
-    </div>
-  </div>
+
+    </div><!-- /.row -->
+
+
   <div class="callout callout-info">
     <h4>Pemberitahuan!</h4>
       <div class="box-body">
