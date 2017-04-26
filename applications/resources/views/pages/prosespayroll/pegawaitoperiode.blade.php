@@ -102,7 +102,11 @@
                   <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th>#</th>
+                        <th>
+                          <span data-toggle="tooltip" data-placement="right" title="Pilih Semua">
+                            <input type="checkbox" onClick="toggle(this)"  class="flat-red"/>
+                          </span>
+                        </th>
                         <th>Nama Karyawan</th>
                         <th>Client Departemen</th>
                         <th>Tanggal Awal PKWT</th>
@@ -178,13 +182,20 @@
     });
   </script>
   <script>
-
   $("#example1").DataTable();
 
   $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
             checkboxClass: 'icheckbox_minimal-blue',
             radioClass: 'iradio_minimal-blue'
           });
+  </script>
+  <script type="text/javascript">
+    function toggle(pilih) {
+    checkboxes = document.getElementsByName('idpegawai[]');
+    for(var i=0, n=checkboxes.length;i<n;i++) {
+      checkboxes[i].checked = pilih.checked;
+    }
+  }
   </script>
 
 @stop

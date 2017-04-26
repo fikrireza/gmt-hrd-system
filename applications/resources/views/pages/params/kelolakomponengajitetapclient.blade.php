@@ -199,7 +199,6 @@
 
   <div class="row">
     <!--column -->
-
     <div class="col-md-12">
       <!-- Horizontal Form -->
       <div class="box box-primary">

@@ -10,6 +10,7 @@ use App\Models\MasterClient;
 use App\Models\KomponenGaji;
 use App\Models\CabangClient;
 
+
 use Validator;
 
 class BpjsController extends Controller
@@ -26,13 +27,34 @@ class BpjsController extends Controller
     
     public function index()
     {
-      $getbpjs = Bpjs::leftJoin('cabang_client', 'management_bpjs.id_cabang_client', '=', 'cabang_client.id')
+      $getbpjskesehatan = Bpjs::leftJoin('cabang_client', 'management_bpjs.id_cabang_client', '=', 'cabang_client.id')
                         ->leftJoin('komponen_gaji', 'management_bpjs.id_bpjs', '=', 'komponen_gaji.id')
                         ->leftJoin('master_client', 'cabang_client.id_client', '=', 'master_client.id')
                         ->select('management_bpjs.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client', 'komponen_gaji.id as id_komgaj', 'komponen_gaji.nama_komponen as nama_komponen', 'cabang_client.nama_cabang', 'cabang_client.alamat_cabang')
+                        ->where('id_bpjs', '9991')
                         ->paginate(10);
 
-      // $getClient  = MasterClient::get();
+      $getbpjsketenagakerjaan = Bpjs::leftJoin('cabang_client', 'management_bpjs.id_cabang_client', '=', 'cabang_client.id')
+                        ->leftJoin('komponen_gaji', 'management_bpjs.id_bpjs', '=', 'komponen_gaji.id')
+                        ->leftJoin('master_client', 'cabang_client.id_client', '=', 'master_client.id')
+                        ->select('management_bpjs.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client', 'komponen_gaji.id as id_komgaj', 'komponen_gaji.nama_komponen as nama_komponen', 'cabang_client.nama_cabang', 'cabang_client.alamat_cabang')
+                        ->where('id_bpjs', '9992')
+                        ->paginate(10);
+
+      $getbpjspensiun = Bpjs::leftJoin('cabang_client', 'management_bpjs.id_cabang_client', '=', 'cabang_client.id')
+                        ->leftJoin('komponen_gaji', 'management_bpjs.id_bpjs', '=', 'komponen_gaji.id')
+                        ->leftJoin('master_client', 'cabang_client.id_client', '=', 'master_client.id')
+                        ->select('management_bpjs.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client', 'komponen_gaji.id as id_komgaj', 'komponen_gaji.nama_komponen as nama_komponen', 'cabang_client.nama_cabang', 'cabang_client.alamat_cabang')
+                        ->where('id_bpjs', '9993')
+                        ->paginate(10);
+
+      $getlistClientNew = CabangClient::leftJoin('master_client', 'cabang_client.id_client', '=', 'master_client.id')
+                      ->select('cabang_client.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client')
+                      ->get();
+
+      $getbpjscountkesehatan = Bpjs::select('*')->where('id_bpjs', '9991')->count('id');
+      $getbpjscountketenagakerjaan = Bpjs::select('*')->where('id_bpjs', '9992')->count('id');
+      $getbpjscountpensiun = Bpjs::select('*')->where('id_bpjs', '9993')->count('id');
 
       $getClient  = MasterClient::select('id', 'nama_client')->get();
       $getCabang = CabangClient::select('id','kode_cabang','nama_cabang', 'id_client')->get();
@@ -42,8 +64,11 @@ class BpjsController extends Controller
                     ->orWhere('id', '=', '9992')
                     ->orWhere('id', '=', '9993');
             })->get();
-     
-      return view('pages/params/kelolabpjs', compact('getbpjs', 'getClient', 'getKomponentGaji', 'getCabang'));
+
+      return view('pages/params/kelolabpjs', compact('getbpjskesehatan', 'getbpjsketenagakerjaan', 'getbpjspensiun', 
+        'getClient', 'getKomponentGaji', 'getCabang',
+        'getbpjscountkesehatan', 'getbpjscountketenagakerjaan', 'getbpjscountpensiun', 
+        'getlistClientNew'));
     }
 
     public function store(Request $request)
@@ -52,14 +77,12 @@ class BpjsController extends Controller
         'id_bpjs.required' => 'Wajib di isi',
         'keterangan.required' => 'Wajib di isi',
         'bpjs_dibayarkan.required' => 'Wajib di isi',
-        'id_cabang_client.required' => 'Wajib di isi',
       ];
 
       $validator = Validator::make($request->all(), [
         'id_bpjs' => 'required',
         'keterangan' => 'required',
         'bpjs_dibayarkan' => 'required',
-        'id_cabang_client' => 'required',
       ], $message);
 
       if($validator->fails())
@@ -67,14 +90,21 @@ class BpjsController extends Controller
         return redirect()->route('bpjs.index')->withErrors($validator)->withInput();
       }
 
-      $set = new Bpjs;
-      $set->id_bpjs = $request->id_bpjs;
-      $set->keterangan = $request->keterangan;
-      $set->bpjs_dibayarkan = $request->bpjs_dibayarkan;
-      $set->id_cabang_client = $request->id_cabang_client;
-      $set->save();
+      if ($request->idcabangclient != null) {
+        foreach ($request->idcabangclient as $id_cabang_client) 
+        {
+          $set = new Bpjs;
+          $set->id_bpjs = $request->id_bpjs;
+          $set->keterangan = $request->keterangan;
+          $set->bpjs_dibayarkan = $request->bpjs_dibayarkan;
+          $set->id_cabang_client = $id_cabang_client;
+          $set->save();
+        }
+        return redirect()->route('bpjs.index')->with('message', 'Berhasil memasukkan bpjs.');
+      }else{
+        return redirect()->route('bpjs.index')->withErrors($validator)->withInput()->with('messagefail', 'Pilih data client tersebuh dahulu.');
+      }
 
-      return redirect()->route('bpjs.index')->with('message', 'Berhasil memasukkan hari bpjs.');
     }
 
     public function bind($id)
