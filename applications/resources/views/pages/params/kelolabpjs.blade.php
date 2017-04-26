@@ -309,7 +309,7 @@
         <!-- small box -->
         <div class="box box-warning box-solid">
         <div class="box-header">
-          <h3 class="box-title">Data Seluruh BPJS KESEHATAN</h3>
+          <h3 class="box-title">Data Seluruh BPJS KETENAGAKERJAAN</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
           <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -382,7 +382,7 @@
       <div class="col-lg-4 col-xs-6">
         <div class="box box-success box-solid">
         <div class="box-header">
-          <h3 class="box-title">Data Seluruh BPJS KESEHATAN</h3>
+          <h3 class="box-title">Data Seluruh BPJS PENSIUN</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
           <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
