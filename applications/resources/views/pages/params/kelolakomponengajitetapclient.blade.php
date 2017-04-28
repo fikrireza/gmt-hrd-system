@@ -166,7 +166,7 @@
 
           <div class="info-box-content">
             <span class="info-box-text">Jumlah Cabang Yang Tersedia</span>
-            <span class="info-box-number">{{$getcountCabang}}</span>
+            <span class="info-box-number"><?php echo $getcountCabang[0]->jmlcabnotexist ?></span>
 
             <div class="progress">
               <div class="progress-bar" style="width: 100%"></div>

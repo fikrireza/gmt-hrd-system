@@ -12,6 +12,7 @@ use App\Models\MasterClient;
 use App\Models\CabangClient;
 
 use Validator;
+use DB;
 
 
 class KomponenGajiTetapClientController extends Controller
@@ -29,13 +30,17 @@ class KomponenGajiTetapClientController extends Controller
     public function index($id)
     {
       
-      $getcountCabang = CabangClient::count('*');
+      // $getcountCabang = CabangClient::count('*');
+      $getcountCabang = DB::select("select COUNT(a.id) as jmlcabnotexist FROM cabang_client a left join master_client b on a.id_client = b.id where not exists (select * from komponen_gaji_tetap c where c.id_cabang_client = a.id and c.id_komponen_gaji = ('$id'))");
+
+      // dd($getcountCabang);
+
       $getcountCabangKom = KomponenGajiTetap::where('id_komponen_gaji', $id)->count('*');
       $getdataKomponenGaji = KomponenGaji::where('id', $id)->first();
-      
-      $getlistClientNew = CabangClient::leftJoin('master_client', 'cabang_client.id_client', '=', 'master_client.id')
-                      ->select('cabang_client.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client')
-                      ->get();
+
+      $listNew = DB::select("select a.*, b.id as client_id, b.kode_client as kode_client, b.nama_client as nama_client FROM cabang_client a left join master_client b on a.id_client = b.id where not exists (select * from komponen_gaji_tetap c where c.id_cabang_client = a.id and c.id_komponen_gaji = ('$id'))");
+
+      $getlistClientNew = collect($listNew);
 
       $getlistClientOld = CabangClient::leftJoin('master_client', 'cabang_client.id_client', '=', 'master_client.id')
                       ->join('komponen_gaji_tetap', 'cabang_client.id', '=', 'komponen_gaji_tetap.id_cabang_client')

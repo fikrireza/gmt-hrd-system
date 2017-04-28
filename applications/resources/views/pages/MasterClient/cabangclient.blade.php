@@ -123,8 +123,8 @@
                         {{-- <button type="button" class="btn btn-danger pull-left">Kembali</button> --}}
                 			  <button type="submit" class="btn btn-success pull-right">Simpan Perubahan</button>
                 			@else
-                			  <button type="submit" class="btn btn-danger pull-right" style="margin-left:5px;">Simpan</button>
-                        <button type="reset" class="btn btn-success pull-left">Reset Formulir</button>
+                			  <button type="submit" class="btn btn-success pull-right" style="margin-left:5px;">Simpan</button>
+                        <button type="reset" class="btn btn-danger pull-left">Reset Formulir</button>
                 			@endif
                     </div><!-- /.box-footer -->
                   </form>

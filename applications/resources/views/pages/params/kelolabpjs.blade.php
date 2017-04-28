@@ -81,7 +81,7 @@
                 </select>
               </div>
             </div>
-            <div class="form-group" hidden="true">
+            <div class="form-group">
               <label class="col-sm-3 control-label">Tipe Bpjs</label>
               <div class="col-sm-9">
               <select class="form-control" name="id_bpjs_edit" id="id_bpjs_edit">
@@ -568,7 +568,9 @@
 
             $('option').attr('selected', false);
             $('option#cel'+id_cabang_client_edit).attr('selected', true);
+            $('#id_cabang_client_edit').prop("disabled", true);
             $('option#tipebpjs'+id_bpjs_edit).attr('selected', true);
+            $('#id_bpjs_edit').prop("disabled", true);
             $(".select2").select2();
 
             $('#keterangan_edit').attr('value', keterangan_edit);
