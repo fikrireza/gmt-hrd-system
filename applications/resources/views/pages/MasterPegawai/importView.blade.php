@@ -40,7 +40,7 @@
       @elseif(Session::has('error'))
         <div class="alert alert-danger">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-          <h4><i class="icon fa fa-check"></i> Error!</h4>
+          <h4><i class="icon fa fa-ban"></i> Error!</h4>
           <p>{{ Session::get('error') }}</p>
         </div>
       @endif
@@ -75,7 +75,7 @@
               </div>
                <p class="help-block" style="color: red"><i><b>*Harap Import Data Sesuai Dengan Template.</b></i></p>
               <div class="box-footer">
-                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="submit" class="btn btn-success">Proses Upload</button>
               </div>
             </form>
           </div>
