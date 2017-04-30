@@ -10,8 +10,8 @@ use App\Models\MasterClient;
 use App\Models\KomponenGaji;
 use App\Models\CabangClient;
 
-
 use Validator;
+use DB;
 
 class BpjsController extends Controller
 {
@@ -48,9 +48,14 @@ class BpjsController extends Controller
                         ->where('id_bpjs', '9993')
                         ->paginate(10);
 
-      $getlistClientNew = CabangClient::leftJoin('master_client', 'cabang_client.id_client', '=', 'master_client.id')
-                      ->select('cabang_client.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client')
-                      ->get();
+      $listKesehatanNew = DB::select("select a.*, b.id as client_id, b.kode_client as kode_client, b.nama_client as nama_client FROM cabang_client a left join master_client b on a.id_client = b.id where not exists (select * from management_bpjs c where c.id_cabang_client = a.id and c.id_bpjs = 9991)");
+      $getlistBPJSKesehatanNew = collect($listKesehatanNew);
+
+      $listKetenagakerjaanNew = DB::select("select a.*, b.id as client_id, b.kode_client as kode_client, b.nama_client as nama_client FROM cabang_client a left join master_client b on a.id_client = b.id where not exists (select * from management_bpjs c where c.id_cabang_client = a.id and c.id_bpjs = 9992)");
+      $getlistBPJSKetenagakerjaanNew = collect($listKetenagakerjaanNew);
+
+      $listPensiunNew = DB::select("select a.*, b.id as client_id, b.kode_client as kode_client, b.nama_client as nama_client FROM cabang_client a left join master_client b on a.id_client = b.id where not exists (select * from management_bpjs c where c.id_cabang_client = a.id and c.id_bpjs = 9993)");
+      $getlistBPJSPensiunNew = collect($listPensiunNew);
 
       $getbpjscountkesehatan = Bpjs::select('*')->where('id_bpjs', '9991')->count('id');
       $getbpjscountketenagakerjaan = Bpjs::select('*')->where('id_bpjs', '9992')->count('id');
@@ -68,33 +73,33 @@ class BpjsController extends Controller
       return view('pages/params/kelolabpjs', compact('getbpjskesehatan', 'getbpjsketenagakerjaan', 'getbpjspensiun', 
         'getClient', 'getKomponentGaji', 'getCabang',
         'getbpjscountkesehatan', 'getbpjscountketenagakerjaan', 'getbpjscountpensiun', 
-        'getlistClientNew'));
+        'getlistBPJSKesehatanNew', 'getlistBPJSKetenagakerjaanNew', 'getlistBPJSPensiunNew'));
     }
 
     public function store(Request $request)
     {
-      $message = [
-        'id_bpjs.required' => 'Wajib di isi',
-        'keterangan.required' => 'Wajib di isi',
-        'bpjs_dibayarkan.required' => 'Wajib di isi',
-      ];
+      // $message = [
+      //   'id_bpjs.required' => 'Wajib di isi',
+      //   'keterangan.required' => 'Wajib di isi',
+      //   'bpjs_dibayarkan.required' => 'Wajib di isi',
+      // ];
 
-      $validator = Validator::make($request->all(), [
-        'id_bpjs' => 'required',
-        'keterangan' => 'required',
-        'bpjs_dibayarkan' => 'required',
-      ], $message);
+      // $validator = Validator::make($request->all(), [
+      //   'id_bpjs' => 'required',
+      //   'keterangan' => 'required',
+      //   'bpjs_dibayarkan' => 'required',
+      // ], $message);
 
-      if($validator->fails())
-      {
-        return redirect()->route('bpjs.index')->withErrors($validator)->withInput();
-      }
+      // if($validator->fails())
+      // {
+      //   return redirect()->route('bpjs.index')->withErrors($validator)->withInput();
+      // }
 
       if ($request->idcabangclient != null) {
         foreach ($request->idcabangclient as $id_cabang_client) 
         {
           $set = new Bpjs;
-          $set->id_bpjs = $request->id_bpjs;
+          $set->id_bpjs = $request->status_flag_bpjs;
           $set->keterangan = $request->keterangan;
           $set->bpjs_dibayarkan = $request->bpjs_dibayarkan;
           $set->id_cabang_client = $id_cabang_client;
@@ -102,7 +107,7 @@ class BpjsController extends Controller
         }
         return redirect()->route('bpjs.index')->with('message', 'Berhasil memasukkan bpjs.');
       }else{
-        return redirect()->route('bpjs.index')->withErrors($validator)->withInput()->with('messagefail', 'Pilih data client tersebuh dahulu.');
+        return redirect()->route('bpjs.index')->with('messagefail', 'Pilih data client tersebuh dahulu.');
       }
 
     }
