@@ -277,7 +277,9 @@
                                     <thead>
                                       <tr role="row">
                                         <th>No</th>
-                                        <th>Client</th>
+                                        <th>Nama Client</th>
+                                        <th>Nama Cabang</th>
+                                        <th>Alamat</th>
                                         <th>Nilai</th>
                                         <th>Aksi</th>
                                       </tr>
@@ -296,9 +298,9 @@
                                             <td>
                                               {{$pageget}}
                                             </td>
-                                            <td>
-                                             {{$key->nama_client}} - {{$key->nama_cabang}}
-                                            </td>
+                                            <td>{{$key->nama_client}}</td>
+                                            <td>{{ $key->nama_cabang }}</td>
+                                            <td>{{ $key->alamat_cabang }}</td>
                                             <td>
                                             Rp. {{ number_format($key->bpjs_dibayarkan,0,',','.') }},-
                                             </td>
@@ -458,7 +460,9 @@
                                     <thead>
                                       <tr role="row">
                                         <th>No</th>
-                                        <th>Client</th>
+                                        <th>Nama Client</th>
+                                        <th>Nama Cabang</th>
+                                        <th>Alamat</th>
                                         <th>Nilai</th>
                                         <th>Aksi</th>
                                       </tr>
@@ -477,9 +481,9 @@
                                             <td>
                                               {{$pageget}}
                                             </td>
-                                            <td>
-                                             {{$key->nama_client}} - {{$key->nama_cabang}}
-                                            </td>
+                                            <td>{{$key->nama_client}}</td>
+                                            <td>{{ $key->nama_cabang }}</td>
+                                            <td>{{ $key->alamat_cabang }}</td>
                                             <td>
                                             Rp. {{ number_format($key->bpjs_dibayarkan,0,',','.') }},-
                                             </td>
@@ -639,7 +643,9 @@
                                     <thead>
                                       <tr role="row">
                                         <th>No</th>
-                                        <th>Client</th>
+                                        <th>Nama Client</th>
+                                        <th>Nama Cabang</th>
+                                        <th>Alamat</th>
                                         <th>Nilai</th>
                                         <th>Aksi</th>
                                       </tr>
@@ -658,9 +664,9 @@
                                             <td>
                                               {{$pageget}}
                                             </td>
-                                            <td>
-                                             {{$key->nama_client}} - {{$key->nama_cabang}}
-                                            </td>
+                                            <td>{{$key->nama_client}}</td>
+                                            <td>{{ $key->nama_cabang }}</td>
+                                            <td>{{ $key->alamat_cabang }}</td>
                                             <td>
                                             Rp. {{ number_format($key->bpjs_dibayarkan,0,',','.') }},-
                                             </td>
@@ -806,10 +812,10 @@
             }
 
             $('option').attr('selected', false);
-            $('option#cel'+id_cabang_client_edit).attr('selected', true);
             $('#id_cabang_client_edit').prop("disabled", true);
-            $('option#tipebpjs'+id_bpjs_edit).attr('selected', true);
+            $('option#cel'+id_cabang_client_edit).attr('selected', true);
             $('#id_bpjs_edit').prop("disabled", true);
+            $('option#tipebpjs'+id_bpjs_edit).attr('selected', true);
             $(".select2").select2();
 
             $('#keterangan_edit').attr('value', keterangan_edit);

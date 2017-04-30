@@ -122,10 +122,10 @@ class BpjsController extends Controller
     {
       // dd($request);
       $dataChage = Bpjs::find($request->id);
-      $dataChage->id_bpjs = $request->id_bpjs_edit;
+      // $dataChage->id_bpjs = $request->id_bpjs_edit;
       $dataChage->keterangan = $request->keterangan_edit;
       $dataChage->bpjs_dibayarkan = $request->bpjs_dibayarkan_edit;
-      $dataChage->id_cabang_client = $request->id_cabang_client_edit;
+      // $dataChage->id_cabang_client = $request->id_cabang_client_edit;
       $dataChage->save();
 
       return redirect()->route('bpjs.index')->with('message', 'Data bpjs berhasil diubah.');
@@ -135,7 +135,7 @@ class BpjsController extends Controller
     {
       $set = Bpjs::find($id);
       $set->delete();
-      return redirect()->route('bpjs.index')->with('message', 'Berhasil menghapus data hari bpjs.');
+      return redirect()->route('bpjs.index')->with('message', 'Berhasil menghapus data bpjs.');
     }
 
 }
