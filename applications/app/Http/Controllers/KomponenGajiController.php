@@ -25,7 +25,11 @@ class KomponenGajiController extends Controller
 
     public function index()
     {
-      $getkomponen = KomponenGaji::where('tipe_komponen_gaji', '=', 1)->paginate(10);
+      $getkomponen = KomponenGaji::where('tipe_komponen_gaji', '=', 1)
+                      ->where('id', '!=','1')
+                      ->where('id', '!=','9991')
+                      ->where('id', '!=','9992')
+                      ->where('id', '!=','9993')->paginate(10);
       return view('pages/params/kelolakomponengaji')->with('getkomponen', $getkomponen);
     }
 
