@@ -160,7 +160,7 @@
                 <h3 class="box-title">History Gaji Pokok Pegawai</h3>
               </div>
               <div class="box-body table-responsive">
-                <table id="table_histori" class="table table-bordered table-striped">
+                <table id="table_histori" class="table table-hover">
                   <thead>
                     <tr>
                       <th>#</th>
