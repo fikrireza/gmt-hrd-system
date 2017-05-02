@@ -16,7 +16,8 @@ class HariKerjaController extends Controller
 {
     public function index() {
 
-      $listNew = DB::select("select a.*, b.id as client_id, b.kode_client as kode_client, b.nama_client as nama_client
+      $listNew = DB::select("select a.*, b.id as client_id, b.kode_client as kode_client, b.nama_client as nama_client,
+      (select count(1) from data_pkwt d where d.id_cabang_client = a.id) as total_pegawai
       FROM cabang_client a left join master_client b on a.id_client = b.id where exists (select * from data_pkwt c where c.id_cabang_client = a.id)");
 
       $getlistClientNew = collect($listNew);

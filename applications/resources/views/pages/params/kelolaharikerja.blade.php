@@ -89,6 +89,7 @@
                             <th>Nama Client</th>
                             <th>Nama Cabang</th>
                             <th>Alamat</th>
+                            <th style="width:10%">Total Pegawai</th>
                           </tr>
                            <tbody>
                            @if(isset($getlistClientNew))
@@ -98,6 +99,7 @@
                                 <td>{{ $key->nama_client }}</td>
                                 <td>{{ $key->nama_cabang }}</td>
                                 <td>{{ $key->alamat_cabang }}</td>
+                                <td style="text-align:center"><span class="badge bg-orange">{{$key->total_pegawai}}</span></td>
                               </tr>
                               @endforeach
                           @endif
