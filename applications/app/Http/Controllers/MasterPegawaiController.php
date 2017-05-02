@@ -111,6 +111,7 @@ class MasterPegawaiController extends Controller
           'hubungan_darurat'   => $request->hubungan_darurat,
           'telepon_darurat'   => $request->telepon_darurat,
           'id_jabatan'     => $request->jabatan,
+          'bank' => $request->bank,
         ]);
 
         $kondisi_kesehatan = KondisiKesehatan::create([
@@ -214,7 +215,7 @@ class MasterPegawaiController extends Controller
                         ->select('master_pegawai.*', 'master_jabatan.nama_jabatan')
                         ->where('master_pegawai.id', '=', $id)
                         ->get();
-
+                        // dd($id);
       $DataJabatan    = MasterJabatan::all();
 
       $idofpegawai;
@@ -589,7 +590,9 @@ class MasterPegawaiController extends Controller
           'bpjskerja.required' => 'BPJS Ketenagakerjaan harus diisi',
           'rekening.required' => 'Rekening harus diisi',
           'jabatan.required' => 'Jabatan harus diisi',
-          'jabatan.not_in' => 'Jabatan harus diisi'
+          'jabatan.not_in' => 'Jabatan harus diisi',
+          'bank.required' => 'Bank harus diisi',
+          'bank.not_in' => 'Bank harus diisi'
       ];
 
       $validator = Validator::make($request->all(), [
@@ -609,7 +612,8 @@ class MasterPegawaiController extends Controller
         'bpjssehat' => 'required',
         'bpjskerja' => 'required',
         'rekening' => 'required',
-        'jabatan' => 'required|not_in:-- Pilih --'
+        'jabatan' => 'required|not_in:-- Pilih --',
+        'bank' => 'required|not_in:-- Pilih --'
       ], $messages);
 
       if ($validator->fails()) {
@@ -636,6 +640,7 @@ class MasterPegawaiController extends Controller
       $pegawai->bpjs_ketenagakerjaan = $request->bpjskerja;
       $pegawai->no_rekening = $request->rekening;
       $pegawai->id_jabatan = $request->jabatan;
+      $pegawai->bank = $request->bank;
       $pegawai->save();
 
       return redirect()->route('masterpegawai.show', $request->id_pegawai)->with('message','Berhasil mengubah data pegawai.');

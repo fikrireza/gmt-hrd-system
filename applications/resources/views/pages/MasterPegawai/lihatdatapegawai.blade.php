@@ -2040,6 +2040,25 @@
                   @endif
                 </td>
               </tr>
+              <tr>
+                <td>Bank</td>
+                <td>:</td>
+                <td id="tdlabelbank"><b data-value="{{$pegawai->bank}}" id="valbank">{{ $pegawai->bank}}</b></td>
+                <td id="tdtextbank" class="{{ $errors->has('bank') ? 'has-error' : '' }}">
+                  <select class="form-control" name="bank">
+                    <option>-- Pilih --</option>
+                    <option value="BCA" id="valbca" {{(old('bank')=="BCA") ? 'selected' : ''}}>BCA</option>
+                    <option value="BNI" id="valbni" {{(old('bank')=="BNI") ? 'selected' : ''}}>BNI</option>
+                    <option value="MANDIRI" id="valmandiri" {{(old('bank')=="MANDIRI") ? 'selected' : ''}}>MANDIRI</option>
+                  </select>
+                  @if($errors->has('bank'))
+                   <span class="help-block">
+                     <strong>{{ $errors->first('bank')}}
+                     </strong>
+                   </span>
+                  @endif
+                </td>
+              </tr>
             </tbody>
           </table>
           @if (Auth::user()->level=="1")
@@ -3230,6 +3249,7 @@
         $('#tdlabelbpjssehat').hide();
         $('#tdlabelrekening').hide();
         $('#tdlabelwarga').hide();
+        $('#tdlabelbank').hide();
         $('#tdlabeljabatan').hide();
         $('a#editpegawai').hide();
 
@@ -3249,6 +3269,7 @@
         $('#tdtextbpjssehat').show();
         $('#tdtextrekening').show();
         $('#tdtextwarga').show();
+        $('#tdtextbank').show();
         $('#tdtextjabatan').show();
       @else
         $('#tdtextnama').hide();
@@ -3267,6 +3288,7 @@
         $('#tdtextbpjssehat').hide();
         $('#tdtextrekening').hide();
         $('#tdtextwarga').hide();
+        $('#tdtextbank').hide();
         $('#tdtextjabatan').hide();
         $('#btnsavepegawai').hide();
       @endif
@@ -3288,6 +3310,7 @@
         $('#tdlabelbpjssehat').hide();
         $('#tdlabelrekening').hide();
         $('#tdlabelwarga').hide();
+        $('#tdlabelbank').hide();
         $('#tdlabeljabatan').hide();
 
 
@@ -3307,6 +3330,7 @@
         $('#tdtextbpjssehat').show();
         $('#tdtextrekening').show();
         $('#tdtextwarga').show();
+        $('#tdtextbank').show();
         $('#tdtextjabatan').show();
 
 
@@ -3332,6 +3356,15 @@
           $('option#valwni').attr('selected', 'true');
         } else if (b=="WNA") {
           $('option#valwna').attr('selected', 'true');
+        }
+
+        var c = $('b#valbank').data('value');
+        if(c=="BCA") {
+          $('option#valbca').attr('selected', 'true');
+        } else if (c=="BNI") {
+          $('option#valbni').attr('selected', 'true');
+        } else if (c=="MANDIRI") {
+          $('option#valmandiri').attr('selected', 'true');
         }
 
         $('a#editpegawai').hide();

@@ -240,6 +240,22 @@
                   @endif
                 </div>
               </div>
+
+              <div class="form-group {{ $errors->has('bank') ? 'has-error' : '' }}">
+                <label class="col-sm-3 control-label">Bank</label>
+                <div class="col-sm-9">
+                  {!! Form::select('bank', array('BCA' => 'BCA',
+                                                  'BNI' => 'BNI',
+                                                  'MANDIRI' => 'MANDIRI'),
+                                    null, ['class' => 'form-control', 'placeholder' => '-- Pilih Bank --']) !!}
+                  @if($errors->has('bank'))
+                    <span class="help-block">
+                      <strong>{{ $errors->first('bank')}}
+                      </strong>
+                    </span>
+                  @endif
+                </div>
+              </div>
               <div class="form-group {{ $errors->has('no_rekening') ? 'has-error' : '' }}">
                 <label class="col-sm-3 control-label">Rekening</label>
                 <div class="col-sm-9">
