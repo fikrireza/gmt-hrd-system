@@ -194,7 +194,6 @@ Route::post('detail-batch-payroll/update-for-absen', 'DetailBatchPayrollControll
 Route::get('detail-batch-payroll/export/{idbatch}', 'ExportImportDetailBatchPayrollController@export')->name('detailbatchpayroll.export');
 Route::post('detail-batch-payroll/import', 'ExportImportDetailBatchPayrollController@import')->name('detailbatchpayroll.import');
 
-
 ///// HARI LIBUR //////
 Route::get('hari-libur', 'HariLiburController@index')->name('hari.libur.index');
 Route::post('hari-libur', 'HariLiburController@store')->name('hari.libur.store');
@@ -208,6 +207,11 @@ Route::post('bpjs', 'BpjsController@store')->name('bpjs.store');
 Route::post('bpjs/update', 'BpjsController@update')->name('bpjs.update');
 Route::get('bpjs/bind-bpjs/{id}', 'BpjsController@bind')->name('bpjs.bind');
 Route::get('bpjs/delete/{id}', 'BpjsController@delete')->name('bpjs.delete');
+
+///// HARI KERJA /////
+Route::get('hari-kerja', 'HariKerjaController@index')->name('harikerja.index');
+Route::post('hari-kerja', 'HariKerjaController@store')->name('harikerja.store');
+
 
 ///// CUTI //////
 Route::get('cuti', 'CutiController@index')->name('cuti.index');

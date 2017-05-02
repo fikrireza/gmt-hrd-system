@@ -113,9 +113,9 @@
           <li><a href="{{ route('periodepegawai.index') }}"><i class="fa fa-circle-o"></i> Set Periode Pegawai</a></li>
           <li><a href="{{route('komgajitetap.index')}}"><i class="fa fa-circle-o"></i> Set Komponen Gaji Tetap</a></li>
           <li><a href="{{route('komgaji.index')}}"><i class="fa fa-circle-o"></i> Set Komponen Gaji Variable</a></li>
-          {{-- <li><a href="{{route('setgaji.index')}}"><i class="fa fa-circle-o"></i> Set Gaji Pegawai</a></li> --}}
           <li><a href="{{route('hari.libur.index')}}"><i class="fa fa-circle-o"></i> Set Hari Libur</a></li>
           <li><a href="{{route('bpjs.index')}}"><i class="fa fa-circle-o"></i> Set BPJS</a></li>
+          <li><a href="{{route('harikerja.index')}}"><i class="fa fa-circle-o"></i> Set Hari Kerja</a></li>
           {{-- <li><a href="{{route('cuti.index')}}"><i class="fa fa-circle-o"></i> Set Perizinan</a></li> --}}
         </ul>
       </li>
