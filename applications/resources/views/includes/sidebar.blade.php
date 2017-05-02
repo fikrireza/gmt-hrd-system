@@ -102,7 +102,7 @@
     @endif
 
     @if (Auth::user()->level=="2")
-      <li class="treeview">
+      {{-- <li class="treeview">
         <a href="#">
           <i class="fa fa-cog"></i>
           <span>Set Parameter</span>
@@ -117,7 +117,69 @@
           <li><a href="{{route('bpjs.index')}}"><i class="fa fa-circle-o"></i> Set BPJS</a></li>
           <li><a href="{{route('harikerja.index')}}"><i class="fa fa-circle-o"></i> Set Hari Kerja</a></li>
           <li><a href="{{route('historygajipokok.index')}}"><i class="fa fa-circle-o"></i> Set Gaji Pokok</a></li>
-          {{-- <li><a href="{{route('cuti.index')}}"><i class="fa fa-circle-o"></i> Set Perizinan</a></li> --}}
+          <li><a href="{{route('cuti.index')}}"><i class="fa fa-circle-o"></i> Set Perizinan</a></li>
+        </ul>
+      </li>--}}
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-calendar-minus-o"></i>
+          <span>Periode</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{route('periodegaji.index')}}"><i class="fa fa-circle-o"></i> Periode Gaji</a></li>
+          <li><a href="{{ route('periodepegawai.index') }}"><i class="fa fa-circle-o"></i> Periode Pegawai</a></li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-cogs"></i>
+          <span>Komponen Gaji</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{route('komgajitetap.index')}}"><i class="fa fa-circle-o"></i> Gaji Tetap</a></li>
+          <li><a href="{{route('komgaji.index')}}"><i class="fa fa-circle-o"></i> Gaji Variable</a></li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-child"></i>
+          <span>Manajemen Hari Libur</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{route('hari.libur.index')}}"><i class="fa fa-circle-o"></i> Set Hari Libur</a></li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-ambulance"></i>
+          <span>Manajemen BPJS</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{route('bpjs.index')}}"><i class="fa fa-circle-o"></i> Set BPJS</a></li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-user-secret"></i>
+          <span>Hari Kerja per-Client</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{route('harikerja.index')}}"><i class="fa fa-circle-o"></i> Set Hari Kerja</a></li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-building-o"></i>
+          <span>Gaji Pokok per-Client</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{route('historygajipokok.index')}}"><i class="fa fa-circle-o"></i> Set Gaji Pokok</a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -132,7 +194,7 @@
       </li>
       <li class="treeview">
         <a href="#">
-          <i class="fa fa-money"></i>
+          <i class="fa fa-star"></i>
           <span>Proses THR</span>
           <i class="fa fa-angle-left pull-right"></i>
         </a>
