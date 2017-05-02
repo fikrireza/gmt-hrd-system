@@ -50,8 +50,8 @@
           {!! csrf_field() !!}
           <div class="box-body">
             <div class="form-group">
-              <label class="col-sm-2 control-label">Client</label>
-              <div class="col-sm-4">
+              <label class="col-sm-3 control-label">Client</label>
+              <div class="col-sm-6">
                 <select name="id_client" class="form-control select2" style="width: 100%;" required="">
                   <option selected="selected"></option>
                   @foreach($getClient as $key)
