@@ -116,6 +116,7 @@
           <li><a href="{{route('hari.libur.index')}}"><i class="fa fa-circle-o"></i> Set Hari Libur</a></li>
           <li><a href="{{route('bpjs.index')}}"><i class="fa fa-circle-o"></i> Set BPJS</a></li>
           <li><a href="{{route('harikerja.index')}}"><i class="fa fa-circle-o"></i> Set Hari Kerja</a></li>
+          <li><a href="{{route('historygajipokok.index')}}"><i class="fa fa-circle-o"></i> Set Gaji Pokok</a></li>
           {{-- <li><a href="{{route('cuti.index')}}"><i class="fa fa-circle-o"></i> Set Perizinan</a></li> --}}
         </ul>
       </li>

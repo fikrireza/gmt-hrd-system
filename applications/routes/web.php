@@ -212,6 +212,9 @@ Route::get('bpjs/delete/{id}', 'BpjsController@delete')->name('bpjs.delete');
 Route::get('hari-kerja', 'HariKerjaController@index')->name('harikerja.index');
 Route::post('hari-kerja', 'HariKerjaController@store')->name('harikerja.store');
 
+///// HISTORY GAJI POKOK /////
+Route::get('history-gaji-pokok', 'HistoryGajiPokokController@index')->name('historygajipokok.index');
+Route::post('history-gaji-pokok', 'HistoryGajiPokokController@store')->name('historygajipokok.store');
 
 ///// CUTI //////
 Route::get('cuti', 'CutiController@index')->name('cuti.index');
