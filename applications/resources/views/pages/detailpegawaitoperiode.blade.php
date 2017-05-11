@@ -62,6 +62,7 @@
                 {!! csrf_field() !!}
                 <input type="hidden" class="form-control" id="idgapok" name="id">
                 <input type="hidden" class="form-control" name="idperiode" value="{{$idperiode}}">
+                <input type="hidden" name="periode_tahun" class="form-control" id="periode_tahun" placeholder="Periode Tahun" id="periode_tahun" readonly="true">
                 <input type="text" class="form-control" id="nippegawaigapok" name="nip" readonly="">
               </div>
             </div>
@@ -190,8 +191,14 @@
   <!-- AdminLTE for demo purposes -->
   <script src="{{asset('dist/js/demo.js')}}"></script>
 
+  <script type="text/javascript">
+    var d = new Date();
+    var n = d.getFullYear();
+    $('#periode_tahun').attr('value', n);
+  </script>
 
   <script type="text/javascript">
+
     $(function() {
         $('#tabelpegawai').DataTable({
             processing: true,

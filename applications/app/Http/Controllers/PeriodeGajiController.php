@@ -9,6 +9,8 @@ use Datatables;
 use App\Http\Requests;
 use App\Models\PeriodeGaji;
 use App\Models\MasterPegawai;
+use App\Models\HistoryGajiPokok;
+use App\Models\PKWT;
 
 use Validator;
 
@@ -65,9 +67,26 @@ class PeriodeGajiController extends Controller
 
     public function update(Request $request)
     {
+
       $set = MasterPegawai::find($request->id);
       $set->gaji_pokok = $request->gaji_pokok;
       $set->save();
+
+      $checkhistory = HistoryGajiPokok::where('id_pegawai', $request->id)->first();
+      if ($checkhistory != null) {
+        $set2 = HistoryGajiPokok::where('id_pegawai', $request->id)->orderBy('created_at', 'desc')->first();
+        $set2->gaji_pokok = $request->gaji_pokok;
+        $set2->save();
+      } else {
+        $checkhpkwt = PKWT::where('id_pegawai', $request->id)->orderBy('created_at', 'desc')->first();
+        $set = new HistoryGajiPokok;
+        $set->gaji_pokok = $request->gaji_pokok;
+        $set->periode_tahun = $request->periode_tahun;
+        $set->id_pegawai = $request->id;
+        $set->id_cabang_client = $checkhpkwt->id_cabang_client;
+        $set->flag_status = 0;
+        $set->save();
+      }
 
       return redirect()->route('periodegaji.detail', $request->idperiode)->with('message', 'Berhasil mengubah gaji pokok pegawai.');
     }

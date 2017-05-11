@@ -36,7 +36,6 @@ class HistoryGajiPokokController extends Controller
 
     public function store(Request $request)
     {
-      // dd($request);
       $message = [
         'gaji_pokok.required' => 'Wajib di isi',
         'keterangan.required' => 'Wajib di isi',
@@ -52,7 +51,6 @@ class HistoryGajiPokokController extends Controller
         return redirect()->route('historygajipokok.index')->withErrors($validator)->withInput();
       }
 
-
       if ($request->idcabangclient != null) {
         foreach ($request->idcabangclient as $key1) {
           $check = PKWT::where('id_cabang_client', $key1)->get();
@@ -60,15 +58,26 @@ class HistoryGajiPokokController extends Controller
               $dataChage = MasterPegawai::find($key2->id_pegawai);
               $dataChage->gaji_pokok = $request->gaji_pokok;
               $dataChage->save();
-
-              $set = new HistoryGajiPokok;
-              $set->gaji_pokok = $request->gaji_pokok;
-              $set->periode_tahun = $request->periode_tahun;
-              $set->keterangan = $request->keterangan;
-              $set->id_pegawai = $key2->id_pegawai;
-              $set->id_cabang_client = $key1;
-              $set->flag_status = 0;
-              $set->save();
+              $checkhistory = HistoryGajiPokok::where('id_pegawai', $key2->id_pegawai)->where('periode_tahun', $request->periode_tahun)->first();
+              if ($checkhistory != null) {
+                $set = HistoryGajiPokok::where('id_pegawai', $key2->id_pegawai)->where('periode_tahun', $request->periode_tahun)->first();
+                $set->gaji_pokok = $request->gaji_pokok;
+                $set->periode_tahun = $request->periode_tahun;
+                $set->keterangan = $request->keterangan;
+                $set->id_pegawai = $key2->id_pegawai;
+                $set->id_cabang_client = $key1;
+                $set->flag_status = 0;
+                $set->save();
+              } else {
+                $set = new HistoryGajiPokok;
+                $set->gaji_pokok = $request->gaji_pokok;
+                $set->periode_tahun = $request->periode_tahun;
+                $set->keterangan = $request->keterangan;
+                $set->id_pegawai = $key2->id_pegawai;
+                $set->id_cabang_client = $key1;
+                $set->flag_status = 0;
+                $set->save();
+              }
             }
         }
 
