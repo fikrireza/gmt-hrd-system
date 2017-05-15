@@ -212,6 +212,12 @@ Route::get('bpjs/delete/{id}', 'BpjsController@delete')->name('bpjs.delete');
 Route::get('hari-kerja', 'HariKerjaController@index')->name('harikerja.index');
 Route::post('hari-kerja', 'HariKerjaController@store')->name('harikerja.store');
 
+
+///// PENGECUALIAN CLIENT /////
+Route::get('pengecualian-client', 'PengecualianClientController@index')->name('pengecualian.client.index');
+Route::post('pengecualian-client', 'PengecualianClientController@store')->name('pengecualian.client.store');
+Route::post('pengecualian-client/delete', 'PengecualianClientController@delete')->name('pengecualian.client.delete');
+
 ///// HISTORY GAJI POKOK /////
 Route::get('history-gaji-pokok', 'HistoryGajiPokokController@index')->name('historygajipokok.index');
 Route::post('history-gaji-pokok', 'HistoryGajiPokokController@store')->name('historygajipokok.store');

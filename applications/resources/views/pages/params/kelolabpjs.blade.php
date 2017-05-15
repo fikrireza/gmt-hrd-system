@@ -285,13 +285,8 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      @if (count($getbpjskesehatan)!=0)
                                         @php
-                                          $pageget;
-                                          if($getbpjskesehatan->currentPage()==1)
-                                            $pageget = 1;
-                                          else
-                                            $pageget = (($getbpjskesehatan->currentPage() - 1) * $getbpjskesehatan->perPage())+1;
+                                          $pageget = 1;
                                         @endphp
                                         @foreach ($getbpjskesehatan as $key)
                                           <tr>
@@ -317,19 +312,8 @@
                                             $pageget++;
                                           @endphp
                                         @endforeach
-                                      @endif
                                     </tbody>
                                   </table>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-sm-5">
-                                  {{-- <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $getbpjskesehatan->count() !!}  dari {!! count($getbpjskesehatan) !!} Data</div> --}}
-                                </div>
-                                <div class="col-sm-7">
-                                  <div class="pull-right">
-                                    {{ $getbpjskesehatan->links() }}
-                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -468,14 +452,9 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      @if (count($getbpjsketenagakerjaan)!=0)
-                                        @php
-                                          $pageget;
-                                          if($getbpjsketenagakerjaan->currentPage()==1)
-                                            $pageget = 1;
-                                          else
-                                            $pageget = (($getbpjsketenagakerjaan->currentPage() - 1) * $getbpjsketenagakerjaan->perPage())+1;
-                                        @endphp
+                                      @php
+                                        $pageget = 1;
+                                      @endphp
                                         @foreach ($getbpjsketenagakerjaan as $key)
                                           <tr>
                                             <td>
@@ -500,26 +479,15 @@
                                             $pageget++;
                                           @endphp
                                         @endforeach
-                                      @endif
                                     </tbody>
                                   </table>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-sm-5">
-                                  {{-- <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $getbpjsketenagakerjaan->count() !!}  dari {!! count($getbpjsketenagakerjaan) !!} Data</div> --}}
-                                </div>
-                                <div class="col-sm-7">
-                                  <div class="pull-right">
-                                    {{ $getbpjsketenagakerjaan->links() }}
-                                  </div>
                                 </div>
                               </div>
                             </div>
                             </div><!-- /.box-body -->
                           </div>
                         </div><!-- ./col -->
-                        
+
                       </div>
                     </div>
                     <div class="box-footer">
@@ -651,14 +619,9 @@
                                       </tr>
                                     </thead>
                                     <tbody>
-                                      @if (count($getbpjspensiun)!=0)
-                                        @php
-                                          $pageget;
-                                          if($getbpjspensiun->currentPage()==1)
-                                            $pageget = 1;
-                                          else
-                                            $pageget = (($getbpjspensiun->currentPage() - 1) * $getbpjspensiun->perPage())+1;
-                                        @endphp
+                                      @php
+                                        $pageget = 1;
+                                      @endphp
                                         @foreach ($getbpjspensiun as $key)
                                           <tr>
                                             <td>
@@ -683,27 +646,16 @@
                                             $pageget++;
                                           @endphp
                                         @endforeach
-                                      @endif
                                     </tbody>
                                   </table>
-                                </div>
-                              </div>
-                              <div class="row">
-                                <div class="col-sm-5">
-                                  {{-- <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $getbpjspensiun->count() !!}  dari {!! count($getbpjspensiun) !!} Data</div> --}}
-                                </div>
-                                <div class="col-sm-7">
-                                  <div class="pull-right">
-                                    {{ $getbpjspensiun->links() }}
-                                  </div>
                                 </div>
                               </div>
                             </div>
                             </div><!-- /.box-body -->
                           </div>
-                          
+
                         </div><!-- ./col -->
-                        
+
                       </div>
                     </div>
                     <div class="box-footer">
@@ -797,7 +749,7 @@
             var keterangan_edit = data.  keterangan;
             var bpjs_dibayarkan_edit = data.bpjs_dibayarkan;
             var id_cabang_client_edit = data. id_cabang_client;
-            
+
             //set
             $('#id').attr('value', id);
             if (id_bpjs_edit == "9991") {

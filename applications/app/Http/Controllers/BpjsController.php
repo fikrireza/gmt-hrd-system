@@ -24,7 +24,7 @@ class BpjsController extends Controller
     {
         $this->middleware('isAdmin');
     }
-    
+
     public function index()
     {
       $getbpjskesehatan = Bpjs::leftJoin('cabang_client', 'management_bpjs.id_cabang_client', '=', 'cabang_client.id')
@@ -32,21 +32,21 @@ class BpjsController extends Controller
                         ->leftJoin('master_client', 'cabang_client.id_client', '=', 'master_client.id')
                         ->select('management_bpjs.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client', 'komponen_gaji.id as id_komgaj', 'komponen_gaji.nama_komponen as nama_komponen', 'cabang_client.nama_cabang', 'cabang_client.alamat_cabang')
                         ->where('id_bpjs', '9991')
-                        ->paginate(10);
+                        ->get();
 
       $getbpjsketenagakerjaan = Bpjs::leftJoin('cabang_client', 'management_bpjs.id_cabang_client', '=', 'cabang_client.id')
                         ->leftJoin('komponen_gaji', 'management_bpjs.id_bpjs', '=', 'komponen_gaji.id')
                         ->leftJoin('master_client', 'cabang_client.id_client', '=', 'master_client.id')
                         ->select('management_bpjs.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client', 'komponen_gaji.id as id_komgaj', 'komponen_gaji.nama_komponen as nama_komponen', 'cabang_client.nama_cabang', 'cabang_client.alamat_cabang')
                         ->where('id_bpjs', '9992')
-                        ->paginate(10);
+                        ->get();
 
       $getbpjspensiun = Bpjs::leftJoin('cabang_client', 'management_bpjs.id_cabang_client', '=', 'cabang_client.id')
                         ->leftJoin('komponen_gaji', 'management_bpjs.id_bpjs', '=', 'komponen_gaji.id')
                         ->leftJoin('master_client', 'cabang_client.id_client', '=', 'master_client.id')
                         ->select('management_bpjs.*', 'master_client.id as client_id', 'master_client.kode_client as kode_client', 'master_client.nama_client as nama_client', 'komponen_gaji.id as id_komgaj', 'komponen_gaji.nama_komponen as nama_komponen', 'cabang_client.nama_cabang', 'cabang_client.alamat_cabang')
                         ->where('id_bpjs', '9993')
-                        ->paginate(10);
+                        ->get();
 
       $listKesehatanNew = DB::select("select a.*, b.id as client_id, b.kode_client as kode_client, b.nama_client as nama_client FROM cabang_client a left join master_client b on a.id_client = b.id where not exists (select * from management_bpjs c where c.id_cabang_client = a.id and c.id_bpjs = 9991)");
       $getlistBPJSKesehatanNew = collect($listKesehatanNew);
@@ -70,9 +70,9 @@ class BpjsController extends Controller
                     ->orWhere('id', '=', '9993');
             })->get();
 
-      return view('pages/params/kelolabpjs', compact('getbpjskesehatan', 'getbpjsketenagakerjaan', 'getbpjspensiun', 
+      return view('pages/params/kelolabpjs', compact('getbpjskesehatan', 'getbpjsketenagakerjaan', 'getbpjspensiun',
         'getClient', 'getKomponentGaji', 'getCabang',
-        'getbpjscountkesehatan', 'getbpjscountketenagakerjaan', 'getbpjscountpensiun', 
+        'getbpjscountkesehatan', 'getbpjscountketenagakerjaan', 'getbpjscountpensiun',
         'getlistBPJSKesehatanNew', 'getlistBPJSKetenagakerjaanNew', 'getlistBPJSPensiunNew'));
     }
 
@@ -96,7 +96,7 @@ class BpjsController extends Controller
       // }
 
       if ($request->idcabangclient != null) {
-        foreach ($request->idcabangclient as $id_cabang_client) 
+        foreach ($request->idcabangclient as $id_cabang_client)
         {
           $set = new Bpjs;
           $set->id_bpjs = $request->status_flag_bpjs;
@@ -114,7 +114,7 @@ class BpjsController extends Controller
 
     public function bind($id)
     {
-      $get = Bpjs::find($id); 
+      $get = Bpjs::find($id);
       return $get;
     }
 

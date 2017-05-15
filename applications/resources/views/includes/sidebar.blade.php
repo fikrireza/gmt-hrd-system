@@ -164,6 +164,16 @@
       </li>
       <li class="treeview">
         <a href="#">
+          <i class="fa fa-unlink"></i>
+          <span>Pengecualian per-Client</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{route('pengecualian.client.index')}}"><i class="fa fa-circle-o"></i> Set Pengecualian</a></li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#">
           <i class="fa fa-user-secret"></i>
           <span>Hari Kerja per-Client</span>
           <i class="fa fa-angle-left pull-right"></i>
