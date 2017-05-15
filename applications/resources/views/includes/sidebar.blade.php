@@ -204,12 +204,22 @@
       </li>
       <li class="treeview">
         <a href="#">
+          <i class="fa fa-heart-o"></i>
+          <span>Rapel Gaji</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="#"><i class="fa fa-circle-o"></i> Perhitungan Rapel Gaji</a></li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#">
           <i class="fa fa-star"></i>
           <span>Proses THR</span>
           <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li><a href="{{ route('batchpayroll.index') }}"><i class="fa fa-circle-o"></i> Perhitungan THR</a></li>
+          <li><a href="#"><i class="fa fa-circle-o"></i> Perhitungan THR</a></li>
         </ul>
       </li>
     @endif
