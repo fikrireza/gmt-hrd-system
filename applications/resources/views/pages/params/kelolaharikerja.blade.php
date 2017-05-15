@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    <title>Kelola Komponen Gaji</title>
+    <title>Kelola Hari Kerja</title>
 @stop
 
 @section('breadcrumb')

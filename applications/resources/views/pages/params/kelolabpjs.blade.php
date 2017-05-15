@@ -114,21 +114,21 @@
     </div>
   </div>
 
-  <div class="callout callout-info">
+  <div class="callout callout-warning">
     <h4>Pemberitahuan!</h4>
       <div class="box-body">
         <div class="table-responsive">
           <table class="table no-margin">
             <tr>
-              <td style="color: white; width: 30%"><b>DATA BPJS KESEHATAN CABANG CLIENT</b></td>
+              <td style="color: white; width: 40%"><b>DATA BPJS KESEHATAN CABANG CLIENT</b></td>
               <td>: &nbsp;&nbsp;<b>{{$getbpjscountkesehatan}}</b> <i>Jumlah BPJS Kesehatan</i></td>
             </tr>
             <tr>
-              <td style="color: white; width: 30%"><b>DATA BPJS KETENAGAKERJAAN CABANG CLIENT</b></td>
+              <td style="color: white; width: 40%"><b>DATA BPJS KETENAGAKERJAAN CABANG CLIENT</b></td>
               <td>: &nbsp;&nbsp;<b>{{$getbpjscountketenagakerjaan}}</b> <i>Jumlah BPJS Ketenagakerjaan</i></td>
             </tr>
             <tr>
-              <td style="color: white; width: 30%"><b>DATA BPJS PENSIUN CABANG CLIENT</b></td>
+              <td style="color: white; width: 40%"><b>DATA BPJS PENSIUN CABANG CLIENT</b></td>
               <td>: &nbsp;&nbsp;<b>{{$getbpjscountpensiun}}</b> <i>Jumlah BPJS Pensiun</i></td>
             </tr>
             <tr><td></td><td></td></tr>

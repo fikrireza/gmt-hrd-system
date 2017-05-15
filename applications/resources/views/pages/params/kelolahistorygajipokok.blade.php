@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    <title>Kelola Komponen Gaji</title>
+    <title>Kelola History Gaji Pokok Pegawai</title>
 @stop
 
 @section('breadcrumb')
@@ -177,7 +177,7 @@
                   </thead>
                   <tfoot>
                     <tr>
-                        <td></td>
+                        <td>#</td>
                         <th></th>
                         <th></th>
                         <th></th>
