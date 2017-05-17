@@ -194,6 +194,12 @@ Route::post('detail-batch-payroll/update-for-absen', 'DetailBatchPayrollControll
 Route::get('detail-batch-payroll/export/{idbatch}', 'ExportImportDetailBatchPayrollController@export')->name('detailbatchpayroll.export');
 Route::post('detail-batch-payroll/import', 'ExportImportDetailBatchPayrollController@import')->name('detailbatchpayroll.import');
 
+///// Export Batch Payrol /////
+Route::get('batch-payroll/laporan-prosesSPV/{id}', 'LaporanBatchPayrollController@prosesSPV')->name('laporan.prosesSPV');
+Route::get('batch-payroll/laporan-prosesAll/{id}', 'LaporanBatchPayrollController@prosesAll')->name('laporan.prosesAll');
+
+
+
 ///// HARI LIBUR //////
 Route::get('hari-libur', 'HariLiburController@index')->name('hari.libur.index');
 Route::post('hari-libur', 'HariLiburController@store')->name('hari.libur.store');
