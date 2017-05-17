@@ -197,6 +197,7 @@ Route::post('detail-batch-payroll/import', 'ExportImportDetailBatchPayrollContro
 ///// Export Batch Payrol /////
 Route::get('batch-payroll/laporan-prosesSPV/{id}', 'LaporanBatchPayrollController@prosesSPV')->name('laporan.prosesSPV');
 Route::get('batch-payroll/laporan-prosesAll/{id}', 'LaporanBatchPayrollController@prosesAll')->name('laporan.prosesAll');
+Route::get('batch-payroll/laporan-prosesClient/{id}', 'LaporanBatchPayrollController@prosesClient')->name('laporan.prosesClient');
 
 
 

@@ -168,10 +168,10 @@
             <span><i>Batch ini telah di proses.</i></span>
             <hr style="margin-top:5px;margin-bottom:15px;">
             <strong style="font-size:17px;">Download Laporan :</strong> &nbsp;&nbsp;
-            <a href="{{ route('laporan.prosesAll', array('id' => $idbatch))}}" class="btn btn-default bg-blue">Laporan All Payroll</a>&nbsp;
+            <a href="{{ route('laporan.prosesAll', array('id' => $idbatch) ) }}" class="btn btn-default bg-blue">Laporan All Payroll</a>&nbsp;
             <a href="#" class="btn btn-default bg-maroon">Laporan Bank Transfer</a>&nbsp;
             <a href="#" class="btn btn-default bg-purple">Laporan Pembayaran Cash</a>&nbsp;
-            <a href="#" class="btn btn-default bg-green">Laporan Pembayaran Berdasarkan Client</a>&nbsp;
+            <a href="{{ route('laporan.prosesClient', array('id' => $idbatch) ) }}" class="btn btn-default bg-green">Laporan Pembayaran Berdasarkan Client</a>&nbsp;
           </div>
         </div>
       </div>
