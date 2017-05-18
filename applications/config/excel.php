@@ -58,15 +58,15 @@ return array(
     ),
 
     'properties' => array(
-        'creator'        => 'Maatwebsite',
-        'lastModifiedBy' => 'Maatwebsite',
+        'creator'        => '9tins',
+        'lastModifiedBy' => '9tins',
         'title'          => 'Spreadsheet',
-        'description'    => 'Default spreadsheet export',
-        'subject'        => 'Spreadsheet export',
-        'keywords'       => 'maatwebsite, excel, export',
+        'description'    => '9tins for GMT',
+        'subject'        => 'Export 9tins',
+        'keywords'       => '9tins, excel, export, hrd payroll',
         'category'       => 'Excel',
-        'manager'        => 'Maatwebsite',
-        'company'        => 'Maatwebsite',
+        'manager'        => '9tins GMT',
+        'company'        => '9tins GMT',
     ),
 
     /*

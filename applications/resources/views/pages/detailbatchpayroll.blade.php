@@ -34,7 +34,6 @@
     }, 2000);
   </script>
 
-
   <div class="modal modal-default fade" id="myModal" role="dialog">
     <div class="modal-dialog" style="width:700px;">
       <div class="modal-content">

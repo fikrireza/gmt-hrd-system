@@ -18,6 +18,7 @@ use App\Models\DetailPeriodeGaji;
 use App\Models\DetailKomponenGaji;
 use App\Models\DetailBatchPayroll;
 use App\Models\CabangClient;
+use App\Models\MasterClient;
 
 use DB;
 use Excel;
@@ -67,7 +68,7 @@ class LaporanBatchPayrollController extends Controller
         $hasilQuery = collect($hasilQuery);
 
 
-        Excel::create('Proses Payrol SPV Periode -'.$getbatch->tanggal_proses.' s-d '.$getbatch->tanggal_proses_akhir, function($excel) use($getSPV,$getAnak,$getkomponengaji,$getbatch,$hasilQuery) {
+        Excel::create('Proses Payroll SPV Periode -'.$getbatch->tanggal_proses.' s-d '.$getbatch->tanggal_proses_akhir, function($excel) use($getSPV,$getAnak,$getkomponengaji,$getbatch,$hasilQuery) {
           foreach ($getSPV as $spv) {
             $excel->sheet($spv->nama, function($sheet) use($spv,$getAnak,$getkomponengaji,$getbatch,$hasilQuery) {
               $sheet->loadView('pages.LaporanPayroll.spv')
@@ -80,21 +81,21 @@ class LaporanBatchPayrollController extends Controller
           }
         })->download('xlsx');
 
+        return response()->json(['success' => 200]);
 
-        return redirect()->back();
     }
 
     public function prosesAll($id){
 
-      $getCabangClient = DB::select("SELECT a.id, a.nama_cabang
-                                      FROM cabang_client a, data_pkwt b, detail_batch_payroll c, master_pegawai d
+      $getCabangClient = DB::select("SELECT a.id, a.nama_cabang, e.nama_client
+                                      FROM cabang_client a, data_pkwt b, detail_batch_payroll c, master_pegawai d, master_client e
                                       WHERE a.id = b.id_cabang_client
                                       AND c.id_pegawai = d.id
                                       AND b.id_pegawai = c.id_pegawai
+                                      AND a.id_client = e.id
                                       AND c.id_batch_payroll = $id
                                       GROUP BY a.nama_cabang");
       $getCabangClient = collect($getCabangClient);
-      // dd($getCabangClient);
 
       $getkomponengajinya = KomponenGaji::orderby('tipe_komponen', 'asc')->get();
 
@@ -121,7 +122,7 @@ class LaporanBatchPayrollController extends Controller
       $hasilQuery = collect($hasilQuery);
 
 
-      Excel::create('Proses Payrol SPV Periode -'.$getbatch->tanggal_proses.' s-d '.$getbatch->tanggal_proses_akhir, function($excel) use($getkomponengaji,$getbatch,$hasilQuery,$getCabangClient) {
+      Excel::create('Proses Payroll Periode -'.$getbatch->tanggal_proses.' s-d '.$getbatch->tanggal_proses_akhir, function($excel) use($getkomponengaji,$getbatch,$hasilQuery,$getCabangClient) {
           $excel->sheet('All Payroll', function($sheet) use($getkomponengaji,$getbatch,$hasilQuery,$getCabangClient) {
             $sheet->loadView('pages.LaporanPayroll.allProses')
                     ->with('getkomponengaji', $getkomponengaji)
@@ -131,7 +132,8 @@ class LaporanBatchPayrollController extends Controller
           });
       })->download('xlsx');
 
-      return redirect()->back();
+      return response()->json(['success' => 200]);
+
     }
 
     public function prosesClient($id){
@@ -241,7 +243,7 @@ class LaporanBatchPayrollController extends Controller
 
         $nilaiClient = collect($nilaiClient);
 
-        Excel::create('Proses Payrol SPV Periode -'.$getbatch->tanggal_proses.' s-d '.$getbatch->tanggal_proses_akhir, function($excel) use($nilaiClient,$getbatch,$getCabangClient) {
+        Excel::create('Rekap Payroll Periode -'.$getbatch->tanggal_proses.' s-d '.$getbatch->tanggal_proses_akhir, function($excel) use($nilaiClient,$getbatch,$getCabangClient) {
             $excel->sheet('Payroll Client', function($sheet) use($nilaiClient,$getCabangClient,$getbatch) {
               $sheet->loadView('pages.LaporanPayroll.clientProses')
                       ->with('nilaiClient', $nilaiClient)
@@ -249,6 +251,8 @@ class LaporanBatchPayrollController extends Controller
                       ->with('getCabangClient', $getCabangClient);
             });
         })->download('xlsx');
+
+        return response()->json(['success' => 200]);
 
     }
 }

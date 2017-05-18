@@ -2,7 +2,7 @@
 
     <table>
       <tr>
-        <th colspan="8"><h3>PT. GANDA MADY INDOTAMA - Proses Payroll Periode {{ $getbatch->tanggal_proses}} s/d {{ $getbatch->tanggal_proses_akhir }}</h3></th>
+        <th colspan="8"><h3>PT. GANDA MADY INDOTAMA - Proses Payroll Periode {{ $getbatch->tanggal_proses}} s/d {{ $getbatch->tanggal_proses_akhir}}</h3></th>
       </tr>
     </table>
     <table style="border-collapse: collapse; border: 1px solid black;">
@@ -14,13 +14,13 @@
         <td style="background-color: #000000; color: #ffffff;"><b>JABATAN</b></td>
         @foreach ($getkomponengaji as $komponenGaji)
         @if($komponenGaji->tipe_komponen == "D")
-        <td style="background-color: #2d96ff; color: #ffffff;border: 1px solid black;"><b>{{ $komponenGaji->nama_komponen }}</b></td>
+        <td style="background-color: #2d96ff; color: #ffffff;border: 1px solid black;"><b>{{ $komponenGaji->nama_komponen}}</b></td>
         @endif
         @endforeach
         <td style="background-color: #cccdce;"><b>JUMLAH GAJI</b></td>
         @foreach ($getkomponengaji as $komponenGaji)
         @if($komponenGaji->tipe_komponen == "P")
-        <td style="background-color: #c62121; color: #ffffff;border: 1px solid black;"><b>{{ $komponenGaji->nama_komponen }}</b></td>
+        <td style="background-color: #c62121; color: #ffffff;border: 1px solid black;"><b>{{ $komponenGaji->nama_komponen}}</b></td>
         @endif
         @endforeach
         <td style="background-color: #cccdce;"><b>TOTAL GAJI</b></td>
@@ -30,8 +30,6 @@
       $no = 1;
       $grandJumlahGaji = 0;
       $grandTotalGaji = 0;
-      $JumlahGaji = 0;
-      $TotalGaji = 0;
       $Jumlah_Workday = 0;
       $Jumlah_GAJI_POKOK = 0;
       $Jumlah_TUNJANGAN_JABATAN = 0;
@@ -53,28 +51,28 @@
       $Jumlah_POTONGAN_CONSUMABLE = 0;
       @endphp
       <tr style="border: 1px solid black;">
-        <td style="background-color: #cccdce;" colspan="25">{{ $client->nama_cabang}}</td>
+        <td style="background-color: #cccdce;" colspan="25">{{ $client->nama_client}} - {{ $client->nama_cabang}}</td>
       </tr>
     @foreach($hasilQuery as $key)
     @if($key->Cabang == $client->id)
       <tr style="border: 1px solid black;">
-        <td style="border: 1px solid black;">{{ $no }}</td>
-        <td style="border: 1px solid black;">{{$key->nip }}</td>
-        <td style="border: 1px solid black;">{{$key->nama_pegawai }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_Workday }}</td>
-        <td style="border: 1px solid black;">{{ $key->Jabatan }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_GAJI_POKOK }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_TUNJANGAN_JABATAN }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_TUNJANGAN_INSENTIF }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_TUNJANGAN_LEMBUR }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_KEKURANGAN_BULAN_LALU }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_TUNJANGAN_TRANSPORT_MAKAN }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_KETUA_REGU }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_PENGEMBALIAN_SERAGAM }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_TUNJANGAN_MAKAN_LEMBUR }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_SALARY }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_SHIFT_PAGI_SIANG }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_TUNJANGAN_MAKAN_TRANSPORT }}</td>
+        <td style="border: 1px solid black;">{{ $no}}</td>
+        <td style="border: 1px solid black;">{{$key->nip}}</td>
+        <td style="border: 1px solid black;">{{$key->nama_pegawai}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_Workday}}</td>
+        <td style="border: 1px solid black;">{{ $key->Jabatan}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_GAJI_POKOK}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_TUNJANGAN_JABATAN}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_TUNJANGAN_INSENTIF}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_TUNJANGAN_LEMBUR}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_KEKURANGAN_BULAN_LALU}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_TUNJANGAN_TRANSPORT_MAKAN}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_KETUA_REGU}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_PENGEMBALIAN_SERAGAM}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_TUNJANGAN_MAKAN_LEMBUR}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_SALARY}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_SHIFT_PAGI_SIANG}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_TUNJANGAN_MAKAN_TRANSPORT}}</td>
         @php
           $Jumlah_Workday += $key->Jumlah_Workday;
           $Jumlah_GAJI_POKOK += $key->Jumlah_GAJI_POKOK;
@@ -94,13 +92,13 @@
 
           $grandJumlahGaji += $jumlahGajinya;
         @endphp
-        <td style="background-color: #cccdce; border: 1px solid black;">{{ $jumlahGajinya }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_BPJS_KESEHATAN }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_POTONGAN_KAS }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_BPJS_KETENAGAKERJAAN }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_POTONGAN_PINJAMAN }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_POTONGAN_SERAGAM }}</td>
-        <td style="border: 1px solid black;">{{$key->Jumlah_POTONGAN_CONSUMABLE }}</td>
+        <td style="background-color: #cccdce; border: 1px solid black;">{{ $jumlahGajinya}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_BPJS_KESEHATAN}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_POTONGAN_KAS}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_BPJS_KETENAGAKERJAAN}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_POTONGAN_PINJAMAN}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_POTONGAN_SERAGAM}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_POTONGAN_CONSUMABLE}}</td>
         @php
           $Jumlah_BPJS_KESEHATAN += $key->Jumlah_BPJS_KESEHATAN;
           $Jumlah_POTONGAN_KAS += $key->Jumlah_POTONGAN_KAS;
@@ -117,65 +115,67 @@
       </tr>
     @endif
     @endforeach
-    @php
-      $JumlahGaji += $grandJumlahGaji;
-      $TotalGaji += $grandTotalGaji;
-    @endphp
       <tr style="background-color: #cccdce;">
         <td colspan="2" style="border: 1px solid black;"><b>Sub Total</b></td>
         <td style="border: 1px solid black;"></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_Workday }}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_Workday}}</b></td>
         <td style="border: 1px solid black;"></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_GAJI_POKOK }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_TUNJANGAN_JABATAN }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_TUNJANGAN_INSENTIF }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_TUNJANGAN_LEMBUR }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_KEKURANGAN_BULAN_LALU }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_TUNJANGAN_TRANSPORT_MAKAN }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_KETUA_REGU }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_PENGEMBALIAN_SERAGAM }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_TUNJANGAN_MAKAN_LEMBUR }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_SALARY }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_SHIFT_PAGI_SIANG }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_TUNJANGAN_MAKAN_TRANSPORT }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $grandJumlahGaji }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_BPJS_KESEHATAN }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_POTONGAN_KAS }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_BPJS_KETENAGAKERJAAN }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_POTONGAN_PINJAMAN }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_POTONGAN_SERAGAM }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $Jumlah_POTONGAN_CONSUMABLE }}</b></td>
-        <td style="border: 1px solid black;"><b>{{ $grandTotalGaji }}</td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_GAJI_POKOK}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_TUNJANGAN_JABATAN}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_TUNJANGAN_INSENTIF}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_TUNJANGAN_LEMBUR}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_KEKURANGAN_BULAN_LALU}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_TUNJANGAN_TRANSPORT_MAKAN}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_KETUA_REGU}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_PENGEMBALIAN_SERAGAM}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_TUNJANGAN_MAKAN_LEMBUR}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_SALARY}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_SHIFT_PAGI_SIANG}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_TUNJANGAN_MAKAN_TRANSPORT}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $grandJumlahGaji}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_BPJS_KESEHATAN}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_POTONGAN_KAS}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_BPJS_KETENAGAKERJAAN}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_POTONGAN_PINJAMAN}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_POTONGAN_SERAGAM}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_POTONGAN_CONSUMABLE}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $grandTotalGaji}}</td>
       </tr>
     @endforeach
     <tr>
       <td colspan="25">&nbsp;</td>
     </tr>
     <tr style="background-color: #cccdce;">
-      <td colspan="2" style="border: 1px solid black;"><b>Sub Total</b></td>
+      <td colspan="2" style="border: 1px solid black;"><b>Grand Total</b></td>
       <td style="border: 1px solid black;"></td>
-      <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_Workday') }}</b></td>
+      <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_Workday')}}</b></td>
       <td style="border: 1px solid black;"></td>
-      <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_GAJI_POKOK') }}</b></td>
-      <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_TUNJANGAN_JABATAN') }}</b></td>
-      <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_TUNJANGAN_INSENTIF') }}</b></td>
-      <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_TUNJANGAN_LEMBUR') }}</b></td>
-      <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_KEKURANGAN_BULAN_LALU') }}</b></td>
-      <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_TUNJANGAN_TRANSPORT_MAKAN') }}</b></td>
+      <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_GAJI_POKOK')}}</b></td>
+      <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_TUNJANGAN_JABATAN')}}</b></td>
+      <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_TUNJANGAN_INSENTIF')}}</b></td>
+      <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_TUNJANGAN_LEMBUR')}}</b></td>
+      <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_KEKURANGAN_BULAN_LALU')}}</b></td>
+      <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_TUNJANGAN_TRANSPORT_MAKAN')}}</b></td>
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_KETUA_REGU')}}</b></td>
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_PENGEMBALIAN_SERAGAM')}}</b></td>
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_TUNJANGAN_MAKAN_LEMBUR')}}</b></td>
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_SALARY')}}</b></td>
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_SHIFT_PAGI_SIANG')}}</b></td>
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_TUNJANGAN_MAKAN_TRANSPORT')}}</b></td>
-      <td style="border: 1px solid black;"><b>{{ $JumlahGaji }}</b></td>
+      @php
+        $jumlahGajinyaClient = $hasilQuery->sum('Jumlah_GAJI_POKOK') + $hasilQuery->sum('Jumlah_TUNJANGAN_JABATAN') + $hasilQuery->sum('Jumlah_TUNJANGAN_INSENTIF') + $hasilQuery->sum('Jumlah_TUNJANGAN_LEMBUR') + $hasilQuery->sum('Jumlah_KEKURANGAN_BULAN_LALU') + $hasilQuery->sum('Jumlah_TUNJANGAN_TRANSPORT_MAKAN') + $hasilQuery->sum('Jumlah_KETUA_REGU') + $hasilQuery->sum('Jumlah_PENGEMBALIAN_SERAGAM') + $hasilQuery->sum('Jumlah_TUNJANGAN_MAKAN_LEMBUR') + $hasilQuery->sum('Jumlah_SALARY') + $hasilQuery->sum('Jumlah_SHIFT_PAGI_SIANG') + $hasilQuery->sum('Jumlah_TUNJANGAN_MAKAN_TRANSPORT');
+      @endphp
+      <td style="border: 1px solid black;"><b>{{ $jumlahGajinyaClient}}</b></td>
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_BPJS_KESEHATAN')}}</b></td>
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_POTONGAN_KAS')}}</b></td>
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_BPJS_KETENAGAKERJAAN')}}</b></td>
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_POTONGAN_PINJAMAN')}}</b></td>
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_POTONGAN_SERAGAM')}}</b></td>
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_POTONGAN_CONSUMABLE')}}</b></td>
-      <td style="border: 1px solid black;"><b>{{ $TotalGaji }}</td>
+      @php
+        $TotalGajinyaClient = $hasilQuery->sum('Jumlah_BPJS_KESEHATAN') + $hasilQuery->sum('Jumlah_POTONGAN_KAS') + $hasilQuery->sum('Jumlah_BPJS_KETENAGAKERJAAN') + $hasilQuery->sum('Jumlah_POTONGAN_PINJAMAN') + $hasilQuery->sum('Jumlah_POTONGAN_SERAGAM') + $hasilQuery->sum('Jumlah_POTONGAN_CONSUMABLE');
+      @endphp
+      <td style="border: 1px solid black;"><b>{{ $jumlahGajinyaClient - $TotalGajinyaClient}}</b></td>
     </tr>
     </table>
 
