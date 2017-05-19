@@ -13,32 +13,12 @@ use App\Models\CabangClient;
 class CabangClientController extends Controller
 {
 
-    /**
-    * Authentication controller.
-    *
-    * @return void
-    */
     public function __construct()
     {
         $this->middleware('isAdmin');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-      //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(CabangClientRequest $request)
     {
       $save = $request->all();
@@ -47,23 +27,7 @@ class CabangClientController extends Controller
       return back()->with('tambah', 'Berhasil Menambah Cabang Client Baru');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-      //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
       $CabangEdit = CabangClient::findOrFail($id);
@@ -72,13 +36,7 @@ class CabangClientController extends Controller
       return view('pages/MasterClient/cabangclient', compact('CabangEdit','CabangClient','MasterClient'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update($id, CabangClientRequest $request)
     {
       $cabangClient = CabangClient::find($id);
@@ -88,14 +46,4 @@ class CabangClientController extends Controller
       return redirect('masterclient/cabang/'.$lempar)->with('ubah', 'Berhasil Mengubah Cabang Client');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

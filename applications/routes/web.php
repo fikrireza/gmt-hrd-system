@@ -49,9 +49,11 @@ Route::post('laporan-proses', ['as' => 'proseslaporan', 'uses' => 'LaporanPegawa
 Route::get('laporan-proses/{id}/{type}', 'LaporanPegawaiController@downloadExcel');
 Route::get('report/{kode_client}/{token}', 'LaporanPegawaiController@reportforclient')->name('reportforclient');
 
-Route::resource('masterclient','MasterClientController');
-Route::get('masterclient/cabang/{id}','MasterClientController@cabang_client_show');
-Route::resource('cabangclient','CabangClientController');
+Route::get('masterclient', 'MasterClientController@index')->name('masterclient.index');
+Route::get('masterclient/create', 'MasterClientController@create')->name('masterclient.tambah');
+Route::get('masterclient/cabang/{id}','MasterClientController@cabang_client_show')->name('masterclient.cabang');
+Route::get('masterclient/{id}/edit', 'MasterClientController@edit')->name('masterclient.edit');
+Route::get('cabangclient/{id}/edit', 'CabangClientController@edit')->name('cabangclient.edit');
 Route::resource('departemencabang','DepartemenCabangController');
 
 Route::resource('useraccount', 'AkunController');
