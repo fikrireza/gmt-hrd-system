@@ -27,7 +27,7 @@
         		  Data Client
         		@endif
         	  </h3>
-        	</div><!-- /.box-header -->
+        	</div>
   	<!-- form start -->
   	<div class="box-body" style="display: block;">
   		<div class="row">

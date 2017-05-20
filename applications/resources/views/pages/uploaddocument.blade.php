@@ -14,7 +14,7 @@
 @section('breadcrumb')
   <h1>Dokumen Pegawai</h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{ url('dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
     <li class="active">Dashboard</li>
   </ol>
 @stop
@@ -179,7 +179,7 @@
         <div class="box-header">
           <a class="btn btn-round bg-red" data-toggle="modal" data-target="#modalAddDocument"><i class="fa fa-plus"></i>&nbsp; Tambah Dokumen Pegawai</a>
         </div>
-        <div class="box-body">
+        <div class="box-body table-responsive">
           <table class="table table-hover" id="tabeldokumen">
             <thead>
               <tr>

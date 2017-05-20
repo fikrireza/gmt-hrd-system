@@ -13,7 +13,7 @@
     <small>Kelola Data PKWT</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{ url('/dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
     <li class="active">Kelola Data PKWT</li>
   </ol>
 @stop

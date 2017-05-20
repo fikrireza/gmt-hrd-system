@@ -16,7 +16,7 @@
     @endif
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{ url('/dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
     <li class="active">Dashboard</li>
   </ol>
 @stop
@@ -24,8 +24,8 @@
 @section('content')
 
   <div class="row">
+
     <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
       <div class="small-box bg-aqua">
         <div class="inner">
           <h3>{{ $jumlah_pegawai }}</h3>
@@ -36,9 +36,9 @@
         </div>
         <a href="{{ route('masterpegawai.index') }}" class="small-box-footer">Lihat Data <i class="fa fa-arrow-circle-right"></i></a>
       </div>
-    </div><!-- ./col -->
+    </div>
+
     <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
       <div class="small-box bg-yellow">
         <div class="inner">
           <h3>{{$jumlah_pkwt_menuju_expired}}</h3>
@@ -52,9 +52,9 @@
           {{$jumlah_pkwt_menuju_expired}}
           Data PKWT Menuju Expired</i></a>
       </div>
-    </div><!-- ./col -->
+    </div>
+
     <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
       <div class="small-box bg-red">
         <div class="inner">
           <h3>{{$jumlah_pkwt_expired}}</h3>
@@ -69,9 +69,9 @@
             Data PKWT Expired</i>
         </a>
       </div>
-    </div><!-- ./col -->
+    </div>
+
     <div class="col-lg-3 col-xs-6">
-      <!-- small box -->
       <div class="small-box bg-green">
         <div class="inner">
           <h3>{{ $jumlah_client }}</h3>
@@ -82,9 +82,8 @@
         </div>
         <a href="{{ url('masterclient') }}" class="small-box-footer">Lihat Data <i class="fa fa-arrow-circle-right"></i></a>
       </div>
-    </div><!-- ./col -->
-  </div><!-- /.row -->
-  <!-- Main row -->
+    </div>
+  </div>
 
   @if (Auth::user()->level=="1")
     <div class="row">
@@ -92,8 +91,8 @@
         <div class="box box-primary box-solid">
           <div class="box-header with-border">
             <h3 class="box-title">Seluruh Data PKWT</h3>
-          </div><!-- /.box-header -->
-          <div class="box-body">
+          </div>
+          <div class="box-body table-responsive">
             <table class="table table-hover" id="tabelpkwt">
               <thead>
                 <tr>
@@ -112,7 +111,7 @@
           </div>
         </div>
       </section>
-    </div><!-- /.row (main row) -->
+    </div>
   @endif
 
   @if (Auth::user()->level=="2")
@@ -124,48 +123,46 @@
               Batch Payroll
             </div>
           </div>
-          <div class="box-body">
-            <div class="table-responsive">
-              <table class="table no-margin">
-                <thead>
-                  <tr>
-                    <th>Batch ID</th>
-                    <th>Periode</th>
-                    <th>Cut Off Absen</th>
-                    <th>Total Pegawai</th>
-                    <th>Total Pengeluaran</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @if (count($batchprocessed)!=0)
-                    @foreach ($batchprocessed as $key)
-                      <tr>
-                        <td>{{$key->id}}</td>
-                        <td>
-                          <span class="label bg-blue">Per Tanggal {{$key->tanggal}}</span>
-                        </td>
-                        <td>
-                          {{ \Carbon\Carbon::parse($key->tanggal_cutoff_awal)->format('d-M-y')}}
-                           s/d {{ \Carbon\Carbon::parse($key->tanggal_cutoff_akhir)->format('d-M-y')}}
-                        </td>
-                        <td><span class="badge bg-orange">{{$key->total_pegawai}}</span></td>
-                        <td>Rp. {{number_format($key->total_pengeluaran, '0', ',', '.')}},-</td>
-                        <td>
-                          <span class="label bg-green">Sudah Diproses</span>
-                        </td>
-                        <td>
-                          <span data-toggle="tooltip" title="Lihat Batch Detail">
-                            <a href="{{route('batchpayroll.detail', $key->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
-                          </span>
-                        </td>
-                      </tr>
-                    @endforeach
-                  @endif
-                </tbody>
-              </table>
-            </div>
+          <div class="box-body table-responsive">
+            <table class="table no-margin">
+              <thead>
+                <tr>
+                  <th>Batch ID</th>
+                  <th>Periode</th>
+                  <th>Cut Off Absen</th>
+                  <th>Total Pegawai</th>
+                  <th>Total Pengeluaran</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                @if (count($batchprocessed)!=0)
+                  @foreach ($batchprocessed as $key)
+                    <tr>
+                      <td>{{$key->id}}</td>
+                      <td>
+                        <span class="label bg-blue">Per Tanggal {{$key->tanggal}}</span>
+                      </td>
+                      <td>
+                        {{ \Carbon\Carbon::parse($key->tanggal_cutoff_awal)->format('d-M-y')}}
+                         s/d {{ \Carbon\Carbon::parse($key->tanggal_cutoff_akhir)->format('d-M-y')}}
+                      </td>
+                      <td><span class="badge bg-orange">{{$key->total_pegawai}}</span></td>
+                      <td>Rp. {{number_format($key->total_pengeluaran, '0', ',', '.')}},-</td>
+                      <td>
+                        <span class="label bg-green">Sudah Diproses</span>
+                      </td>
+                      <td>
+                        <span data-toggle="tooltip" title="Lihat Batch Detail">
+                          <a href="{{route('batchpayroll.detail', $key->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+                        </span>
+                      </td>
+                    </tr>
+                  @endforeach
+                @endif
+              </tbody>
+            </table>
           </div>
           <div class="box-footer text-center">
             <a href="{{route('batchpayroll.index')}}" class="btn btn-xs btn-primary">Lihat Seluruh Batch Payroll</a>
@@ -201,20 +198,13 @@
     </div>
   @endif
 
-  <!-- jQuery 2.1.4 -->
   <script src="{{asset('plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
-  <!-- Bootstrap 3.3.5 -->
   <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
-  <!-- DataTables -->
   <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
   <script src="{{asset('plugins/datatables/dataTables.bootstrap.min.js')}}"></script>
-  <!-- SlimScroll -->
   <script src="{{asset('plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
-  <!-- FastClick -->
   <script src="{{asset('plugins/fastclick/fastclick.min.js')}}"></script>
-  <!-- AdminLTE App -->
   <script src="{{asset('dist/js/app.min.js')}}"></script>
-  <!-- AdminLTE for demo purposes -->
   <script src="{{asset('dist/js/demo.js')}}"></script>
 
   @if (Auth::user()->level=="1")

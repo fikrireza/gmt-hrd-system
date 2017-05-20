@@ -23,7 +23,7 @@
         <div class="box-header">
           <a class="btn btn-round bg-red" href="{{ route('datapkwt.create') }}"><i class="fa fa-users"></i> Tambah PKWT</a>
         </div>
-        <div class="box-body">
+        <div class="box-body table-responsive">
           <table class="table table-hover" id="tabelpkwt">
             <thead>
               <tr>

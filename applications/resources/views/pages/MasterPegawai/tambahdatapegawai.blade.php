@@ -12,7 +12,7 @@
     <small>Silahkan isi informasi di bawah ini.</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{ url('dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
     <li class="active">Dashboard</li>
   </ol>
 @stop
@@ -28,7 +28,6 @@
 
     <form class="form-horizontal" method="post" action="{{url('masterpegawai')}}">
       <div class="row">
-        <!--column -->
         <div class="col-md-12">
           @if(Session::has('message'))
             <div class="alert alert-success">
@@ -38,12 +37,10 @@
           @endif
         </div>
         <div class="col-md-6">
-          <!-- Horizontal Form -->
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Informasi Utama</h3>
-            </div><!-- /.box-header -->
-            <!-- form start -->
+            </div>
               {!! csrf_field() !!}
               <div class="box-body">
                 <div class="form-group {{ $errors->has('nip') ? 'has-error' : '' }}">

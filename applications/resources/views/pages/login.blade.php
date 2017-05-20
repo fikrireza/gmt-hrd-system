@@ -3,20 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>PT. Ganda Mady Pratama | Human Resources Information Systems</title>
-    <!-- Tell the browser to be responsive to screen width -->
+    <title>PT. Ganda Mady Pratama | Human Resources & Payroll System</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('dist/css/AdminLTE.css')}}">
     <link rel="stylesheet" href="{{asset('bootstrap/css/custom9tins.css')}}">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="{{asset('plugins/iCheck/square/blue.css')}}">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -36,7 +28,11 @@
             PT. Ganda Mady Indotama
           </div>
           <div>
-            Human Resources Information Systems
+            @if(Auth::check())
+              @if(Auth::user()->level == 1) Human Resources Information System @else Payroll System @endif
+            @else
+              Human Resources & Payroll System
+            @endif
           </div>
         </div>
       </div>
@@ -62,8 +58,9 @@
               <p>Hello, {{ Auth::user()->master_pegawai->nama }}</p>
               <a href="{{ url('/dashboard') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-bitbucket"><i class="fa fa-dashboard"></i></i> Dashboard</a>
               <a href="{{ route('periodegaji.index') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-dropbox"><i class="fa fa-building-o"></i> Periode Gaji</a>
-              <a href="{{ route('komgaji.index') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-google"><i class="fa fa-users"></i> Komponen Gaji</a>
-              <a href="{{ route('logout') }}" class="btn btn-block btn-social btn-flat btn-github"><i class="fa fa-sign-out"></i> Logout</a>
+              <a href="{{ route('komgaji.index') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-google"><i class="fa fa fa-cogs"></i> Komponen Gaji</a>
+              <a href="{{ route('komgaji.index') }}" class="btn btn-block btn-social btn-grey btn-flat btn-github"><i class="fa fa fa fa-money"></i> Proses Payroll</a>
+              <a href="{{ route('logout') }}" class="btn btn-block btn-social btn-flat btn-vk"><i class="fa fa-sign-out"></i> Logout</a>
             </div>
           </div>
           @endif
@@ -89,32 +86,16 @@
               @endif
             </div>
             <div class="row">
-              <div class="col-xs-6">
-                <button type="reset" class="btn btn-danger btn-block btn-flat">Reset</button>
-              </div><!-- /.col -->
-              <div class="col-xs-6">
+              <div class="col-xs-12">
                 <button type="submit" class="btn btn-primary btn-block btn-flat">Log In</button>
-              </div><!-- /.col -->
+              </div>
             </div>
           </form>
         </div>
       @endif
     </div>
 
-    <!-- jQuery 2.1.4 -->
     <script src="{{asset('plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
-    <!-- Bootstrap 3.3.5 -->
     <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
-    <!-- iCheck -->
-    <script src="{{asset('plugins/iCheck/icheck.min.js')}}"></script>
-    <script>
-      $(function () {
-        $('input').iCheck({
-          checkboxClass: 'icheckbox_square-blue',
-          radioClass: 'iradio_square-blue',
-          increaseArea: '20%' // optional
-        });
-      });
-    </script>
   </body>
 </html>

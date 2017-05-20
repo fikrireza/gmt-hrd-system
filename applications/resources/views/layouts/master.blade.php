@@ -3,24 +3,40 @@
   <head>
     @include('includes.head')
     @yield('title')
+
+    <style media="screen">
+      #goTop {
+        display: none;
+        position: fixed;
+        bottom: 35px;
+        right: 15px;
+        z-index: 99;
+        border: none;
+        outline: none;
+        background-color: black;
+        color: white;
+        cursor: pointer;
+        padding: 7px;
+        border-radius: 10px;
+      }
+
+      #goTop:hover {
+        background-color: navy;
+      }
+    </style>
   </head>
   <body class="hold-transition skin-blue-light sidebar-mini">
     <div class="wrapper">
 
       <header class="main-header">
-        <!-- Logo -->
         @include('includes.header')
       </header>
-      <!-- Left side column. contains the logo and sidebar -->
       <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
         @include('includes.sidebar')
-        <!-- /.sidebar -->
       </aside>
 
-      <!-- Content Wrapper. Contains page content -->
+
       <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <section class="content-header">
           @yield('breadcrumb')
         </section>
@@ -45,14 +61,32 @@
           </div>
 
           @yield('content')
-        </section><!-- /.content -->
-      </div><!-- /.content-wrapper -->
+        </section>
+        <button onclick="topFunc()" id="goTop" title="Go to top">Top</button>
+      </div>
 
       <footer class="main-footer">
         @include('includes.footer')
       </footer>
 
-    </div><!-- ./wrapper -->
+    </div>
+
+    <script type="text/javascript">
+      window.onscroll = function() {scrollFunction()};
+
+      function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("goTop").style.display = "block";
+        } else {
+            document.getElementById("goTop").style.display = "none";
+        }
+      }
+
+      function topFunc() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
+    </script>
 
     <script type="text/javascript">
       $(function () {

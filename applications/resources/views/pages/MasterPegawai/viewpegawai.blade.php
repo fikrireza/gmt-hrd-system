@@ -11,7 +11,7 @@
     Data Pegawai
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{ url('dashboard')}}"><i class="fa fa-dashboard"></i> Home</a></li>
     <li class="active">Dashboard</li>
   </ol>
 @stop
@@ -28,7 +28,6 @@
 
   <div class="modal modal-default fade" id="myModal" role="dialog">
     <div class="modal-dialog">
-      <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -61,7 +60,7 @@
         <div class="box-header">
           <a class="btn btn-round bg-red" href="{{ route('masterpegawai.create') }}"><i class="fa fa-users"></i> Tambah Pegawai</a>
         </div>
-        <div class="box-body">
+        <div class="box-body table-responsive">
           <table class="table table-hover" id="tabelpegawai">
             <thead>
               <tr>

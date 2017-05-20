@@ -45,7 +45,6 @@
         <div class="box-header with-border">
           <h3 class="box-title">Pilih Client</h3>
         </div>
-        <!-- form start -->
         <form class="form-horizontal" method="post" action="{{ url('getClientSPV') }}">
           {!! csrf_field() !!}
           <div class="box-body">
@@ -73,7 +72,7 @@
           <h3 class="box-title">SPV Terikat PKWT - {{ $getExistClient[0]->nama_client }}</h3>
         </div>
         <div class="box-body">
-          <div class="col-md-12" style="margin-bottom:20px;">
+          <div class="col-md-12" style="margin-bottom:60px;">
             <form class="form-horizontal" method="post" action="{{ url('changeSPV') }}">
               {!! csrf_field() !!}
               <div class="form-group">
@@ -111,7 +110,7 @@
               <div class="box-header with-border">
                 <h3 class="box-title">Histori PKWT</h3>
               </div>
-              <div class="box-body">
+              <div class="box-body table-responsive">
                 <table class="table table-hover">
                   <tbody>
                     <tr>
