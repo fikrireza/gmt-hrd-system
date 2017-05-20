@@ -12,16 +12,15 @@
     <small>Data Pegawai</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{ url('dashboard') }}"><i class="fa fa-dashboard"></i> Home</a></li>
     <li class="active">Laporan Pegawai</li>
   </ol>
 @stop
 
 @section('content')
+
   <div class="row">
-    <!--column -->
     <div class="col-md-12">
-      <!-- Horizontal Form -->
       <div class="box box-primary box-solid">
         <div class="box-header with-border">
           <h3 class="box-title">Pilih Client</h3>
@@ -43,7 +42,7 @@
             </div>
           </div>
           <div class="box-footer">
-            <button type="submit" class="btn btn-success pull-right">Proses</button>
+            <button type="submit" class="btn btn-block btn-success">Proses</button>
           </div>
         </form>
       </div>
@@ -54,7 +53,7 @@
           <div class="box box-primary box-solid">
             <div class="box-header">
               <div class="pull-left">
-                <button type="button" class="btn btn-round bg-red" data-clipboard-text="{{ url('report').'/'.$proses[0]->kode_client.'/'.$proses[0]->token }}">Copy Url</button>
+                <button type="button" class="btn btn-round bg-blue" data-clipboard-text="{{ url('report').'/'.$proses[0]->kode_client.'/'.$proses[0]->token }}">Copy Url</button>
               </div>
               <div class="btn-group pull-right">
                 <button type="button" class="btn btn-round bg-red">Download</button>
@@ -67,7 +66,7 @@
                 </ul>
               </div>
             </div>
-            <div class="box-body">
+            <div class="box-body table-responsive">
               <table class="table table-hover" id="tabellaporan">
                 <thead>
                   <tr>
@@ -121,7 +120,7 @@
   <script src="{{asset('dist/js/app.min.js')}}"></script>
   <script src="{{asset('dist/js/demo.js')}}"></script>
   <script src="{{asset('plugins/select2/select2.full.min.js')}}"></script>
-  <script src="{{asset('plugins/clipboard/clipboard.min.js')}}"></script>
+  <script src="https://cdn.jsdelivr.net/clipboard.js/1.5.3/clipboard.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function(){
       $(".select2").select2();
@@ -130,11 +129,11 @@
     var clipboard = new Clipboard('.btn');
 
     clipboard.on('success', function(e) {
-        console.log(e);
+      console.log(e);
     });
 
     clipboard.on('error', function(e) {
-        console.log(e);
+      console.log(e);
     });
   </script>
 @stop

@@ -88,7 +88,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="box-body">
+                <div class="box-body table-responsive">
                   <table class="table table-hover" id="tabellaporan">
                     <thead>
                       <tr>
@@ -132,11 +132,10 @@
         <div class="pull-right hidden-xs">
           <b>Version</b> 2.0
         </div>
-        <strong>Copyright &copy; <?php echo date('Y'); ?> <a href="http://gmtclean.com"> PT Ganda Mady Indotama</a>.</strong> All rights reserved.
-
+        <strong>Copyright &copy; <?php echo date('Y'); ?> <a href="http://gmtclean.com"> PT Ganda Mady Indotama</a>.</strong> All rights reserved. By <a href="http://9tins.com">9Tins</a>
       </footer>
 
-    </div><!-- ./wrapper -->
+    </div>
 
   </body>
 
@@ -145,21 +144,4 @@
   <script src="{{asset('plugins/fastclick/fastclick.min.js')}}"></script>
   <script src="{{asset('dist/js/app.min.js')}}"></script>
   <script src="{{asset('dist/js/demo.js')}}"></script>
-  <script src="{{asset('plugins/select2/select2.full.min.js')}}"></script>
-  <script src="{{asset('plugins/clipboard/clipboard.min.js')}}"></script>
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $(".select2").select2();
-    });
-
-    var clipboard = new Clipboard('.btn');
-
-    clipboard.on('success', function(e) {
-        console.log(e);
-    });
-
-    clipboard.on('error', function(e) {
-        console.log(e);
-    });
-  </script>
 </html>
