@@ -16,4 +16,9 @@ class MasterPegawai extends Model
     {
       return $this->hasOne('App\Models\User');
     }
+
+    public function bank()
+    {
+      return $this->hasOne('App\Models\MasterBank');
+    }
 }

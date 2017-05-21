@@ -20,6 +20,7 @@ use App\Models\UploadDocument;
 use App\Models\PKWT;
 use App\Models\DataPeringatan;
 use App\Models\HistoriPegawai;
+use App\Models\MasterBank;
 
 use App\Models\MasterJabatan;
 use Datatables;
@@ -48,6 +49,7 @@ class MasterPegawaiController extends Controller
     {
       $getjabatan = MasterJabatan::where('status', '=', '1')->pluck('nama_jabatan','id');
       $getid = MasterPegawai::select('nip')->orderby('id', 'desc')->first();
+      $getBank = MasterBank::where('flag_status', '=', 1)->pluck('nama_bank', 'id');
       $sub = substr($getid->nip, 8, 4)+1;
       $thn = substr(date('Y'), -2);
       $bln = date('m');
@@ -55,7 +57,8 @@ class MasterPegawaiController extends Controller
 
       return view('pages/MasterPegawai/tambahdatapegawai')
         ->with('nextid', $nextid)
-        ->with('getjabatan', $getjabatan);
+        ->with('getjabatan', $getjabatan)
+        ->with('getBank', $getBank);
     }
 
     public function store(Request $request)
@@ -212,11 +215,13 @@ class MasterPegawaiController extends Controller
     public function show($id)
     {
       $DataPegawai    = MasterPegawai::join('master_jabatan', 'master_pegawai.id_jabatan', '=', 'master_jabatan.id')
-                        ->select('master_pegawai.*', 'master_jabatan.nama_jabatan')
+                        ->join('master_bank', 'master_bank.id', '=', 'master_pegawai.bank')
+                        ->select('master_pegawai.*', 'master_jabatan.nama_jabatan', 'master_bank.nama_bank as bank')
                         ->where('master_pegawai.id', '=', $id)
                         ->get();
                         // dd($id);
       $DataJabatan    = MasterJabatan::all();
+      $DataBank       = MasterBank::where('flag_status', '=', 1)->get();
 
       $idofpegawai;
       foreach ($DataPegawai as $k) {
@@ -240,7 +245,7 @@ class MasterPegawaiController extends Controller
       $DataPeringatan = DataPeringatan::where('id_pegawai', '=', $idofpegawai)->get();
       $DataHistoriPegawai = HistoriPegawai::where('id_pegawai', $idofpegawai)->get();
 
-      return view('pages/MasterPegawai/lihatdatapegawai', compact('DataJabatan', 'DataPegawai', 'DataKeluarga', 'DataPendidikan', 'DataPengalaman', 'DataKomputer', 'DataBahasa', 'DataKesehatan', 'DataPenyakit', 'DokumenPegawai', 'DataPKWT', 'DataPeringatan', 'DataHistoriPegawai'));
+      return view('pages/MasterPegawai/lihatdatapegawai', compact('DataJabatan', 'DataPegawai', 'DataKeluarga', 'DataPendidikan', 'DataPengalaman', 'DataKomputer', 'DataBahasa', 'DataKesehatan', 'DataPenyakit', 'DokumenPegawai', 'DataPKWT', 'DataPeringatan', 'DataHistoriPegawai', 'DataBank'));
     }
 
     public function getDataForDataTable()
@@ -571,7 +576,6 @@ class MasterPegawaiController extends Controller
       $messages = [
           'nama.required' => 'Nama harus diisi',
           'nip.required' => 'NIP harus diisi',
-          'niplama.required' => 'NIP Lama harus diisi',
           'ktp.required' => 'KTP harus diisi',
           'kk.required' => 'KK harus diisi',
           'npwp.required' => 'NPWP harus diisi',
@@ -598,7 +602,6 @@ class MasterPegawaiController extends Controller
       $validator = Validator::make($request->all(), [
         'nama' => 'required',
         'nip' => 'required',
-        'niplama' => 'required',
         'ktp' => 'required',
         'kk' => 'required',
         'npwp' => 'required',
@@ -617,7 +620,7 @@ class MasterPegawaiController extends Controller
       ], $messages);
 
       if ($validator->fails()) {
-        return redirect()->route('masterpegawai.show', $request->nip)
+        return redirect()->route('masterpegawai.show', $request->id_pegawai)
           ->withErrors($validator)
           ->withInput();
       }

@@ -1969,6 +1969,39 @@
                 </td>
               </tr>
               <tr>
+                <td>Bank</td>
+                <td>:</td>
+                <td id="tdlabelbank"><b data-value="{{$pegawai->bank}}" id="valbank">{{ $pegawai->bank}}</b></td>
+                <td id="tdtextbank" class="{{ $errors->has('bank') ? 'has-error' : '' }}">
+                  <select class="form-control" name="bank">
+                    <option value="-- Pilih --">-- Pilih --</option>
+                    @if(count($errors)>0)
+                      @foreach($DataBank as $key)
+                        @if(old('bank')==$key->id)
+                          <option value="{{$key->id}}" selected>{{$key->nama_bank}}</option>
+                        @else
+                          <option value="{{$key->id}}">{{$key->nama_bank}}</option>
+                        @endif
+                      @endforeach
+                    @else
+                      @foreach($DataBank as $key)
+                        @if($pegawai->bank==$key->nama_bank)
+                          <option value="{{$key->id}}" selected>{{$key->nama_bank}}</option>
+                        @else
+                          <option value="{{$key->id}}">{{$key->nama_bank}}</option>
+                        @endif
+                      @endforeach
+                    @endif
+                  </select>
+                  @if($errors->has('bank'))
+                   <span class="help-block">
+                     <strong>{{ $errors->first('bank')}}
+                     </strong>
+                   </span>
+                  @endif
+                </td>
+              </tr>
+              <tr>
                 <td>No Rekening</td>
                 <td>:</td>
                 <td id="tdlabelrekening"><b>{{ $pegawai->no_rekening}}</b></td>
@@ -2035,25 +2068,6 @@
                   @if($errors->has('jabatan'))
                    <span class="help-block">
                      <strong>{{ $errors->first('jabatan')}}
-                     </strong>
-                   </span>
-                  @endif
-                </td>
-              </tr>
-              <tr>
-                <td>Bank</td>
-                <td>:</td>
-                <td id="tdlabelbank"><b data-value="{{$pegawai->bank}}" id="valbank">{{ $pegawai->bank}}</b></td>
-                <td id="tdtextbank" class="{{ $errors->has('bank') ? 'has-error' : '' }}">
-                  <select class="form-control" name="bank">
-                    <option>-- Pilih --</option>
-                    <option value="BCA" id="valbca" {{(old('bank')=="BCA") ? 'selected' : ''}}>BCA</option>
-                    <option value="BNI" id="valbni" {{(old('bank')=="BNI") ? 'selected' : ''}}>BNI</option>
-                    <option value="MANDIRI" id="valmandiri" {{(old('bank')=="MANDIRI") ? 'selected' : ''}}>MANDIRI</option>
-                  </select>
-                  @if($errors->has('bank'))
-                   <span class="help-block">
-                     <strong>{{ $errors->first('bank')}}
                      </strong>
                    </span>
                   @endif

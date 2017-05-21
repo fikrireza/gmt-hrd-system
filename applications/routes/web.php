@@ -116,6 +116,15 @@ Route::get('masterpegawai/hapusperingatan/{id}', 'DataPeringatanController@hapus
 Route::post('masterpegawai/editperingatan', 'DataPeringatanController@editPeringatan')->name('dataperingatan.update');
 Route::get('masterpegawai/bind-peringatan/{id}', 'DataPeringatanController@bindPeringatan');
 
+//----- MASTER BANK -----//
+Route::get('masterbank', 'MasterBankController@index')->name('masterbank.index');
+Route::post('masterbank', 'MasterBankController@store')->name('masterbank.store');
+Route::get('masterbank/{id}/edit', 'MasterBankController@ubah')->name('masterbank.ubah');
+Route::post('masterbank/edit', 'MasterBankController@edit')->name('masterbank.edit');
+
+//----- MASTER BANK -----//
+
+
 Route::post('historipegawai/create', ['as' => 'historipegawai.create', 'uses' => 'MasterPegawaiController@addhistoripegawai']);
 Route::get('historipegawai/bind-data/{id}', 'MasterPegawaiController@bindhistoriperingatan');
 Route::post('historipegawai/update', ['as' => 'historipegawai.update', 'uses' => 'MasterPegawaiController@updatehistoripegawai']);

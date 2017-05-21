@@ -46,7 +46,7 @@
           <li class="{{ Route::currentRouteNamed('masterclient.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.tambah') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.edit') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.cabang') ? 'active' : '' }}{{ Route::currentRouteNamed('cabangclient.edit') ? 'active' : '' }}"><a href="{{ url('masterclient') }}"><i class="fa fa-circle-o"></i> Data Client</a></li>
         </ul>
       </li>
-      <li class="treeview {{ Route::currentRouteNamed('masterpegawai.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.show') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.create') ? 'active' : '' }}{{ Route::currentRouteNamed('uploaddocument.create') ? 'active' : '' }}{{ Route::currentRouteNamed('import.index') ? 'active' : '' }}">
+      <li class="treeview {{ Route::currentRouteNamed('masterpegawai.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.show') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.create') ? 'active' : '' }}{{ Route::currentRouteNamed('uploaddocument.create') ? 'active' : '' }}{{ Route::currentRouteNamed('import.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterbank.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterbank.ubah') ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-users"></i>
           <span>Master Pegawai</span>
@@ -56,6 +56,7 @@
           <li class="{{ Route::currentRouteNamed('masterpegawai.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.show') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.create') ? 'active' : '' }}"><a href="{{ route('masterpegawai.index') }}"><i class="fa fa-circle-o"></i> Data Pegawai</a></li>
           <li class="{{ Route::currentRouteNamed('uploaddocument.create') ? 'active' : '' }}"><a href="{{ route('uploaddocument.create') }}"><i class="fa fa-circle-o"></i> Kelola Dokumen Pegawai</a></li>
           <li class="{{ Route::currentRouteNamed('import.index') ? 'active' : '' }}"><a href="{{ url('import') }}"><i class="fa fa-circle-o"></i> Import Data Pegawai</a></li>
+          <li class="{{ Route::currentRouteNamed('masterbank.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterbank.ubah') ? 'active' : '' }}"><a href="{{ route('masterbank.index') }}"><i class="fa fa-circle-o"></i> Data Bank</a></li>
         </ul>
       </li>
       <li class="treeview {{ Route::currentRouteNamed('masterjabatan.create') ? 'active' : '' }}">

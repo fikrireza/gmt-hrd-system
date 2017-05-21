@@ -164,12 +164,6 @@
                 <div class="form-group {{ $errors->has('jabatan') ? 'has-error' : '' }}">
                   <label class="col-sm-3 control-label">Jabatan</label>
                   <div class="col-sm-9">
-                    {{-- <select class="form-control" name="jabatan">
-                      <option value="" disabled selected>-- Pilih Jabatan --</option>
-                      @foreach($getjabatan as $key)
-                        <option value="{{ $key->id }}" {{ old('jabatan') == $key->id ? 'selected="selected"' : '' }}>{{ $key->kode_jabatan }} - {{ $key->nama_jabatan }}</option>
-                      @endforeach
-                    </select> --}}
                     {!! Form::select('jabatan', $getjabatan, null, ['class' => 'form-control','placeholder' => '-- Pilih Jabatan --']) !!}
                     @if($errors->has('jabatan'))
                       <span class="help-block">
@@ -179,15 +173,15 @@
                     @endif
                   </div>
                 </div>
-              </div><!-- /.box-body -->
-          </div><!-- /.box -->
-        </div><!--/.col -->
+              </div>
+          </div>
+        </div>
 
         <div class="col-md-6">
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Informasi Pendukung</h3>
-            </div><!-- /.box-header -->
+            </div>
             <div class="box-body">
               <div class="form-group {{ $errors->has('no_ktp') ? 'has-error' : '' }}">
                 <label class="col-sm-3 control-label">KTP</label>
@@ -241,10 +235,7 @@
               <div class="form-group {{ $errors->has('bank') ? 'has-error' : '' }}">
                 <label class="col-sm-3 control-label">Bank</label>
                 <div class="col-sm-9">
-                  {!! Form::select('bank', array('BCA' => 'BCA',
-                                                  'BNI' => 'BNI',
-                                                  'MANDIRI' => 'MANDIRI'),
-                                    null, ['class' => 'form-control', 'placeholder' => '-- Pilih Bank --']) !!}
+                  {!! Form::select('bank', $getBank, null, ['class' => 'form-control','placeholder' => '-- Pilih Bank --']) !!}
                   @if($errors->has('bank'))
                     <span class="help-block">
                       <strong>{{ $errors->first('bank')}}
