@@ -209,7 +209,7 @@ Route::post('detail-batch-payroll/import', 'ExportImportDetailBatchPayrollContro
 Route::get('batch-payroll/laporan-prosesSPV/{id}', 'LaporanBatchPayrollController@prosesSPV')->name('laporan.prosesSPV');
 Route::get('batch-payroll/laporan-prosesAll/{id}', 'LaporanBatchPayrollController@prosesAll')->name('laporan.prosesAll');
 Route::get('batch-payroll/laporan-prosesClient/{id}', 'LaporanBatchPayrollController@prosesClient')->name('laporan.prosesClient');
-
+Route::get('batch-payroll/laporan-prosesBank/{id}', 'LaporanBatchPayrollController@prosesBank')->name('laporan.prosesBank');
 
 
 ///// HARI LIBUR //////

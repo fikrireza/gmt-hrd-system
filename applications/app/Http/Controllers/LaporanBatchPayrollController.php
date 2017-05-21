@@ -19,6 +19,7 @@ use App\Models\DetailKomponenGaji;
 use App\Models\DetailBatchPayroll;
 use App\Models\CabangClient;
 use App\Models\MasterClient;
+use App\Models\MasterBank;
 
 use DB;
 use Excel;
@@ -254,5 +255,71 @@ class LaporanBatchPayrollController extends Controller
 
         return response()->json(['success' => 200]);
 
+    }
+
+    public function prosesBank($id)
+    {
+        // Get Batch Payrol
+        $getbatch = BatchPayroll::join('periode_gaji', 'batch_payroll.id_periode_gaji', '=', 'periode_gaji.id')
+                                  ->where('batch_payroll.id', $id)->first();
+
+        $getkomponengajinya = KomponenGaji::orderby('tipe_komponen', 'asc')->get();
+
+        $getbank = MasterBank::get();
+
+        // Start Query Detail Gaji Karyawan
+        $query1 = "SELECT pegawai.id, pegawai.nip, pegawai.nama as nama_pegawai, pegawai.no_rekening, pegawai.bank, IFNULL(tabel_Workday.workday, 0) as Jumlah_Workday, IFNULL(tabel_Jabatan.nama_jabatan, 0) as Jabatan ";
+        $query2 = "FROM (select a.id, a.nip, a.nama, a.no_rekening, a.bank from master_pegawai a, detail_batch_payroll where a.id = detail_batch_payroll.id_pegawai and detail_batch_payroll.id_batch_payroll = 41) as pegawai ";
+        $query3 = "LEFT OUTER JOIN (SELECT d.id, d.nama, c.workday as workday FROM komponen_gaji a, detail_komponen_gaji b, detail_batch_payroll c, master_pegawai d WHERE b.id_komponen_gaji = a.id AND b.id_detail_batch_payroll = c.id AND d.id = c.id_pegawai AND c.id_batch_payroll = $id GROUP BY d.id) as tabel_Workday ON pegawai.id = tabel_Workday.id ";
+        $query4 = "LEFT OUTER JOIN(SELECT b.nama_jabatan, a.id FROM master_pegawai a, master_jabatan b WHERE a.id_jabatan = b.id) as tabel_Jabatan ON pegawai.id = tabel_Jabatan.id ";
+        foreach ($getkomponengajinya as $komponen) {
+          $replace = str_replace(' ', '_', $komponen->nama_komponen);
+          $query1 .=  ",IFNULL(tabel_$replace.nilai, 0) as Jumlah_$replace ";
+          $query2 .= "LEFT OUTER JOIN (SELECT d.id, d.nama, b.nilai as nilai FROM komponen_gaji a, detail_komponen_gaji b, detail_batch_payroll c, master_pegawai d WHERE b.id_komponen_gaji = a.id AND b.id_detail_batch_payroll = c.id AND d.id = c.id_pegawai AND c.id_batch_payroll = $id AND a.id = $komponen->id GROUP BY d.id) as tabel_$replace ON pegawai.id = tabel_$replace.id ";
+        }
+        // End Query Detail Gaji Karyawan
+
+        $getkomponengaji = KomponenGaji::orderby('tipe_komponen', 'asc')->get();
+
+        $hasilQuery = DB::select($query1.$query2.$query3.$query4);
+        $hasilQuery = collect($hasilQuery);
+
+        $nilaiTransfer = array();
+        foreach($hasilQuery as $key)
+        {
+          $jumlahGajinya = $key->Jumlah_GAJI_POKOK + $key->Jumlah_TUNJANGAN_JABATAN + $key->Jumlah_TUNJANGAN_INSENTIF + $key->Jumlah_TUNJANGAN_LEMBUR + $key->Jumlah_KEKURANGAN_BULAN_LALU + $key->Jumlah_TUNJANGAN_TRANSPORT_MAKAN + $key->Jumlah_KETUA_REGU + $key->Jumlah_PENGEMBALIAN_SERAGAM + $key->Jumlah_TUNJANGAN_MAKAN_LEMBUR + $key->Jumlah_SALARY + $key->Jumlah_SHIFT_PAGI_SIANG + $key->Jumlah_TUNJANGAN_MAKAN_TRANSPORT;
+
+          $jumlahPotongannya = $key->Jumlah_BPJS_KESEHATAN + $key->Jumlah_POTONGAN_KAS + $key->Jumlah_BPJS_KETENAGAKERJAAN + $key->Jumlah_POTONGAN_PINJAMAN + $key->Jumlah_POTONGAN_SERAGAM + $key->Jumlah_POTONGAN_CONSUMABLE;
+
+          $grandTotalGaji = $jumlahGajinya - $jumlahPotongannya;
+
+          $Transfer['id'] = $key->id;
+          $Transfer['nip'] = $key->nip;
+          $Transfer['nama_pegawai'] = $key->nama_pegawai;
+          $Transfer['bank'] = $key->bank;
+          $Transfer['no_rekening'] = $key->no_rekening;
+          $Transfer['grandTotalGaji'] = $grandTotalGaji;
+
+          $nilaiTransfer[] = $Transfer;
+        }
+
+
+        $nilaiTransfer = collect($nilaiTransfer);
+
+        // return view('pages.LaporanPayroll.bankProses', compact('getbatch', 'nilaiTransfer', 'getbank'));
+
+        Excel::create('Proses Payroll Transfer Bank Periode -'.$getbatch->tanggal_proses.' s-d '.$getbatch->tanggal_proses_akhir, function($excel) use($getbank,$getbatch,$nilaiTransfer) {
+          foreach ($getbank as $bank) {
+            $excel->sheet("Salary Transfer - ".$bank->nama_bank, function($sheet) use($bank,$getbatch,$nilaiTransfer) {
+              $sheet->loadView('pages.LaporanPayroll.bankProses')
+                      ->with('id_bank', $bank->id)
+                      ->with('nama_bank', $bank->nama_bank)
+                      ->with('getbatch', $getbatch)
+                      ->with('nilaiTransfer', $nilaiTransfer);
+            });
+          }
+        })->download('xlsx');
+
+        return response()->json(['success' => 200]);
     }
 }
