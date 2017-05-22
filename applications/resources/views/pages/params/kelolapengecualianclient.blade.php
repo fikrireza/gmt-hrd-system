@@ -30,10 +30,9 @@
     }, 5000);
   </script>
 
-  <div class="callout callout-warning">
+  <div class="callout callout-info">
      <h4>Pemberitahuan!</h4>
-     <p>Data Pengecualian Client ini diisikan untuk pengecualian perhitungan gaji pada setiap client jika client
-     tersebut sudah diinputkan pada table dibawah ini.</p>
+     <p>Data ini di input untuk client per area yang mengabaikan hari libur nasional.</p>
    </div>
 
   <div class="row">
@@ -61,7 +60,7 @@
     <div class="col-sm-6">
      <div class="box box-primary box-solid">
         <div class="box-header">
-          <h3 class="box-title">Seluruh Client yang tersedia</h3>
+          <h3 class="box-title">Seluruh Client Yang Tersedia</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
             <table class="table table-bordered table-striped" role="grid" aria-describedby="example1_info">
@@ -124,14 +123,20 @@
                   </thead>
                   <tbody>
                     @if(isset($getpengecualianclientold))
-                       @foreach($getpengecualianclientold as $key)
-                       <tr>
-                         <td style="width:2%"><input type="checkbox" class="minimal" name="idcabangclientold[]" value="{{$key->id}}"></td>
-                         <td>{{ $key->nama_client }}</td>
-                         <td>{{ $key->nama_cabang }}</td>
-                         <td>{{ $key->alamat_cabang }}</td>
-                       </tr>
-                       @endforeach
+                      @if (count($getpengecualianclientold)!=0)
+                        @foreach($getpengecualianclientold as $key)
+                          <tr>
+                            <td style="width:2%"><input type="checkbox" class="minimal" name="idcabangclientold[]" value="{{$key->id}}"></td>
+                            <td>{{ $key->nama_client }}</td>
+                            <td>{{ $key->nama_cabang }}</td>
+                            <td>{{ $key->alamat_cabang }}</td>
+                          </tr>
+                        @endforeach
+                      @else
+                        <tr>
+                          <td colspan="4" align="center"><span class="text-muted">Data tidak tersedia.</span></td>
+                        </tr>
+                      @endif
                    @endif
                   </tbody>
                 </table>
