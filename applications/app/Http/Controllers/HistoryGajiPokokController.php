@@ -10,6 +10,7 @@ use App\Models\PKWT;
 use App\Models\MasterClient;
 use App\Models\CabangClient;
 use App\Models\HistoryGajiPokok;
+use App\Models\HistoriGajiPokokPerClient;
 
 use DB;
 use Validator;
@@ -51,8 +52,28 @@ class HistoryGajiPokokController extends Controller
         return redirect()->route('historygajipokok.index')->withErrors($validator)->withInput();
       }
 
+      $cabangclient = CabangClient::all();
+
       if ($request->idcabangclient != null) {
+
         foreach ($request->idcabangclient as $key1) {
+
+          // SAVE TO HISTORI GAJI POKOK PER CLIENT BY DUDY //
+          $idclient = 0;
+          foreach ($cabangclient as $cc) {
+            if ($cc->id==$key1) {
+              $idclient = $cc->id_client;
+              break;
+            }
+          }
+          $newrow = new HistoriGajiPokokPerClient;
+          $newrow->id_client = $idclient;
+          $newrow->id_cabang_client = $key1;
+          $newrow->tanggal_penyesuaian = date('Y-m-d');
+          $newrow->nilai = $request->gaji_pokok;
+          $newrow->save();
+          // SAVE TO HISTORI GAJI POKOK PER CLIENT BY DUDY //
+
           $check = PKWT::where('id_cabang_client', $key1)->get();
             foreach ($check as $key2) {
               $dataChage = MasterPegawai::find($key2->id_pegawai);
@@ -80,7 +101,6 @@ class HistoryGajiPokokController extends Controller
               }
             }
         }
-
           return redirect()->route('historygajipokok.index')->with('message', 'Berhasil memasukkan seluruh data history gaji pokok perclient.');
       } else {
           return redirect()->route('historygajipokok.index')->with('gagal', 'Pilih data client tersebuh dahulu.');
