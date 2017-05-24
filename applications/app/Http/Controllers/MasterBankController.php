@@ -14,7 +14,7 @@ class MasterBankController extends Controller
 
     public function index()
     {
-        $getBank = MasterBank::get();
+        $getBank = MasterBank::paginate(10);
 
         return view('pages.MasterBank.index', compact('getBank'));
 

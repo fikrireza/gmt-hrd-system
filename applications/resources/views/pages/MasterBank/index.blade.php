@@ -122,23 +122,45 @@
                           </tr>
                         </thead>
                         <tbody>
-                        @php
-                          $no =1;
-                        @endphp
+                      @if($getBank->isEmpty())
+                        <tr>
+                          <td colspan="4" class="text-muted" style="text-align:center;"><i>Data bank tidak tersedia.</i></td>
+                        </tr>
+                      @else
+                        <?php
+                          $pageget;
+                          if($getBank->currentPage()==1)
+                            $pageget = 1;
+                          else
+                            $pageget = (($getBank->currentPage() - 1) * $getBank->perPage())+1;
+                        ?>
                         @foreach($getBank as $bank)
                         <tr>
-                          <td>{!! $no++ !!}</td>
+                          <td>{{ $pageget }}</td>
                           <td class="">{!! $bank->nama_bank !!}</td>
                           <td class="">{{ ($bank->flag_status == '1') ? 'Aktif' : 'TIdak Aktif' }}</td>
                           <td>
                             <a href="{{ route('masterbank.ubah', array('id' => $bank->id)) }}" class="btn btn-xs btn-warning"  data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit" alt="Ubah"></i></a>
                           </td>
                         </tr>
+                        <?php $pageget++; ?>
                         @endforeach
+                      @endif
                         </tbody>
                       </table>
                     </div>
                   </div>
+
+                <div class="row">
+                  <div class="col-sm-5">
+                    <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Menampilkan 1 s/d {!! $getBank->count() !!}  dari {!! $getBank->total() !!} Bank</div>
+                  </div>
+                  <div class="col-sm-7">
+                    <div class="pull-right">
+                      {{ $getBank->links() }}
+                    </div>
+                  </div>
+                </div>
                 </div>
               </div>
           </div>
