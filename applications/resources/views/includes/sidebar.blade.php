@@ -193,7 +193,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="{{route('rapelgaji.index')}}"><i class="fa fa-circle-o"></i> Perhitungan Rapel Gaji</a></li>
-          <li><a href="#"><i class="fa fa-circle-o"></i> Lihat Data Rapel Gaji</a></li>
+          <li><a href="{{route('rapelgaji.list')}}"><i class="fa fa-circle-o"></i> Lihat Data Rapel Gaji</a></li>
         </ul>
       </li>
       <li class="treeview">
