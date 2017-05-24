@@ -36,17 +36,7 @@
       </a>
     </li>
     @if (Auth::user()->level=="1")
-      <li class="treeview {{ Route::currentRouteNamed('masterclient.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.tambah') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.edit') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.cabang') ? 'active' : '' }}{{ Route::currentRouteNamed('cabangclient.edit') ? 'active' : '' }}">
-        <a href="#">
-          <i class="fa fa-building-o"></i>
-          <span>Master Client</span>
-          <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-          <li class="{{ Route::currentRouteNamed('masterclient.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.tambah') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.edit') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.cabang') ? 'active' : '' }}{{ Route::currentRouteNamed('cabangclient.edit') ? 'active' : '' }}"><a href="{{ url('masterclient') }}"><i class="fa fa-circle-o"></i> Data Client</a></li>
-        </ul>
-      </li>
-      <li class="treeview {{ Route::currentRouteNamed('masterpegawai.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.show') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.create') ? 'active' : '' }}{{ Route::currentRouteNamed('uploaddocument.create') ? 'active' : '' }}{{ Route::currentRouteNamed('import') ? 'active' : '' }}{{ Route::currentRouteNamed('masterbank.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterbank.ubah') ? 'active' : '' }}">
+      <li class="treeview {{ Route::currentRouteNamed('masterpegawai.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.show') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.create') ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-users"></i>
           <span>Master Pegawai</span>
@@ -54,9 +44,17 @@
         </a>
         <ul class="treeview-menu">
           <li class="{{ Route::currentRouteNamed('masterpegawai.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.show') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.create') ? 'active' : '' }}"><a href="{{ route('masterpegawai.index') }}"><i class="fa fa-circle-o"></i> Data Pegawai</a></li>
+        </ul>
+      </li>
+      <li class="treeview {{ Route::currentRouteNamed('uploaddocument.create') ? 'active' : '' }}{{ Route::currentRouteNamed('import') ? 'active' : '' }}">
+        <a href="#">
+          <i class="fa fa-newspaper-o"></i>
+          <span>Dokumen Pegawai</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
           <li class="{{ Route::currentRouteNamed('uploaddocument.create') ? 'active' : '' }}"><a href="{{ route('uploaddocument.create') }}"><i class="fa fa-circle-o"></i> Kelola Dokumen Pegawai</a></li>
           <li class="{{ Route::currentRouteNamed('import') ? 'active' : '' }}"><a href="{{ url('import') }}"><i class="fa fa-circle-o"></i> Import Data Pegawai</a></li>
-          <li class="{{ Route::currentRouteNamed('masterbank.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterbank.ubah') ? 'active' : '' }}"><a href="{{ route('masterbank.index') }}"><i class="fa fa-circle-o"></i> Data Bank</a></li>
         </ul>
       </li>
       <li class="treeview {{ Route::currentRouteNamed('masterjabatan.create') ? 'active' : '' }}">
@@ -67,6 +65,26 @@
         </a>
         <ul class="treeview-menu">
           <li class="{{ Route::currentRouteNamed('masterjabatan.create') ? 'active' : '' }}"><a href="{{ route('masterjabatan.create') }}"><i class="fa fa-circle-o"></i>Data Jabatan</a></li>
+        </ul>
+      </li>
+      <li class="treeview {{ Route::currentRouteNamed('masterbank.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterbank.ubah') ? 'active' : '' }}">
+        <a href="#">
+          <i class="fa fa-bank"></i>
+          <span>Master Bank</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <li class="{{ Route::currentRouteNamed('masterbank.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterbank.ubah') ? 'active' : '' }}"><a href="{{ route('masterbank.index') }}"><i class="fa fa-circle-o"></i> Data Bank</a></li>
+        </ul>
+      </li>
+      <li class="treeview {{ Route::currentRouteNamed('masterclient.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.tambah') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.edit') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.cabang') ? 'active' : '' }}{{ Route::currentRouteNamed('cabangclient.edit') ? 'active' : '' }}">
+        <a href="#">
+          <i class="fa fa-building-o"></i>
+          <span>Master Client</span>
+          <i class="fa fa-angle-left pull-right"></i>
+        </a>
+        <ul class="treeview-menu">
+          <li class="{{ Route::currentRouteNamed('masterclient.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.tambah') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.edit') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.cabang') ? 'active' : '' }}{{ Route::currentRouteNamed('cabangclient.edit') ? 'active' : '' }}"><a href="{{ url('masterclient') }}"><i class="fa fa-circle-o"></i> Data Client</a></li>
         </ul>
       </li>
       <li class="treeview {{ Route::currentRouteNamed('kelola.pkwt') ? 'active' : '' }}{{ Route::currentRouteNamed('datapkwt.create') ? 'active' : '' }}{{ Route::currentRouteNamed('detail.pkwt') ? 'active' : '' }}{{ Route::currentRouteNamed('spv-manajemen') ? 'active' : '' }}{{ Route::currentRouteNamed('getClientSPV') ? 'active' : '' }}">
@@ -92,7 +110,7 @@
       </li>
       <li class="treeview {{ Route::currentRouteNamed('laporanpegawai') ? 'active' : '' }}{{ Route::currentRouteNamed('proseslaporan') ? 'active' : '' }}">
         <a href="#">
-          <i class="fa fa-newspaper-o"></i>
+          <i class="fa fa-file-text-o"></i>
           <span>Laporan</span>
           <i class="fa fa-angle-left pull-right"></i>
         </a>

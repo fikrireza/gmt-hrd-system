@@ -22,7 +22,46 @@
       });
     }, 1500);
     </script>
+     <script>
+    window.setTimeout(function() {
+      $(".alert-warning").fadeTo(500, 0).slideUp(500, function(){
+          $(this).remove();
+      });
+    }, 1500);
+    </script>
+
+    <!-- Modal -->
+    <div class="modal modal-default fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Hapus Data Bank</h4>
+          </div>
+          <div class="modal-body">
+            <p>Apakah anda yakin untuk menghapus data bank ini?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+            <a href="{{url('masterjabatan/hapusjabatan/1')}}" class="btn btn-primary" id="set">Ya, saya yakin.</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
       <div class="row">
+        <div class="col-md-12">
+        @if(Session::has('message'))
+          <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+            <p>{{ Session::get('messagefail') }}</p>
+          </div>
+        @endif
+        </div>
         <div class="col-md-12">
         @if (session('tambah'))
           <div class="alert alert-success">
@@ -67,7 +106,7 @@
                       <div class="form-group {{ $errors->has('nama_bank') ? 'has-error' : '' }}">
                         <label class="col-sm-3 control-label">Nama Bank</label>
                         <div class="col-sm-9">
-                          <input type="text" name="nama_bank" class="form-control" placeholder="Nama Bank" maxlength="40" @if(isset($BankEdit)) value="{{$BankEdit->nama_bank}}" readonly="" @else value="{{ old('nama_bank') }}" @endif >
+                          <input type="text" name="nama_bank" class="form-control" placeholder="Nama Bank" maxlength="40" @if(isset($BankEdit)) value="{{$BankEdit->nama_bank}}" @else value="{{ old('nama_bank') }}" @endif >
                           @if($errors->has('nama_bank'))
                           <span class="help-block">
                             <strong>{{ $errors->first('nama_bank')}}
@@ -138,9 +177,18 @@
                         <tr>
                           <td>{{ $pageget }}</td>
                           <td class="">{!! $bank->nama_bank !!}</td>
-                          <td class="">{{ ($bank->flag_status == '1') ? 'Aktif' : 'TIdak Aktif' }}</td>
+                          <td class="">
+                            @if($bank->flag_status == '1')
+                                <small class="label bg-green">Aktif</small>
+                            @else
+                              <span class="label bg-red">Tidak Aktif</span>
+                            @endif
+                          </td>
                           <td>
                             <a href="{{ route('masterbank.ubah', array('id' => $bank->id)) }}" class="btn btn-xs btn-warning"  data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit" alt="Ubah"></i></a>
+                            <span data-toggle="tooltip" title="Hapus Data">
+                            <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$bank->id}}"><i class="fa fa-remove"></i></a>
+                          </span>
                           </td>
                         </tr>
                         <?php $pageget++; ?>
@@ -173,6 +221,15 @@
   <script src="{{asset('plugins/fastclick/fastclick.min.js')}}"></script>
   <script src="{{asset('dist/js/app.min.js')}}"></script>
   <script src="{{asset('dist/js/demo.js')}}"></script>
+
+   <script type="text/javascript">
+    $(function(){
+      $('a.hapus').click(function(){
+        var a = $(this).data('value');
+        $('#set').attr('href', "{{ url('/') }}/masterbank/hapusbank/"+a);
+      });
+    });
+  </script>
 
 
 @stop

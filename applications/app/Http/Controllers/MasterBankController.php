@@ -64,10 +64,20 @@ class MasterBankController extends Controller
         }
 
         $update = MasterBank::find($request->id);
+        $update->nama_bank = $request->nama_bank;
         $update->flag_status = $flag_status;
         $update->update();
 
         return redirect()->route('masterbank.index')->with('berhasil', 'Berhasil Mengubah Data Bank');
+    }
 
+    public function hapusBank($id)
+    {
+    
+      $delete = MasterBank::find($id);
+      $delete->flag_status = 0;
+      $delete->save();
+
+      return redirect()->route('masterbank.index')->with('berhasil', 'Berhasil Menghapus Data Bank.');
     }
 }
