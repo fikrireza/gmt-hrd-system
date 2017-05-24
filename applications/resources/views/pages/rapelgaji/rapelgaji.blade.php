@@ -138,10 +138,18 @@
                       <td>{{$key->tanggal_penyesuaian}}</td>
                       <td>{{$key->nilai}}</td>
                       <td>
-                        <span class="badge bg-yellow">Belum</span>
+                        @if ($key->flag_rapel_gaji==0)
+                          <span class="badge bg-yellow">Belum</span>
+                        @else
+                          <span class="badge bg-green">Sudah</span>
+                        @endif
                       </td>
                       <td>
-                        <a href="#" class="btn btn-xs btn-primary">Proses</a>
+                        <a href="#" class="btn btn-xs btn-primary"
+                          @if ($key->flag_rapel_gaji!=0)
+                            disabled
+                          @endif
+                        >Proses</a>
                       </td>
                     </tr>
                   @endforeach
@@ -152,18 +160,6 @@
                 Silahkan lakukan proses pemilihan client di kolom atas.
               </span>
             @endif
-          </div>
-          <div class="box-footer">
-            <button type="submit" class="btn btn-success pull-right btn-sm"
-              @if (!isset($historydata) || count($historydata)==0)
-                disabled
-              @endif
-            >Simpan</button>
-            <button type="reset" class="btn btn-danger btn-sm"
-              @if (!isset($historydata) || count($historydata)==0)
-                disabled
-              @endif
-            >Reset Formulir</button>
           </div>
         </div>
       </div>
@@ -184,7 +180,7 @@
                           &nbsp;&nbsp;Start&nbsp;&nbsp;
                         </span>
                       </li>
-                      @foreach ($historydata as $key)
+                      @foreach ($historydataasc as $key)
                         <li>
                           <i class="fa fa-money bg-blue"></i>
                           <div class="timeline-item" style="background:#ddf2ff;">

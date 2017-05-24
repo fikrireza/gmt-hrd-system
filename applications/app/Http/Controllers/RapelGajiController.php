@@ -32,16 +32,15 @@ class RapelGajiController extends Controller
 
     public function getclienthistory(Request $request)
     {
-      $get = HistoriGajiPokokPerClient::where('id_cabang_client', $request->id_cabang_client)->get();
+      $get = HistoriGajiPokokPerClient::where('id_cabang_client', $request->id_cabang_client)->orderby('id', 'desc')->get();
+      $getasc = HistoriGajiPokokPerClient::where('id_cabang_client', $request->id_cabang_client)->orderby('id', 'asc')->get();
       $getClient  = MasterClient::select('id', 'nama_client')->get();
       $getCabang = CabangClient::select('id','kode_cabang','nama_cabang', 'id_client')->get();
-      $getClientByID = CabangClient::select('*', 'cabang_client.id as id_cabang')
-        ->join('master_client', 'master_client.id', '=', 'cabang_client.id_client')
-        ->where('cabang_client.id', $request->id_cabang_client)
-        ->get();
+      $getClientByID = CabangClient::where('cabang_client.id', $request->id_cabang_client)->get();
 
       return view('pages.rapelgaji.rapelgaji')
         ->with('historydata', $get)
+        ->with('historydataasc', $getasc)
         ->with('getClient', $getClient)
         ->with('getClientByID', $getClientByID)
         ->with('getCabang', $getCabang);
