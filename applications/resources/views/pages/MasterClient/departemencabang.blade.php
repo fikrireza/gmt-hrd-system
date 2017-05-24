@@ -130,9 +130,9 @@
                     <thead>
                       <tr role="row">
                         <th>No</th>
-                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Kode Departemen</th>
-                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Nama Departemen</th>
-                        <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" >Aksi</th>
+                        <th rowspan="1" colspan="1" >Kode Departemen</th>
+                        <th rowspan="1" colspan="1" >Nama Departemen</th>
+                        <th rowspan="1" colspan="1" >Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
