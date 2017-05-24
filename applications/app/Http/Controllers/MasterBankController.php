@@ -46,7 +46,7 @@ class MasterBankController extends Controller
     {
         $BankEdit = MasterBank::find($id);
 
-        $getBank = MasterBank::get();
+        $getBank = MasterBank::paginate(10);
 
         if(!$BankEdit){
           abort(404);
