@@ -121,7 +121,7 @@ Route::get('masterbank', 'MasterBankController@index')->name('masterbank.index')
 Route::post('masterbank', 'MasterBankController@store')->name('masterbank.store');
 Route::get('masterbank/{id}/edit', 'MasterBankController@ubah')->name('masterbank.ubah');
 Route::post('masterbank/edit', 'MasterBankController@edit')->name('masterbank.edit');
-
+Route::get('masterbank/hapusbank/{id}', ['as'=>'masterbank.hapusbank', 'uses'=>'MasterBankController@hapusBank']);
 //----- MASTER BANK -----//
 
 

@@ -147,10 +147,10 @@
                         <thead>
                           <tr role="row">
                             <th>No</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Kode cabang</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Nama cabang</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">Alamat Cabang</th>
-                            <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="2">Aksi</th>
+                            <th rowspan="1" colspan="1">Kode cabang</th>
+                            <th rowspan="1" colspan="1">Nama cabang</th>
+                            <th rowspan="1" colspan="1">Alamat Cabang</th>
+                            <th rowspan="1" colspan="2">Aksi</th>
                           </tr>
                         </thead>
                         <tbody>

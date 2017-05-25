@@ -215,14 +215,14 @@ class MasterPegawaiController extends Controller
     public function show($id)
     {
       $DataPegawai    = MasterPegawai::join('master_jabatan', 'master_pegawai.id_jabatan', '=', 'master_jabatan.id')
-                        ->join('master_bank', 'master_bank.id', '=', 'master_pegawai.bank')
+                        ->leftjoin('master_bank', 'master_bank.id', '=', 'master_pegawai.bank')
                         ->select('master_pegawai.*', 'master_jabatan.nama_jabatan', 'master_bank.nama_bank as bank')
                         ->where('master_pegawai.id', '=', $id)
                         ->get();
                         // dd($id);
       $DataJabatan    = MasterJabatan::all();
       $DataBank       = MasterBank::where('flag_status', '=', 1)->get();
-
+      
       $idofpegawai;
       foreach ($DataPegawai as $k) {
         $idofpegawai = $k->id;
