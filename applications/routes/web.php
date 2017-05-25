@@ -253,3 +253,4 @@ Route::get('rapel-gaji', 'RapelGajiController@index')->name('rapelgaji.index');
 Route::get('rapel-gaji/list', 'RapelGajiController@list')->name('rapelgaji.list');
 Route::get('rapel-gaji/detail/{id}', 'RapelGajiController@detail')->name('rapelgaji.detail');
 Route::post('rapel-gaji/getclienthistory', 'RapelGajiController@getclienthistory')->name('rapelgaji.getclienthistory');
+Route::get('rapel-gaji/proses/{id}', 'RapelGajiController@proses')->name('rapelgaji.proses');

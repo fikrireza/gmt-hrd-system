@@ -95,7 +95,7 @@
       <div class="col-md-8">
         <div class="box box-primary box-solid">
           <div class="box-header with-border">
-            <h3 class="box-title">Form Penyesuaian Gaji</h3>
+            <h3 class="box-title">List Histori Penyesuaian Gaji</h3>
           </div>
           <div class="box-body">
             @if (isset($historydata))
@@ -112,47 +112,55 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($historydata as $key)
+                  @if (count($historydata)!=0)
+                    @foreach ($historydata as $key)
+                      <tr>
+                        <td>#</td>
+                        <td>
+                          @foreach ($getClient as $gc)
+                            @if ($gc->id == $key->id_client)
+                              {{$gc->nama_client}}
+                              @php
+                              break;
+                              @endphp
+                            @endif
+                          @endforeach
+                        </td>
+                        <td>
+                          @foreach ($getCabang as $gcc)
+                            @if ($gcc->id == $key->id_cabang_client)
+                              {{$gcc->nama_cabang}}
+                              @php
+                              break;
+                              @endphp
+                            @endif
+                          @endforeach
+                        </td>
+                        <td>{{$key->tanggal_penyesuaian}}</td>
+                        <td>{{$key->nilai}}</td>
+                        <td>
+                          @if ($key->flag_rapel_gaji==0)
+                            <span class="badge bg-yellow">Belum</span>
+                          @else
+                            <span class="badge bg-green">Sudah</span>
+                          @endif
+                        </td>
+                        <td>
+                          @if ($key->flag_rapel_gaji==0)
+                            <a href="{{route('rapelgaji.proses', $key->id)}}" class="btn btn-xs btn-primary">Generate Batch</a>
+                          @else
+                            <button type="button" name="button" class="btn btn-xs btn-primary" disabled="">Generate Batch</button>
+                          @endif
+                        </td>
+                      </tr>
+                    @endforeach
+                  @else
                     <tr>
-                      <td>#</td>
-                      <td>
-                        @foreach ($getClient as $gc)
-                          @if ($gc->id == $key->id_client)
-                            {{$gc->nama_client}}
-                            @php
-                              break;
-                            @endphp
-                          @endif
-                        @endforeach
-                      </td>
-                      <td>
-                        @foreach ($getCabang as $gcc)
-                          @if ($gcc->id == $key->id_cabang_client)
-                            {{$gcc->nama_cabang}}
-                            @php
-                              break;
-                            @endphp
-                          @endif
-                        @endforeach
-                      </td>
-                      <td>{{$key->tanggal_penyesuaian}}</td>
-                      <td>{{$key->nilai}}</td>
-                      <td>
-                        @if ($key->flag_rapel_gaji==0)
-                          <span class="badge bg-yellow">Belum</span>
-                        @else
-                          <span class="badge bg-green">Sudah</span>
-                        @endif
-                      </td>
-                      <td>
-                        <a href="#" class="btn btn-xs btn-primary"
-                          @if ($key->flag_rapel_gaji!=0)
-                            disabled
-                          @endif
-                        >Proses</a>
+                      <td colspan="7">
+                        <span class="text-muted"><i><center>Data tidak tersedia</center></i></span>
                       </td>
                     </tr>
-                  @endforeach
+                  @endif
                 </tbody>
               </table>
             @else

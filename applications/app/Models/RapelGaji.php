@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BatchProcessed extends Model
+class RapelGaji extends Model
 {
-  protected $table = 'batch_processed';
+    protected $table = "rapel_gaji";
 }

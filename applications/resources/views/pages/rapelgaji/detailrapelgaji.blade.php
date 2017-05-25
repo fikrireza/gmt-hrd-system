@@ -60,29 +60,41 @@
                 <th>#</th>
                 <th>NIP</th>
                 <th>Nama</th>
-                <th>Tanggal Penyesuaian</th>
-                <th>Gaji Sebelumnya</th>
-                <th>Gaji Penyesuaian</th>
+                <th>Tanggal Proses Rapel</th>
+                <th>Jumlah Bulan Selisih</th>
                 <th>Jumlah Rapel Gaji</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                  <td>#</td>
-                  <td>Something</td>
-                  <td>Something</td>
-                  <td>Something</td>
-                  <td>Something</td>
-                  <td>Something</td>
-                  <td>Something</td>
-              </tr>
+              @php
+                $tanggalproses = null;
+                $jumlahbulanselisih = 0;
+                $totalrapelgaji = 0;
+                $totalpegawai = 0;
+              @endphp
+              @foreach ($data as $key)
+                @php
+                  $tanggalproses = $key->tanggal_proses;
+                  $jumlahbulanselisih = $key->jml_bulan_selisih;
+                  $totalrapelgaji = $totalrapelgaji + $key->nilai_rapel;
+                  $totalpegawai++;
+                @endphp
+                <tr>
+                  <td>{{$totalpegawai}}</td>
+                  <td>{{$key->nip}}</td>
+                  <td>{{$key->nama}}</td>
+                  <td>{{$key->tanggal_proses}}</td>
+                  <td><span class="badge bg-green">{{$key->jml_bulan_selisih}}</span></td>
+                  <td>{{$key->nilai_rapel}}</td>
+                </tr>
+              @endforeach
             </tbody>
           </table>
         </div>
       </div>
     </div>
     <div class="col-md-12">
-      <div class="box box-success box-solid">
+      <div class="box box-primary box-solid">
         <div class="box-header">
           <h3 class="box-title"><strong>Summary Batch Rapel Gaji</strong></h3>
           <hr style="margin-top:5px;margin-bottom:8px;">
@@ -90,10 +102,26 @@
             <table>
               <tr>
                 <td>
-                  <li>Total Pengeluaran
+                  <li>Tanggal Proses
                 </td>
                 <td>
-                  xxx </li>
+                  : &nbsp;&nbsp;{{$tanggalproses}} </li>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <li>Total Pegawai
+                </td>
+                <td>
+                  : &nbsp;&nbsp;{{$totalpegawai}} Pegawai</li>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <li>Jumlah Bulan Selisih&nbsp;&nbsp;&nbsp;
+                </td>
+                <td>
+                  : &nbsp;&nbsp;{{$jumlahbulanselisih}} Bulan</li>
                 </td>
               </tr>
               <tr>
@@ -101,19 +129,12 @@
                   <li>Total Pengeluaran
                 </td>
                 <td>
-                  xxx </li>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <li>Total Pengeluaran
-                </td>
-                <td>
-                  xxx </li>
+                  : &nbsp;&nbsp;{{$totalrapelgaji}} </li>
                 </td>
               </tr>
             </table>
           </ul>
+          <a href="#" class="btn btn-warning">Proses Rapel Gaji</a>
         </div>
       </div>
     </div>

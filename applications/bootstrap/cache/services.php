@@ -31,6 +31,7 @@
     27 => 'Yajra\\Datatables\\DatatablesServiceProvider',
     28 => 'Intervention\\Image\\ImageServiceProvider',
     29 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    30 => 'Barryvdh\\Debugbar\\ServiceProvider',
   ),
   'eager' => 
   array (
@@ -51,6 +52,7 @@
     14 => 'Yajra\\Datatables\\DatatablesServiceProvider',
     15 => 'Intervention\\Image\\ImageServiceProvider',
     16 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    17 => 'Barryvdh\\Debugbar\\ServiceProvider',
   ),
   'deferred' => 
   array (

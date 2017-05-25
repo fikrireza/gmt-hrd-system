@@ -61,22 +61,29 @@
                 <th>Cabang Client</th>
                 <th>Tahun Penyesuaian</th>
                 <th>Tanggal Penyesuaian</th>
-                <th>Nilai</th>
+                <th>Nilai Penyesuaian</th>
                 <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+              @foreach ($data as $key)
+                <tr>
                   <td>#</td>
-                  <td>Something</td>
-                  <td>Something</td>
-                  <td>Something</td>
-                  <td>Something</td>
-                  <td>Something</td>
+                  <td>{{$key->nama_client}}</td>
+                  <td>{{$key->nama_cabang}}</td>
+                  @php
+                    $exp = explode('-', $key->tanggal_proses);
+                  @endphp
+                  <td><span class="badge bg-green">{{$exp[0]}}</span></td>
+                  <td>{{$key->tanggal_proses}}</td>
+                  <td>{{$key->nilai}}</td>
                   <td>
-                    <a href="{{route('rapelgaji.detail', 12)}}">Detail</a>
+                    <span data-toggle="tooltip" data-original-title="Lihat Detail">
+                      <a href="{{route('rapelgaji.detail', $key->id_rapel)}}" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></a>
+                    </span>
                   </td>
-              </tr>
+                </tr>
+              @endforeach
             </tbody>
           </table>
         </div>
