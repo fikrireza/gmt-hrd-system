@@ -46,6 +46,7 @@
       $Jumlah_POTONGAN_KAS = 0;
       $Jumlah_BPJS_KESEHATAN = 0;
       $Jumlah_BPJS_KETENAGAKERJAAN = 0;
+      $Jumlah_BPJS_PENSIUN = 0;
       $Jumlah_POTONGAN_PINJAMAN = 0;
       $Jumlah_POTONGAN_SERAGAM = 0;
       $Jumlah_POTONGAN_CONSUMABLE = 0;
@@ -96,6 +97,7 @@
         <td style="border: 1px solid black;">{{$key->Jumlah_BPJS_KESEHATAN}}</td>
         <td style="border: 1px solid black;">{{$key->Jumlah_POTONGAN_KAS}}</td>
         <td style="border: 1px solid black;">{{$key->Jumlah_BPJS_KETENAGAKERJAAN}}</td>
+        <td style="border: 1px solid black;">{{$key->Jumlah_BPJS_PENSIUN}}</td>
         <td style="border: 1px solid black;">{{$key->Jumlah_POTONGAN_PINJAMAN}}</td>
         <td style="border: 1px solid black;">{{$key->Jumlah_POTONGAN_SERAGAM}}</td>
         <td style="border: 1px solid black;">{{$key->Jumlah_POTONGAN_CONSUMABLE}}</td>
@@ -106,8 +108,9 @@
           $Jumlah_POTONGAN_PINJAMAN += $key->Jumlah_POTONGAN_PINJAMAN;
           $Jumlah_POTONGAN_SERAGAM += $key->Jumlah_POTONGAN_SERAGAM;
           $Jumlah_POTONGAN_CONSUMABLE += $key->Jumlah_POTONGAN_CONSUMABLE;
+          $Jumlah_BPJS_PENSIUN += $key->Jumlah_BPJS_PENSIUN;
 
-          $jumlahPotongannya = $key->Jumlah_BPJS_KESEHATAN + $key->Jumlah_POTONGAN_KAS + $key->Jumlah_BPJS_KETENAGAKERJAAN + $key->Jumlah_POTONGAN_PINJAMAN + $key->Jumlah_POTONGAN_SERAGAM + $key->Jumlah_POTONGAN_CONSUMABLE;
+          $jumlahPotongannya = $key->Jumlah_BPJS_KESEHATAN + $key->Jumlah_POTONGAN_KAS + $key->Jumlah_BPJS_KETENAGAKERJAAN + $key->Jumlah_POTONGAN_PINJAMAN + $key->Jumlah_POTONGAN_SERAGAM + $key->Jumlah_POTONGAN_CONSUMABLE + $key->Jumlah_BPJS_PENSIUN;
           $no++;
           $grandTotalGaji += $jumlahGajinya - $jumlahPotongannya;
         @endphp
@@ -136,6 +139,7 @@
         <td style="border: 1px solid black;"><b>{{ $Jumlah_BPJS_KESEHATAN}}</b></td>
         <td style="border: 1px solid black;"><b>{{ $Jumlah_POTONGAN_KAS}}</b></td>
         <td style="border: 1px solid black;"><b>{{ $Jumlah_BPJS_KETENAGAKERJAAN}}</b></td>
+        <td style="border: 1px solid black;"><b>{{ $Jumlah_BPJS_PENSIUN}}</b></td>
         <td style="border: 1px solid black;"><b>{{ $Jumlah_POTONGAN_PINJAMAN}}</b></td>
         <td style="border: 1px solid black;"><b>{{ $Jumlah_POTONGAN_SERAGAM}}</b></td>
         <td style="border: 1px solid black;"><b>{{ $Jumlah_POTONGAN_CONSUMABLE}}</b></td>
@@ -169,11 +173,12 @@
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_BPJS_KESEHATAN')}}</b></td>
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_POTONGAN_KAS')}}</b></td>
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_BPJS_KETENAGAKERJAAN')}}</b></td>
+      <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_BPJS_PENSIUN')}}</b></td>
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_POTONGAN_PINJAMAN')}}</b></td>
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_POTONGAN_SERAGAM')}}</b></td>
       <td style="border: 1px solid black;"><b>{{ $hasilQuery->sum('Jumlah_POTONGAN_CONSUMABLE')}}</b></td>
       @php
-        $TotalGajinyaClient = $hasilQuery->sum('Jumlah_BPJS_KESEHATAN') + $hasilQuery->sum('Jumlah_POTONGAN_KAS') + $hasilQuery->sum('Jumlah_BPJS_KETENAGAKERJAAN') + $hasilQuery->sum('Jumlah_POTONGAN_PINJAMAN') + $hasilQuery->sum('Jumlah_POTONGAN_SERAGAM') + $hasilQuery->sum('Jumlah_POTONGAN_CONSUMABLE');
+        $TotalGajinyaClient = $hasilQuery->sum('Jumlah_BPJS_KESEHATAN') + $hasilQuery->sum('Jumlah_POTONGAN_KAS') + $hasilQuery->sum('Jumlah_BPJS_KETENAGAKERJAAN') + $hasilQuery->sum('Jumlah_POTONGAN_PINJAMAN') + $hasilQuery->sum('Jumlah_POTONGAN_SERAGAM') + $hasilQuery->sum('Jumlah_POTONGAN_CONSUMABLE') + $hasilQuery->sum('Jumlah_BPJS_PENSIUN');
       @endphp
       <td style="border: 1px solid black;"><b>{{ $jumlahGajinyaClient - $TotalGajinyaClient}}</b></td>
     </tr>

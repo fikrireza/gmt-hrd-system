@@ -197,6 +197,7 @@ class LaporanBatchPayrollController extends Controller
           $Jumlah_POTONGAN_KAS = 0;
           $Jumlah_BPJS_KESEHATAN = 0;
           $Jumlah_BPJS_KETENAGAKERJAAN = 0;
+          $Jumlah_BPJS_PENSIUN = 0;
           $Jumlah_POTONGAN_PINJAMAN = 0;
           $Jumlah_POTONGAN_SERAGAM = 0;
           $Jumlah_POTONGAN_CONSUMABLE = 0;
@@ -228,11 +229,12 @@ class LaporanBatchPayrollController extends Controller
               $Jumlah_BPJS_KESEHATAN += $key->Jumlah_BPJS_KESEHATAN;
               $Jumlah_POTONGAN_KAS += $key->Jumlah_POTONGAN_KAS;
               $Jumlah_BPJS_KETENAGAKERJAAN += $key->Jumlah_BPJS_KETENAGAKERJAAN;
+              $Jumlah_BPJS_PENSIUN += $key->Jumlah_BPJS_PENSIUN;
               $Jumlah_POTONGAN_PINJAMAN += $key->Jumlah_POTONGAN_PINJAMAN;
               $Jumlah_POTONGAN_SERAGAM += $key->Jumlah_POTONGAN_SERAGAM;
               $Jumlah_POTONGAN_CONSUMABLE += $key->Jumlah_POTONGAN_CONSUMABLE;
 
-              $jumlahPotongannya = $key->Jumlah_BPJS_KESEHATAN + $key->Jumlah_POTONGAN_KAS + $key->Jumlah_BPJS_KETENAGAKERJAAN + $key->Jumlah_POTONGAN_PINJAMAN + $key->Jumlah_POTONGAN_SERAGAM + $key->Jumlah_POTONGAN_CONSUMABLE;
+              $jumlahPotongannya = $key->Jumlah_BPJS_KESEHATAN + $key->Jumlah_POTONGAN_KAS + $key->Jumlah_BPJS_KETENAGAKERJAAN + $key->Jumlah_POTONGAN_PINJAMAN + $key->Jumlah_POTONGAN_SERAGAM + $key->Jumlah_POTONGAN_CONSUMABLE + $key->Jumlah_BPJS_PENSIUN;
               $grandTotalGaji += $jumlahGajinya - $jumlahPotongannya;
             }
           }
@@ -267,6 +269,10 @@ class LaporanBatchPayrollController extends Controller
 
         $getbank = MasterBank::get();
 
+        if($getbank->isEmpty()){
+          return redirect()->route('batchpayroll.detail', array('id' => $id))->with('gagal', 'Harap Mengisi Data Bank Pada Master Bank dan Pegawai');
+        }
+
         // Start Query Detail Gaji Karyawan
         $query1 = "SELECT pegawai.id, pegawai.nip, pegawai.nama as nama_pegawai, pegawai.no_rekening, pegawai.bank, IFNULL(tabel_Workday.workday, 0) as Jumlah_Workday, IFNULL(tabel_Jabatan.nama_jabatan, 0) as Jabatan ";
         $query2 = "FROM (select a.id, a.nip, a.nama, a.no_rekening, a.bank from master_pegawai a, detail_batch_payroll where a.id = detail_batch_payroll.id_pegawai and detail_batch_payroll.id_batch_payroll = 41) as pegawai ";
@@ -289,7 +295,7 @@ class LaporanBatchPayrollController extends Controller
         {
           $jumlahGajinya = $key->Jumlah_GAJI_POKOK + $key->Jumlah_TUNJANGAN_JABATAN + $key->Jumlah_TUNJANGAN_INSENTIF + $key->Jumlah_TUNJANGAN_LEMBUR + $key->Jumlah_KEKURANGAN_BULAN_LALU + $key->Jumlah_TUNJANGAN_TRANSPORT_MAKAN + $key->Jumlah_KETUA_REGU + $key->Jumlah_PENGEMBALIAN_SERAGAM + $key->Jumlah_TUNJANGAN_MAKAN_LEMBUR + $key->Jumlah_SALARY + $key->Jumlah_SHIFT_PAGI_SIANG + $key->Jumlah_TUNJANGAN_MAKAN_TRANSPORT;
 
-          $jumlahPotongannya = $key->Jumlah_BPJS_KESEHATAN + $key->Jumlah_POTONGAN_KAS + $key->Jumlah_BPJS_KETENAGAKERJAAN + $key->Jumlah_POTONGAN_PINJAMAN + $key->Jumlah_POTONGAN_SERAGAM + $key->Jumlah_POTONGAN_CONSUMABLE;
+          $jumlahPotongannya = $key->Jumlah_BPJS_KESEHATAN + $key->Jumlah_POTONGAN_KAS + $key->Jumlah_BPJS_KETENAGAKERJAAN + $key->Jumlah_POTONGAN_PINJAMAN + $key->Jumlah_POTONGAN_SERAGAM + $key->Jumlah_POTONGAN_CONSUMABLE + $key->Jumlah_BPJS_PENSIUN;
 
           $grandTotalGaji = $jumlahGajinya - $jumlahPotongannya;
 

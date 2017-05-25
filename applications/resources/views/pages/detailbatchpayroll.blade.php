@@ -26,13 +26,23 @@
     }, 2000);
   </script>
 
+  @if(Session::has('gagal'))
   <script>
-    window.setTimeout(function() {
-      $(".alert-danger").fadeTo(500, 0).slideUp(500, function(){
-          $(this).remove();
-      });
-    }, 2000);
+  window.setTimeout(function() {
+    $(".alert-danger").fadeTo(1500, 0).slideUp(1500, function(){
+      $(this).remove();
+    });
+  }, 8000);
   </script>
+
+  <div class="col-md-12">
+      <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+        <p>{{ Session::get('gagal') }}</p>
+      </div>
+  </div>
+  @endif
 
   <div class="modal modal-default fade" id="myModal" role="dialog">
     <div class="modal-dialog" style="width:700px;">
