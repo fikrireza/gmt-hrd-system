@@ -246,3 +246,11 @@ Route::post('cuti', 'CutiController@store')->name('cuti.store');
 Route::post('cuti/update', 'CutiController@update')->name('cuti.update');
 Route::get('cuti/bind-cuti/{id}', 'CutiController@bind')->name('cuti.bind');
 Route::get('cuti/delete/{id}', 'CutiController@delete')->name('cuti.delete');
+
+
+///// RAPEL GAJI /////
+Route::get('rapel-gaji', 'RapelGajiController@index')->name('rapelgaji.index');
+Route::get('rapel-gaji/list', 'RapelGajiController@list')->name('rapelgaji.list');
+Route::get('rapel-gaji/detail/{id}', 'RapelGajiController@detail')->name('rapelgaji.detail');
+Route::post('rapel-gaji/getclienthistory', 'RapelGajiController@getclienthistory')->name('rapelgaji.getclienthistory');
+Route::get('rapel-gaji/proses/{id}', 'RapelGajiController@proses')->name('rapelgaji.proses');

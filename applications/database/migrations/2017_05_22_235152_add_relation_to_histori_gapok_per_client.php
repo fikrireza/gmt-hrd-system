@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnTanggalAkhirProsesToBatchPayroll extends Migration
+class AddRelationToHistoriGapokPerClient extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class AddColumnTanggalAkhirProsesToBatchPayroll extends Migration
      */
     public function up()
     {
-        Schema::table('batch_payroll', function($table){
-          $table->date('tanggal_proses_akhir')->after('tanggal_proses')->nullable();
-        });
+      Schema::table('histori_gaji_pokok_per_client', function($table) {
+        $table->foreign('id_client')->references('id')->on('master_client');
+        $table->foreign('id_cabang_client')->references('id')->on('cabang_client');
+      });
     }
 
     /**

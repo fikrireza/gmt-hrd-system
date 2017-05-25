@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBankTable extends Migration
+class CreateHistoriGajiPokokPerClientTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateBankTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_bank', function(Blueprint $table){
+        Schema::create('histori_gaji_pokok_per_client', function(Blueprint $table){
           $table->increments('id');
-          $table->string('nama_bank');
-          $table->integer('flag_status')->unsigned()->default(1);
+          $table->integer('id_client')->unsigned()->nullable();
+          $table->integer('id_cabang_client')->unsigned()->nullable();
+          $table->date('tanggal_penyesuaian');
+          $table->integer('nilai');
           $table->timestamps();
         });
     }

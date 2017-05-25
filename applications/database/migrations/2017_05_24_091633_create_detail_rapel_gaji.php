@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBatchProcessedTable extends Migration
+class CreateDetailRapelGaji extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,18 @@ class CreateBatchProcessedTable extends Migration
      */
     public function up()
     {
-        Schema::create('batch_processed', function(Blueprint $table){
+        Schema::create('detail_rapel_gaji', function(Blueprint $table){
           $table->increments('id');
-          $table->integer('total_pegawai')->default(0);
-          $table->integer('total_penerimaan_gaji')->default(0);
-          $table->integer('total_potongan_gaji')->default(0);
-          $table->integer('total_pengeluaran')->default(0);
           $table->integer('id_pegawai')->unsigned()->nullable();
+          $table->integer('id_rapel_gaji')->unsigned()->nullable();
+          $table->integer('jml_bulan_selisih');
+          $table->integer('nilai_rapel');
           $table->timestamps();
         });
 
-        Schema::table('batch_processed', function($table){
+        Schema::table('detail_rapel_gaji', function($table){
           $table->foreign('id_pegawai')->references('id')->on('master_pegawai');
+          $table->foreign('id_rapel_gaji')->references('id')->on('rapel_gaji');
         });
     }
 

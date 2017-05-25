@@ -15,7 +15,8 @@
         "dompdf/dompdf": "~0.6.1",
         "filp/whoops": "^2.1",
         "intervention/image": "^2.3",
-        "friendsofphp/php-cs-fixer": "^1.12"
+        "friendsofphp/php-cs-fixer": "^1.12",
+        "barryvdh/laravel-debugbar": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

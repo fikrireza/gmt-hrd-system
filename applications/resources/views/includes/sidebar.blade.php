@@ -166,7 +166,7 @@
       <li class="treeview">
         <a href="#">
           <i class="fa fa-unlink"></i>
-          <span>Pengecualian per-Client</span>
+          <span>Pengecualian Hari Libur</span>
           <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
@@ -176,7 +176,7 @@
       <li class="treeview {{ Route::currentRouteNamed('harikerja.index') ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-user-secret"></i>
-          <span>Hari Kerja per-Client</span>
+          <span>Hari Kerja</span>
           <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
@@ -186,7 +186,7 @@
       <li class="treeview {{ Route::currentRouteNamed('historygajipokok.index') ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-building-o"></i>
-          <span>Gaji Pokok per-Client</span>
+          <span>Gaji Pokok</span>
           <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
@@ -210,7 +210,8 @@
           <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-          <li><a href="#"><i class="fa fa-circle-o"></i> Perhitungan Rapel Gaji</a></li>
+          <li><a href="{{route('rapelgaji.index')}}"><i class="fa fa-circle-o"></i> Perhitungan Rapel Gaji</a></li>
+          <li><a href="{{route('rapelgaji.list')}}"><i class="fa fa-circle-o"></i> Lihat Data Rapel Gaji</a></li>
         </ul>
       </li>
       <li class="treeview">

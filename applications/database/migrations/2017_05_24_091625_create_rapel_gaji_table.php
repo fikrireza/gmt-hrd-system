@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBankTable extends Migration
+class CreateRapelGajiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,16 @@ class CreateBankTable extends Migration
      */
     public function up()
     {
-        Schema::create('master_bank', function(Blueprint $table){
+        Schema::create('rapel_gaji', function(Blueprint $table){
           $table->increments('id');
-          $table->string('nama_bank');
-          $table->integer('flag_status')->unsigned()->default(1);
+          $table->integer('id_histori')->unsigned()->nullable();
+          $table->date('tanggal_proses');
+          $table->integer('flag_processed');
           $table->timestamps();
+        });
+
+        Schema::table('rapel_gaji', function(Blueprint $table){
+          $table->foreign('id_histori')->references('id')->on('histori_gaji_pokok_per_client');
         });
     }
 
