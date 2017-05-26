@@ -25,27 +25,28 @@
         <div class="box-header with-border">
           <h3 class="box-title">Pilih Client</h3>
         </div>
-        <!-- form start -->
-        <form class="form-horizontal" method="post" action="{{ url('laporan-proses') }}">
-          {!! csrf_field() !!}
-          <div class="box-body">
-            <div class="form-group">
-              <label class="col-sm-3 control-label">Client</label>
-              <div class="col-sm-6">
-                <select name="id_client" class="form-control select2" style="width: 100%;" required="true">
-                  <option selected="selected"></option>
-                  @foreach($getClient as $key)
-                    <option value="{{ $key->id }}" @if(isset($proses))@if($key->id == $idClient) selected="" @endif @endif>{{ $key->kode_client }} - {{ $key->nama_client }}</option>
-                  @endforeach
-                </select>
-              </div>
+        <div class="box-body">
+          <div class="col-md-12" style="margin-bottom:20px;">
+          </div>
+          <div class="col-md-12">
+               <form class="form-horizontal" method="post" action="{{ url('laporan-proses') }}">
+                {!! csrf_field() !!}
+                <div class="callout callout-warning">
+                  <label class="col-sm-2 control-label">Client</label>
+                  <div class="col-sm-8">
+                    <select name="id_client" class="form-control select2" style="width: 100%;" required="true">
+                      <option selected="selected"></option>
+                      @foreach($getClient as $key)
+                        <option value="{{ $key->id }}" @if(isset($proses))@if($key->id == $idClient) selected="" @endif @endif>{{ $key->kode_client }} - {{ $key->nama_client }}</option>
+                      @endforeach
+                    </select>
+                  </div>
+                   <button type="submit" class="btn btn-success">Proses</button>
+                </div>
+              </form>
             </div>
           </div>
-          <div class="box-footer">
-            <button type="submit" class="btn btn-block btn-success">Proses</button>
-          </div>
-        </form>
-      </div>
+        </div>
     </div>
     @if(isset($proses))
      @if(!$proses->isEmpty())
