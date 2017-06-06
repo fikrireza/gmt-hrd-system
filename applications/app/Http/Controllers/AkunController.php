@@ -10,7 +10,7 @@ use DB;
 use Image;
 use Validator;
 use App\Models\MasterPegawai;
-use App\Models\User;
+use App\Models\MasterUsers;
 
 class AkunController extends Controller
 {
@@ -25,35 +25,17 @@ class AkunController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-      $getpegawaiid = DB::table('users')->select('pegawai_id')->get();
 
-      $data = array();
-      foreach ($getpegawaiid as $key) {
-        $data[] = $key->pegawai_id;
-      }
-
-      $getnip = MasterPegawai::whereNotIn('id', $data)->get();
-      $getuser = User::all();
+      $getuser = MasterUsers::all();
 
       return view('pages/tambahakun')
-        ->with('getuser', $getuser)
-        ->with('getnip', $getnip);
+        ->with('getuser', $getuser);
     }
 
     /**
@@ -65,19 +47,22 @@ class AkunController extends Controller
     public function store(Request $request)
     {
       $messages = [
-        'nip.required' => 'Anda harus memilih NIP',
+        'email.required' => 'Anda harus mengisi email',
         'username.required' => 'Username harus diisi',
+        'username.unique' => 'Username sudah dipakai',
         'password.required' => 'Password harus diisi',
         'password.confirmed' => 'Konfirmasi password tidak valid',
         'level.required' => 'Anda harus memilih Level Akses',
+        'nama.required' => 'Anda harus mengisi nama',
         'password_confirmation.required' => 'Konfirmasi password harus diisi',
       ];
 
       $validator = Validator::make($request->all(), [
-            'nip' => 'required',
-            'username' => 'required',
+            'username' => 'required|unique:master_users',
             'password' => 'required|confirmed',
+            'email' => 'required',
             'level' => 'required',
+            'nama' => 'required',
             'password_confirmation' => 'required',
         ], $messages);
 
@@ -87,64 +72,22 @@ class AkunController extends Controller
                       ->withInput();
         }
 
-      $user = new User;
+      $user = new MasterUsers;
+      $user->nama = $request->nama;
       $user->username = $request->username;
       $user->password = Hash::make($request->password);
-      $user->pegawai_id = $request->nip;
+      $user->email = $request->email;
+      $user->login_count = 1;
       $user->level = $request->level;
       $user->save();
 
       return redirect()->route('useraccount.create');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-
-    }
 
     public function delete($id)
     {
-      $get = User::find($id);
+      $get = MasterUsers::find($id);
       $get->delete();
 
       return redirect()->route('useraccount.create')->with('message', 'Berhasil menghapus akun.');
@@ -152,7 +95,7 @@ class AkunController extends Controller
 
     public function kelolaprofile($id)
     {
-      $get = User::find($id);
+      $get = MasterUsers::find($id);
       return view('pages/kelolaprofile')->with('getuser', $get);
     }
 
@@ -163,28 +106,25 @@ class AkunController extends Controller
         $photo_name = time(). '.' . $file->getClientOriginalExtension();
         Image::make($file)->fit(160,160)->save('images/'. $photo_name);
 
-        $set = MasterPegawai::find($request->id);
-        $set->nama = $request->name;
-        $set->save();
-
-        $setfoto = User::where('pegawai_id', $request->id)->first();
+        $setfoto = MasterUsers::where('id', $request->id)->first();
         $setfoto->url_foto = $photo_name;
-        $setfoto->save();
-      } else {
-        $set = MasterPegawai::find($request->id);
         $set->nama = $request->name;
-        $set->save();
+        $setfoto->update();
+      } else {
+        $set = MasterUsers::find($request->id);
+        $set->nama = $request->name;
+        $set->update();
       }
 
-      $users = User::where('pegawai_id', $request->id)->first();
-      
-      
+      $users = MasterUsers::where('id', $request->id)->first();
+
+
       return redirect()->route('kelola.profile', $users->id)->with('message', 'Berhasil mengubah profile.');
     }
 
     public function updatepassword(Request $request)
     {
-      $get = User::find($request->id);
+      $get = MasterUsers::find($request->id);
 
       if(Hash::check($request->oldpassword, $get->password)) {
         $messages = [

@@ -38,7 +38,7 @@
   <div class="col-md-12">
       <div class="alert alert-danger">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-check"></i> Berhasil!</h4>
+        <h4><i class="icon fa fa-check"></i> Gagal!</h4>
         <p>{{ Session::get('gagal') }}</p>
       </div>
   </div>

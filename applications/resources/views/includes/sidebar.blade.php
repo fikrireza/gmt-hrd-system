@@ -14,7 +14,7 @@
       <p>
         @if(Auth::check())
         @if(Auth::user())
-          {{ Auth::user()->master_pegawai->nama }}
+          {{ Auth::user()->username }}
         @endif
         @endif
       </p>

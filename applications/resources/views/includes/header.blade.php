@@ -7,6 +7,8 @@
       Human Resources
     @elseif (Auth::user()->level="2")
       Payroll System
+    @elseif (Auth::user()->level="3")
+      Dir Ops
     @endif
   </span>
 </a>
@@ -28,7 +30,7 @@
           @endif
             <span class="hidden-xs">
               @if(Auth::user())
-                {{ Auth::user()->master_pegawai->nama }}
+                {{ Auth::user()->username }}
               @endif
           @endif
             </span>
@@ -44,8 +46,8 @@
             @endif
             <p>
               @if(Auth::user())
-                {{ Auth::user()->master_pegawai->nama}}
-                <small>{{ \Carbon\Carbon::parse(Auth::user()->master_pegawai->created_at)->format('d-M-y')}}</small>
+                {{ Auth::user()->username}}
+                <small>{{ \Carbon\Carbon::parse(Auth::user()->created_at)->format('d-M-y')}}</small>
               @endif
             @endif
             </p>

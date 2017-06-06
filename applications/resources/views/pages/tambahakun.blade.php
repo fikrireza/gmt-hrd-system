@@ -69,18 +69,24 @@
         <form class="form-horizontal" method="post" action="{{url('useraccount')}}">
           {!! csrf_field() !!}
           <div class="box-body">
-            <div class="form-group {{ $errors->has('nip') ? 'has-error' : '' }}">
-              <label class="col-sm-3 control-label">NIP</label>
+            <div class="form-group {{ $errors->has('nama') ? 'has-error' : '' }}">
+              <label class="col-sm-3 control-label">Username</label>
               <div class="col-sm-9">
-                <select name="nip" class="form-control select2" style="width: 100%;">
-                  <option selected="selected"></option>
-                  @foreach($getnip as $key)
-                    <option value="{{ $key->id }}" {{old('nip')==$key->id?'selected':''}}>{{ $key->nip }} - {{ $key->nama }}</option>
-                  @endforeach
-                </select>
-                @if($errors->has('nip'))
+                <input type="text" name="nama" class="form-control" placeholder="Nama" value="{{ old('nama') }}">
+                @if($errors->has('nama'))
                   <span class="help-block">
-                    <strong>{{ $errors->first('nip')}}</strong>
+                    <strong>{{ $errors->first('nama')}}</strong>
+                  </span>
+                @endif
+              </div>
+            </div>
+            <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
+              <label class="col-sm-3 control-label">Email</label>
+              <div class="col-sm-9">
+                <input type="text" name="email" class="form-control" placeholder="Email" value="{{ old('email')}}">
+                @if($errors->has('email'))
+                  <span class="help-block">
+                    <strong>{{ $errors->first('email')}}</strong>
                   </span>
                 @endif
               </div>

@@ -13,6 +13,8 @@
       <small>Akses Human Resources</small>
     @elseif (Auth::user()->level=="2")
       <small>Akses Payroll</small>
+    @elseif(Auth::user()->level=="3")
+      <small>Akses Dirops</small>
     @endif
   </h1>
   <ol class="breadcrumb">

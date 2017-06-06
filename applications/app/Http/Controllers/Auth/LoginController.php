@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use Validator;
 
 use Auth;
-use App\Models\User;
+use App\Models\MasterUsers;
 
 class LoginController extends Controller
 {

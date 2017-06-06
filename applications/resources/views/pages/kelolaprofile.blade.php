@@ -59,7 +59,7 @@
             <img class="profile-user-img img-responsive img-circle" src="{{url('images')}}/user-not-found.png" alt="User profile picture">
           @endif
 
-          <h3 class="profile-username text-center">{{Auth::user()->master_pegawai->nama}}</h3>
+          <h3 class="profile-username text-center">{{Auth::user()->username}}</h3>
 
           <p class="text-muted text-center">
             @if($getuser->level=="1")
@@ -96,8 +96,8 @@
               <div class="form-group">
                 <label for="inputName" class="col-sm-2 control-label">Nama</label>
                 <div class="col-sm-10">
-                  <input type="hidden" name="id" value="{{Auth::user()->pegawai_id}}">
-                  <input type="text" class="form-control" name="name" value="{{Auth::user()->master_pegawai->nama}}">
+                  <input type="hidden" name="id" value="{{Auth::user()->id}}">
+                  <input type="text" class="form-control" name="name" value="{{ $getuser->nama}}">
                 </div>
               </div>
               <div class="form-group">
@@ -142,7 +142,7 @@
                 >
                 <label for="inputName" class="col-sm-2 control-label">Password Lama</label>
                 <div class="col-sm-10">
-                  <input type="hidden" name="id" value="{{Auth::user()->pegawai_id}}">
+                  <input type="hidden" name="id" value="{{Auth::user()->id}}">
                   <input type="password" class="form-control" name="oldpassword"
                     @if(!$errors->has('oldpassword'))
                      value="{{ old('oldpassword') }}"
@@ -192,17 +192,11 @@
     </div><!-- /.col -->
   </div>
 
-  <!-- jQuery 2.1.4 -->
   <script src="{{asset('plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
-  <!-- Bootstrap 3.3.5 -->
   <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
-  <!-- SlimScroll -->
   <script src="{{asset('plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
-  <!-- FastClick -->
   <script src="{{asset('plugins/fastclick/fastclick.min.js')}}"></script>
-  <!-- AdminLTE App -->
   <script src="{{asset('dist/js/app.min.js')}}"></script>
-  <!-- AdminLTE for demo purposes -->
   <script src="{{asset('dist/js/demo.js')}}"></script>
 
 @stop
