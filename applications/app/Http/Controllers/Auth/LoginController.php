@@ -107,6 +107,13 @@ class LoginController extends Controller
   				$request->session()->forget('user_id');
   			}
 
+        $login_count = MasterUsers::select('login_count')->where('id', Auth::user()->id)->first();
+        $login_count = $login_count->login_count+1;
+
+        $update = MasterUsers::find(Auth::user()->id);
+        $update->login_count = $login_count;
+        $update->update();
+
   			return redirect()->route('dashboard');
   		}
 

@@ -30,7 +30,7 @@
     }, 5000);
   </script>
 
-  <div class="callout callout-info">
+  <div class="callout callout-warning">
      <h4>Pemberitahuan!</h4>
      <p>Data ini di input untuk client per area yang mengabaikan hari libur nasional.</p>
    </div>

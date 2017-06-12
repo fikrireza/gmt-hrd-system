@@ -74,7 +74,7 @@
 
           <ul class="list-group list-group-unbordered">
             <li class="list-group-item">
-              <b>Jumlah Login</b> <a class="badge bg-green pull-right">10</a>
+              <b>Jumlah Login</b> <a class="badge bg-green pull-right">{{ Auth::user()->login_count}}</a>
             </li>
           </ul>
 

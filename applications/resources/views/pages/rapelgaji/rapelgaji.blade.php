@@ -86,7 +86,6 @@
                    <button type="submit" class="btn btn-success">Proses</button>
                 </div>
               </form>
-
             </div>
           </div>
         </div>
