@@ -74,6 +74,11 @@
             <div class="social-auth-links text-center">
               <p>Hello, {{ Auth::user()->nama }}</p>
               <a href="{{ url('/dashboard') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-bitbucket"><i class="fa fa-dashboard"></i></i> Dashboard</a>
+              <a href="{{ url('masterclient') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-dropbox"><i class="fa fa-building-o"></i> Master Client</a>
+              <a href="{{ route('masterpegawai.index') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-google"><i class="fa fa-users"></i> Master Pegawai</a>
+              <a href="{{ route('masterjabatan.create') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-instagram"><i class="fa fa-briefcase"></i> Master Jabatan</a>
+              <a href="{{ route('batchpayroll.index') }}" class="btn btn-block btn-social btn-grey btn-flat btn-github"><i class="fa fa fa fa-money"></i> Proses Payroll</a>
+              <a href="{{ route('logout') }}" class="btn btn-block btn-social btn-flat btn-vk"><i class="fa fa-sign-out"></i> Logout</a>
             </div>
           </div>
           @endif

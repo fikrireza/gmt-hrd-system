@@ -44,6 +44,7 @@
   </div>
   @endif
 
+  @if (session('level') == 2)
   <div class="modal modal-default fade" id="myModal" role="dialog">
     <div class="modal-dialog" style="width:700px;">
       <div class="modal-content">
@@ -149,6 +150,7 @@
       </form>
     </div>
   </div>
+  @endif
 
   <div class="row">
     <div class="col-md-12">
@@ -196,6 +198,14 @@
         </div>
       </div>
     @endif
+
+    @php
+      if (session('level') != 2) {
+        $onlyPayroll = 'disabled';
+      }else {
+        $onlyPayroll = '';
+      }
+    @endphp
 
     <div class="col-md-12">
       @if ($getbatch->flag_processed==1)
@@ -296,12 +306,12 @@
                   @else
                     <td>
                       <span data-toggle="tooltip" title="Set Komponen Gaji">
-                        <a href="#" class="btn btn-xs btn-warning addkomponen" data-toggle="modal" data-target="#myModal" data-value="{{$key['id']}}">
+                        <a href="#" class="btn btn-xs btn-warning addkomponen {{ $onlyPayroll }}" data-toggle="modal" data-target="#myModal" data-value="{{$key['id']}}">
                           <i class="fa fa-list-ul"></i>
                         </a>
                       </span>
                       <span data-toggle="tooltip" title="Set Absensi">
-                        <a href="#" class="btn btn-xs btn-success editabsen" data-toggle="modal" data-target="#myModalSetAbsen" data-value="{{$key['iddetailbatch']}}">
+                        <a href="#" class="btn btn-xs btn-success editabsen {{ $onlyPayroll }}" data-toggle="modal" data-target="#myModalSetAbsen" data-value="{{$key['iddetailbatch']}}">
                           <i class="fa fa-check"></i>
                         </a>
                       </span>
@@ -389,7 +399,7 @@
               <a href="#" class="btn btn-default disabled">Proses Payroll</a>
             </span>
           @else
-            <a href="{{url('batch-payroll/process/'.$idbatch.'/'.http_build_query(array('data' => $summary)))}}" class="btn btn-warning">Proses Payroll</a>
+            <a href="{{url('batch-payroll/process/'.$idbatch.'/'.http_build_query(array('data' => $summary)))}}" class="btn btn-warning {{ $onlyPayroll }}">Proses Payroll</a>
           @endif
         </div>
       </div>
@@ -412,7 +422,7 @@
               <a href="#" class="btn btn-default disabled">Download Template XLS</a>
             </span>
           @else
-            <a href="{{route('detailbatchpayroll.export', $idbatch)}}" class="btn btn-warning">Download Template XLS</a>
+            <a href="{{route('detailbatchpayroll.export', $idbatch)}}" class="btn btn-warning {{ $onlyPayroll }}">Download Template XLS</a>
           @endif
         </div>
       </div>
@@ -431,7 +441,7 @@
             <div style="margin-bottom:5px;">
               Import data .xls anda disini:
             </div>
-            <input type="file" name="filecsv" class="form-control"
+            <input type="file" name="filecsv" class="form-control" {{ $onlyPayroll }}
               @if ($getbatch->flag_processed==1)
                 disabled
               @endif
@@ -441,7 +451,7 @@
                 <a href="#" class="btn btn-default disabled">Import Tempate XLS</a>
               </span>
             @else
-              <input type="submit" class="btn btn-success" value="Import Tempate XLS">
+              <input type="submit" class="btn btn-success {{ $onlyPayroll }}" value="Import Tempate XLS">
             @endif
           </form>
         </div>

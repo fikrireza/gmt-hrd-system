@@ -30,11 +30,9 @@
       }, 2000);
     </script>
 
-    <!-- Modal -->
+    @if (session('level') == 2)
     <div class="modal modal-default fade" id="myModal" role="dialog">
       <div class="modal-dialog">
-
-        <!-- Modal content-->
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -48,7 +46,6 @@
             <a href="#" class="btn btn-danger" id="sethapus">Ya, saya yakin.</a>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -109,6 +106,7 @@
       </form>
       </div>
     </div>
+  @endif
 
   <div class="row">
     <!--column -->
@@ -129,6 +127,7 @@
       @endif
     </div>
 
+    @if (session('level') == 2)
     <div class="col-md-5">
       <!-- Horizontal Form -->
       <form class="form-horizontal" action="{{route('batchpayroll.store')}}" method="post">
@@ -193,12 +192,21 @@
         </div>
       </form>
     </div><!--/.col -->
+    @endif
+
+    @php
+      if (session('level') != 2) {
+        $onlyPayroll = 'disabled';
+      }else {
+        $onlyPayroll = '';
+      }
+    @endphp
 
     <div class="col-md-7">
       <div class="box box-primary box-solid">
         <div class="box-header">
           <h3 class="box-title">Seluruh Batch Payroll</h3>
-        </div><!-- /.box-header -->
+        </div>
         <div class="box-body">
           <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
             <div class="row">
@@ -253,10 +261,10 @@
                               <a href="{{route('batchpayroll.detail', $key->id)}}" class="btn btn-xs btn-primary edit"><i class="fa fa-eye"></i></a>
                             </span>
                             <span data-toggle="tooltip" title="Edit Data">
-                              <a href="" class="btn btn-xs btn-warning edit" data-toggle="modal" data-target="#myModalEdit" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
+                              <a href="" class="btn btn-xs btn-warning edit {{ $onlyPayroll }}" data-toggle="modal" data-target="#myModalEdit" data-value="{{$key->id}}"><i class="fa fa-edit"></i></a>
                             </span>
                             <span data-toggle="tooltip" title="Hapus Data">
-                              <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
+                              <a href="" class="btn btn-xs btn-danger hapus {{ $onlyPayroll }}" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
                             </span>
                           </td>
                         </tr>
