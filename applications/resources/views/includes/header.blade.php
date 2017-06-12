@@ -3,12 +3,12 @@
   <span class="logo-mini"><b>GMT</b></span>
   <!-- logo for regular state and mobile devices -->
   <span class="logo-lg" style="font-size:18px;"><b>GMT</b>
-    @if (Auth::user()->level=="1")
+    @if (session('level') == 1)
       Human Resources
-    @elseif (Auth::user()->level="2")
+    @elseif (session('level') == 2)
       Payroll System
-    @elseif (Auth::user()->level="3")
-      Dir Ops
+    @elseif (session('level') == 3)
+      Direktur Operasional
     @endif
   </span>
 </a>

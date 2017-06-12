@@ -67,59 +67,75 @@ class LoginController extends Controller
       if($validator->fails()) {
         return redirect()->route('index')->withErrors($validator)->withInput();
       }
-  		$logValue = $request->input('username');
+  		// $logValue = $request->input('username');
+      //
+  		// $logAccess = filter_var($logValue, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+      //
+  		// $throttles = in_array(ThrottlesLogins::class, class_uses_recursive(get_class($this)));
+      //
+  		// if ($throttles && $this->hasTooManyLoginAttempts($request))
+  		// {
+  		// 	return redirect()->route('index')->with('error', 'You have reached the maximum number of login attempts. Try again in one minute.')->withInput($request->only('email'));
+  		// }
+      //
+  		// $credentials = [
+  		// 	$logAccess  => $logValue,
+  		// 	'password'  => $request->input('password')
+  		// ];
+      //
+  		// if(!$auth->validate($credentials))
+  		// {
+  		// 	if ($throttles)
+  		// 	{
+  		// 	  $this->incrementLoginAttempts($request);
+  		// 	}
+  		// 	return redirect()->route('index')->with('error', 'These credentials do not match our records.')->withInput($request->only('email'));
+  		// }
+      //
+  		// $user = $auth->getLastAttempted();
+      //
+  		// if($user)
+  		// {
+  		// 	if ($throttles)
+  		// 	{
+  		// 		$this->clearLoginAttempts($request);
+  		// 	}
+      //
+  		// 	$auth->login($user, $request->has('memory'));
+  		// 	if($request->session()->has('user_id'))
+  		// 	{
+  		// 		$request->session()->forget('user_id');
+  		// 	}
+      //
+      //   $login_count = MasterUsers::select('login_count')->where('id', Auth::user()->id)->first();
+      //   $login_count = $login_count->login_count+1;
+      //
+      //   $update = MasterUsers::find(Auth::user()->id);
+      //   $update->login_count = $login_count;
+      //   $update->update();
+      //
+  		// 	return redirect()->route('dashboard');
+  		// }
+      //
+  		// $request->session()->put('user_id', $user->id);
 
-  		$logAccess = filter_var($logValue, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+      if(Auth::attempt(['username' => $request->username, 'password' => $request->password]))
+        {
+            $user = Auth::User();
+            $set = MasterUsers::find(Auth::user()->id);
+            $getCounter = $set->login_count;
+            $set->login_count = $getCounter+1;
+            $set->save();
 
-  		$throttles = in_array(ThrottlesLogins::class, class_uses_recursive(get_class($this)));
+            session()->put('level', Auth::user()->level);
 
-  		if ($throttles && $this->hasTooManyLoginAttempts($request))
-  		{
-  			return redirect()->route('index')->with('error', 'You have reached the maximum number of login attempts. Try again in one minute.')->withInput($request->only('email'));
-  		}
+            return redirect()->route('dashboard');
+        }
+        else
+        {
+            return redirect()->route('index')->with('filedLogin', 'Periksa Kembali Email atau Password Anda.')->withInput();
+        }
 
-  		$credentials = [
-  			$logAccess  => $logValue,
-  			'password'  => $request->input('password')
-  		];
-
-  		if(!$auth->validate($credentials))
-  		{
-  			if ($throttles)
-  			{
-  			  $this->incrementLoginAttempts($request);
-  			}
-  			return redirect()->route('index')->with('error', 'These credentials do not match our records.')->withInput($request->only('email'));
-  		}
-
-  		$user = $auth->getLastAttempted();
-
-  		if($user)
-  		{
-  			if ($throttles)
-  			{
-  				$this->clearLoginAttempts($request);
-  			}
-
-  			$auth->login($user, $request->has('memory'));
-  			if($request->session()->has('user_id'))
-  			{
-  				$request->session()->forget('user_id');
-  			}
-
-        $login_count = MasterUsers::select('login_count')->where('id', Auth::user()->id)->first();
-        $login_count = $login_count->login_count+1;
-
-        $update = MasterUsers::find(Auth::user()->id);
-        $update->login_count = $login_count;
-        $update->update();
-
-  			return redirect()->route('dashboard');
-  		}
-
-  		$request->session()->put('user_id', $user->id);
-
-      return redirect()->route('index');
   	}
 
     public function getLogout()

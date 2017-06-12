@@ -58,7 +58,9 @@
     <div class="col-md-12">
       <div class="box box-primary box-solid">
         <div class="box-header">
-          <a class="btn btn-round bg-red" href="{{ route('masterpegawai.create') }}"><i class="fa fa-users"></i> Tambah Pegawai</a>
+          @if (session('level') == 1)
+            <a class="btn btn-round bg-red" href="{{ route('masterpegawai.create') }}"><i class="fa fa-users"></i> Tambah Pegawai</a>
+          @endif
         </div>
         <div class="box-body table-responsive">
           <table class="table table-hover" id="tabelpegawai">

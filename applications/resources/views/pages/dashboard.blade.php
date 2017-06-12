@@ -9,12 +9,12 @@
 @section('breadcrumb')
   <h1>
     Dashboard
-    @if (Auth::user()->level=="1")
-      <small>Akses Human Resources</small>
-    @elseif (Auth::user()->level=="2")
-      <small>Akses Payroll</small>
-    @elseif(Auth::user()->level=="3")
-      <small>Akses Dirops</small>
+    @if (session('level') == 1)
+      <small>Human Resources</small>
+    @elseif (session('level') == 2)
+      <small>Payroll System</small>
+    @elseif(session('level') == 3)
+      <small>Direktur Operasional</small>
     @endif
   </h1>
   <ol class="breadcrumb">
@@ -87,7 +87,7 @@
     </div>
   </div>
 
-  @if (Auth::user()->level=="1")
+  @if (session('level') == 1)
     <div class="row">
       <section class="col-md-12">
         <div class="box box-primary box-solid">
@@ -116,7 +116,7 @@
     </div>
   @endif
 
-  @if (Auth::user()->level=="2")
+  @if (session('level') == 2 || session('level') == 3)
     <div class="row">
       <div class="col-md-8">
         <div class="box box-primary box-solid">
@@ -209,7 +209,7 @@
   <script src="{{asset('dist/js/app.min.js')}}"></script>
   <script src="{{asset('dist/js/demo.js')}}"></script>
 
-  @if (Auth::user()->level=="1")
+  @if (session('level') == 1)
     <script type="text/javascript">
     $(function() {
       $('#tabelpkwt').DataTable({

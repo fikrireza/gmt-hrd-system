@@ -70,7 +70,7 @@
           {!! csrf_field() !!}
           <div class="box-body">
             <div class="form-group {{ $errors->has('nama') ? 'has-error' : '' }}">
-              <label class="col-sm-3 control-label">Username</label>
+              <label class="col-sm-3 control-label">Nama</label>
               <div class="col-sm-9">
                 <input type="text" name="nama" class="form-control" placeholder="Nama" value="{{ old('nama') }}">
                 @if($errors->has('nama'))

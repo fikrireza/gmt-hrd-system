@@ -29,7 +29,13 @@
           </div>
           <div>
             @if(Auth::check())
-              @if(Auth::user()->level == 1) Human Resources Information System @else Payroll System @endif
+              @if(session('level') == 1)
+                Human Resources
+              @elseif(session('level') == 2)
+                Payroll System
+              @else
+                Direktur Operasional
+              @endif
             @else
               Human Resources & Payroll System
             @endif
@@ -40,7 +46,7 @@
 
       @if(Auth::check())
         @if(Auth::user())
-          @if(Auth::user()->level == 1)
+          @if(session('level') == 1)
           <div class="register-box-body">
             <div class="social-auth-links text-center">
               <p>Hello, {{ Auth::user()->master_pegawai->nama }}</p>
@@ -52,15 +58,22 @@
               <a href="{{ route('logout') }}" class="btn btn-block btn-social btn-flat btn-github"><i class="fa fa-sign-out"></i> Logout</a>
             </div>
           </div>
-          @elseif(Auth::user()->level == 2)
+          @elseif(session('level') == 2)
           <div class="register-box-body">
             <div class="social-auth-links text-center">
-              <p>Hello, {{ Auth::user()->master_pegawai->nama }}</p>
+              <p>Hello, {{ Auth::user()->nama }}</p>
               <a href="{{ url('/dashboard') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-bitbucket"><i class="fa fa-dashboard"></i></i> Dashboard</a>
               <a href="{{ route('periodegaji.index') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-dropbox"><i class="fa fa-building-o"></i> Periode Gaji</a>
               <a href="{{ route('komgaji.index') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-google"><i class="fa fa fa-cogs"></i> Komponen Gaji</a>
               <a href="{{ route('komgaji.index') }}" class="btn btn-block btn-social btn-grey btn-flat btn-github"><i class="fa fa fa fa-money"></i> Proses Payroll</a>
               <a href="{{ route('logout') }}" class="btn btn-block btn-social btn-flat btn-vk"><i class="fa fa-sign-out"></i> Logout</a>
+            </div>
+          </div>
+          @elseif(session('level') == 3)
+          <div class="register-box-body">
+            <div class="social-auth-links text-center">
+              <p>Hello, {{ Auth::user()->nama }}</p>
+              <a href="{{ url('/dashboard') }}" class="btn btn-block btn-social btn-maroon btn-flat btn-bitbucket"><i class="fa fa-dashboard"></i></i> Dashboard</a>
             </div>
           </div>
           @endif

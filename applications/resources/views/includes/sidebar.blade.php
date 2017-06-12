@@ -2,29 +2,24 @@
   <!-- Sidebar user panel -->
   <div class="user-panel">
     <div class="pull-left image">
-      @if(Auth::check())
       @if(Auth::user()->url_foto!="")
         <img src="{{url('images')}}/{{Auth::user()->url_foto}}" class="img-circle" alt="User Image">
       @else
         <img src="{{url('images')}}/user-not-found.png" class="img-circle" alt="User Image">
       @endif
-      @endif
     </div>
     <div class="pull-left info">
       <p>
-        @if(Auth::check())
-        @if(Auth::user())
-          {{ Auth::user()->username }}
-        @endif
-        @endif
+        {{ Auth::user()->nama }}
       </p>
       <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-        @if (Auth::user()->level=="1")
+      <br>
+        @if (session('level') == 1)
           <span class="label label-info">Human Resources</span>
-        @elseif (Auth::user()->level="2")
+        @elseif (session('level') == 2)
           <span class="label label-success">Payroll System</span>
-        @elseif(Auth::user()->level=="3")
-          <span class="label label-danger">Akses Dirops</span>
+        @elseif (session('level') == 3)
+          <span class="label label-danger">Direktur Operasional</span>
         @endif
     </div>
   </div>
@@ -35,7 +30,7 @@
         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
       </a>
     </li>
-    @if (Auth::user()->level=="1")
+    @if (session('level')=="1")
       <li class="treeview {{ Route::currentRouteNamed('masterpegawai.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.show') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.create') ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-users"></i>
@@ -120,7 +115,7 @@
       </li>
     @endif
 
-    @if (Auth::user()->level=="2")
+    @if (session('level')=="2")
       <li class="treeview {{ Route::currentRouteNamed('periodegaji.index') ? 'active' : '' }}{{ Route::currentRouteNamed('periodegaji.detail') ? 'active' : '' }}{{ Route::currentRouteNamed('periodepegawai.index') ? 'active' : '' }}{{ Route::currentRouteNamed('periodepegawai.proses') ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-calendar-minus-o"></i>
@@ -229,8 +224,17 @@
       </li>
     @endif
 
-    @if (Auth::user()->level=="3")
-    
+    @if (session('level')=="3")
+    <li class="treeview {{ Route::currentRouteNamed('masterpegawai.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.show') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.create') ? 'active' : '' }}">
+      <a href="#">
+        <i class="fa fa-users"></i>
+        <span>Master Pegawai</span>
+        <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <li class="{{ Route::currentRouteNamed('masterpegawai.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.show') ? 'active' : '' }}{{ Route::currentRouteNamed('masterpegawai.create') ? 'active' : '' }}"><a href="{{ route('masterpegawai.index') }}"><i class="fa fa-circle-o"></i> Data Pegawai</a></li>
+      </ul>
+    </li>
     @endif
   </ul>
 </section>
