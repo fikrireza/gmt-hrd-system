@@ -28,31 +28,27 @@
       }, 2000);
     </script>
 
-    <!-- Modal -->
-    <div class="modal modal-default fade" id="myModal" role="dialog">
-      <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Hapus Data Jabatan</h4>
-          </div>
-          <div class="modal-body">
-            <p>Apakah anda yakin untuk menghapus data jabatan ini?</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
-            <a href="{{url('masterjabatan/hapusjabatan/1')}}" class="btn btn-primary" id="set">Ya, saya yakin.</a>
-            {{-- <button type="button" class="btn btn btn-outline" data-dismiss="modal">Ya, saya yakin.</button> --}}
-          </div>
+  @if (session('level') == 1)
+  <div class="modal modal-default fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Hapus Data Jabatan</h4>
         </div>
-
+        <div class="modal-body">
+          <p>Apakah anda yakin untuk menghapus data jabatan ini?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Tidak</button>
+          <a href="{{url('masterjabatan/hapusjabatan/1')}}" class="btn btn-primary" id="set">Ya, saya yakin.</a>
+        </div>
       </div>
     </div>
+  </div>
+  @endif
 
   <div class="row">
-    <!--column -->
     <div class="col-md-12">
       @if(Session::has('message'))
         <div class="alert alert-success">
@@ -63,7 +59,6 @@
       @endif
     </div>
     <div class="col-md-5">
-      <!-- Horizontal Form -->
       <div class="box box-primary box-solid">
         <div class="box-header with-border">
           @if(isset($data['bindjabatan']))
@@ -71,8 +66,7 @@
           @else
             <h3 class="box-title">Formulir Tambah Data Jabatan</h3>
           @endif
-        </div><!-- /.box-header -->
-        <!-- form start -->
+        </div>
         @if(isset($data['bindjabatan']))
           {!! Form::model($data['bindjabatan'], ['route' => ['masterjabatan.update', $data['bindjabatan']->id], 'method' => "patch", 'class'=>'form-horizontal']) !!}
         @else
@@ -126,7 +120,14 @@
             </div>
           </div><!-- /.box-body -->
           <div class="box-footer">
-                <button type="submit" class="btn btn-success pull-right" style="margin-left:5px;">
+          @php
+            if(session('level') != 1){
+              $disable = 'disabled';
+            }else {
+              $disable = '';
+            }
+          @endphp
+                <button type="submit" class="btn btn-success pull-right {{ $disable }}" style="margin-left:5px;">
                   @if(isset($data['bindjabatan']))
                     Simpan Perubahan
                   @else
@@ -134,9 +135,9 @@
                   @endif
                 </button>
                   @if(!isset($data['bindjabatan']))
-                    <button type="reset" class="btn btn-danger pull-left">Reset Formulir</button>
+                    <button type="reset" class="btn btn-danger pull-left {{ $disable }}">Reset Formulir</button>
                   @endif
-            </div>
+          </div>
         @if(isset($data['bindjabatan']))
           {!! Form::close() !!}
         @else
@@ -187,9 +188,9 @@
                             <a href="" class="btn btn-xs bg-navy disabled"><i class="fa fa-warning"></i></a>
                           </span>
                         @else
-                        <a href="{{ route('masterjabatan.edit', $key->id) }}" class="btn btn-xs btn-warning" data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit"></i></a>
+                        <a href="{{ route('masterjabatan.edit', $key->id) }}" class="btn btn-xs btn-warning {{ $disable }}" data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit"></i></a>
                         <span data-toggle="tooltip" title="Hapus Data">
-                          <a href="" class="btn btn-xs btn-danger hapus" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
+                          <a href="" class="btn btn-xs btn-danger hapus {{ $disable }}" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
                         </span>
                         @endif
                       </td>
