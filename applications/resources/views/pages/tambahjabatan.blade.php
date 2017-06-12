@@ -58,6 +58,8 @@
         </div>
       @endif
     </div>
+
+    @if (session('level') == 1)
     <div class="col-md-5">
       <div class="box box-primary box-solid">
         <div class="box-header with-border">
@@ -120,31 +122,33 @@
             </div>
           </div><!-- /.box-body -->
           <div class="box-footer">
-          @php
-            if(session('level') != 1){
-              $disable = 'disabled';
-            }else {
-              $disable = '';
-            }
-          @endphp
-                <button type="submit" class="btn btn-success pull-right {{ $disable }}" style="margin-left:5px;">
-                  @if(isset($data['bindjabatan']))
-                    Simpan Perubahan
-                  @else
-                    Simpan
-                  @endif
-                </button>
-                  @if(!isset($data['bindjabatan']))
-                    <button type="reset" class="btn btn-danger pull-left {{ $disable }}">Reset Formulir</button>
-                  @endif
-          </div>
+              <button type="submit" class="btn btn-success pull-right" style="margin-left:5px;">
+                @if(isset($data['bindjabatan']))
+                  Simpan Perubahan
+                @else
+                  Simpan
+                @endif
+              </button>
+                @if(!isset($data['bindjabatan']))
+                  <button type="reset" class="btn btn-danger pull-left">Reset Formulir</button>
+                @endif
+        </div>
         @if(isset($data['bindjabatan']))
           {!! Form::close() !!}
         @else
           </form>
         @endif
-      </div><!-- /.box -->
-    </div><!--/.col -->
+      </div>
+    </div>
+    @endif
+
+    @php
+      if (session('level') != 1) {
+        $onlyHrd = 'disabled';
+      }else {
+        $onlyHrd = '';
+      }
+    @endphp
 
     <div class="col-md-7">
       <div class="box box-primary box-solid">
@@ -188,9 +192,9 @@
                             <a href="" class="btn btn-xs bg-navy disabled"><i class="fa fa-warning"></i></a>
                           </span>
                         @else
-                        <a href="{{ route('masterjabatan.edit', $key->id) }}" class="btn btn-xs btn-warning {{ $disable }}" data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit"></i></a>
+                        <a href="{{ route('masterjabatan.edit', $key->id) }}" class="btn btn-xs btn-warning {{ $onlyHrd }}" data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit"></i></a>
                         <span data-toggle="tooltip" title="Hapus Data">
-                          <a href="" class="btn btn-xs btn-danger hapus {{ $disable }}" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
+                          <a href="" class="btn btn-xs btn-danger hapus {{ $onlyHrd }}" data-toggle="modal" data-target="#myModal" data-value="{{$key->id}}"><i class="fa fa-remove"></i></a>
                         </span>
                         @endif
                       </td>
@@ -213,23 +217,19 @@
               </div>
             </div>
           </div>
-          </div><!-- /.box-body -->
+          </div>
         </div>
-      </div><!--/.col -->
-      </div>   <!-- /.row -->
+      </div>
+    </div>
 
 
-  <!-- jQuery 2.1.4 -->
   <script src="{{asset('plugins/jQuery/jQuery-2.1.4.min.js')}}"></script>
-  <!-- Bootstrap 3.3.5 -->
   <script src="{{asset('bootstrap/js/bootstrap.min.js')}}"></script>
-  <!-- FastClick -->
   <script src="{{asset('plugins/fastclick/fastclick.min.js')}}"></script>
-  <!-- AdminLTE App -->
   <script src="{{asset('dist/js/app.min.js')}}"></script>
-  <!-- AdminLTE for demo purposes -->
   <script src="{{asset('dist/js/demo.js')}}"></script>
 
+  @if (session('level') == 1)
   <script type="text/javascript">
     $(function(){
       $('a.hapus').click(function(){
@@ -238,4 +238,5 @@
       });
     });
   </script>
+  @endif
 @stop

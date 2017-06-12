@@ -245,6 +245,36 @@
         <li class="{{ Route::currentRouteNamed('masterjabatan.create') ? 'active' : '' }}"><a href="{{ route('masterjabatan.create') }}"><i class="fa fa-circle-o"></i>Data Jabatan</a></li>
       </ul>
     </li>
+    <li class="treeview {{ Route::currentRouteNamed('masterbank.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterbank.ubah') ? 'active' : '' }}">
+      <a href="#">
+        <i class="fa fa-bank"></i>
+        <span>Master Bank</span>
+        <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <li class="{{ Route::currentRouteNamed('masterbank.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterbank.ubah') ? 'active' : '' }}"><a href="{{ route('masterbank.index') }}"><i class="fa fa-circle-o"></i> Data Bank</a></li>
+      </ul>
+    </li>
+    <li class="treeview {{ Route::currentRouteNamed('masterclient.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.tambah') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.edit') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.cabang') ? 'active' : '' }}{{ Route::currentRouteNamed('cabangclient.edit') ? 'active' : '' }}">
+      <a href="#">
+        <i class="fa fa-building-o"></i>
+        <span>Master Client</span>
+        <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <li class="{{ Route::currentRouteNamed('masterclient.index') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.tambah') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.edit') ? 'active' : '' }}{{ Route::currentRouteNamed('masterclient.cabang') ? 'active' : '' }}{{ Route::currentRouteNamed('cabangclient.edit') ? 'active' : '' }}"><a href="{{ url('masterclient') }}"><i class="fa fa-circle-o"></i> Data Client</a></li>
+      </ul>
+    </li>
+    <li class="treeview {{ Route::currentRouteNamed('laporanpegawai') ? 'active' : '' }}{{ Route::currentRouteNamed('proseslaporan') ? 'active' : '' }}">
+      <a href="#">
+        <i class="fa fa-file-text-o"></i>
+        <span>Laporan</span>
+        <i class="fa fa-angle-left pull-right"></i>
+      </a>
+      <ul class="treeview-menu">
+        <li class="{{ Route::currentRouteNamed('laporanpegawai') ? 'active' : '' }}{{ Route::currentRouteNamed('proseslaporan') ? 'active' : '' }}"><a href="{{ route('laporanpegawai') }}"><i class="fa fa-circle-o"></i> Laporan Data Pegawai</a></li>
+      </ul>
+    </li>
     @endif
   </ul>
 </section>

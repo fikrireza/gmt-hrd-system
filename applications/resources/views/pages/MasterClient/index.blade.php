@@ -15,52 +15,56 @@
 @stop
 
 @section('content')
-   <div class="callout callout-warning">
-      <h4>Pemberitahuan!</h4>
-      <p>Jika ingin menambahkan client maka tekan tombol dibawah ini.</p>
-        <a style="text-decoration:none" href="{{url('masterclient/create')}}" class="btn btn-primary btn-sm"><i class="fa fa-building-o"></i> Tambah Client</a>
-    </div>
+  @if (session('level') == 1)
+  <div class="callout callout-warning">
+    <a style="text-decoration:none" href="{{url('masterclient/create')}}" class="btn btn-primary btn-sm"><i class="fa fa-building-o"></i>  Tambah Client</a>
+  </div>
+  @endif
 
   <div class="row">
-    <!-- Master Client -->
     <script>
-    window.setTimeout(function() {
-      $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
-          $(this).remove();
-      });
-    }, 2000);
+      window.setTimeout(function() {
+        $(".alert-success").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+      }, 2000);
     </script>
-    <div class="col-md-12">
     @if (session('tambah'))
+    <div class="col-md-12">
       <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4>	<i class="icon fa fa-check"></i> Sukses!</h4>
         {{ session('tambah') }}
       </div>
+    </div>
     @endif
     @if (session('update'))
+    <div class="col-md-12">
       <div class="alert alert-success">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
         <h4>	<i class="icon fa fa-check"></i> Sukses!</h4>
         {{ session('update') }}
       </div>
+    </div>
     @endif
-  </div>
+
+    @php
+      if (session('level') != 1) {
+        $onlyHrd = 'disabled';
+      }else {
+        $onlyHrd = '';
+      }
+    @endphp
+
     @foreach($CountAll as $client)
     <div class="col-md-4">
       <div class="box box-primary box-solid box-widget widget-user-2">
         <div class="box-header with-border">
           <h3 class="box-title">
-            <a style="text-decoration:none" href="{{url('masterclient', $client->id).('/edit')}}" class="btn btn-primary btn-sm"><i class="fa fa-building-o"></i> Ubah Client</a>
+            <a style="text-decoration:none" href="{{url('masterclient', $client->id).('/edit')}}" class="btn btn-primary btn-sm {{ $onlyHrd }}"><i class="fa fa-building-o"></i> Ubah Client</a>
           </h3>
-        </div><!-- /.box-header -->
+        </div>
         <div class="box-body">
-          <!-- <div class="form-group">
-            <label class="col-sm-3 control-label">Kode Client</label>
-              <div class="col-sm-9">
-                <input class="form-control" type="text" name="kode_client" placeholder="Kode Client" value="{{ $client->kode_client}}" readonly="true">
-              </div>
-          </div> -->
           <div class="form-group">
             <label class="col-sm-3 control-label">Nama Client</label>
               <div class="col-sm-9">
@@ -68,10 +72,7 @@
               </div>
           </div>
         </div>
-       <!--  <div class="widget-user-header bg-white">
-            <h3 class="widget-user-username">{{ $client->nama_client}}</h3>
-            <h5 class="widget-user-desc">{{ $client->kode_client}}</h5>
-        </div> -->
+
         <div class="box-footer no-padding">
           <ul class="nav nav-stacked">
             <li><a href="{{ url('masterclient/cabang', $client->id)}}">Cabang Client <span class="pull-right badge bg-blue">{{ $client->hitungCabang}}</span></a></li>

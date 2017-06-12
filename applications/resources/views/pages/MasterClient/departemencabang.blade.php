@@ -43,8 +43,9 @@
         @endif
         </div>
 
+        @if (session('level') == 1)
         <div class="col-md-5">
-        <div class="box box-primary box-solid">
+          <div class="box box-primary box-solid">
             <div class="box-header with-border">
               <h3 class="box-title">
                 @if(isset($DepartemenEdit))
@@ -116,12 +117,21 @@
             </div><!-- /.box-body -->
           </div>
         </div>
+        @endif
+
+        @php
+          if (session('level') != 1) {
+            $onlyHrd = 'disabled';
+          }else {
+            $onlyHrd = '';
+          }
+        @endphp
 
         <div class="col-md-7">
           <div class="box box-primary box-solid">
                 <div class="box-header">
                   <h3 class="box-title">Tabel Departemen Cabang : {!! $CabangClient->nama_cabang !!}</h3>
-                </div><!-- /.box-header -->
+                </div>
                 <div class="box-body">
                   <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                     <div class="row">
@@ -153,7 +163,7 @@
                       <td class="">{!! $Departemen->kode_departemen !!}</td>
                       <td class="">{!! $Departemen->nama_departemen !!}</td>
                       <td>
-                        <a href="{{ url('departemencabang', $Departemen->id).('/edit')}}" class="btn btn-xs btn-warning" data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit"></i></a>
+                        <a href="{{ url('departemencabang', $Departemen->id).('/edit')}}" class="btn btn-xs btn-warning {{ $onlyHrd }}" data-toggle='tooltip' title='Edit Data'><i class="fa fa-edit"></i></a>
                       </td>
                     </tr>
                     @endforeach

@@ -13,7 +13,13 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if (session('level') != 1) {
+          $onlyHrd = 'disabled';
+        }else {
+          $onlyHrd = '';
+        }
+
+        view()->share('onlyHrd', $onlyHrd);
     }
 
     /**
